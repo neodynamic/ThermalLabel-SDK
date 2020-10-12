@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ThermalLabel Version="9.0" Width="4" Height="2" GapLength="0" MarkLength="0" OffsetLength="0" UnitType="Inch" LabelsPerRow="1" LabelsHorizontalGapLength="0" IsContinuous="False" PrintSpeed="" PrintMirror="False" CutAfterPrinting="False">
+  <Items>
+    <TextItem X="0.1458" Y="1.3438" Width="3.7396" Height="0.1875" Text="Ingredients" Font="Arial,10,True,True,False,False,Point,,,False,90,,CP850" />
+    <TextItem X="0.1354" Y="1.5209" Width="3.75" Height="0.4271" Text="Water_x002C__x0020_Canola_x0020_oil_x002C__x0020_Molasses_x002C__x0020__x005B_b_x005D_Wheat_x005B__x002F_b_x005D__x0020_flour_x002C__x0020__x005B_b_x005D_Rye_x005B__x002F_b_x005D__x0020_flour_x002C__x0020__x005B_b_x005D_Milk_x005B__x002F_b_x005D__x0020_powder_x002C__x0020_Caraway_x002C__x0020_Yeast_x002C__x0020_Salt_x002C__x0020_Emulsifier_x0020__x0028_soy_x0020_lecithin_x0029_" Font="Arial,10,Point,,,False,90,,CP850" />
+    <LineShapeItem X="0.0729" Y="1.2717" Width="3.8333" Height="0.02" StrokeThickness="0.02" />
+    <TextItem X="0.0625" Y="0.1042" Width="3.8646" Height="1.125" Text="A_x0020_starting_x0020_point_x0020_label_x0020_for_x0020_printing_x0020_ingredients_x0020_in_x0020_compliance_x0020_with_x0020_EU_x0020_Regulation_x0020_N_x00B0__x0020_1169_x002F_2011_x0020_Article_x0020_21._x0020__x000D__x000A__x000D__x000A_Ingredients_x0020_text_x0020_in_x0020_Bold_x002C__x0020_Italic_x0020_and_x0020_Underline_x0020_are_x0020_formatted_x0020_by_x0020_using_x0020_the_x0020__x005B__x0020_b_x0020__x005D_..._x0020__x005B__x0020__x002F_b_x0020__x005D__x002C__x0020__x005B__x0020_i_x0020__x005D_..._x0020__x005B__x0020__x002F_i_x0020__x005D__x002C__x0020_and_x0020__x005B__x0020_u_x0020__x005D_..._x0020__x005B__x0020__x002F_u_x0020__x005D__x0020_tags_x0020_respectively." Font="Arial,10,Point,,,False,90,,CP850" ForeColorHex="#0000ff" />
+  </Items>
+</ThermalLabel>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<labelsgallery>
+   <labeltemplate name="Generic Sample Label" category="" filename="Generic-Label.tl" />
+   <labeltemplate name="Bike Permit" category="" filename="Color-Bike-Permit.tl" />
+   <labeltemplate name="EU FIC Allergen" category="" filename="EU-FIC-Allergen-Label.tl" />
+   <labeltemplate name="EU Energy TV" category="" filename="Color-EU-Energy-TV-Label.tl" />
+   <labeltemplate name="FDA Nutrition Facts" category="" filename="FDA-Nutrition-Facts-Label.tl" />
+   <labeltemplate name="Voice Pick Code" category="" filename="Voice-Pick-Code-Label.tl" />
+   <labeltemplate name="Walmart SCC-14" category="" filename="Walmart-SCC-14-Label.tl" />
+   <labeltemplate name="Non-editable Items Sample" category="" filename="Non-Editable-Items-Sample.tl" />
+   <labeltemplate name="Unicode RTL Texts Sample" category="" filename="unicode-rtl-texts.tl" />
+   <labeltemplate name="Global Expressions" category="" filename="Label-Global-Expressions.tl" />
+   <labeltemplate name="Avery Sheet Labels" category="" filename="Avery-94207.tl" />
+</labelsgallery>
