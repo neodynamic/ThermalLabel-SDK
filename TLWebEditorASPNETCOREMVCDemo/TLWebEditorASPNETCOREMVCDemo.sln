@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLWebEditorASPNETCOREMVCDemo", "TLWebEditorASPNETCOREMVCDemo\TLWebEditorASPNETCOREMVCDemo.csproj", "{962470F5-F5CE-46BD-826D-7A8D7A040499}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{962470F5-F5CE-46BD-826D-7A8D7A040499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{962470F5-F5CE-46BD-826D-7A8D7A040499}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{962470F5-F5CE-46BD-826D-7A8D7A040499}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{962470F5-F5CE-46BD-826D-7A8D7A040499}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B03F40BC-B20B-499C-9D46-95CE76E997F8}
+	EndGlobalSection
+EndGlobal

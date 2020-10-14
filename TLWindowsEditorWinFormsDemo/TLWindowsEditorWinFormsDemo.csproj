@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7EA03266-0A6C-4F88-A49E-06945E743D49}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TLWindowsEditorWinFormsDemo</RootNamespace>
+    <AssemblyName>TLWindowsEditorWinFormsDemo</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ExpressionEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExpressionEditor.Designer.cs">
+      <DependentUpon>ExpressionEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gallery.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gallery.Designer.cs">
+      <DependentUpon>Gallery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Global.cs" />
+    <Compile Include="ImageResources.cs" />
+    <Compile Include="LabelDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LabelDoc.Designer.cs">
+      <DependentUpon>LabelDoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LabelPreview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LabelPreview.Designer.cs">
+      <DependentUpon>LabelPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PrinterFonts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrinterFonts.Designer.cs">
+      <DependentUpon>PrinterFonts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PrintJobDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrintJobDialog.designer.cs">
+      <DependentUpon>PrintJobDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TTFtoPrinterStorage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TTFtoPrinterStorage.Designer.cs">
+      <DependentUpon>TTFtoPrinterStorage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCSymbols.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCSymbols.Designer.cs">
+      <DependentUpon>UCSymbols.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIEditors.cs" />
+    <Compile Include="ViewOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewOptions.Designer.cs">
+      <DependentUpon>ViewOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebBrowserHelper.cs" />
+    <Compile Include="ZipUtils.cs" />
+    <EmbeddedResource Include="ExpressionEditor.resx">
+      <DependentUpon>ExpressionEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gallery.resx">
+      <DependentUpon>Gallery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LabelDoc.resx">
+      <DependentUpon>LabelDoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LabelPreview.resx">
+      <DependentUpon>LabelPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrinterFonts.resx">
+      <DependentUpon>PrinterFonts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrintJobDialog.resx">
+      <DependentUpon>PrintJobDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="TTFtoPrinterStorage.resx">
+      <DependentUpon>TTFtoPrinterStorage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCSymbols.resx">
+      <DependentUpon>UCSymbols.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewOptions.resx">
+      <DependentUpon>ViewOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting">
+      <Version>10.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor">
+      <Version>10.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel">
+      <Version>10.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="SkiaSharp">
+      <Version>2.80.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

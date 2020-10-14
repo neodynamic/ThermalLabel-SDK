@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ThermalLabel Web Editor 10.0 for ASP.NET CORE - Sample UI</title>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/gallery.css" />
+    <link rel="stylesheet" href="~/css/neoPropGrid.css" />
+    <link rel="stylesheet" href="~/fonts/flaticon.css" />
+    <link rel="stylesheet" href="~/css/ThermalLabelWebEditor.css" />
+</head>
+<body>
+
+    @RenderBody()
+
+
+    <script src="~/js/fabric-1.5.0.js"></script>
+    <script src="~/js/ThermalLabelWebEditor.js"></script>
+    <script src="~/js/neoPropGrid.js"></script>
+    <script src="~/js/Gallery.js"></script>
+    <script src="~/js/ExprBuilder.js"></script>
+    <script src="~/js/SampleLabelEditorUI-10.0.js"></script>
+
+
+    <script type="text/javascript">
+
+        $(function () {
+            function endSession() {
+                $('#sessionExpired').modal('show');
+            }
+            setTimeout(endSession, 900000); //15 min
+
+            var os = (function () {
+                var ua = navigator.userAgent.toLowerCase();
+                return {
+                    isWindows: /(windows|win32|win64)/.test(ua),
+                    isLinux: /(linux)/.test(ua),
+                    isIntelMac: /(intel mac)/.test(ua),
+                    isAndroid: /(android)/.test(ua)
+                };
+            }());
+
+            if (os.isLinux || os.isIntelMac || os.isAndroid) {
+                $('#tlbPrint').hide();
+            }
+
+        });
+
+    </script>
+
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

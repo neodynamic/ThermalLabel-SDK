@@ -1,0 +1,23 @@
+﻿<Window x:Class="ThermalLabelSdkSamplesWPFCS.ImageFormatDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Export to Image" Height="272" Width="300" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="180" />
+            <RowDefinition Height="40*" />
+        </Grid.RowDefinitions>
+        <GroupBox Margin="10" Header="Select the Image Format">
+            <StackPanel Margin="5">
+                <RadioButton Name="rbPng" IsChecked="True" Content="PNG" Margin="5"></RadioButton>
+                <RadioButton Name="rbJpeg" Content="JPEG" Margin="5"></RadioButton>
+                <RadioButton Name="rbSvg" Content="SVG" Margin="5"></RadioButton>
+                <RadioButton Name="rbPcx" Content="PCX" Margin="5"></RadioButton>
+            </StackPanel>
+        </GroupBox>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <Button Content="Ok" IsDefault="True" Width="75" Height="24" Click="Button_Click"></Button>
+            <Button Content="Cancel" IsCancel="True" Width="75" Height="24" Margin="30,0,0,0"></Button>
+        </StackPanel>
+    </Grid>
+</Window>
