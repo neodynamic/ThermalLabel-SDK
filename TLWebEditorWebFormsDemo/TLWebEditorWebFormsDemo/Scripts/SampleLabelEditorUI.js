@@ -118,7 +118,12 @@ var UIEditor = {
             case 'Text': {
                 var newTextItem = new Neodynamic.SDK.Printing.TextItem();
                 newTextItem.font.name = "ZPL Font 0";
-                newTextItem.text = "Type here...";
+
+                if (textInputMask) {
+                    newTextItem.input_mask_pattern = textInputMask;
+                } else {
+                    newTextItem.text = "Type here...";
+                }
 
                 tleditor.active_tool_item = newTextItem;
                 tleditor.active_tool = Neodynamic.Web.Editor.EditorTool.Text;
