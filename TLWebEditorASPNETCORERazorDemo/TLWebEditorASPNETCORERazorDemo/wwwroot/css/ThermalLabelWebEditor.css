@@ -1,0 +1,23 @@
+﻿/*
+ * ThermalLabel Web Editor Add-on
+ * ThermalLabelWebEditor-10.0.css
+ * @author Neodynamic (http://neodynamic.com/)
+ * Contact: https://neodynamic.com/support
+ * WebPage: https://neodynamic.com/products/printing/thermal-label/web-editor/
+ */
+
+#thermalLabelWebEditor {
+    --workspace-background-color: rgb(205, 209, 214);
+    --label-document-frame-background-image: none;
+    --label-document-frame-background-color: #fff;
+    --label-document-frame-border-color: #a9a9a9;
+    --label-document-frame-corner-radius: 10px;
+    --grid-color: #ccc;
+    --item-design-time-border-color: #d3d3d3;
+    --item-tooltip-color: #000;
+    --item-tooltip-background-color: #f5f5f5;
+    --item-tooltip-border-color: #808080;
+    --adorner-handler-background-color: #00ff00;
+    --adorner-frame-border-color: #000;
+    --adorner-out-of-label-border-color: #ff0000;
+}

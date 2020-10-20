@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Assets" Version="10.0.0.1" />
+    <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Server" Version="10.0.0" />
+  </ItemGroup>
+
+</Project>

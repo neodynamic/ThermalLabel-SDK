@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLWebEditorASPNETCORERazorDemo", "TLWebEditorASPNETCORERazorDemo\TLWebEditorASPNETCORERazorDemo.csproj", "{E0D3FB10-6C35-476D-9120-A3CAE6DEE138}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0D3FB10-6C35-476D-9120-A3CAE6DEE138}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0D3FB10-6C35-476D-9120-A3CAE6DEE138}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0D3FB10-6C35-476D-9120-A3CAE6DEE138}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0D3FB10-6C35-476D-9120-A3CAE6DEE138}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51E869E4-39C2-46EF-967F-8DED07332A78}
+	EndGlobalSection
+EndGlobal
