@@ -12,6 +12,8 @@ This repo contains **Visual Studio (2019+)** sample projects for **ASP.NET (CORE
 
 - **TLWebEditorASPNETCOREMVCDemo**: an **ASP.NET CORE MVC** project that uses the [**ThermalLabel Visual Web Editor Add-on**](https://www.neodynamic.com/products/printing/thermal-label/web-editor) to allow end-users to design barcode labels. It also shows how to print, preview, and export the designed labels.
   
+- **TLWebEditorASPNETCORERazorDemo**: an **ASP.NET CORE Razor** project that uses the [**ThermalLabel Visual Web Editor Add-on**](https://www.neodynamic.com/products/printing/thermal-label/web-editor) to allow end-users to design barcode labels. It also shows how to print, preview, and export the designed labels.
+ 
 - **TLWebEditorLegacyMVCDemo**: an **ASP.NET MVC (Legacy .NET Framework)** project that uses the [**ThermalLabel Visual Web Editor Add-on**](https://www.neodynamic.com/products/printing/thermal-label/web-editor) to allow end-users to design barcode labels. It also shows how to print, preview, and export the designed labels.
 
 - **TLWebEditorWebFormsDemo**: an **ASP.NET WebForms (Legacy .NET Framework)** project that uses the [**ThermalLabel Visual Web Editor Add-on**](https://www.neodynamic.com/products/printing/thermal-label/web-editor) to allow end-users to design barcode labels. It also shows how to print, preview, and export the designed labels.
