@@ -99,7 +99,7 @@ namespace TLWindowsEditorWinFormsDemo
                 this.nudLabelsPerRow.Value = value.LabelsPerRow;
                 this.nudMarkLength.Value = (decimal)value.MarkLength;
                 this.nudSheetHeight.Value = (decimal)value.SheetLabelsWidth;
-                this.nudSheetWidth.Value = (decimal)value.SheetLabelsWidth;
+                this.nudSheetWidth.Value = (decimal)value.SheetLabelsHeight;
                 this.nudSheetLabelsCount.Value = value.SheetLabelsCount;
                 this.nudSheetLabelsMarginLeft.Value = (decimal)value.SheetLabelsMargin.Left;
                 this.nudSheetLabelsMarginTop.Value = (decimal)value.SheetLabelsMargin.Top;
