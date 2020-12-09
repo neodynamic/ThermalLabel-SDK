@@ -139,6 +139,8 @@
     <Content Include="Scripts\neoPropGrid.js" />
     <Content Include="Scripts\SampleLabelEditorUI.js" />
     <Content Include="Scripts\ThermalLabelWebEditor.js" />
+	<Content Include="images\barcode_error.png" />
+	<Content Include="images\RFIDTag.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
