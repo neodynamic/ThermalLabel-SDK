@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Assets" Version="10.0.0.1" />
-    <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Server" Version="10.0.0" />
+    <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Assets" Version="10.0.0.3" />
+    <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Server" Version="10.0.20.1216" />
   </ItemGroup>
 
 </Project>
