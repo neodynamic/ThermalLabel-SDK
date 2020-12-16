@@ -24,7 +24,14 @@ This repo contains **Visual Studio (2019+)** sample projects for **ASP.NET (CORE
 
 - **TLWindowsEditorWinFormsNetCoreDemo**: a **Windows Forms (.NET CORE)** project that uses the [**ThermalLabel Visual Windows Editor Add-on**](https://www.neodynamic.com/products/printing/thermal-label/editor) to allow end-users to design barcode labels. It also shows how to print, preview, and export the designed labels.
 
+## Notes about ASP.NET CORE Samples under Linux
 
+- Add the following package reference in the sample project: [**SkiaSharp.NativeAssets.Linux**](https://www.nuget.org/packages/SkiaSharp.NativeAssets.Linux)
+- Installing the following font files located under **wwwroot/fonts** is **mandatory**: 
+  - **NativePrinterFontA.ttf**
+  - **NativePrinterFontB.ttf**
+  - **NativePrinterFontS.ttf**
+  - **ZPL Font 0.ttf**
 
 ## Licensing
 
