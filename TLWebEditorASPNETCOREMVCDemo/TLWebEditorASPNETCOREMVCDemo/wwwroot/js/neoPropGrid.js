@@ -1,10 +1,14 @@
 ﻿var neoPropertyGrid = {
 
-    updateProp: function (targetTypeName, propName, value) {
+    updateProp: function (targetTypeName, propName, value, timestamp) {
         //console.log(targetTypeName);
         //console.log(propName);
         //console.log(value);
         //console.log(typeof(value));
+        //console.log('id: ' + this.id + ' - theID: ' + theID + ' - Item: ' + targetTypeName);
+
+        if (this.id != timestamp) return;
+
 
         if (targetTypeName === 'ThermalLabel') {
             var tl = tleditor.get_thermal_label;
@@ -42,7 +46,7 @@
         }
     },
 
-    updateComplexProp: function (targetTypeName, complexPropName, className, subPropName, valType, value) {
+    updateComplexProp: function (targetTypeName, complexPropName, className, subPropName, valType, value, timestamp) {
         //console.log(targetTypeName);
         //console.log(complexPropName);
         //console.log(className);
@@ -50,7 +54,8 @@
         //console.log(value);
         //console.log(valType);
 
-        
+        if (this.id != timestamp) return;
+
         if (targetTypeName === 'ThermalLabel') {
             var tl = tleditor.get_thermal_label;
 
@@ -113,15 +118,15 @@
         }
     },
 
-    createCheckbox: function (targetTypeName, label, value, propName) {
-        return '<div class="checkbox"><label><input type="checkbox" ' + (value ? 'checked' : '') + ' onclick="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + propName + '\', this.checked)" /><span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i>' + label + '</span></label></div >';
+    createCheckbox: function (targetTypeName, label, value, propName, timestamp) {
+        return '<div class="checkbox"><label><input type="checkbox" ' + (value ? 'checked' : '') + ' onclick="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + propName + '\', this.checked' + timestamp + ')" /><span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i>' + label + '</span></label></div >';
     },
 
-    createCheckboxComplexProp: function (targetTypeName, label, complexPropName, className, subPropName, value) {
-        return '<div class="checkbox"><label><input type="checkbox" ' + (value ? 'checked' : '') + ' onclick="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + complexPropName + '\', \'' + className + '\',\'' + subPropName + '\', \'boolean\', this.checked)" /><span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i>' + label + '</span></label></div >';
+    createCheckboxComplexProp: function (targetTypeName, label, complexPropName, className, subPropName, value, timestamp) {
+        return '<div class="checkbox"><label><input type="checkbox" ' + (value ? 'checked' : '') + ' onclick="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + complexPropName + '\', \'' + className + '\',\'' + subPropName + '\', \'boolean\', this.checked,' + timestamp + ')" /><span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i>' + label + '</span></label></div >';
     },
 
-    createSelectForEnum: function (targetTypeName, enumName, value, propName) {
+    createSelectForEnum: function (targetTypeName, enumName, value, propName, timestamp) {
         //console.log(enumName);
         var theEnum = Neodynamic.SDK.Printing[enumName];
         if (theEnum) {
@@ -138,7 +143,7 @@
             });
 
 
-            var sel = '<select class="form-control input-sm" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + propName + '\', parseInt(this.value))" >';
+            var sel = '<select class="form-control input-sm" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + propName + '\', parseInt(this.value),' + timestamp + ')" >';
 
             for (var i in enumEntries) {
                 sel += '<option value="' + enumEntries[i].value + '" ' + (value === enumEntries[i].value ? 'selected' : '') + '>' + enumEntries[i].key + '</option>';
@@ -155,12 +160,12 @@
         }
     },
 
-    createSelectForEnumComplexProp: function (targetTypeName, enumName, complexPropName, className, subPropName, value) {
+    createSelectForEnumComplexProp: function (targetTypeName, enumName, complexPropName, className, subPropName, value, timestamp) {
         //console.log(enumName);
         var theEnum = Neodynamic.SDK.Printing[enumName];
         if (theEnum) {
 
-            var sel = '<select class="form-control input-sm" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + complexPropName + '\', \'' + className + '\',\'' + subPropName + '\', \'number\', parseInt(this.value))" >';
+            var sel = '<select class="form-control input-sm" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + complexPropName + '\', \'' + className + '\',\'' + subPropName + '\', \'number\', parseInt(this.value),' + timestamp + ')" >';
 
             for (var e in theEnum) {
                 if (typeof (theEnum[e]) === "number")
@@ -173,10 +178,10 @@
         }
     },
 
-    createSelectForFont: function (targetTypeName, complexPropName, className, subPropName, value) {
+    createSelectForFont: function (targetTypeName, complexPropName, className, subPropName, value, timestamp) {
         var id = 'fntsel' + new Date().getTime();
         var sel = '<div class="input-group">';
-        sel += '<input type="text" class="form-control input-sm" id="' + id + '" value="' + value + '" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + complexPropName + '\', \'' + className + '\',\'' + subPropName + '\', \'string\', this.value)" >';
+        sel += '<input type="text" class="form-control input-sm" id="' + id + '" value="' + value + '" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + complexPropName + '\', \'' + className + '\',\'' + subPropName + '\', \'string\', this.value,' + timestamp + ')" >';
         sel += '<div class="input-group-btn">';
         sel += '<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>';
         sel += '<ul class="dropdown-menu dropdown-menu-right">';
@@ -209,6 +214,8 @@
         }
 
         var id = new Date().getTime();
+        var timestamp = id;
+        this.id = id;
 
         var isTL = theObj.constructor.name === 'ThermalLabel';
 
@@ -258,7 +265,7 @@
         //Special case for BarcodeItem... put Symbology prop to the top
         if (barcodeRelatedProps) {
             propGridContent += '<tr><td>' + "Symbology" + '</td><td>';
-            propGridContent += this.createSelectForEnum(targetTypeName, "BarcodeSymbology", theObj.symbology, "symbology");
+            propGridContent += this.createSelectForEnum(targetTypeName, "BarcodeSymbology", theObj.symbology, "symbology", timestamp);
             propGridContent += '</td></tr>';
         }
         //--------------------
@@ -273,25 +280,25 @@
 
             if (props[p].type === "number" || props[p].type === "string") {
                 if (props[p].desc.indexOf("Color Hex") > 0)
-                    propGridContent += '<input type="color" class="form-control input-sm" value="' + props[p].value + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value)" />';
+                    propGridContent += '<input type="color" class="form-control input-sm" value="' + props[p].value + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')" />';
                 else if (props[p].name === "text" || props[p].name === "comments")
-                    propGridContent += '<textarea class="form-control input-sm" rows="3" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value)">' + props[p].value + '</textarea>';
+                    propGridContent += '<textarea class="form-control input-sm" rows="3" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')">' + props[p].value + '</textarea>';
                 else if (props[p].name === "expression") {
                     propGridContent += '<div class="input-group">';
                     id = 'expr' + id;
-                    propGridContent += '<input type="text" id="' + id + '" class="form-control input-sm" value="' + props[p].value + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value);" />';
+                    propGridContent += '<input type="text" id="' + id + '" class="form-control input-sm" value="' + props[p].value + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ');" />';
                     propGridContent += '<span class="input-group-btn"><button class="btn btn-primary btn-sm" onclick="exprBuilder.openExpressionBuilder($(\'#' + id + '\').val()); exprBuilder.curElemId = \'' + id + '\';"><em><strong>fx</strong></em></button></span>';
                     propGridContent += '</div>';
                 }
                 else if (props[p].type === "number") {
                     if (props[p].name.indexOf("color") > -1)
-                        propGridContent += this.createSelectForEnum(targetTypeName, "Color", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "Color", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "unit_type")
-                        propGridContent += this.createSelectForEnum(targetTypeName, "UnitType", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "UnitType", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "sizing")
-                        propGridContent += this.createSelectForEnum(targetTypeName, theObj.constructor.name === "TextItem" ? "TextSizing" : "BarcodeSizing", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, theObj.constructor.name === "TextItem" ? "TextSizing" : "BarcodeSizing", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "data_format")
-                        propGridContent += this.createSelectForEnum(targetTypeName, "RFIDTagDataFormat", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "RFIDTagDataFormat", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "flip" ||
                         props[p].name === "lock_aspect_ratio" ||
                         props[p].name === "aztec_code_format" ||
@@ -307,48 +314,48 @@
                         props[p].name === "msi_checksum" ||
                         props[p].name === "pdf417_compaction_type" ||
                         props[p].name === "telepen_encoding")
-                        propGridContent += this.createSelectForEnum(targetTypeName, props[p].name.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function (key, p1) { return key.toUpperCase(); }).replace(/ /g, ''), props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, props[p].name.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function (key, p1) { return key.toUpperCase(); }).replace(/ /g, ''), props[p].value, props[p].name, timestamp);
                     else if (props[p].name.indexOf("codabar") > -1)
-                        propGridContent += this.createSelectForEnum(targetTypeName, "CodabarStartStopChar", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "CodabarStartStopChar", props[p].value, props[p].name, timestamp);
                     else if (props[p].name.indexOf("code128") > -1)
-                        propGridContent += this.createSelectForEnum(targetTypeName, "Code128", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "Code128", props[p].value, props[p].name, timestamp);
                     else if (props[p].name.indexOf("code16k") > -1)
-                        propGridContent += this.createSelectForEnum(targetTypeName, "Code16K", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "Code16K", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "text_alignment")
-                        propGridContent += this.createSelectForEnum(targetTypeName, theObj.constructor.name === "TextItem" ? "TextAlignment" : "BarcodeTextAlignment", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, theObj.constructor.name === "TextItem" ? "TextAlignment" : "BarcodeTextAlignment", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "code_alignment")
-                        propGridContent += this.createSelectForEnum(targetTypeName, "BarcodeTextAlignment", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "BarcodeTextAlignment", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "ean_upc_supplement")
-                        propGridContent += this.createSelectForEnum(targetTypeName, "Supplement", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "Supplement", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "error_behavior")
-                        propGridContent += this.createSelectForEnum(targetTypeName, "BarcodeErrorBehavior", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "BarcodeErrorBehavior", props[p].value, props[p].name, timestamp);
                     else if (props[p].name.indexOf("itf14") > -1)
-                        propGridContent += this.createSelectForEnum(targetTypeName, "ItfHmark", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "ItfHmark", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "maxi_code_mode")
-                        propGridContent += this.createSelectForEnum(targetTypeName, "MaxiCodeModes", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "MaxiCodeModes", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "micropdf417_version")
-                        propGridContent += this.createSelectForEnum(targetTypeName, "MicroPdf417Version", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "MicroPdf417Version", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "microqr_code_version")
-                        propGridContent += this.createSelectForEnum(targetTypeName, "MicroQRCodeVersion", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "MicroQRCodeVersion", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "pdf417_error_correction_level")
-                        propGridContent += this.createSelectForEnum(targetTypeName, "Pdf417ErrorCorrection", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "Pdf417ErrorCorrection", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "qr_code_encoding")
-                        propGridContent += this.createSelectForEnum(targetTypeName, "QRCodeEncoding", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "QRCodeEncoding", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "qr_code_error_correction_level")
-                        propGridContent += this.createSelectForEnum(targetTypeName, "QRCodeErrorCorrectionLevel", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "QRCodeErrorCorrectionLevel", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "qr_code_version")
-                        propGridContent += this.createSelectForEnum(targetTypeName, "QRCodeVersion", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "QRCodeVersion", props[p].value, props[p].name, timestamp);
                     //else if (props[p].name === "symbology")
-                    //    propGridContent += this.createSelectForEnum("BarcodeSymbology", props[p].value, props[p].name);
+                    //    propGridContent += this.createSelectForEnum("BarcodeSymbology", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "upce_system")
-                        propGridContent += this.createSelectForEnum(targetTypeName, "UpcE", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "UpcE", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "usps_fim_pattern")
-                        propGridContent += this.createSelectForEnum(targetTypeName, "FIM", props[p].value, props[p].name);
+                        propGridContent += this.createSelectForEnum(targetTypeName, "FIM", props[p].value, props[p].name, timestamp);
                     else
-                        propGridContent += '<input type="number" class="form-control input-sm" value="' + props[p].value + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value)" />';
+                        propGridContent += '<input type="number" class="form-control input-sm" value="' + props[p].value + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')" />';
                 }
                 else
-                    propGridContent += '<input type="text" class="form-control input-sm" value="' + props[p].value + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value)" />';
+                    propGridContent += '<input type="text" class="form-control input-sm" value="' + props[p].value + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')" />';
             }
             else if (props[p].type === "object") { //Complex Property
                 //console.log(props[p].name);
@@ -368,21 +375,21 @@
                         if (typeof (objVal[o]) === "number" || typeof (objVal[o]) === "string") {
                             if (typeof (objVal[o]) === "number") {
                                 if (o.indexOf("unit") > -1)
-                                    propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "FontUnit", props[p].name, props[p].class_name, o, objVal[o]);
+                                    propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "FontUnit", props[p].name, props[p].class_name, o, objVal[o], timestamp);
                                 else if (o.indexOf("page") > -1)
-                                    propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "CodePage", props[p].name, props[p].class_name, o, objVal[o]);
+                                    propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "CodePage", props[p].name, props[p].class_name, o, objVal[o], timestamp);
                                 else if (o === "dither_method")
-                                    propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "DitherMethod", props[p].name, props[p].class_name, o, objVal[o]);
+                                    propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "DitherMethod", props[p].name, props[p].class_name, o, objVal[o], timestamp);
                                 else
-                                    propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', \'' + props[p].class_name + '\',\'' + o + '\', \'' + typeof (objVal[o]) + '\', this.value)" />';
+                                    propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', \'' + props[p].class_name + '\',\'' + o + '\', \'' + typeof (objVal[o]) + '\', this.value,' + timestamp + ')" />';
                             }
                             else if ((props[p].name === "font" || props[p].name === "text_font") && o === "name")
-                                propGridContent += this.createSelectForFont(targetTypeName, props[p].name, props[p].class_name, o, objVal[o]);
+                                propGridContent += this.createSelectForFont(targetTypeName, props[p].name, props[p].class_name, o, objVal[o], timestamp);
                             else
-                                propGridContent += '<input type="text" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', \'' + props[p].class_name + '\',\'' + o + '\', \'' + typeof (objVal[o]) + '\', this.value)" />';
+                                propGridContent += '<input type="text" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', \'' + props[p].class_name + '\',\'' + o + '\', \'' + typeof (objVal[o]) + '\', this.value,' + timestamp + ')" />';
                         }
                         else if (typeof (objVal[o]) === 'boolean')
-                            propGridContent += this.createCheckboxComplexProp(targetTypeName, '', props[p].name, props[p].class_name, o, objVal[o]);
+                            propGridContent += this.createCheckboxComplexProp(targetTypeName, '', props[p].name, props[p].class_name, o, objVal[o], timestamp);
 
                         propGridContent += '</td>';
 
@@ -391,7 +398,7 @@
                 propGridContent += '</table>';
             }
             else if (props[p].type === "boolean")
-                propGridContent += this.createCheckbox(targetTypeName, '', props[p].value, props[p].name);
+                propGridContent += this.createCheckbox(targetTypeName, '', props[p].value, props[p].name, timestamp);
             propGridContent += '</td></tr>';
         }
 
