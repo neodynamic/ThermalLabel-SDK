@@ -5,8 +5,7 @@
         //console.log(propName);
         //console.log(value);
         //console.log(typeof(value));
-        //console.log('id: ' + this.id + ' - theID: ' + theID + ' - Item: ' + targetTypeName);
-
+        
         if (this.id != timestamp) return;
 
 
@@ -119,7 +118,7 @@
     },
 
     createCheckbox: function (targetTypeName, label, value, propName, timestamp) {
-        return '<div class="checkbox"><label><input type="checkbox" ' + (value ? 'checked' : '') + ' onclick="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + propName + '\', this.checked' + timestamp + ')" /><span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i>' + label + '</span></label></div >';
+        return '<div class="checkbox"><label><input type="checkbox" ' + (value ? 'checked' : '') + ' onclick="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + propName + '\', this.checked,' + timestamp + ')" /><span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i>' + label + '</span></label></div >';
     },
 
     createCheckboxComplexProp: function (targetTypeName, label, complexPropName, className, subPropName, value, timestamp) {
