@@ -23,7 +23,7 @@ var UIEditor = {
         
 
         if ($("#open_file_url").val() && $("#open_file_url").val().length > 0) {
-            $http.get($("#open_file_url").val()).
+            $.get($("#open_file_url").val()).
                 success(function (data) {
                     var tl = data[0] == '<' ? Neodynamic.SDK.Printing.ThermalLabel.createFromXmlTemplate(data) : Neodynamic.SDK.Printing.ThermalLabel.createFromJsonTemplate(data);
                     tleditor.loadThermalLabel(tl);
@@ -387,10 +387,10 @@ window.addEventListener('keyup', function (e) {
 }, false);
 
 window.addEventListener('keydown', function (e) {
-
+    
     if (e.keyCode === ctrlKey || e.keyCode === cmdKey) ctrlDown = true;
     if (e.keyCode === shiftKey) shiftDown = true;
-
+    var selectionAndFocused = (document.activeElement === document.body && tleditor.current_selection);
     
     var textItemInEditMode = (tleditor.current_selection instanceof Neodynamic.SDK.Printing.TextItem && tleditor.current_selection.is_in_edit_mode);
 
@@ -415,10 +415,10 @@ window.addEventListener('keydown', function (e) {
             e.preventDefault();
             return false;
         }
-        else if (e.keyCode === 46) { //DEL key
+        else if (e.keyCode === 46 && selectionAndFocused) { //DEL key
             tleditor.deleteSelectedItems();
         }
-        else if (e.keyCode >= 37 && e.keyCode <= 40) { //Move item by arrow keys
+        else if (e.keyCode >= 37 && e.keyCode <= 40 && selectionAndFocused) { //Move item by arrow keys
             var moveLargeStep = 10; //in pixel unit
             var moveShortStep = 1; //in pixel unit
 
