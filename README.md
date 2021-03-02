@@ -8,6 +8,8 @@ This repo contains **Visual Studio (2019+)** sample projects for **ASP.NET (CORE
 
 - **LabelsGallery**: it contains different barcode **label templates in XML format**. Used by **Visual Label Editor** sample projects.
 
+- **TLClientPrint.Plugin.CustomPrintDialog**: it contains a sample project to create a Custom Print Dialog to be integrated with TLClientPrint utility.
+
 - **TLSDKSamplesCS**: a **Windows Forms** project that uses the [**ThermalLabel SDK**](https://www.neodynamic.com/products/printing/thermal-label/sdk-vb-net-csharp/) to create labels in pure .NET code that can be printed, preview, exported to image formats or PDF, or exported to XML template format.
 
 - **TLSDKSamplesWPFCS**: a **WPF** project that uses the [**ThermalLabel SDK**](https://www.neodynamic.com/products/printing/thermal-label/sdk-vb-net-csharp/) to create labels in pure .NET code that can be printed, preview, exported to image formats or PDF, or exported to XML template format.
