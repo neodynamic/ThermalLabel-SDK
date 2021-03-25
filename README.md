@@ -29,11 +29,7 @@ This repo contains **Visual Studio (2019+)** sample projects for **ASP.NET (CORE
 ## Notes about ASP.NET CORE Samples under Linux
 
 - Add the following package reference in the sample project: [**SkiaSharp.NativeAssets.Linux**](https://www.nuget.org/packages/SkiaSharp.NativeAssets.Linux)
-- Installing the following font files located under **wwwroot/fonts** is **mandatory**: 
-  - **NativePrinterFontA.ttf**
-  - **NativePrinterFontB.ttf**
-  - **NativePrinterFontS.ttf**
-  - **ZPL Font 0.ttf**
+
 
 ## Licensing
 
