@@ -30,6 +30,8 @@ This repo contains **Visual Studio (2019+)** sample projects for **ASP.NET (CORE
 
 - Add the following package reference in the sample project: [**SkiaSharp.NativeAssets.Linux**](https://www.nuget.org/packages/SkiaSharp.NativeAssets.Linux)
 
+- **libfontconfig1** is also required so install it from Terminal: `apt-get install libfontconfig1 -y`
+
 
 ## Licensing
 
