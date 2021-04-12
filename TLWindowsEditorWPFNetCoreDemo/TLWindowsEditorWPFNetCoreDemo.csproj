@@ -1,0 +1,152 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>TLWindowsEditorWPFDemo</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\TLWindowsEditorWPFDemo\Dialogs\ColorDialog.xaml.cs" Link="Dialogs\ColorDialog.xaml.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\Dialogs\DpiDialog.xaml.cs" Link="Dialogs\DpiDialog.xaml.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\Dialogs\ExpressionDialog.xaml.cs" Link="Dialogs\ExpressionDialog.xaml.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\Dialogs\LabelDoc.xaml.cs" Link="Dialogs\LabelDoc.xaml.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\Dialogs\PrinterFontsDialog.xaml.cs" Link="Dialogs\PrinterFontsDialog.xaml.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\Dialogs\PrintJobDialog.xaml.cs" Link="Dialogs\PrintJobDialog.xaml.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\Dialogs\TTFtoPrinterStorageDialog.xaml.cs" Link="Dialogs\TTFtoPrinterStorageDialog.xaml.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\Dialogs\ViewOptionsDialog.xaml.cs" Link="Dialogs\ViewOptionsDialog.xaml.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\MainForm.xaml.cs" Link="MainForm.xaml.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\UC\ColorUIEditorUC.xaml.cs" Link="UC\ColorUIEditorUC.xaml.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\UC\ExpressionUIEditorUC.xaml.cs" Link="UC\ExpressionUIEditorUC.xaml.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\UC\GalleryUC.xaml.cs" Link="UC\GalleryUC.xaml.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\UC\ImageFileUIEditorUC.xaml.cs" Link="UC\ImageFileUIEditorUC.xaml.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\Utils\Global.cs" Link="Utils\Global.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\Utils\ImageResources.cs" Link="Utils\ImageResources.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\Utils\TextBoxMaskBehavior.cs" Link="Utils\TextBoxMaskBehavior.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\Utils\UIEditors.cs" Link="Utils\UIEditors.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\BringForward.png" Link="Icons\16x16\BringForward.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\BringToFront.png" Link="Icons\16x16\BringToFront.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\copy.png" Link="Icons\16x16\copy.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\cut.png" Link="Icons\16x16\cut.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\db.png" Link="Icons\16x16\db.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\delete.png" Link="Icons\16x16\delete.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\design.png" Link="Icons\16x16\design.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\fx.png" Link="Icons\16x16\fx.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\gallery.png" Link="Icons\16x16\gallery.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\help.png" Link="Icons\16x16\help.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\LA-Bottom.png" Link="Icons\16x16\LA-Bottom.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\LA-CenterH.png" Link="Icons\16x16\LA-CenterH.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\LA-CenterV.png" Link="Icons\16x16\LA-CenterV.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\LA-DistH.png" Link="Icons\16x16\LA-DistH.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\LA-DistV.png" Link="Icons\16x16\LA-DistV.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\LA-Left.png" Link="Icons\16x16\LA-Left.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\LA-Right.png" Link="Icons\16x16\LA-Right.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\LA-Top.png" Link="Icons\16x16\LA-Top.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\lock.png" Link="Icons\16x16\lock.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\preview.png" Link="Icons\16x16\preview.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\properties.png" Link="Icons\16x16\properties.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\redo.png" Link="Icons\16x16\redo.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\save.png" Link="Icons\16x16\save.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\SendBackward.png" Link="Icons\16x16\SendBackward.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\SendToBack.png" Link="Icons\16x16\SendToBack.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\undo.png" Link="Icons\16x16\undo.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\Zoom100.png" Link="Icons\16x16\Zoom100.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\ZoomIn.png" Link="Icons\16x16\ZoomIn.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\ZoomOut.png" Link="Icons\16x16\ZoomOut.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\2d.png" Link="Icons\2d.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\ArcText.png" Link="Icons\ArcText.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\arrange.png" Link="Icons\arrange.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\barcode.png" Link="Icons\barcode.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\close.png" Link="Icons\close.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\copy.png" Link="Icons\copy.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\cut.png" Link="Icons\cut.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\DesignOptions.png" Link="Icons\DesignOptions.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\ellipse.png" Link="Icons\ellipse.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\export.png" Link="Icons\export.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\line.png" Link="Icons\line.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\lock.png" Link="Icons\lock.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\ManageFont.png" Link="Icons\ManageFont.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\NewFile.png" Link="Icons\NewFile.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Open.png" Link="Icons\Open.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\OutlineText.png" Link="Icons\OutlineText.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\paste.png" Link="Icons\paste.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Picture.png" Link="Icons\Picture.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\pointer.png" Link="Icons\pointer.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Print.png" Link="Icons\Print.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Properties.png" Link="Icons\Properties.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\rect.png" Link="Icons\rect.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Redo.png" Link="Icons\Redo.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\ResidentFont.png" Link="Icons\ResidentFont.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\RFIDTag.png" Link="Icons\RFIDTag.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Save.png" Link="Icons\Save.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\text.png" Link="Icons\text.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Undo.png" Link="Icons\Undo.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\UploadFont.png" Link="Icons\UploadFont.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Zoom100.png" Link="Icons\Zoom100.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="1.68.3" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.4.0" />
+    <PackageReference Include="System.IO.Ports" Version="4.7.0" />
+    <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="4.6.97" />
+	<PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting.NetCore" Version="10.0.0" />
+    <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor.NetCore" Version="10.0.20.1105" />
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="10.0.21.330" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="..\TLWindowsEditorWPFDemo\Dialogs\ColorDialog.xaml" Link="Dialogs\ColorDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="..\TLWindowsEditorWPFDemo\Dialogs\DpiDialog.xaml" Link="Dialogs\DpiDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="..\TLWindowsEditorWPFDemo\Dialogs\ExpressionDialog.xaml" Link="Dialogs\ExpressionDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="..\TLWindowsEditorWPFDemo\Dialogs\LabelDoc.xaml" Link="Dialogs\LabelDoc.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="..\TLWindowsEditorWPFDemo\Dialogs\PrinterFontsDialog.xaml" Link="Dialogs\PrinterFontsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="..\TLWindowsEditorWPFDemo\Dialogs\PrintJobDialog.xaml" Link="Dialogs\PrintJobDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="..\TLWindowsEditorWPFDemo\Dialogs\TTFtoPrinterStorageDialog.xaml" Link="Dialogs\TTFtoPrinterStorageDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="..\TLWindowsEditorWPFDemo\Dialogs\ViewOptionsDialog.xaml" Link="Dialogs\ViewOptionsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="..\TLWindowsEditorWPFDemo\MainForm.xaml" Link="MainForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="..\TLWindowsEditorWPFDemo\UC\ColorUIEditorUC.xaml" Link="UC\ColorUIEditorUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="..\TLWindowsEditorWPFDemo\UC\ExpressionUIEditorUC.xaml" Link="UC\ExpressionUIEditorUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="..\TLWindowsEditorWPFDemo\UC\GalleryUC.xaml" Link="UC\GalleryUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="..\TLWindowsEditorWPFDemo\UC\ImageFileUIEditorUC.xaml" Link="UC\ImageFileUIEditorUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Dialogs\" />
+    <Folder Include="Icons\16x16\" />
+    <Folder Include="UC\" />
+    <Folder Include="Utils\" />
+  </ItemGroup>
+
+</Project>

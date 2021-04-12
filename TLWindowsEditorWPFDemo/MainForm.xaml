@@ -1,0 +1,337 @@
+﻿<Window x:Class="TLWindowsEditorWPFDemo.MainForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tk="clr-namespace:Xceed.Wpf.Toolkit.PropertyGrid;assembly=DotNetProjects.Wpf.Extended.Toolkit"
+        xmlns:tk2="clr-namespace:Xceed.Wpf.Toolkit;assembly=DotNetProjects.Wpf.Extended.Toolkit"
+        xmlns:my="clr-namespace:Neodynamic.Windows.WPF.ThermalLabelEditor;assembly=Neodynamic.Windows.ThermalLabelEditor"
+        xmlns:local="clr-namespace:TLWindowsEditorWPFDemo"
+        mc:Ignorable="d"
+        Title="ThermalLabel Editor" Height="800" Width="1024" Loaded="Window_Loaded" WindowState="Maximized" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Ribbon x:Name="Ribbon" SelectedIndex="0" Grid.Row="0">
+            <Ribbon.HelpPaneContent>
+                <RibbonButton x:Name ="Help" SmallImageSource="Icons\16x16\help.png" />
+            </Ribbon.HelpPaneContent>
+            <Ribbon.QuickAccessToolBar>
+                <RibbonQuickAccessToolBar>
+                    <RibbonButton SmallImageSource="Icons\16x16\Save.png" Click="menuSave_Click" />
+                    <RibbonSeparator />
+                    <RibbonButton x:Name ="menuUndo" SmallImageSource="Icons\16x16\Undo.png" Click="menuUndo_Click" />
+                    <RibbonButton x:Name="menuRedo" SmallImageSource="Icons\16x16\Redo.png" Click="menuRedo_Click" />
+                </RibbonQuickAccessToolBar>
+            </Ribbon.QuickAccessToolBar>
+            <!-- Application Menu, located at the left-hand side (down arrow) -->
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu KeyTip="F">
+                    <RibbonApplicationMenu.SmallImageSource>
+                        <DrawingImage>
+                            <DrawingImage.Drawing>
+                                <GeometryDrawing>
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry Rect="0,0,20,20"></RectangleGeometry>
+                                    </GeometryDrawing.Geometry>
+                                    <GeometryDrawing.Brush>
+                                        <VisualBrush Stretch="Uniform">
+                                            <VisualBrush.Visual>
+                                                <TextBlock Text="File" Foreground="White" />
+                                            </VisualBrush.Visual>
+                                        </VisualBrush>
+                                    </GeometryDrawing.Brush>
+                                </GeometryDrawing>
+                            </DrawingImage.Drawing>
+                        </DrawingImage>
+                    </RibbonApplicationMenu.SmallImageSource>
+                    <RibbonApplicationMenuItem Header="New"
+                                          ImageSource="Icons/NewFile.png"
+                                          KeyTip="N" x:Name="menuNew" Click="menuNew_Click" />
+                    <RibbonApplicationMenuItem Header="Open"
+                                          ImageSource="Icons/Open.png"
+                                          KeyTip="O" x:Name="menuOpen" Click="menuOpen_Click" />
+                    <RibbonApplicationMenuItem Header="Save"
+                                          ImageSource="Icons/Save.png"
+                                          KeyTip="S" x:Name="menuSave" Click="menuSave_Click" />
+                    <RibbonSeparator />
+                    <RibbonApplicationSplitMenuItem Header="Export to"
+                                               ImageSource="Icons/export.png" 
+                                               KeyTip="E" >
+                        <RibbonApplicationMenuItem Header="PDF"
+                                              x:Name="menuExportToPDF" Click="menuExportToPDF_Click"
+                                                   ImageSource="Icons/export.png"/>
+                        <RibbonApplicationMenuItem Header="JPG"
+                                              x:Name="menuExportToJPG" Click="menuExportToJPG_Click"
+                                                   ImageSource="Icons/export.png" />
+                        <RibbonApplicationMenuItem Header="PNG"
+                                              x:Name="menuExportToPNG" Click="menuExportToPNG_Click"
+                                              ImageSource="Icons/export.png"/>
+                        <RibbonApplicationMenuItem Header="SVG"
+                                              x:Name="menuExportToSVG" Click="menuExportToSVG_Click"
+                                                   ImageSource="Icons/export.png"/>
+                        <RibbonApplicationMenuItem Header="HTML"
+                                              x:Name="menuExportToHTML" Click="menuExportToHTML_Click"
+                                                   ImageSource="Icons/export.png"/>
+                    </RibbonApplicationSplitMenuItem>
+                    <RibbonSeparator />
+                    <RibbonApplicationMenuItem Header="Print"
+                                          ImageSource="Icons/Print.png"
+                                          KeyTip="R" x:Name="menuPrint" Click="menuPrint_Click" />
+                    <RibbonSeparator />
+                    <RibbonApplicationMenuItem Header="Close"
+                                          ImageSource="Icons/close.png"
+                                          KeyTip="C" x:Name="menuClose" Click="menuClose_Click"/>
+                    <RibbonApplicationMenu.FooterPaneContent>
+                        <DockPanel LastChildFill="False">
+                            <RibbonButton x:Name="menuExit"
+                                     Label="Exit"
+                                     ToolTipTitle="Exit" 
+                                     KeyTip="X"
+                                     DockPanel.Dock="Right"
+                                     Margin="2"
+                                     BorderBrush="#B8114EAF" Click="menuExit_Click" />
+                        </DockPanel>
+                    </RibbonApplicationMenu.FooterPaneContent>
+                    <!--<RibbonApplicationMenu.AuxiliaryPaneContent>
+                        <RibbonGallery CanUserFilter="False"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <RibbonGalleryCategory Header="Recent Documents" 
+                                              Background="Transparent" 
+                                              ItemsSource="{DynamicResource MostRecentFiles}">
+                                <RibbonGalleryCategory.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical" IsItemsHost="True"/>
+                                    </ItemsPanelTemplate>
+                                </RibbonGalleryCategory.ItemsPanel>
+                            </RibbonGalleryCategory>
+                        </RibbonGallery>
+                    </RibbonApplicationMenu.AuxiliaryPaneContent>-->
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
+            <RibbonTab Header="Home" KeyTip="H" >
+                <RibbonGroup x:Name="ClipboardGroup" Header="Clipboard">
+                    <RibbonButton LargeImageSource="Icons\Paste.png" Label="Paste" x:Name="menuPaste" KeyTip="V" Click="menuPaste_Click" />
+                    <RibbonButton SmallImageSource="Icons\16x16\Cut.png" Label="Cut" x:Name="menuCut" KeyTip="X" Click="menuCut_Click" />
+                    <RibbonButton SmallImageSource="Icons\16x16\Copy.png" Label="Copy" x:Name="menuCopy" KeyTip="C" Click="menuCopy_Click" />
+                    <RibbonButton SmallImageSource="Icons\16x16\delete.png" Label="Delete" x:Name="menuDelete" KeyTip="D" Click="menuDelete_Click" />
+                </RibbonGroup>
+                <RibbonGroup x:Name="LabelGroup" Header="Label">
+                    <RibbonButton LargeImageSource="Icons\Properties.png" Label="Label Setup" x:Name="menuLabelSetup" KeyTip="L" Click="menuLabelSetup_Click" />
+                </RibbonGroup>
+                <RibbonGroup x:Name="ItemsGroup" Header="Label Items">
+                    <RibbonButton LargeImageSource="Icons\pointer.png" Label="Pointer" KeyTip="P" x:Name="menuPointer" Click="menuPointer_Click"/>
+                    <RibbonButton LargeImageSource="Icons\Rect.png" Label="Rect" KeyTip="R" x:Name="menuRect" Click="menuRect_Click"/>
+                    <RibbonButton LargeImageSource="Icons\Ellipse.png" Label="Ellipse" KeyTip="E" x:Name="menuEllipse" Click="menuEllipse_Click"/>
+                    <RibbonButton LargeImageSource="Icons\Line.png" Label="Line" KeyTip="L" x:Name="menuLine" Click="menuLine_Click"/>
+                    <RibbonButton LargeImageSource="Icons\ResidentFont.png" Label="Resident Font" KeyTip="F" x:Name="menuResidentFont" Click="menuResidentFont_Click" />
+                    <RibbonButton LargeImageSource="Icons\Text.png" Label="Text" KeyTip="T" x:Name="menuText" Click="menuText_Click"/>
+                    <RibbonButton LargeImageSource="Icons\ArcText.png" Label="Arc Text" KeyTip="A" x:Name="menuArcText" Click="menuArcText_Click" />
+                    <RibbonButton LargeImageSource="Icons\OutlineText.png" Label="Outline Text" KeyTip="O" x:Name="menuOutText" Click="menuOutText_Click" />
+                    <RibbonButton LargeImageSource="Icons\Picture.png" Label="Image" KeyTip="I" x:Name="menuImage" Click="menuImage_Click" />
+                    <RibbonButton LargeImageSource="Icons\Barcode.png" Label="Barcode" KeyTip="B" x:Name="menuBarcode1D" Click="menuBarcode_Click"/>
+                    <RibbonButton LargeImageSource="Icons\2d.png" Label="2D" KeyTip="2" x:Name="menuBarcode2D" Click="menuBarcode_Click"/>
+                    <RibbonButton LargeImageSource="Icons\RFIDTag.png" Label="RFID" KeyTip="D" x:Name="menuRFID" Click="menuRFID_Click"/>
+                </RibbonGroup>
+                <RibbonGroup x:Name="ArrangeGroup" Header="Layout">
+                    <RibbonSplitButton LargeImageSource="Icons\arrange.png" Label="Arrange">
+                        <RibbonSplitMenuItem ImageSource="Icons\16x16\BringForward.png"  Header="Bring Forward" x:Name="menuBringForward" Click="menuBringForward_Click" />
+                        <RibbonSplitMenuItem ImageSource="Icons\16x16\SendBackward.png" Header="Send Backward" x:Name="menuSendBackward" Click="menuSendBackward_Click" />
+                        <RibbonSplitMenuItem ImageSource="Icons\16x16\BringToFront.png" Header="Bring To Front" x:Name="menuBringToFront" Click="menuBringToFront_Click"/>
+                        <RibbonSplitMenuItem ImageSource="Icons\16x16\SendToBack.png" Header="Send To Back" x:Name="menuSendToBack" Click="menuSendToBack_Click"/>
+                    </RibbonSplitButton>
+                    <RibbonButton SmallImageSource="Icons\16x16\LA-Left.png" x:Name="menuLeft" Click="menuLA_Click"  />
+                    <RibbonButton SmallImageSource="Icons\16x16\LA-Top.png" x:Name="menuTop" Click="menuLA_Click"/>
+                    <RibbonButton SmallImageSource="Icons\16x16\LA-DistH.png" x:Name="menuDistributeHorizontal" Click="menuLA_Click"/>
+                    <RibbonButton SmallImageSource="Icons\16x16\LA-CenterH.png" x:Name="menuCenterHorizontal" Click="menuLA_Click" />
+                    <RibbonButton SmallImageSource="Icons\16x16\LA-CenterV.png" x:Name="menuCenterVertical" Click="menuLA_Click" />
+                    <RibbonButton SmallImageSource="Icons\16x16\LA-DistV.png" x:Name="menuDistributeVertical" Click="menuLA_Click" />
+                    <RibbonButton SmallImageSource="Icons\16x16\LA-Right.png" x:Name="menuRight" Click="menuLA_Click" />
+                    <RibbonButton SmallImageSource="Icons\16x16\LA-Bottom.png" x:Name="menuBottom" Click="menuLA_Click" />
+                </RibbonGroup>
+            </RibbonTab>
+            <RibbonTab Header="View" KeyTip="V">
+                <RibbonGroup x:Name="ZoomGroup" Header="Zoom">
+                    <RibbonButton SmallImageSource="Icons\16x16\ZoomIn.png" Label="Zoom In" x:Name="cmdZoomIn" Click="cmdZoomIn_Click" />
+                    <RibbonButton SmallImageSource="Icons\16x16\ZoomOut.png" Label="Zoom Out" x:Name="cmdZoomOut" Click="cmdZoomOut_Click" />
+                    <RibbonButton SmallImageSource="Icons\16x16\Zoom100.png" Label="Zoom 100%" x:Name="cmdZoom100" Click="cmdZoom100_Click"/>
+                </RibbonGroup>
+                <RibbonGroup x:Name="DesignGroup" Header="Editor">
+                    <RibbonButton LargeImageSource="Icons\DesignOptions.png" Label="Options" x:Name="cmdOptions" Click="cmdOptions_Click"   />
+                </RibbonGroup>
+                <RibbonGroup x:Name="ToolsGroup" Header="Tools">
+                    <RibbonButton LargeImageSource="Icons\UploadFont.png" Label="Upload Font to Printer Storage" x:Name="cmdUloadFont" Click="cmdUloadFont_Click" />
+                    <RibbonButton LargeImageSource="Icons\ManageFont.png" Label="Manage Fonts in Printer Storage" x:Name="cmdManageFont" Click="cmdManageFont_Click" />
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="400" />
+            </Grid.ColumnDefinitions>
+            <TabControl Grid.Column="0" Margin="0 10 0 0" Name="tabMain" SelectionChanged="tabMain_SelectionChanged">
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Icons\16x16\gallery.png" />
+                            <TextBlock Text=" Gallery" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <local:GalleryUC x:Name="gallery1"></local:GalleryUC>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Icons\16x16\design.png" />
+                            <TextBlock Text=" Design" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <my:ThermalLabelEditor HorizontalAlignment="Stretch"  Name="thermalLabelEditor1" VerticalAlignment="Stretch" MouseDoubleClick="thermalLabelEditor1_MouseDoubleClick" CurrentSelectionBeforeDelete="thermalLabelEditor1_CurrentSelectionBeforeDelete" CurrentSelectionTextChanged="thermalLabelEditor1_CurrentSelectionTextChanged" NewItemCreated="thermalLabelEditor1_NewItemCreated" SelectionAreaChanged="thermalLabelEditor1_SelectionAreaChanged" ClipboardStateChanged="thermalLabelEditor1_ClipboardStateChanged" UndoStateChanged="thermalLabelEditor1_UndoStateChanged" SelectionChanged="thermalLabelEditor1_SelectionChanged" SelectionItemPropertyChanged="thermalLabelEditor1_SelectionItemPropertyChanged" LostFocus="thermalLabelEditor1_LostFocus">
+                            <my:ThermalLabelEditor.ContextMenu>
+                                <ContextMenu Name="editorContextMenu" Opened="editorContextMenu_Opened" >
+                                    <MenuItem Name="cmCut" Header="Cut" Click="menuCut_Click" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                    <MenuItem Name="cmCopy" Header="Copy" Click="menuCopy_Click" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                    <MenuItem Name="cmPaste" Header="Paste" Click="menuPaste_Click" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                                    <Separator Name="cmSep1"></Separator>
+                                    <MenuItem Name="cmArrange" Header="Arrange">
+                                        <MenuItem Name="cmBringToFront" Header="Bring to Front" Click="menuBringToFront_Click" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                        <MenuItem Name="cmSendToBack" Header="Send to Back" Click="menuSendToBack_Click" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                        <MenuItem Name="cmBringForward" Header="Bring Forward" Click="menuBringForward_Click" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                        <MenuItem Name="cmSendBackward" Header="Send Backward" Click="menuSendBackward_Click" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                    </MenuItem>
+                                    <MenuItem Name="cmLock" Header="Lock" Click="cmLock_Click" />
+                                    <Separator Name="cmSepExpr"></Separator>
+                                    <MenuItem Name="cmExpression" Header="Expression..." Click="CmExpression_Click" />
+                                </ContextMenu>
+                            </my:ThermalLabelEditor.ContextMenu>
+                        </my:ThermalLabelEditor>
+                        <StatusBar Grid.Row="1">
+                            <StatusBarItem>
+                                <TextBlock Name="txtSelectionInfo" />
+                            </StatusBarItem>
+                        </StatusBar>
+                    </Grid>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Icons\16x16\preview.png" />
+                            <TextBlock Text=" Preview" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="34"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StatusBar>
+                            <Label>Copies (for Data Masking &amp; Counters):</Label>
+                            <tk2:ShortUpDown x:Name="nudPreviewCopies" Value="1" Minimum="1" Maximum="100" Width="70"></tk2:ShortUpDown>
+                        </StatusBar>
+                        <WebBrowser Grid.Row="1" x:Name="webBrowser1"></WebBrowser>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+            <TabControl Grid.Column="2" Margin="0 10 0 0">
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Icons\16x16\properties.png" />
+                            <TextBlock Text=" Properties" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100" x:Name="propsGridRow1"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel x:Name="pnlBarcodeSymbology">
+                            <Label FontWeight="Bold">Barcode Type / Symbology:</Label>
+                            <ComboBox x:Name="cboBarcodeSymbologies" Margin="0 5 0 0" SelectionChanged="cboBarcodeSymbologies_SelectionChanged"></ComboBox>
+                            <Button x:Name="cmdSetBarcodeSampleCode" Margin="0 10 0 10" Click="cmdSetBarcodeSampleCode_Click">Set Sample Code ...</Button>
+                        </StackPanel>
+                        
+                        <tk:PropertyGrid x:Name="propertyGrid1" ShowSearchBox="False" ShowTitle="False" ShowSummary="False" Grid.Row="1"></tk:PropertyGrid>
+                        
+                    </Grid>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Icons\16x16\db.png" />
+                            <TextBlock Text=" Data Source" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"></RowDefinition>
+                            <RowDefinition Height="200"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel>
+                            <Label>File (XML):</Label>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="30"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="txtDataSourceFile" IsReadOnly="true" ></TextBox>
+                                <Button x:Name="cmdDataSourceFile" Grid.Column="1" Click="cmdDataSourceFile_Click">•••</Button>
+                            </Grid>
+                            <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                                <Button x:Name="cmdRemoveDataSource" Click="cmdRemoveDataSource_Click">Remove</Button>
+                                <Button x:Name="cmdUseEmbeddedSample" Margin="30 0 0 0" Click="cmdUseEmbeddedSample_Click">Use Embedded Sample</Button>
+                            </StackPanel>
+                        </StackPanel>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"></RowDefinition>
+                                <RowDefinition Height="150"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label FontWeight="Bold" Margin="0 10 0 0">Data Fields:</Label>
+                            <ListBox x:Name="lstDataFields" Grid.Row="1"></ListBox>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label FontWeight="Bold" Margin="0 10 0 0">Data Source Content:</Label>
+                            <ScrollViewer Grid.Row="1">
+                                <TextBlock x:Name="txtDataSourceContent" TextWrapping="Wrap"></TextBlock>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Icons\16x16\fx.png" />
+                            <TextBlock Text=" Expressions" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <StackPanel Margin="10">
+                        <TextBlock TextWrapping="Wrap"  Text="These Expressions are applied on the whole label content and allows you to change Item Attributes/Properties based on the result of each expression code."></TextBlock>
+                        <Button x:Name="cmdEditExpressions" Margin="0 10 0 0" Click="cmdEditExpressions_Click">Edit</Button>
+                        <TextBlock Margin="0 10 0 0" TextWrapping="Wrap"  Text="One Expression code per line is mandatory!" FontWeight="Bold"></TextBlock>
+                        <ScrollViewer Margin="0 10 0 0" BorderThickness="1" BorderBrush="DarkGray" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                            <TextBlock Name="txtLabelExpressions"  TextWrapping="Wrap" FontFamily="Courier New"  ></TextBlock>
+                        </ScrollViewer>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+            
+        </Grid>
+    </Grid>
+</Window>

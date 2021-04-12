@@ -1,0 +1,97 @@
+﻿<Window x:Class="TLWindowsEditorWPFDemo.LabelDoc"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:my="clr-namespace:TLWindowsEditorWPFDemo"
+        Title="Label Document" Height="585" Width="800"  Loaded="Window_Loaded" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" WindowStartupLocation="CenterScreen">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TabControl Grid.Column="0" SelectionChanged="TabControl_SelectionChanged">
+            <TabItem Header="Roll - Single Labels" Name="tabRollSingleLabel">
+                <Image Name="picRollSingleLabels" Stretch="Fill" Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}" Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}"></Image>
+            </TabItem>
+            <TabItem Header="Roll - Multicolumn Labels" Name="tabRollMulticolLabels">
+                <Image Name="picRollMulticolumnLabels" Stretch="Fill" Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}" Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}"></Image>
+            </TabItem>
+            <TabItem Header="Sheet Labels" Name="tabSheetLabels">
+                <Image Name="picSheetLabels" Stretch="Fill" Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}" Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}"></Image>
+            </TabItem>
+        </TabControl>
+        <StackPanel Grid.Column="1" Margin="10 0 0 0">
+            <GroupBox Header="General" Padding="10">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Unit:"  />
+                    <ComboBox  HorizontalAlignment="Left"  Name="cboUnit" ItemsSource="{Binding}" SelectionChanged="cboUnit_SelectionChanged" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Label" Padding="10">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Width:"  />
+                    <TextBox   Name="txtWidth" Width="90" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="0" />
+                    <Label Content="Height:" Margin="10 0 0 0" />
+                    <TextBox  Name="txtHeight" Width="90" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="0" />   
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Vartical Layout" Padding="10">
+                <StackPanel>
+                    <CheckBox Content="Is Continuous?" Name="chkIsContinuous" Checked="chkIsContinuous_Checked" Unchecked="chkIsContinuous_Unchecked" />
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                        <Label Content="Gap Length:" />
+                        <TextBox Name="txtGapLength" Width="90" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="0"  />
+                        <Label Content="Mark Length:" />
+                        <TextBox Name="txtMarkLength" Width="90" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="0" />
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Name="gbHLayout" Header="Horizontal Layout" Padding="10">
+                <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                    <Label Content="Gap Length:" />
+                    <TextBox Name="txtHorizGapLength" Width="90" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="0"  />
+                    <Label Content="Labels Per Row:" />
+                    <TextBox Name="txtLabelsPerRow" Width="80" my:TextBoxMaskBehavior.Mask="Integer" my:TextBoxMaskBehavior.MinimumValue="0" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Name="gbPrintOptions"  Header="Print Options" Padding="10">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" >
+                        <CheckBox Content="Print As Mirror" Name="chkPrintMirror" Margin="0 6 0 0" />
+                        <Label Content="Print Speed:" Margin="40 0 0 0"/>
+                        <TextBox x:Name="txtPrintSpeed" Width="67"  />
+                    </StackPanel>
+                    <CheckBox Content="Cut After Printing" x:Name="chkCutAfterPrinting" Margin="0 10 0 0"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Name="gbSheet" Header="Sheet" Padding="10">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Width:"  />
+                        <TextBox   Name="txtSheetWidth" Width="90" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="0" />
+                        <Label Content="Height:" Margin="10 0 0 0" />
+                        <TextBox  Name="txtSheetHeight" Width="90" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="0" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                        <Label Content="Margin Left:"  />
+                        <TextBox   Name="txtSheetLabelsMarginLeft" Width="90" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="0" />
+                        <Label Content="Margin Top:" Margin="10 0 0 0" />
+                        <TextBox  Name="txtSheetLabelsMarginTop" Width="90" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="0" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                        <Label Content="Labels Per Sheet:" />
+                        <TextBox Name="txtSheetLabelsCount" Width="80" my:TextBoxMaskBehavior.Mask="Integer" my:TextBoxMaskBehavior.MinimumValue="0" />
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
+            <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Right">
+                <Button Content="OK" IsDefault="True" Name="button1" Width="75" Click="button1_Click" />
+                <Button Content="Cancel" IsCancel="True" Name="button2" Width="75" Margin="40 0 0 0" />
+            </StackPanel>
+            
+            
+
+            
+        </StackPanel>
+    </Grid>
+</Window>

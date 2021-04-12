@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{05DCA5F2-C656-406F-9458-DCBF129B4CDD}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TLWindowsEditorWPFDemo</RootNamespace>
+    <AssemblyName>TLWindowsEditorWPFDemo</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Windows.Controls.Ribbon" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Dialogs\ColorDialog.xaml.cs">
+      <DependentUpon>ColorDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DpiDialog.xaml.cs">
+      <DependentUpon>DpiDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ExpressionDialog.xaml.cs">
+      <DependentUpon>ExpressionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\LabelDoc.xaml.cs">
+      <DependentUpon>LabelDoc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\PrinterFontsDialog.xaml.cs">
+      <DependentUpon>PrinterFontsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\PrintJobDialog.xaml.cs">
+      <DependentUpon>PrintJobDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\TTFtoPrinterStorageDialog.xaml.cs">
+      <DependentUpon>TTFtoPrinterStorageDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ViewOptionsDialog.xaml.cs">
+      <DependentUpon>ViewOptionsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.xaml.cs">
+      <DependentUpon>MainForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\ColorUIEditorUC.xaml.cs">
+      <DependentUpon>ColorUIEditorUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\ExpressionUIEditorUC.xaml.cs">
+      <DependentUpon>ExpressionUIEditorUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\GalleryUC.xaml.cs">
+      <DependentUpon>GalleryUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\ImageFileUIEditorUC.xaml.cs">
+      <DependentUpon>ImageFileUIEditorUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Global.cs" />
+    <Compile Include="Utils\ImageResources.cs" />
+    <Compile Include="Utils\TextBoxMaskBehavior.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\UIEditors.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\barcode.png" />
+    <Resource Include="Icons\copy.png" />
+    <Resource Include="Icons\cut.png" />
+    <Resource Include="Icons\ellipse.png" />
+    <Resource Include="Icons\line.png" />
+    <Resource Include="Icons\NewFile.png" />
+    <Resource Include="Icons\Open.png" />
+    <Resource Include="Icons\paste.png" />
+    <Resource Include="Icons\Picture.png" />
+    <Resource Include="Icons\pointer.png" />
+    <Resource Include="Icons\Print.png" />
+    <Resource Include="Icons\Properties.png" />
+    <Resource Include="Icons\rect.png" />
+    <Resource Include="Icons\Redo.png" />
+    <Resource Include="Icons\Save.png" />
+    <Resource Include="Icons\text.png" />
+    <Resource Include="Icons\Undo.png" />
+    <Resource Include="Icons\Zoom100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\RFIDTag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\lock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting">
+      <Version>10.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor">
+      <Version>10.0.20.1105</Version>
+    </PackageReference>
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel">
+      <Version>10.0.21.330</Version>
+    </PackageReference>
+    <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit">
+      <Version>4.6.97</Version>
+    </PackageReference>
+    <PackageReference Include="SkiaSharp">
+      <Version>1.68.3</Version>
+    </PackageReference>
+    <PackageReference Include="System.Text.Encoding.CodePages">
+      <Version>4.4.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Dialogs\ColorDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\DpiDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\ExpressionDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\LabelDoc.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\PrinterFontsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\PrintJobDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\TTFtoPrinterStorageDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\ViewOptionsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UC\ColorUIEditorUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UC\ExpressionUIEditorUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UC\GalleryUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UC\ImageFileUIEditorUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\16x16\BringForward.png" />
+    <Resource Include="Icons\16x16\BringToFront.png" />
+    <Resource Include="Icons\16x16\copy.png" />
+    <Resource Include="Icons\16x16\cut.png" />
+    <Resource Include="Icons\16x16\db.png" />
+    <Resource Include="Icons\16x16\delete.png" />
+    <Resource Include="Icons\16x16\design.png" />
+    <Resource Include="Icons\16x16\fx.png" />
+    <Resource Include="Icons\16x16\gallery.png" />
+    <Resource Include="Icons\16x16\help.png" />
+    <Resource Include="Icons\16x16\LA-Bottom.png" />
+    <Resource Include="Icons\16x16\LA-CenterH.png" />
+    <Resource Include="Icons\16x16\LA-CenterV.png" />
+    <Resource Include="Icons\16x16\LA-DistH.png" />
+    <Resource Include="Icons\16x16\LA-DistV.png" />
+    <Resource Include="Icons\16x16\LA-Left.png" />
+    <Resource Include="Icons\16x16\LA-Right.png" />
+    <Resource Include="Icons\16x16\LA-Top.png" />
+    <Resource Include="Icons\16x16\lock.png" />
+    <Resource Include="Icons\16x16\preview.png" />
+    <Resource Include="Icons\16x16\properties.png" />
+    <Resource Include="Icons\16x16\redo.png" />
+    <Resource Include="Icons\16x16\save.png" />
+    <Resource Include="Icons\16x16\SendBackward.png" />
+    <Resource Include="Icons\16x16\SendToBack.png" />
+    <Resource Include="Icons\16x16\undo.png" />
+    <Resource Include="Icons\16x16\Zoom100.png" />
+    <Resource Include="Icons\16x16\ZoomIn.png" />
+    <Resource Include="Icons\16x16\ZoomOut.png" />
+    <Resource Include="Icons\2d.png" />
+    <Resource Include="Icons\ArcText.png" />
+    <Resource Include="Icons\arrange.png" />
+    <Resource Include="Icons\close.png" />
+    <Resource Include="Icons\DesignOptions.png" />
+    <Resource Include="Icons\export.png" />
+    <Resource Include="Icons\ManageFont.png" />
+    <Resource Include="Icons\OutlineText.png" />
+    <Resource Include="Icons\ResidentFont.png" />
+    <Resource Include="Icons\UploadFont.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

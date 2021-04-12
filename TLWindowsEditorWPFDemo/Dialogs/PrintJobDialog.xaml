@@ -1,0 +1,101 @@
+﻿<Window x:Class="TLWindowsEditorWPFDemo.PrintJobDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:my="clr-namespace:TLWindowsEditorWPFDemo"
+        Title="Print Label" Height="499" Width="466" WindowStartupLocation="CenterScreen" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="340" />
+            <RowDefinition Height="75" />
+            <RowDefinition Height="46*" />
+        </Grid.RowDefinitions>
+        <GroupBox Header="Printer Settings" Margin="10,10,10,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="52*" />
+                    <RowDefinition Height="236*" />
+                </Grid.RowDefinitions>
+                <StackPanel Margin="5" Orientation="Horizontal" >
+                    <TextBlock Text="Resolution (DPI):  " VerticalAlignment="Center"></TextBlock>
+                    <TextBox  Name="txtDpi" Width="50" Height="24" Text="203" VerticalAlignment="Center" my:TextBoxMaskBehavior.Mask="Integer" my:TextBoxMaskBehavior.MinimumValue="203"></TextBox>
+                    <TextBlock Text="Printer Lang.:  " VerticalAlignment="Center" Margin="20,0,0,0"></TextBlock>
+                    <ComboBox Name="cboProgLang" Width="75" Height="24" SelectedIndex="-1">
+                        <ComboBoxItem Content="ZPL"></ComboBoxItem>
+                        <ComboBoxItem Content="EPL"></ComboBoxItem>
+                        <ComboBoxItem Content="Fingerprint"></ComboBoxItem>
+                        <ComboBoxItem Content="ESCPOS"></ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+                <TabControl Name="tabPrintComm" Grid.Row="1" Margin="5">
+                    <TabItem Header="USB/Windows Driver">
+                        <StackPanel Margin="20">
+                            <TextBlock Text="Printer Name:"></TextBlock>
+                            <ComboBox Name="cboPrinters" IsEditable="True" ItemsSource="{Binding}"></ComboBox>
+                            <CheckBox Name="chkPrintAsGraphic" Content="Print As Graphic"  Margin="0,20"/>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Parallel">
+                        <StackPanel Margin="20">
+                            <TextBlock Text="Parallel Port Name:"></TextBlock>
+                            <TextBox Name="txtParallelPort" Text="LPT1" ></TextBox>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Serial">
+                        <Grid Margin="20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Text="Serial Port Name:" VerticalAlignment="Bottom"></TextBlock>
+                            <ComboBox Grid.Row="1" Name="cboSerialPorts" IsEditable="True" ItemsSource="{Binding}" Height="24"></ComboBox>
+                            <TextBlock Grid.Row="2" Text="Data Bits:" VerticalAlignment="Bottom"></TextBlock>
+                            <TextBox Grid.Row="3" Name="txtDataBits" Text="8" Height="24"></TextBox>
+                            <TextBlock Grid.Row="4" Text="Stop Bits:" VerticalAlignment="Bottom"></TextBlock>
+                            <ComboBox Grid.Row="5" Name="cboStopBits" IsEditable="True" ItemsSource="{Binding}" Height="24"></ComboBox>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Baud Rate:" VerticalAlignment="Bottom"></TextBlock>
+                            <TextBox Grid.Row="1" Grid.Column="2" Name="txtBaudRate" Text="9600" Height="24"></TextBox>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Text="Parity:" VerticalAlignment="Bottom"></TextBlock>
+                            <ComboBox Grid.Row="3" Grid.Column="2" Name="cboParity" IsEditable="True" ItemsSource="{Binding}" Height="24"></ComboBox>
+                            <TextBlock Grid.Row="4" Grid.Column="2" Text="Flow Control:" VerticalAlignment="Bottom"></TextBlock>
+                            <ComboBox Grid.Row="5" Grid.Column="2" Name="cboFlowControl" IsEditable="True" ItemsSource="{Binding}" Height="24"></ComboBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="IP Network">
+                        <StackPanel Margin="20">
+                            <TextBlock Text="Printer IP Address or Host Name:"></TextBlock>
+                            <TextBox Name="txtIPAddress" Text="127.0.0.1" ></TextBox>
+                            <TextBlock Text="Printer Port:" Margin="0,10,0,0"></TextBlock>
+                            <TextBox Name="txtIPPort" Text="0" ></TextBox>
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="Options" Margin="10,10,10,0">
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Text="Copies:  " VerticalAlignment="Center"></TextBlock>
+                <TextBox  Name="txtCopies" Width="50" Height="24" Text="1" VerticalAlignment="Center" my:TextBoxMaskBehavior.Mask="Integer" my:TextBoxMaskBehavior.MinimumValue="1"></TextBox>
+                <TextBlock Text="Print Orientation:  " VerticalAlignment="Center" Margin="20,0,0,0"></TextBlock>
+                <ComboBox Name="cboPrintOrientation" Width="150" Height="24" SelectedIndex="0">
+                    <ComboBoxItem Content="Portrait"></ComboBoxItem>
+                    <ComboBoxItem Content="Portrait180"></ComboBoxItem>
+                    <ComboBoxItem Content="Landscape90"></ComboBoxItem>
+                    <ComboBoxItem Content="Landscape270"></ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </GroupBox>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <Button Content="Ok" IsDefault="True" Width="75" Height="24" Click="Button_Click"></Button>
+            <Button Content="Cancel" IsCancel="True" Width="75" Height="24" Margin="30,0,0,0"></Button>
+        </StackPanel>
+    </Grid>
+</Window>

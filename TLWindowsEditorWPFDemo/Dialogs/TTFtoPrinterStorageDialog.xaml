@@ -1,0 +1,33 @@
+﻿<Window x:Class="TLWindowsEditorWPFDemo.Dialogs.TTFtoPrinterStorageDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Upload TTF to Printer Storage" Height="618" Width="459" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <GroupBox Header="Select Font" Height="177" HorizontalAlignment="Left" Margin="12,12,0,0" Name="groupBox1" VerticalAlignment="Top" Width="413">
+            <Grid>
+                <Button Content="Windows Installed Font..." Height="23" HorizontalAlignment="Left" Margin="17,21,0,0" Name="button1" VerticalAlignment="Top" Width="177" Click="button1_Click" />
+                <Button Content="TTF Font File..." Height="23" HorizontalAlignment="Left" Margin="252,21,0,0" Name="button2" VerticalAlignment="Top" Width="134" Click="button2_Click" />
+                <Label Content="or" Height="28" HorizontalAlignment="Left" Margin="213,20,0,0" Name="label1" VerticalAlignment="Top" />
+                <Label Content="Font File to be uploaded to printer:" Height="28" HorizontalAlignment="Left" Margin="15,62,0,0" Name="label2" VerticalAlignment="Top" FontWeight="Bold" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="17,84,0,0" Name="txtFontFilePath" VerticalAlignment="Top" Width="369" IsReadOnly="True" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="17,122,0,0" Name="lblFontName" Text="SAMPLE TEXT" VerticalAlignment="Top" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Font Printer Settings" Height="318" HorizontalAlignment="Left" Margin="12,203,0,0" Name="groupBox2" VerticalAlignment="Top" Width="413">
+            <Grid>
+                <Label Content="Font Name At the Printer Storage:" Height="28" HorizontalAlignment="Left" Margin="14,11,0,0" Name="label3" VerticalAlignment="Top" />
+                <TextBox Height="41" HorizontalAlignment="Left" Margin="18,36,0,0" Name="textBox1" VerticalAlignment="Top" Width="368" Text="This is the name you must set to the NameAtPrinterStorage subproperty of the Font property of the TextItem object" MinLines="1" AutoWordSelection="False" TextWrapping="Wrap" Foreground="#FFC42121" BorderThickness="0" />
+                <TextBox Height="23" Margin="17,83,0,0" Name="txtNameAtPrinterStorage" VerticalAlignment="Top" HorizontalAlignment="Left" Width="369" Text="E:ARIAL001" />
+                <Label Content="NOTES - READ CAREFULLY!" Height="28" HorizontalAlignment="Left" Margin="17,112,0,0" Name="label4" VerticalAlignment="Top" FontWeight="Bold" />
+                <TextBlock Height="60" HorizontalAlignment="Left" Margin="21,137,0,0" Name="textBlock1" Text="• The complete name for the destination font (including the drive location and name, for example B:ARIAL). IMPORTANT: The name must be 1 to 8 alphanumeric characters long." VerticalAlignment="Top" TextWrapping="Wrap" Width="365" />
+                <TextBlock Height="100" HorizontalAlignment="Left" Margin="21,190,0,0" Name="textBlock2" Text="• The different drives of a Zebra ZPL thermal printer are the following:
+    R: Printer DRAM Library
+    B: Optional Memory (A card or factory installed)
+    E: Flash memory
+    A: Compact flash memory" TextWrapping="Wrap" VerticalAlignment="Top" Width="365" />
+            </Grid>
+        </GroupBox>
+        <Button Content="Upload to Printer..." Height="23" HorizontalAlignment="Left" Margin="159,542,0,0" Name="button3" VerticalAlignment="Top" Width="146" Click="button3_Click" />
+        <Button Content="Cancel" Height="23" HorizontalAlignment="Left" Margin="350,542,0,0" Name="button4" VerticalAlignment="Top" Width="75" IsCancel="True" />
+    </Grid>
+</Window>
