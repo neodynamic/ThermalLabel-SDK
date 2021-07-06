@@ -9,10 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="10.0.21.325" />
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="10.0.21.702" />
     <PackageReference Include="Neodynamic.SDK.ThermalLabel.WebPrinting" Version="10.0.0" />
-    <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Assets" Version="10.0.0.5" />
-    <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Server" Version="10.0.21.325" />
+    <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Assets" Version="10.0.0.7" />
+    <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Server" Version="10.0.21.702" />
     <PackageReference Include="SkiaSharp" Version="2.80.2" />
   </ItemGroup>
 
