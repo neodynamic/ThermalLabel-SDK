@@ -283,9 +283,14 @@
                 else if (props[p].name === "text" || props[p].name === "comments")
                     propGridContent += '<textarea class="form-control input-sm" rows="3" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')">' + props[p].value + '</textarea>';
                 else if (props[p].name === "expression") {
+                    var propVal = props[p].value.replace(/_x0022_/g, '&#34;')
+                        .replace(/_x003c_/g, '&#60;')
+                        .replace(/_x003e_/g, '&#62;')
+                        .replace(/_x0026_/g, '&#38;');
+
                     propGridContent += '<div class="input-group">';
                     id = 'expr' + id;
-                    propGridContent += '<input type="text" id="' + id + '" class="form-control input-sm" value="' + props[p].value + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ');" />';
+                    propGridContent += '<input type="text" id="' + id + '" class="form-control input-sm" value="' + propVal + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ');" />';
                     propGridContent += '<span class="input-group-btn"><button class="btn btn-primary btn-sm" onclick="exprBuilder.openExpressionBuilder($(\'#' + id + '\').val()); exprBuilder.curElemId = \'' + id + '\';"><em><strong>fx</strong></em></button></span>';
                     propGridContent += '</div>';
                 }
@@ -354,7 +359,8 @@
                         propGridContent += '<input type="number" class="form-control input-sm" value="' + props[p].value + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')" />';
                 }
                 else
-                    propGridContent += '<input type="text" class="form-control input-sm" value="' + props[p].value + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')" />';
+                    propGridContent += '<input type="text" class="form-control input-sm" value="' + propVal + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')" />';
+
             }
             else if (props[p].type === "object") { //Complex Property
                 //console.log(props[p].name);

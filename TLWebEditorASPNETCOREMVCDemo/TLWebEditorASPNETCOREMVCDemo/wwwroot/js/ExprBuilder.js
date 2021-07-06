@@ -1,8 +1,8 @@
 ﻿var exprBuilder = {
 
     create: function () {
-
-        var _this = this;
+        //get supported expressions
+        this.supportedExpr = tleditor.getSupportedExpressions();
 
         //add event handlers
         $('#expr-name').on('dblclick', 'option', function () {
@@ -11,19 +11,15 @@
             $('#expression')[0].insertAtCaret($('#expr-syntax').val());
         });
 
-        //get supported expressions
-        tleditor.getSupportedExpressions(null, function (supportedExpressions) {
-            _this.supportedExpr = supportedExpressions;
+        //console.log(expr);
 
-            //add expr categories
-            var opts = '';
-            for (var i in _this.supportedExpr) {
-                //console.log(expr[i]);]
-                opts += '<option name="' + _this.supportedExpr[i].category + '" value="' + i + '" >' + _this.supportedExpr[i].category.replace(/([A-Z])/g, " $1").trim() + '</option>';
-            }
-            $('#expr-category').append(opts);
-
-        });
+        //add expr categories
+        var opts = '';
+        for (var i in this.supportedExpr) {
+            //console.log(expr[i]);]
+            opts += '<option name="' + this.supportedExpr[i].category + '" value="' + i + '" >' + this.supportedExpr[i].category.replace(/([A-Z])/g, " $1").trim() + '</option>';
+        }
+        $('#expr-category').append(opts);
 
     },
 
@@ -53,17 +49,17 @@
     openExpressionBuilder: function (curExpr, isGlobalExpr) {
         if (isGlobalExpr) {
             this.addLabelItems();
-            $('#expression').val(curExpr);
+            $('#expression').val(this.unescapeExpr(curExpr));
             $("#expression-builder").modal();
         }
         else if (curExpr) {
             this.addLabelItems();
-            $('#expression').val(curExpr);
+            $('#expression').val(this.unescapeExpr(curExpr));
             $("#expression-builder").modal();
         }
         else if (tleditor.current_selection) {
             this.addLabelItems();
-            $('#expression').val(tleditor.current_selection.expression);
+            $('#expression').val(this.unescapeExpr(tleditor.current_selection.expression));
             $("#expression-builder").modal();
         }
         else {
@@ -74,16 +70,34 @@
 
     updateItemProp: function () {
         if (this.curElemId) {
-            $('#' + this.curElemId).val($('#expression').val().replace(/"/g, '&#34;'));
+            $('#' + this.curElemId).val(this.escapeExpr($('#expression').val()));
             $('#' + this.curElemId).change();
             this.curElemId = null;
         }
         else if (tleditor.current_selection) {
-            tleditor.current_selection.expression = $('#expression').val().replace(/"/g, '&#34;');
+            tleditor.current_selection.expression = this.escapeExpr($('#expression').val());
             tleditor.current_selection.refresh();
         }
 
         UIEditor.closeModal();
+    },
+
+    escapeExpr: function (s) {
+        var tagsToReplace = {
+            '"': '&#34;',
+            '&': '&#38;',
+            '<': '&#60;',
+            '>': '&#62;'
+        };
+        return s.replace(/["&<>]/g, function (tag) {
+            return tagsToReplace[tag] || tag;
+        });
+    },
+    unescapeExpr: function (s) {
+        return s.replace(/_x0022_/g, '\"')
+            .replace(/_x003c_/g, '<')
+            .replace(/_x003e_/g, '>')
+            .replace(/_x0026_/g, '&');
     },
 
     addLabelItems: function () {
