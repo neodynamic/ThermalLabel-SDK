@@ -49,13 +49,13 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Neodynamic.SDK.ThermalLabel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neodynamic.SDK.ThermalLabel.10.0.0\lib\netstandard2.0\Neodynamic.SDK.ThermalLabel.dll</HintPath>
+      <HintPath>..\packages\Neodynamic.SDK.ThermalLabel.10.0.21.702\lib\netstandard2.0\Neodynamic.SDK.ThermalLabel.dll</HintPath>
     </Reference>
     <Reference Include="Neodynamic.SDK.ThermalLabel.WebPrinting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neodynamic.SDK.ThermalLabel.WebPrinting.10.0.0\lib\netstandard2.0\Neodynamic.SDK.ThermalLabel.WebPrinting.dll</HintPath>
+      <HintPath>..\packages\Neodynamic.SDK.ThermalLabel.WebPrinting.10.0.21.430\lib\netstandard2.0\Neodynamic.SDK.ThermalLabel.WebPrinting.dll</HintPath>
     </Reference>
     <Reference Include="Neodynamic.Web.ThermalLabelEditor, Version=10.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neodynamic.Web.ThermalLabelEditor.Server.10.0.0\lib\netstandard2.0\Neodynamic.Web.ThermalLabelEditor.dll</HintPath>
+      <HintPath>..\packages\Neodynamic.Web.ThermalLabelEditor.Server.10.0.21.702\lib\netstandard2.0\Neodynamic.Web.ThermalLabelEditor.dll</HintPath>
     </Reference>
     <Reference Include="SkiaSharp, Version=2.80.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\SkiaSharp.2.80.2\lib\net462\SkiaSharp.dll</HintPath>
@@ -179,10 +179,10 @@
     <Content Include="fonts\Flaticon.woff" />
     <Content Include="fonts\Flaticon.woff2" />
     <Content Include="fonts\_flaticon.scss" />
-    <Content Include="fonts\ZPL Font 0.ttf" />
-    <Content Include="fonts\NativePrinterFontS.ttf" />
     <Content Include="fonts\NativePrinterFontB.ttf" />
     <Content Include="fonts\NativePrinterFontA.ttf" />
+    <Content Include="fonts\ZPL Font 0.ttf" />
+    <Content Include="fonts\NativePrinterFontS.ttf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\ExprBuilder.js" />
     <Content Include="Scripts\fabric-1.5.0.js" />
@@ -199,9 +199,9 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\neoPropGrid.js" />
     <Content Include="Scripts\SampleLabelEditorUI.js" />
+    <Content Include="images\barcode_error.png" />
+    <Content Include="images\RFIDTag.png" />
     <Content Include="Scripts\ThermalLabelWebEditor.js" />
-	<Content Include="images\barcode_error.png" />
-	<Content Include="images\RFIDTag.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -277,9 +277,11 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\SkiaSharp.2.80.2\build\net462\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.2.80.2\build\net462\SkiaSharp.targets'))" />
     <Error Condition="!Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.10.0.0.1\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.10.0.0.1\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets'))" />
+    <Error Condition="!Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.10.0.0.7\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.10.0.0.7\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets'))" />
   </Target>
   <Import Project="..\packages\SkiaSharp.2.80.2\build\net462\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.2.80.2\build\net462\SkiaSharp.targets')" />
   <Import Project="..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.10.0.0.1\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets" Condition="Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.10.0.0.1\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" />
+  <Import Project="..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.10.0.0.7\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets" Condition="Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.10.0.0.7\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

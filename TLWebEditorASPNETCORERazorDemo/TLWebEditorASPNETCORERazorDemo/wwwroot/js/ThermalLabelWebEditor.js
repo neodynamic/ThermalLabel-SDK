@@ -1,6 +1,6 @@
 ﻿/*
  * ThermalLabel Web Editor Add-on
- * ThermalLabelWebEditor-10.0.0.0.js
+ * ThermalLabelWebEditor-10.0.21.702.js
  * @author Neodynamic (http://neodynamic.com/)
  * Contact: https://neodynamic.com/support
  * WebPage: https://neodynamic.com/products/printing/thermal-label/web-editor/
@@ -3892,6 +3892,7 @@ var Neodynamic;
                     _this._source_dpi = 96;
                     _this._convert_to_monochrome = true;
                     _this._source_file = '';
+                    _this._httpPattern = /^(http:|https:)/i;
                     _this._has_to_reload = false;
                     _this._image_item = new Image();
                     _this._original_image_item = new Image();
@@ -3902,8 +3903,8 @@ var Neodynamic;
                         if (!self._is_missing_image) {
                             self._fabric_item.width = self._image_item.width / self._fabric_item.scaleX;
                             self._fabric_item.height = self._image_item.height / self._fabric_item.scaleY;
-                            self._fabric_item.setCoords();
                         }
+                        self._fabric_item.setCoords();
                         self._has_to_reload = false;
                         if (self._fabric_item.canvas)
                             self._fabric_item.canvas.renderAll();
@@ -4069,7 +4070,7 @@ var Neodynamic;
                     get: function () { return this._source_file; },
                     set: function (value) {
                         this._source_file = value;
-                        if (this._source_file && this.source_file.length > 0)
+                        if (this._source_file && this.source_file.length > 0 && !this._httpPattern.test(this.source_file))
                             this._original_image_item.src = this._missing_image;
                         this.propertyChanged();
                     },
@@ -4188,7 +4189,7 @@ var Neodynamic;
                 };
                 ImageItem.prototype.refresh = function () {
                     var _this = this;
-                    if (!this._source_base64) {
+                    if (!this._source_base64 && !this._source_file) {
                         this._image_item.src = this._missing_image;
                         this._is_missing_image = true;
                     }
@@ -4896,6 +4897,7 @@ var Neodynamic;
                     _this._input_mask_prompt_char = '_';
                     _this._stroke_thickness = 0;
                     _this._stroke_color_hex = '';
+                    _this._char_spacing = 0;
                     _this._has_to_reload = false;
                     _this._image_item = new Image();
                     _this._is_in_edit_mode = false;
@@ -5238,6 +5240,16 @@ var Neodynamic;
                     configurable: true
                 });
                 ;
+                Object.defineProperty(TextItem.prototype, "char_spacing", {
+                    get: function () { return Neodynamic.Web.Utils.UnitUtils.convertPixelToUnit(this._char_spacing, this._unit_type); },
+                    set: function (value) {
+                        this._char_spacing = Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(value, this._unit_type);
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
                 TextItem.prototype._updateFromCanvas = function () {
                     if (this._width != this._fabric_item.width || this._height != this._fabric_item.height)
                         this._has_to_reload = true;
@@ -5406,12 +5418,13 @@ var Neodynamic;
                         ForeColorHex: this.fore_color_hex,
                         InputMaskPattern: this.input_mask_pattern,
                         InputMaskPromptChar: this.input_mask_prompt_char,
-                        Expression: this.expression,
+                        Expression: Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(this.expression),
                         UseCache: this.use_cache,
                         CacheItemId: this.cache_item_id,
                         StrokeThickness: this.stroke_thickness,
                         StrokeColorHex: this.stroke_color_hex,
-                        Visible: this.visible
+                        Visible: this.visible,
+                        CharSpacing: this.char_spacing
                     };
                 };
                 ;
@@ -5709,52 +5722,67 @@ var Neodynamic;
                     var exprs_list = [];
                     var tlJsonObj = (typeof jsonTemplate == "string") ? JSON.parse(jsonTemplate) : jsonTemplate;
                     var tlj = Neodynamic.Web.Utils.TLParser.JsonConvertKeysToLowerCase(tlJsonObj);
-                    toRet.unit_type = Printing.UnitType[tlj["thermallabel"]["UnitType".toLowerCase()]];
-                    if (tlj["thermallabel"]["GapLength".toLowerCase()])
-                        toRet.gap_length = tlj["thermallabel"]["GapLength".toLowerCase()];
-                    if (tlj["thermallabel"]["Height".toLowerCase()])
-                        toRet.height = tlj["thermallabel"]["Height".toLowerCase()];
-                    if (tlj["thermallabel"]["IsContinuous".toLowerCase()])
-                        toRet.is_continuous = tlj["thermallabel"]["IsContinuous".toLowerCase()];
-                    if (tlj["thermallabel"]["LabelsHorizontalGapLength".toLowerCase()])
-                        toRet.labels_horizontal_gap_length = tlj["thermallabel"]["LabelsHorizontalGapLength".toLowerCase()];
-                    if (tlj["thermallabel"]["LabelsPerRow".toLowerCase()])
-                        toRet.labels_per_row = tlj["thermallabel"]["LabelsPerRow".toLowerCase()];
-                    if (tlj["thermallabel"]["MarkLength".toLowerCase()])
-                        toRet.mark_length = tlj["thermallabel"]["MarkLength".toLowerCase()];
-                    if (tlj["thermallabel"]["OffsetLength".toLowerCase()])
-                        toRet.offset_length = tlj["thermallabel"]["OffsetLength".toLowerCase()];
-                    if (tlj["thermallabel"]["PrintSpeed".toLowerCase()])
-                        toRet.print_speed = tlj["thermallabel"]["PrintSpeed".toLowerCase()];
-                    if (tlj["thermallabel"]["Width".toLowerCase()])
-                        toRet.width = tlj["thermallabel"]["Width".toLowerCase()];
-                    if (tlj["thermallabel"]["PrintMirror".toLowerCase()])
-                        toRet.print_mirror = tlj["thermallabel"]["PrintMirror".toLowerCase()];
-                    if (tlj["thermallabel"]["CutAfterPrinting".toLowerCase()])
-                        toRet.cut_after_printing = tlj["thermallabel"]["CutAfterPrinting".toLowerCase()];
-                    if (tlj["thermallabel"]["Darkness".toLowerCase()])
-                        toRet.darkness = tlj["thermallabel"]["Darkness".toLowerCase()];
-                    if (tlj["thermallabel"]["SheetLabelsWidth".toLowerCase()])
-                        toRet.sheet_labels_width = tlj["thermallabel"]["SheetLabelsWidth".toLowerCase()];
-                    if (tlj["thermallabel"]["SheetLabelsHeight".toLowerCase()])
-                        toRet.sheet_labels_height = tlj["thermallabel"]["SheetLabelsHeight".toLowerCase()];
-                    if (tlj["thermallabel"]["SheetLabelsCount".toLowerCase()])
-                        toRet.sheet_labels_count = tlj["thermallabel"]["SheetLabelsCount".toLowerCase()];
-                    if (tlj["thermallabel"]["SheetLabelsMargin".toLowerCase()]) {
-                        var margin = tlj["thermallabel"]["SheetLabelsMargin".toLowerCase()].split(',');
-                        toRet.sheet_labels_margin = new Printing.FrameThickness(margin[0], margin.length == 1 ? margin[0] : margin[1], margin.length == 1 ? margin[0] : margin[2], margin.length == 1 ? margin[0] : margin[3]);
+                    var oldJsonFormat = (tlj["thermallabel"] != null);
+                    if (oldJsonFormat) {
+                        tlj = tlj["thermallabel"];
                     }
-                    if (tlj["thermallabel"]["items"]) {
-                        var items = tlj["thermallabel"]["items"];
+                    else {
+                        if (!tlj["unittype"]) {
+                            return toRet;
+                        }
+                    }
+                    toRet.unit_type = Printing.UnitType[tlj["UnitType".toLowerCase()]];
+                    if (tlj["GapLength".toLowerCase()])
+                        toRet.gap_length = tlj["GapLength".toLowerCase()];
+                    if (tlj["Height".toLowerCase()])
+                        toRet.height = tlj["Height".toLowerCase()];
+                    if (tlj["IsContinuous".toLowerCase()])
+                        toRet.is_continuous = tlj["IsContinuous".toLowerCase()];
+                    if (tlj["LabelsHorizontalGapLength".toLowerCase()])
+                        toRet.labels_horizontal_gap_length = tlj["LabelsHorizontalGapLength".toLowerCase()];
+                    if (tlj["LabelsPerRow".toLowerCase()])
+                        toRet.labels_per_row = tlj["LabelsPerRow".toLowerCase()];
+                    if (tlj["MarkLength".toLowerCase()])
+                        toRet.mark_length = tlj["MarkLength".toLowerCase()];
+                    if (tlj["OffsetLength".toLowerCase()])
+                        toRet.offset_length = tlj["OffsetLength".toLowerCase()];
+                    if (tlj["PrintSpeed".toLowerCase()])
+                        toRet.print_speed = tlj["PrintSpeed".toLowerCase()];
+                    if (tlj["Width".toLowerCase()])
+                        toRet.width = tlj["Width".toLowerCase()];
+                    if (tlj["PrintMirror".toLowerCase()])
+                        toRet.print_mirror = tlj["PrintMirror".toLowerCase()];
+                    if (tlj["CutAfterPrinting".toLowerCase()])
+                        toRet.cut_after_printing = tlj["CutAfterPrinting".toLowerCase()];
+                    if (tlj["Darkness".toLowerCase()])
+                        toRet.darkness = tlj["Darkness".toLowerCase()];
+                    if (tlj["SheetLabelsWidth".toLowerCase()])
+                        toRet.sheet_labels_width = tlj["SheetLabelsWidth".toLowerCase()];
+                    if (tlj["SheetLabelsHeight".toLowerCase()])
+                        toRet.sheet_labels_height = tlj["SheetLabelsHeight".toLowerCase()];
+                    if (tlj["SheetLabelsCount".toLowerCase()])
+                        toRet.sheet_labels_count = tlj["SheetLabelsCount".toLowerCase()];
+                    if (tlj["SheetLabelsMargin".toLowerCase()]) {
+                        if (tlj["SheetLabelsMargin".toLowerCase()]["left"] != null) {
+                            var co = tlj["SheetLabelsMargin".toLowerCase()];
+                            toRet.sheet_labels_margin = new Printing.FrameThickness(co["left"], co["top"], co["right"], co["bottom"]);
+                        }
+                        else {
+                            var margin = tlj["SheetLabelsMargin".toLowerCase()].split(',');
+                            toRet.sheet_labels_margin = new Printing.FrameThickness(margin[0], margin.length == 1 ? margin[0] : margin[1], margin.length == 1 ? margin[0] : margin[2], margin.length == 1 ? margin[0] : margin[3]);
+                        }
+                    }
+                    if (tlj["items"]) {
+                        var items = tlj["items"];
                         for (var i = 0; i < items.length; i++) {
-                            var parsed_item = Neodynamic.Web.Utils.TLParser.parseItem(items[i], items[i]["type"], toRet.unit_type);
+                            var parsed_item = Neodynamic.Web.Utils.TLParser.parseItem(items[i], oldJsonFormat ? items[i]["type"] : items[i]["typename"], toRet.unit_type);
                             items_list.push(parsed_item);
                             items_list[i].refresh();
                         }
                         toRet.items = items_list;
                     }
-                    if (tlj["thermallabel"]["expressions"]) {
-                        var exprs = tlj["thermallabel"]["expressions"];
+                    if (tlj["expressions"]) {
+                        var exprs = tlj["expressions"];
                         for (var i = 0; i < exprs.length; i++) {
                             var parsed_expr = Neodynamic.Web.Utils.TLParser.parseExpression(exprs[i]);
                             if (parsed_expr)
@@ -5969,68 +5997,6 @@ var Neodynamic;
                     this._workspaceOffsetX = 0;
                     this._workspaceOffsetY = 0;
                     this._undoRedo = false;
-                    this._Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function (e) { var t = ""; var n, r, i, s, o, u, a; var f = 0; e = this._utf8_encode(e); while (f < e.length) {
-                            n = e.charCodeAt(f++);
-                            r = e.charCodeAt(f++);
-                            i = e.charCodeAt(f++);
-                            s = n >> 2;
-                            o = (n & 3) << 4 | r >> 4;
-                            u = (r & 15) << 2 | i >> 6;
-                            a = i & 63;
-                            if (isNaN(r)) {
-                                u = a = 64;
-                            }
-                            else if (isNaN(i)) {
-                                a = 64;
-                            }
-                            t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a);
-                        } return t; }, decode: function (e) { var t = ""; var n, r, i; var s, o, u, a; var f = 0; e = e.replace(/++[++^A-Za-z0-9+/=]/g, ""); while (f < e.length) {
-                            s = this._keyStr.indexOf(e.charAt(f++));
-                            o = this._keyStr.indexOf(e.charAt(f++));
-                            u = this._keyStr.indexOf(e.charAt(f++));
-                            a = this._keyStr.indexOf(e.charAt(f++));
-                            n = s << 2 | o >> 4;
-                            r = (o & 15) << 4 | u >> 2;
-                            i = (u & 3) << 6 | a;
-                            t = t + String.fromCharCode(n);
-                            if (u != 64) {
-                                t = t + String.fromCharCode(r);
-                            }
-                            if (a != 64) {
-                                t = t + String.fromCharCode(i);
-                            }
-                        } t = this._utf8_decode(t); return t; }, _utf8_encode: function (e) { e = e.replace(/\r\n/g, "n"); var t = ""; for (var n = 0; n < e.length; n++) {
-                            var r = e.charCodeAt(n);
-                            if (r < 128) {
-                                t += String.fromCharCode(r);
-                            }
-                            else if (r > 127 && r < 2048) {
-                                t += String.fromCharCode(r >> 6 | 192);
-                                t += String.fromCharCode(r & 63 | 128);
-                            }
-                            else {
-                                t += String.fromCharCode(r >> 12 | 224);
-                                t += String.fromCharCode(r >> 6 & 63 | 128);
-                                t += String.fromCharCode(r & 63 | 128);
-                            }
-                        } return t; }, _utf8_decode: function (e) { var t = ""; var n = 0; var r = 0; ; var c1 = 0; var c2 = 0; var c3 = 0; while (n < e.length) {
-                            r = e.charCodeAt(n);
-                            if (r < 128) {
-                                t += String.fromCharCode(r);
-                                n++;
-                            }
-                            else if (r > 191 && r < 224) {
-                                c2 = e.charCodeAt(n + 1);
-                                t += String.fromCharCode((r & 31) << 6 | c2 & 63);
-                                n += 2;
-                            }
-                            else {
-                                c2 = e.charCodeAt(n + 1);
-                                c3 = e.charCodeAt(n + 2);
-                                t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63);
-                                n += 3;
-                            }
-                        } return t; } };
                     this._clipboardBuffer = null;
                     this._objFromCut = false;
                     this._pasteCounter = 1;
@@ -6040,7 +6006,7 @@ var Neodynamic;
                         var _dpi = 96;
                         if (this.dpi)
                             _dpi = this.dpi;
-                        if (_dpi == -1)
+                        if (_dpi == -1 || (this.thermal_label_object instanceof Neodynamic.SDK.Printing.ImageItem && this.thermal_label_object._is_missing_image))
                             ctx.drawImage(this._element, 0, 0, this._element.width, this._element.height, -this.width / 2, -this.height / 2, this.width, this.height);
                         else
                             ctx.drawImage(this._element, 0, 0, this._element.width, this._element.height, -this.width / 2, -this.height / 2, this._element.width * 96 / _dpi, this._element.height * 96 / _dpi);
@@ -6058,6 +6024,11 @@ var Neodynamic;
                     enumerable: true,
                     configurable: true
                 });
+                ThermalLabelEditor.prototype._b64Encode = function (s) {
+                    return btoa(encodeURIComponent(s).replace(/%([0-9A-F]{2})/g, function (match, p1) {
+                        return String.fromCharCode(parseInt('0x' + p1));
+                    }));
+                };
                 Object.defineProperty(ThermalLabelEditor.prototype, "rfid_tag_image_file_name", {
                     get: function () {
                         return this._rfid_tag_image_file_name;
@@ -7008,7 +6979,7 @@ var Neodynamic;
                     var form = $("<form action='" + custom_url + "' method='post'></form>");
                     form.append("<input name='Action' value='Save' />");
                     form.append("<input name='OutFormat' value='" + templateFormat + "' />");
-                    form.append("<input name='DataBase64' value='" + this._Base64.encode(JSON.stringify(this._tl._getProperties())) + "' />");
+                    form.append("<input name='DataBase64' value='" + this._b64Encode(JSON.stringify(this._tl._getProperties())) + "' />");
                     if (file_name)
                         form.append("<input name='FileName' value='" + file_name + "' />");
                     $("body").append(form);
@@ -7025,7 +6996,7 @@ var Neodynamic;
                     }
                     var ds = null;
                     if (data_source_format && data_source) {
-                        ds = data_source_format + ":" + this._Base64.encode(data_source);
+                        ds = data_source_format + ":" + this._b64Encode(data_source);
                     }
                     $.ajax({
                         url: custom_url,
@@ -7131,7 +7102,7 @@ var Neodynamic;
                     }
                     var ds = null;
                     if (data_source_format && data_source) {
-                        ds = data_source_format + ":" + this._Base64.encode(data_source);
+                        ds = data_source_format + ":" + this._b64Encode(data_source);
                     }
                     var labelPreview;
                     $.ajax({
@@ -7906,7 +7877,10 @@ var Neodynamic;
                 NamingUtils.convertXMLUCS2ToChar = function (text) {
                     return text.replace(/_x(([A-F]|[a-f]|[0-9]){4})_/g, function (x, x1) {
                         return String.fromCharCode(parseInt(x1, 16));
-                    });
+                    }).replace(/\"/g, '_x0022_').replace(/&#34;/g, '_x0022_')
+                        .replace(/</g, '_x003c_').replace(/&#60;/g, '_x003c_')
+                        .replace(/>/g, '_x003e_').replace(/&#62;/g, '_x003e_')
+                        .replace(/&/g, '_x0026_').replace(/&#38;/g, '_x0026_');
                 };
                 NamingUtils.newGuid = function () {
                     function s4() {
@@ -8032,35 +8006,53 @@ var Neodynamic;
                 function TLParser() {
                 }
                 TLParser.parseFontObject = function (json) {
-                    if (!(json.length == 7 || json.length == 11 || json.length == 8 || json.length == 12 || json.length == 9 || json.length == 13))
-                        throw "Invalid Font";
                     var nf = new Neodynamic.SDK.Printing.Font();
-                    nf.name = json[0];
-                    nf.size = parseInt(json[1]);
-                    if (json.length >= 11) {
-                        nf.unit = Neodynamic.SDK.Printing.FontUnit[json[6]];
-                        nf.custom_font_file = json[7];
-                        nf.custom_font_file_family_name = json[8];
-                        nf.bold = json[2] == "True" ? true : false;
-                        nf.italic = json[3] == "True" ? true : false;
-                        nf.underline = json[4] == "True" ? true : false;
-                        nf.strikeout = json[5] == "True" ? true : false;
-                        nf.is_bitmap_font = json[9] == "True" ? true : false;
-                        nf.threshold = json[10];
+                    if (json.name != null) {
+                        nf.name = json.name;
+                        nf.size = json.size;
+                        nf.unit = Neodynamic.SDK.Printing.FontUnit[json.unit];
+                        nf.custom_font_file = json.customfontfile;
+                        nf.custom_font_file_family_name = json.customfontfilefamilyname;
+                        nf.bold = json.bold;
+                        nf.italic = json.italic;
+                        nf.underline = json.underline;
+                        nf.strikeout = json.strikeout;
+                        nf.is_bitmap_font = json.isbitmapfont;
+                        nf.threshold = json.threshold;
+                        nf.name_at_printer_storage = json.nameatprinterstorage;
+                        nf.code_page = Neodynamic.SDK.Printing.CodePage[(json.codepage)];
                     }
-                    else if (json.length == 7 || json.length == 8 || json.length == 9) {
-                        nf.unit = nf.unit = Neodynamic.SDK.Printing.FontUnit[json[2]];
-                        nf.custom_font_file = json[3];
-                        nf.custom_font_file_family_name = json[4];
-                        nf.is_bitmap_font = json[5] == "True" ? true : false;
-                        nf.threshold = json[6];
-                    }
-                    if (json.length == 12 || json.length == 8) {
-                        nf.name_at_printer_storage = (json.length == 8 ? json[7] : json[11]);
-                    }
-                    if (json.length == 13 || json.length == 9) {
-                        nf.name_at_printer_storage = (json.length == 9 ? json[7] : json[11]);
-                        nf.code_page = Neodynamic.SDK.Printing.CodePage[(json.length == 9 ? json[8] : json[12])];
+                    else {
+                        json = json.split(',');
+                        if (!(json.length == 7 || json.length == 11 || json.length == 8 || json.length == 12 || json.length == 9 || json.length == 13))
+                            throw "Invalid Font";
+                        nf.name = json[0];
+                        nf.size = parseInt(json[1]);
+                        if (json.length >= 11) {
+                            nf.unit = Neodynamic.SDK.Printing.FontUnit[json[6]];
+                            nf.custom_font_file = json[7];
+                            nf.custom_font_file_family_name = json[8];
+                            nf.bold = json[2] == "True" ? true : false;
+                            nf.italic = json[3] == "True" ? true : false;
+                            nf.underline = json[4] == "True" ? true : false;
+                            nf.strikeout = json[5] == "True" ? true : false;
+                            nf.is_bitmap_font = json[9] == "True" ? true : false;
+                            nf.threshold = json[10];
+                        }
+                        else if (json.length == 7 || json.length == 8 || json.length == 9) {
+                            nf.unit = nf.unit = Neodynamic.SDK.Printing.FontUnit[json[2]];
+                            nf.custom_font_file = json[3];
+                            nf.custom_font_file_family_name = json[4];
+                            nf.is_bitmap_font = json[5] == "True" ? true : false;
+                            nf.threshold = json[6];
+                        }
+                        if (json.length == 12 || json.length == 8) {
+                            nf.name_at_printer_storage = (json.length == 8 ? json[7] : json[11]);
+                        }
+                        if (json.length == 13 || json.length == 9) {
+                            nf.name_at_printer_storage = (json.length == 9 ? json[7] : json[11]);
+                            nf.code_page = Neodynamic.SDK.Printing.CodePage[(json.length == 9 ? json[8] : json[12])];
+                        }
                     }
                     return nf;
                 };
@@ -8074,6 +8066,8 @@ var Neodynamic;
                         if (json.cornerradius != null) {
                             if (typeof (json.cornerradius) == "number")
                                 e.corner_radius = new Neodynamic.SDK.Printing.RectangleCornerRadius(json.cornerradius, json.cornerradius, json.cornerradius, json.cornerradius);
+                            else if (json.cornerradius.topleft != null)
+                                e.corner_radius = new Neodynamic.SDK.Printing.RectangleCornerRadius(json.cornerradius.topleft, json.cornerradius.topright, json.cornerradius.bottomright, json.cornerradius.bottomleft);
                             else {
                                 var cr_parsed = json.cornerradius.split(',');
                                 e.corner_radius = new Neodynamic.SDK.Printing.RectangleCornerRadius(cr_parsed[0], cr_parsed[1], cr_parsed[2], cr_parsed[3]);
@@ -8114,7 +8108,7 @@ var Neodynamic;
                         if (json.strokecolorhex != null)
                             e.stroke_color_hex = json.strokecolorhex;
                         if (json.expression != null)
-                            e.expression = json.expression;
+                            e.expression = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.expression);
                         if (json.usecache != null)
                             e.use_cache = json.usecache;
                         if (json.cacheitemid != null)
@@ -8163,7 +8157,7 @@ var Neodynamic;
                         if (json.strokecolorhex != null)
                             e.stroke_color_hex = json.strokecolorhex;
                         if (json.expression != null)
-                            e.expression = json.expression;
+                            e.expression = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.expression);
                         if (json.usecache != null)
                             e.use_cache = json.usecache;
                         if (json.cacheitemid != null)
@@ -8214,6 +8208,8 @@ var Neodynamic;
                         if (json.barcodepadding != null) {
                             if (typeof (json.barcodepadding) == "number")
                                 e.barcode_padding = new Neodynamic.SDK.Printing.FrameThickness(json.barcodepadding, json.barcodepadding, json.barcodepadding, json.barcodepadding);
+                            else if (json.barcodepadding.left != null)
+                                e.barcode_padding = new Neodynamic.SDK.Printing.FrameThickness(json.barcodepadding.left, json.barcodepadding.top, json.barcodepadding.right, json.barcodepadding.bottom);
                             else {
                                 var bp_parsed = json.barcodepadding.split(",");
                                 e.barcode_padding = new Neodynamic.SDK.Printing.FrameThickness(bp_parsed[0], bp_parsed[1], bp_parsed[2], bp_parsed[3]);
@@ -8238,6 +8234,8 @@ var Neodynamic;
                         if (json.borderthickness != null) {
                             if (typeof (json.borderthickness) == "number")
                                 e.border_thickness = new Neodynamic.SDK.Printing.FrameThickness(json.borderthickness, json.borderthickness, json.borderthickness, json.borderthickness);
+                            else if (json.borderthickness.left != null)
+                                e.border_thickness = new Neodynamic.SDK.Printing.FrameThickness(json.borderthickness.left, json.borderthickness.top, json.borderthickness.right, json.borderthickness.bottom);
                             else {
                                 var cr_parsed = json.cornerradius.split(',');
                                 e.border_thickness = new Neodynamic.SDK.Printing.FrameThickness(cr_parsed[0], cr_parsed[1], cr_parsed[2], cr_parsed[3]);
@@ -8264,6 +8262,8 @@ var Neodynamic;
                         if (json.cornerradius != null) {
                             if (typeof (json.cornerradius) == "number")
                                 e.corner_radius = new Neodynamic.SDK.Printing.RectangleCornerRadius(json.cornerradius, json.cornerradius, json.cornerradius, json.cornerradius);
+                            else if (json.cornerradius.topleft != null)
+                                e.corner_radius = new Neodynamic.SDK.Printing.RectangleCornerRadius(json.cornerradius.topleft, json.cornerradius.topright, json.cornerradius.bottomright, json.cornerradius.bottomleft);
                             else {
                                 var cr_parsed = json.cornerradius.split(',');
                                 e.corner_radius = new Neodynamic.SDK.Printing.RectangleCornerRadius(cr_parsed[0], cr_parsed[1], cr_parsed[2], cr_parsed[3]);
@@ -8314,7 +8314,7 @@ var Neodynamic;
                         if (json.errorbehavior != null)
                             e.error_behavior = Neodynamic.SDK.Printing.BarcodeErrorBehavior[json.errorbehavior];
                         if (json.font != null) {
-                            e.font = Neodynamic.Web.Utils.TLParser.parseFontObject(json.font.split(','));
+                            e.font = Neodynamic.Web.Utils.TLParser.parseFontObject(json.font);
                         }
                         if (json.forecolor != null)
                             e.fore_color = Neodynamic.SDK.Printing.Color[json.forecolor];
@@ -8421,6 +8421,8 @@ var Neodynamic;
                         if (json.quietzone != null) {
                             if (typeof (json.quietzone) == "number")
                                 e.quiet_zone = new Neodynamic.SDK.Printing.FrameThickness(json.quietzone, json.quietzone, json.quietzone, json.quietzone);
+                            else if (json.quietzone.left != null)
+                                e.quiet_zone = new Neodynamic.SDK.Printing.FrameThickness(json.quietzone.left, json.quietzone.top, json.quietzone.right, json.quietzone.bottom);
                             else {
                                 var qz_parsed = json.quietzone.split(',');
                                 e.quiet_zone = new Neodynamic.SDK.Printing.FrameThickness(qz_parsed[0], qz_parsed[1], qz_parsed[2], qz_parsed[3]);
@@ -8441,7 +8443,7 @@ var Neodynamic;
                         if (json.textalignment != null)
                             e.text_alignment = Neodynamic.SDK.Printing.BarcodeTextAlignment[json.textalignment];
                         if (json.textfont != null) {
-                            e.text_font = Neodynamic.Web.Utils.TLParser.parseFontObject(json.textfont.split(','));
+                            e.text_font = Neodynamic.Web.Utils.TLParser.parseFontObject(json.textfont);
                         }
                         if (json.textforecolor != null)
                             e.text_fore_color = Neodynamic.SDK.Printing.Color[json.textforecolor];
@@ -8488,7 +8490,7 @@ var Neodynamic;
                         if (json.textforecolorhex != null)
                             e.text_fore_color_hex = json.textforecolorhex;
                         if (json.expression != null)
-                            e.expression = json.expression;
+                            e.expression = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.expression);
                         if (json.usecache != null)
                             e.use_cache = json.usecache;
                         if (json.cacheitemid != null)
@@ -8508,16 +8510,29 @@ var Neodynamic;
                         e.unit_type = unitType;
                         if (json.monochromesettings != null) {
                             var mcs = new Neodynamic.SDK.Printing.MonochromeSettings();
-                            var cutted_mcs = json.monochromesettings.split(',');
-                            mcs.dither_method = Neodynamic.SDK.Printing.DitherMethod[cutted_mcs[0]];
-                            mcs.threshold = parseInt(cutted_mcs[1]);
-                            mcs.reverse_effect = cutted_mcs[2] == "True" ? true : false;
+                            if (json.monochromesettings.dithermethod != null) {
+                                mcs.dither_method = Neodynamic.SDK.Printing.DitherMethod[json.monochromesettings.dithermethod];
+                                mcs.threshold = json.monochromesettings.threshold;
+                                mcs.reverse_effect = json.monochromesettings.reverseeffect;
+                            }
+                            else {
+                                var cutted_mcs = json.monochromesettings.split(',');
+                                mcs.dither_method = Neodynamic.SDK.Printing.DitherMethod[cutted_mcs[0]];
+                                mcs.threshold = parseInt(cutted_mcs[1]);
+                                mcs.reverse_effect = cutted_mcs[2] == "True" ? true : false;
+                            }
                             e.monochrome_settings = mcs;
                         }
-                        if (json.source == "Base64")
-                            e.source_base64 = json.sourcedata;
-                        else if (json.source == "File")
-                            e.source_file = json.sourcedata;
+                        if (json.source != null) {
+                            if (json.source == "Base64")
+                                e.source_base64 = json.sourcedata;
+                            else if (json.source == "File")
+                                e.source_file = json.sourcedata;
+                        }
+                        else if (json.sourcefile != null) {
+                            e.source_file = json.sourcefile;
+                            e.source_base64 = json.sourcebase64;
+                        }
                         if (json.hideifnotfound != null)
                             e.hide_if_not_found = json.hideifnotfound;
                         if (json.isgrayscaleorblackwhite != null)
@@ -8557,7 +8572,7 @@ var Neodynamic;
                         if (json.converttomonochrome != null)
                             e.convert_to_monochrome = json.converttomonochrome;
                         if (json.expression != null)
-                            e.expression = json.expression;
+                            e.expression = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.expression);
                         if (json.usecache != null)
                             e.use_cache = json.usecache;
                         if (json.cacheitemid != null)
@@ -8602,7 +8617,7 @@ var Neodynamic;
                         if (json.strokecolorhex != null)
                             e.stroke_color_hex = json.strokecolorhex;
                         if (json.expression != null)
-                            e.expression = json.expression;
+                            e.expression = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.expression);
                         if (json.usecache != null)
                             e.use_cache = json.usecache;
                         if (json.cacheitemid != null)
@@ -8619,6 +8634,8 @@ var Neodynamic;
                         if (json.cornerradius != null) {
                             if (typeof (json.cornerradius) == "number")
                                 e.corner_radius = new Neodynamic.SDK.Printing.RectangleCornerRadius(json.cornerradius, json.cornerradius, json.cornerradius, json.cornerradius);
+                            else if (json.cornerradius.topleft != null)
+                                e.corner_radius = new Neodynamic.SDK.Printing.RectangleCornerRadius(json.cornerradius.topleft, json.cornerradius.topright, json.cornerradius.bottomright, json.cornerradius.bottomleft);
                             else {
                                 var cr_parsed = json.cornerradius.split(',');
                                 e.corner_radius = new Neodynamic.SDK.Printing.RectangleCornerRadius(cr_parsed[0], cr_parsed[1], cr_parsed[2], cr_parsed[3]);
@@ -8645,6 +8662,8 @@ var Neodynamic;
                         if (json.borderthickness != null) {
                             if (typeof (json.borderthickness) == "number")
                                 e.border_thickness = new Neodynamic.SDK.Printing.FrameThickness(json.borderthickness, json.borderthickness, json.borderthickness, json.borderthickness);
+                            else if (json.borderthickness.left != null)
+                                e.border_thickness = new Neodynamic.SDK.Printing.FrameThickness(json.borderthickness.left, json.borderthickness.top, json.borderthickness.right, json.borderthickness.bottom);
                             else {
                                 var bt_parsed = json.borderthickness.split(',');
                                 e.border_thickness = new Neodynamic.SDK.Printing.FrameThickness(bt_parsed[0], bt_parsed[1], bt_parsed[2], bt_parsed[3]);
@@ -8667,7 +8686,7 @@ var Neodynamic;
                         if (json.sizing != null)
                             e.sizing = (Neodynamic.SDK.Printing.TextSizing)[json.sizing];
                         if (json.font != null)
-                            e.font = Neodynamic.Web.Utils.TLParser.parseFontObject(json.font.split(','));
+                            e.font = Neodynamic.Web.Utils.TLParser.parseFontObject(json.font);
                         if (json.text != null)
                             e.text = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.text);
                         if (json.textalignment != null)
@@ -8675,6 +8694,8 @@ var Neodynamic;
                         if (json.textpadding != null) {
                             if (typeof (json.textpadding) == "number")
                                 e.text_padding = new Neodynamic.SDK.Printing.FrameThickness(json.textpadding, json.textpadding, json.textpadding, json.textpadding);
+                            else if (json.textpadding.left != null)
+                                e.text_padding = new Neodynamic.SDK.Printing.FrameThickness(json.textpadding.left, json.textpadding.top, json.textpadding.right, json.textpadding.bottom);
                             else {
                                 var tp_parsed = json.textpadding.split(',');
                                 e.text_padding = new Neodynamic.SDK.Printing.FrameThickness(tp_parsed[0], tp_parsed[1], tp_parsed[2], tp_parsed[3]);
@@ -8699,7 +8720,7 @@ var Neodynamic;
                         if (json.forecolorhex != null)
                             e.fore_color_hex = json.forecolorhex;
                         if (json.expression != null)
-                            e.expression = json.expression;
+                            e.expression = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.expression);
                         if (json.inputmaskpattern != null)
                             e.input_mask_pattern = json.inputmaskpattern;
                         if (json.inputmaskpromptchar != null)
@@ -8714,6 +8735,10 @@ var Neodynamic;
                             e.stroke_thickness = json.strokethickness;
                         if (json.strokecolorhex != null)
                             e.stroke_color_hex = json.strokecolorhex;
+                        if (json.charspacing != null)
+                            e.char_spacing = json.charspacing;
+                        if (json.hideifempty != null)
+                            e.hide_if_empty = json.hideifempty;
                         return e;
                     }
                     if (type == "RFIDTagItem") {
@@ -8746,7 +8771,7 @@ var Neodynamic;
                         if (json.editable != null)
                             e.editable = json.editable;
                         if (json.expression != null)
-                            e.expression = json.expression;
+                            e.expression = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.expression);
                         if (json.usecache != null)
                             e.use_cache = json.usecache;
                         if (json.cacheitemid != null)
@@ -8758,9 +8783,9 @@ var Neodynamic;
                     throw "Object not supported";
                 };
                 TLParser.parseExpression = function (json) {
-                    if (json.code != null)
+                    if (json.code)
                         return Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.code);
-                    return null;
+                    return json;
                 };
                 TLParser.JsonConvertKeysToLowerCase = function (obj) {
                     var output = {};
@@ -8768,7 +8793,7 @@ var Neodynamic;
                         if (Object.prototype.toString.apply(obj[i]) === '[object Object]') {
                             output[i.toLowerCase()] = TLParser.JsonConvertKeysToLowerCase(obj[i]);
                         }
-                        else if (Object.prototype.toString.apply(obj[i]) === '[object Array]') {
+                        else if (Object.prototype.toString.apply(obj[i]) === '[object Array]' && i != 'expressions') {
                             output[i.toLowerCase()] = [];
                             for (var j = 0; j < obj[i].length; j++) {
                                 output[i.toLowerCase()].push(TLParser.JsonConvertKeysToLowerCase(obj[i][j]));

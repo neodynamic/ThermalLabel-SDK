@@ -5,7 +5,7 @@
         //console.log(propName);
         //console.log(value);
         //console.log(typeof(value));
-        
+
         if (this.id != timestamp) return;
 
 
@@ -134,7 +134,7 @@
             var enumEntries = [];
             for (var e in theEnum) {
                 if (typeof (theEnum[e]) === "number") {
-                    enumEntries.push({ key: e, value: theEnum[e]});
+                    enumEntries.push({ key: e, value: theEnum[e] });
                 }
             }
             enumEntries.sort(function (x, y) {

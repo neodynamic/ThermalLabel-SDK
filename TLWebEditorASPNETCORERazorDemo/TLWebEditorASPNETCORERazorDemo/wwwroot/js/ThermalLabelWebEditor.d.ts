@@ -1553,6 +1553,7 @@ declare namespace Neodynamic.SDK.Printing {
         private _source_dpi;
         private _convert_to_monochrome;
         private _source_file;
+        private _httpPattern;
         private _has_to_reload;
         private _image_item;
         private _original_image_item;
@@ -1808,6 +1809,7 @@ declare namespace Neodynamic.SDK.Printing {
         private _input_mask_prompt_char;
         private _stroke_thickness;
         private _stroke_color_hex;
+        private _char_spacing;
         private _has_to_reload;
         private _image_item;
         get back_color(): Color;
@@ -1866,6 +1868,8 @@ declare namespace Neodynamic.SDK.Printing {
         set stroke_color_hex(value: string);
         get stroke_thickness(): any;
         set stroke_thickness(value: any);
+        get char_spacing(): any;
+        set char_spacing(value: any);
         _updateFromCanvas(): void;
         _updateToCanvas(): void;
         refresh(): void;
@@ -1936,6 +1940,7 @@ declare namespace Neodynamic.SDK.Printing {
             StrokeThickness: any;
             StrokeColorHex: string;
             Visible: boolean;
+            CharSpacing: any;
         };
         constructor();
         private _dblClick;
@@ -2076,7 +2081,7 @@ declare namespace Neodynamic.Web.Editor {
         private _workspaceOffsetY;
         private _undoManager;
         private _undoRedo;
-        private _Base64;
+        private _b64Encode;
         get rfid_tag_image_file_name(): string;
         set rfid_tag_image_file_name(value: string);
         get active_tool(): EditorTool;
@@ -2207,7 +2212,7 @@ declare namespace Neodynamic.Web.Utils {
     class TLParser {
         static parseFontObject(json: any): SDK.Printing.Font;
         static parseItem(json: any, type: any, unitType: any): any;
-        static parseExpression(json: any): string;
+        static parseExpression(json: any): any;
         static JsonConvertKeysToLowerCase(obj: any): {};
     }
 }

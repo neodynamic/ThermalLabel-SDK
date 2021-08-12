@@ -121,7 +121,7 @@
         $('#expr-desc').empty();
         $('#expr-syntax').empty();
         $('#expr-example').empty();
-        
+
 
         if ($("#expr-category option[name='Items']")[0])
             $("#expr-category option[name='Items']").remove();
