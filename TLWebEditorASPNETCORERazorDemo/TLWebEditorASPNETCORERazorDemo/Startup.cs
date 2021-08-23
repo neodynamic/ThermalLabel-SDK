@@ -85,13 +85,15 @@ namespace TLWebEditorASPNETCORERazorDemo
 
 
                 //set http response data
-                context.Response.ContentType = httpResponse.ContentType;
                 if (string.IsNullOrEmpty(httpResponse.HeaderName) == false)
                 {
                     context.Response.Headers.Add(httpResponse.HeaderName, httpResponse.HeaderValue);
                 }
-                await context.Response.WriteAsync(httpResponse.Content);
-
+                if (httpResponse.Content != null)
+                {
+                    context.Response.ContentType = httpResponse.ContentType;
+                    await context.Response.WriteAsync(httpResponse.Content);
+                }
             }
             catch (Exception ex)
             {

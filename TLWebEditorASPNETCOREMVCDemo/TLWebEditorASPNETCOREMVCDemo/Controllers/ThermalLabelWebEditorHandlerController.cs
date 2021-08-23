@@ -68,9 +68,11 @@ namespace TLWebEditorASPNETCOREMVCDemo.Controllers
                 {
                     _ctx.Response.Headers.Add(httpResponse.HeaderName, httpResponse.HeaderValue);
                 }
-                _ctx.Response.ContentType = httpResponse.ContentType;
-                _ctx.Response.Body.Write(Encoding.UTF8.GetBytes(httpResponse.Content)); //await _ctx.Response.WriteAsync(httpResponse.Content);
-
+                if (httpResponse.Content != null)
+                {
+                    _ctx.Response.ContentType = httpResponse.ContentType;
+                    _ctx.Response.Body.Write(Encoding.UTF8.GetBytes(httpResponse.Content)); //await _ctx.Response.WriteAsync(httpResponse.Content);
+                }
 
 
             }

@@ -27,8 +27,11 @@ namespace TLWebEditorLegacyMVCDemo.Controllers
                 ThermalLabelWebEditorHttpResponse httpResponse = ThermalLabelWebEditor.ProcessRequest(System.Web.HttpContext.Current.Request.HttpMethod == "POST" ? System.Web.HttpContext.Current.Request.Form : System.Web.HttpContext.Current.Request.QueryString);
 
                 //set http response data
-                System.Web.HttpContext.Current.Response.ContentType = httpResponse.ContentType;
-                System.Web.HttpContext.Current.Response.Write(httpResponse.Content);
+                if (httpResponse.Content != null)
+                {
+                    System.Web.HttpContext.Current.Response.ContentType = httpResponse.ContentType;
+                    System.Web.HttpContext.Current.Response.Write(httpResponse.Content);
+                }
                 if (string.IsNullOrEmpty(httpResponse.HeaderName) == false)
                 {
                     System.Web.HttpContext.Current.Response.Headers.Add(httpResponse.HeaderName, httpResponse.HeaderValue);
