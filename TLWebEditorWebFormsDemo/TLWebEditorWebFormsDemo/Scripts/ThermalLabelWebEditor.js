@@ -1,6 +1,6 @@
 ﻿/*
  * ThermalLabel Web Editor Add-on
- * ThermalLabelWebEditor-10.0.21.702.js
+ * ThermalLabelWebEditor-10.0.21.1007.js
  * @author Neodynamic (http://neodynamic.com/)
  * Contact: https://neodynamic.com/support
  * WebPage: https://neodynamic.com/products/printing/thermal-label/web-editor/
@@ -301,7 +301,9 @@ var Neodynamic;
                     this._use_cache = false;
                     this._cache_item_id = '';
                     this._visible = true;
+                    this._group_name = '';
                     this._fabric_item = '';
+                    this._guid = '';
                     this._missing_image = "data:image/gif;base64,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";
                 }
                 Object.defineProperty(Item.prototype, "x", {
@@ -462,6 +464,17 @@ var Neodynamic;
                     get: function () { return this._visible; },
                     set: function (value) {
                         this._visible = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                ;
+                Object.defineProperty(Item.prototype, "group_name", {
+                    get: function () { return this._group_name; },
+                    set: function (value) {
+                        this._group_name = value;
                         this.propertyChanged();
                     },
                     enumerable: true,
@@ -641,9 +654,12 @@ var Neodynamic;
                     _this._code11_two_digits_checksum = false;
                     _this._tlc39_micro_pdf417_bar_width = 1;
                     _this._tlc39_micro_pdf417_row_bar_height = 3;
+                    _this._right_to_left = false;
+                    _this._rect_microqr_code_version = Printing.RectMicroQRCodeVersion.Auto;
                     _this._has_to_reload = false;
                     _this._image_item = new Image();
                     var self = _this;
+                    _this._guid = Neodynamic.Web.Utils.NamingUtils.newGuid();
                     _this._image_item.src = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
                     _this._image_item.onload = function () {
                         if (self._fabric_item.canvas)
@@ -2112,6 +2128,25 @@ var Neodynamic;
                     configurable: true
                 });
                 ;
+                Object.defineProperty(BarcodeItem.prototype, "right_to_left", {
+                    get: function () { return this._right_to_left; },
+                    set: function (value) {
+                        this._right_to_left = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(BarcodeItem.prototype, "rect_microqr_code_version", {
+                    get: function () { return this._rect_microqr_code_version; },
+                    set: function (value) {
+                        this._rect_microqr_code_version = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
                 BarcodeItem.prototype._getProperties = function () {
                     return {
                         Type: "Barcode",
@@ -2299,13 +2334,16 @@ var Neodynamic;
                         BarColorHex: this.bar_color_hex,
                         ForeColorHex: this.fore_color_hex,
                         TextForeColorHex: this.text_fore_color_hex,
-                        Expression: this.expression,
+                        Expression: Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(this.expression),
                         UseCache: this.use_cache,
                         CacheItemId: this.cache_item_id,
                         Visible: this.visible,
                         Code11TwoDigitsChecksum: this.code11_two_digits_checksum,
                         Tlc39MicroPdf417BarWidth: this.tlc39_micro_pdf417_bar_width,
-                        Tlc39MicroPdf417RowBarHeight: this.tlc39_micro_pdf417_row_bar_height
+                        Tlc39MicroPdf417RowBarHeight: this.tlc39_micro_pdf417_row_bar_height,
+                        RightToLeft: this.right_to_left,
+                        RectMicroQRCodeVersion: this.rect_microqr_code_version,
+                        GroupName: this.group_name
                     };
                 };
                 ;
@@ -2410,6 +2448,8 @@ var Neodynamic;
                     _this._stroke_color = Printing.Color.Black;
                     _this._stroke_thickness = 1;
                     _this._stroke_color_hex = '';
+                    _this._stroke_style = Printing.StrokeStyle.Solid;
+                    _this._stroke_style_pattern = '';
                     return _this;
                 }
                 Object.defineProperty(ShapeItem.prototype, "width", {
@@ -2473,6 +2513,47 @@ var Neodynamic;
                 });
                 ;
                 ;
+                Object.defineProperty(ShapeItem.prototype, "stroke_style", {
+                    get: function () { return this._stroke_style; },
+                    set: function (value) {
+                        this._stroke_style = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                ;
+                Object.defineProperty(ShapeItem.prototype, "stroke_style_pattern", {
+                    get: function () { return this._stroke_style_pattern; },
+                    set: function (value) {
+                        this._stroke_style_pattern = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                ;
+                ShapeItem.prototype.getStrokeStylePattern = function () {
+                    var TextUtils = Neodynamic.Web.Utils.TextUtils;
+                    var buffer = [];
+                    if (TextUtils.isEmpty(this.stroke_style_pattern) == false) {
+                        var vals = this.stroke_style_pattern.split('|');
+                        for (var i = 0; i < vals.length; i++) {
+                            try {
+                                var val = parseFloat(vals[i]);
+                                buffer.push(Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(val, this._unit_type));
+                            }
+                            catch (_a) { }
+                        }
+                    }
+                    else {
+                        buffer.push(this._stroke_thickness);
+                        buffer.push(this._stroke_thickness);
+                    }
+                    return buffer;
+                };
                 return ShapeItem;
             }(Printing.Item));
             Printing.ShapeItem = ShapeItem;
@@ -2527,183 +2608,13 @@ var Neodynamic;
     (function (SDK) {
         var Printing;
         (function (Printing) {
-            var CircleShapeItem = (function (_super) {
-                __extends(CircleShapeItem, _super);
-                function CircleShapeItem() {
-                    var _this = _super.call(this) || this;
-                    _this._rotation_angle = 0;
-                    var self = _this;
-                    var TextUtils = Neodynamic.Web.Utils.TextUtils;
-                    _this._fabric_item = new fabric.Circle({
-                        thermal_label_object: self,
-                        originX: 'left',
-                        originY: 'top',
-                        radius: 1 / 2,
-                        angle: self._rotation_angle,
-                        width: 1,
-                        height: 1,
-                        top: self._y,
-                        left: self._x,
-                        fill: TextUtils.isEmpty(self._fill_color_hex) ? (self._fill_color == Neodynamic.SDK.Printing.Color.Black ? 'black' : 'transparent') : self._fill_color_hex,
-                        stroke: TextUtils.isEmpty(self._stroke_color_hex) ? (self._stroke_color == Neodynamic.SDK.Printing.Color.Black ? 'black' : 'transparent') : self._stroke_color_hex,
-                        strokeWidth: self._stroke_thickness
-                    }).on('modified', function (e) {
-                        self._updateFromCanvas();
-                    });
-                    return _this;
-                }
-                Object.defineProperty(CircleShapeItem.prototype, "rotation_angle", {
-                    get: function () { return this._rotation_angle; },
-                    set: function (value) {
-                        if (value < 0 || value > 360)
-                            throw new RangeError();
-                        this._rotation_angle = (value == 360) ? 0 : value;
-                        this.propertyChanged();
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                ;
-                ;
-                CircleShapeItem.prototype._updateFromCanvas = function (property) {
-                    var MathUtils = Neodynamic.Web.Utils.MathUtils;
-                    this._rotation_angle = (this._fabric_item.angle == 360) ? 0 : this._fabric_item.angle;
-                    this._width = this._fabric_item.width;
-                    this._height = this._fabric_item.height;
-                    if (this._stroke_color == Neodynamic.SDK.Printing.Color.Black) {
-                        this._width += this._fabric_item.strokeWidth;
-                        this._height += this._fabric_item.strokeWidth;
-                    }
-                    if (this._fabric_item.angle == 0) {
-                        this._x = this._fabric_item.left / this._fabric_item.scaleX;
-                        this._y = this._fabric_item.top / this._fabric_item.scaleY;
-                    }
-                    else {
-                        var boundRect = this._fabric_item.getBoundingRect();
-                        this._x = boundRect.left / this._fabric_item.scaleX;
-                        this._y = boundRect.top / this._fabric_item.scaleY;
-                    }
-                };
-                ;
-                CircleShapeItem.prototype._updateToCanvas = function (property) {
-                    var TextUtils = Neodynamic.Web.Utils.TextUtils;
-                    this._fabric_item.selectable = this._editable;
-                    this._fabric_item.fill = TextUtils.isEmpty(this._fill_color_hex) ? (this._fill_color == Neodynamic.SDK.Printing.Color.Black ? 'black' : 'transparent') : this._fill_color_hex;
-                    this._fabric_item.stroke = TextUtils.isEmpty(this._stroke_color_hex) ? (this._stroke_color == Neodynamic.SDK.Printing.Color.Black ? 'black' : 'transparent') : this._stroke_color_hex;
-                    this._fabric_item.lockMovementX = this._locked;
-                    this._fabric_item.lockMovementY = this._locked;
-                    this._fabric_item.lockScalingX = this._locked;
-                    this._fabric_item.lockScalingY = this._locked;
-                    this._fabric_item.lockRotation = this._locked;
-                    this._fabric_item.strokeWidth = this._stroke_thickness;
-                    this._fabric_item.angle = this._rotation_angle;
-                    var MathUtils = Neodynamic.Web.Utils.MathUtils;
-                    var rect = MathUtils.calcOuterRectOfRotatedRect(0, 0, this._width, this._height, this._fabric_item.angle);
-                    if (this._rotation_angle == 0 || this._rotation_angle == 360) {
-                        this._fabric_item.left = this._x * this._fabric_item.scaleX;
-                        this._fabric_item.top = this._y * this._fabric_item.scaleY;
-                    }
-                    else {
-                        if (this._rotation_angle > 0 && this._rotation_angle < 90) {
-                            var beta = 180 - 90 - this._rotation_angle;
-                            var offsetX = Math.cos(MathUtils.convertDegreesToRad(beta)) * this._height;
-                            this._fabric_item.left = (this._x + offsetX) * this._fabric_item.scaleX;
-                            this._fabric_item.top = this._y * this._fabric_item.scaleY;
-                        }
-                        else if (this._rotation_angle == 90) {
-                            this._fabric_item.left = (this._x + this._height) * this._fabric_item.scaleX;
-                            this._fabric_item.top = this._y * this._fabric_item.scaleY;
-                        }
-                        if (this._rotation_angle > 90 && this._rotation_angle < 180) {
-                            var beta = 270 - 90 - this._rotation_angle;
-                            var offsetY = Math.cos(MathUtils.convertDegreesToRad(beta)) * this._height;
-                            this._fabric_item.left = (this._x + rect[2]) * this._fabric_item.scaleX;
-                            this._fabric_item.top = (this._y + offsetY) * this._fabric_item.scaleY;
-                        }
-                        else if (this._rotation_angle == 180) {
-                            this._fabric_item.left = (this._x + this._width) * this._fabric_item.scaleX;
-                            this._fabric_item.top = (this._y + this._height) * this._fabric_item.scaleY;
-                        }
-                        if (this._rotation_angle > 180 && this._rotation_angle < 270) {
-                            var beta = this._rotation_angle - 180;
-                            var offsetX = Math.cos(MathUtils.convertDegreesToRad(beta)) * this._width;
-                            this._fabric_item.left = (this._x + offsetX) * this._fabric_item.scaleX;
-                            this._fabric_item.top = (this._y + rect[3]) * this._fabric_item.scaleY;
-                        }
-                        else if (this._rotation_angle == 270) {
-                            this._fabric_item.left = this._x * this._fabric_item.scaleX;
-                            this._fabric_item.top = (this._y + this._width) * this._fabric_item.scaleY;
-                        }
-                        if (this._rotation_angle > 270 && this._rotation_angle < 360) {
-                            var beta = 360 - this._rotation_angle;
-                            var offsetY = Math.sin(MathUtils.convertDegreesToRad(beta)) * this._width;
-                            this._fabric_item.left = this._x * this._fabric_item.scaleX;
-                            this._fabric_item.top = (this._y + offsetY) * this._fabric_item.scaleY;
-                        }
-                    }
-                    if (this._stroke_color == Neodynamic.SDK.Printing.Color.Black) {
-                        this._fabric_item.width = this._width - this._stroke_thickness;
-                        this._fabric_item.height = this._height - this._stroke_thickness;
-                    }
-                    else {
-                        this._fabric_item.width = this._width;
-                        this._fabric_item.height = this._height;
-                    }
-                    this._fabric_item.rx = this._fabric_item.width / 2;
-                    this._fabric_item.ry = this._fabric_item.height / 2;
-                    this._fabric_item.setCoords();
-                };
-                CircleShapeItem.prototype.refresh = function () {
-                    this._updateToCanvas();
-                    if (this._fabric_item.canvas)
-                        this._fabric_item.canvas.renderAll();
-                };
-                CircleShapeItem.prototype._getProperties = function () {
-                    return {
-                        Type: "Circle",
-                        RotationAngle: this.rotation_angle,
-                        FillColor: this.fill_color,
-                        StrokeThickness: this.stroke_thickness,
-                        StrokeColor: this.stroke_color,
-                        Width: this.width,
-                        Height: this.height,
-                        Name: this.name,
-                        X: this.x,
-                        Y: this.y,
-                        UnitType: this.unit_type,
-                        DataField: this.data_field,
-                        DataFieldFormatString: this.data_field_format_string,
-                        PrintAsGraphic: this.print_as_graphic,
-                        Comments: this.comments,
-                        Tag: this.tag,
-                        Locked: this.locked,
-                        Editable: this.editable,
-                        FillColorHex: this.fill_color_hex,
-                        StrokeColorHex: this.stroke_color_hex,
-                        Expression: this.expression,
-                        UseCache: this.use_cache,
-                        CacheItemId: this.cache_item_id,
-                        Visible: this.visible
-                    };
-                };
-                return CircleShapeItem;
-            }(Printing.ClosedShapeItem));
-            Printing.CircleShapeItem = CircleShapeItem;
-        })(Printing = SDK.Printing || (SDK.Printing = {}));
-    })(SDK = Neodynamic.SDK || (Neodynamic.SDK = {}));
-})(Neodynamic || (Neodynamic = {}));
-var Neodynamic;
-(function (Neodynamic) {
-    var SDK;
-    (function (SDK) {
-        var Printing;
-        (function (Printing) {
             var EllipseShapeItem = (function (_super) {
                 __extends(EllipseShapeItem, _super);
                 function EllipseShapeItem() {
                     var _this = _super.call(this) || this;
                     _this._rotation_angle = 0;
                     var self = _this;
+                    _this._guid = Neodynamic.Web.Utils.NamingUtils.newGuid();
                     var TextUtils = Neodynamic.Web.Utils.TextUtils;
                     _this._fabric_item = new fabric.Ellipse({
                         thermal_label_object: self,
@@ -2768,6 +2679,19 @@ var Neodynamic;
                     this._fabric_item.lockScalingY = this._locked;
                     this._fabric_item.lockRotation = this._locked;
                     this._fabric_item.strokeWidth = this._stroke_thickness;
+                    if (this._stroke_thickness > 0) {
+                        if (this._stroke_style == Neodynamic.SDK.Printing.StrokeStyle.Solid) {
+                            this._fabric_item.strokeDashArray = null;
+                        }
+                        else if (this._stroke_style == Neodynamic.SDK.Printing.StrokeStyle.Dash) {
+                            this._fabric_item.strokeDashArray = this.getStrokeStylePattern();
+                            this._fabric_item.strokeLineCap = 'butt';
+                        }
+                        else if (this._stroke_style == Neodynamic.SDK.Printing.StrokeStyle.Dot) {
+                            this._fabric_item.strokeDashArray = [0, this._stroke_thickness * 2];
+                            this._fabric_item.strokeLineCap = 'round';
+                        }
+                    }
                     this._fabric_item.angle = this._rotation_angle;
                     var MathUtils = Neodynamic.Web.Utils.MathUtils;
                     var rect = MathUtils.calcOuterRectOfRotatedRect(0, 0, this._width, this._height, this._fabric_item.angle);
@@ -2852,10 +2776,13 @@ var Neodynamic;
                         Editable: this.editable,
                         FillColorHex: this.fill_color_hex,
                         StrokeColorHex: this.stroke_color_hex,
-                        Expression: this.expression,
+                        Expression: Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(this.expression),
                         UseCache: this.use_cache,
                         CacheItemId: this.cache_item_id,
-                        Visible: this.visible
+                        Visible: this.visible,
+                        StrokeStyle: this.stroke_style,
+                        StrokeStylePattern: this.stroke_style_pattern,
+                        GroupName: this.group_name
                     };
                 };
                 return EllipseShapeItem;
@@ -3579,6 +3506,10 @@ var Neodynamic;
                 BarcodeSymbology[BarcodeSymbology["TriOptic"] = 181] = "TriOptic";
                 BarcodeSymbology[BarcodeSymbology["DINSpecQRCode"] = 182] = "DINSpecQRCode";
                 BarcodeSymbology[BarcodeSymbology["DINSpecDataMatrix"] = 183] = "DINSpecDataMatrix";
+                BarcodeSymbology[BarcodeSymbology["RectMicroQRCode"] = 184] = "RectMicroQRCode";
+                BarcodeSymbology[BarcodeSymbology["GS1RectMicroQRCode"] = 185] = "GS1RectMicroQRCode";
+                BarcodeSymbology[BarcodeSymbology["DPDCode"] = 186] = "DPDCode";
+                BarcodeSymbology[BarcodeSymbology["DAFT"] = 187] = "DAFT";
             })(BarcodeSymbology = Printing.BarcodeSymbology || (Printing.BarcodeSymbology = {}));
             ;
             var TelepenEncoding;
@@ -3652,6 +3583,50 @@ var Neodynamic;
                 DotCodeModuleShape[DotCodeModuleShape["Circle"] = 0] = "Circle";
                 DotCodeModuleShape[DotCodeModuleShape["Square"] = 1] = "Square";
             })(DotCodeModuleShape = Printing.DotCodeModuleShape || (Printing.DotCodeModuleShape = {}));
+            ;
+            var RectMicroQRCodeVersion;
+            (function (RectMicroQRCodeVersion) {
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["Auto"] = 0] = "Auto";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R7x43"] = 1] = "R7x43";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R7x59"] = 2] = "R7x59";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R7x77"] = 3] = "R7x77";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R7x99"] = 4] = "R7x99";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R7x139"] = 5] = "R7x139";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R9x43"] = 6] = "R9x43";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R9x59"] = 7] = "R9x59";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R9x77"] = 8] = "R9x77";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R9x99"] = 9] = "R9x99";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R9x139"] = 10] = "R9x139";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R11x27"] = 11] = "R11x27";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R11x43"] = 12] = "R11x43";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R11x59"] = 13] = "R11x59";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R11x77"] = 14] = "R11x77";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R11x99"] = 15] = "R11x99";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R11x139"] = 16] = "R11x139";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R13x27"] = 17] = "R13x27";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R13x43"] = 18] = "R13x43";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R13x59"] = 19] = "R13x59";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R13x77"] = 20] = "R13x77";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R13x99"] = 21] = "R13x99";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R13x139"] = 22] = "R13x139";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R15x43"] = 23] = "R15x43";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R15x59"] = 24] = "R15x59";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R15x77"] = 25] = "R15x77";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R15x99"] = 26] = "R15x99";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R15x139"] = 27] = "R15x139";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R17x43"] = 28] = "R17x43";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R17x59"] = 29] = "R17x59";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R17x77"] = 30] = "R17x77";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R17x99"] = 31] = "R17x99";
+                RectMicroQRCodeVersion[RectMicroQRCodeVersion["R17x139"] = 32] = "R17x139";
+            })(RectMicroQRCodeVersion = Printing.RectMicroQRCodeVersion || (Printing.RectMicroQRCodeVersion = {}));
+            ;
+            var StrokeStyle;
+            (function (StrokeStyle) {
+                StrokeStyle[StrokeStyle["Solid"] = 0] = "Solid";
+                StrokeStyle[StrokeStyle["Dash"] = 1] = "Dash";
+                StrokeStyle[StrokeStyle["Dot"] = 2] = "Dot";
+            })(StrokeStyle = Printing.StrokeStyle || (Printing.StrokeStyle = {}));
             ;
         })(Printing = SDK.Printing || (SDK.Printing = {}));
     })(SDK = Neodynamic.SDK || (Neodynamic.SDK = {}));
@@ -3898,6 +3873,7 @@ var Neodynamic;
                     _this._original_image_item = new Image();
                     _this._is_missing_image = false;
                     var self = _this;
+                    _this._guid = Neodynamic.Web.Utils.NamingUtils.newGuid();
                     _this._image_item.src = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
                     _this._image_item.onload = function () {
                         if (!self._is_missing_image) {
@@ -4106,11 +4082,12 @@ var Neodynamic;
                         NameAtPrinterStorage: this.name_at_printer_storage,
                         SourceDpi: this._source_dpi,
                         ConvertToMonochrome: this._convert_to_monochrome,
-                        Expression: this.expression,
+                        Expression: Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(this.expression),
                         SourceFile: this.source_file,
                         UseCache: this.use_cache,
                         CacheItemId: this.cache_item_id,
-                        Visible: this.visible
+                        Visible: this.visible,
+                        GroupName: this.group_name
                     };
                 };
                 ;
@@ -4244,6 +4221,7 @@ var Neodynamic;
                     _this._stroke_thickness = 1;
                     _this._rotation_angle = 0;
                     var self = _this;
+                    _this._guid = Neodynamic.Web.Utils.NamingUtils.newGuid();
                     var TextUtils = Neodynamic.Web.Utils.TextUtils;
                     _this._fabric_item = new fabric.Rect({
                         thermal_label_object: self,
@@ -4258,6 +4236,7 @@ var Neodynamic;
                     }).on('modified', function (e) {
                         self._updateFromCanvas();
                         self._fabric_item.setCoords();
+                        self._drawStrokeStyle();
                     });
                     return _this;
                 }
@@ -4303,10 +4282,71 @@ var Neodynamic;
                         this._y = boundRect.top / this._fabric_item.scaleY;
                     }
                 };
+                LineShapeItem.prototype._drawStrokeStyle = function () {
+                    if (this._stroke_thickness > 0 && this._stroke_style != Neodynamic.SDK.Printing.StrokeStyle.Solid) {
+                        var patternW = 0;
+                        var patternH = this._stroke_thickness;
+                        var patternShapes = '';
+                        var x = 0;
+                        var y = 0;
+                        var w = 0;
+                        var h = 0;
+                        var fill = '';
+                        var dashArray = [];
+                        if (this._stroke_style == Neodynamic.SDK.Printing.StrokeStyle.Dash) {
+                            dashArray = this.getStrokeStylePattern();
+                            w = -dashArray[0];
+                            h = this._stroke_thickness;
+                        }
+                        else if (this._stroke_style == Neodynamic.SDK.Printing.StrokeStyle.Dot) {
+                            dashArray.push(this._stroke_thickness);
+                            dashArray.push(this._stroke_thickness);
+                            dashArray.push(this._stroke_thickness);
+                            x = -dashArray[0];
+                        }
+                        for (var i = 0; i < dashArray.length; i++) {
+                            if (this._stroke_style == Neodynamic.SDK.Printing.StrokeStyle.Dash) {
+                                x += dashArray[i] + w;
+                                w = dashArray[i];
+                                fill = (i % 2 == 0 ? this._fabric_item.fill : 'transparent');
+                                patternShapes += '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" style="fill:' + fill + ';" />';
+                            }
+                            else if (this._stroke_style == Neodynamic.SDK.Printing.StrokeStyle.Dot) {
+                                x += dashArray[i];
+                                y = dashArray[i] / 2;
+                                w = dashArray[i] / 2;
+                                h = dashArray[i] / 2;
+                                fill = (i % 2 == 0 ? this._fabric_item.fill : 'transparent');
+                                patternShapes += '<ellipse cx="' + x + '" cy="' + y + '" rx="' + w + '" ry="' + h + '" style="fill:' + fill + ';" />';
+                            }
+                        }
+                        if (this._stroke_style == Neodynamic.SDK.Printing.StrokeStyle.Dash) {
+                            patternW = x;
+                        }
+                        else if (this._stroke_style == Neodynamic.SDK.Printing.StrokeStyle.Dot) {
+                            patternW = x;
+                        }
+                        var imgPattern = '<svg xmlns="http://www.w3.org/2000/svg" width="' + patternW + '" height="' + patternH + '">' + patternShapes + '</svg>';
+                        var imgSrc = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(imgPattern);
+                        var self = this;
+                        var img = new Image();
+                        img.onload = function () {
+                            self._fabric_item.set('fill', new fabric.Pattern({
+                                source: img,
+                                repeat: 'repeat-x',
+                                offsetX: 0,
+                                offsetY: 0
+                            }));
+                            self._fabric_item.canvas.renderAll();
+                        };
+                        img.src = imgSrc;
+                    }
+                };
                 LineShapeItem.prototype._updateToCanvas = function (property) {
                     var TextUtils = Neodynamic.Web.Utils.TextUtils;
                     this._fabric_item.fill = TextUtils.isEmpty(this._stroke_color_hex) ? (this._stroke_color == Neodynamic.SDK.Printing.Color.Black ? 'black' : 'transparent') : this._stroke_color_hex;
                     this._fabric_item.height = this._stroke_thickness;
+                    this._drawStrokeStyle();
                     if (this._orientation == Printing.LineOrientation.Horizontal) {
                         this._fabric_item.left = this._x * this._fabric_item.scaleX;
                         this._fabric_item.top = this._y * this._fabric_item.scaleY;
@@ -4364,10 +4404,13 @@ var Neodynamic;
                         Locked: this.locked,
                         Editable: this.editable,
                         StrokeColorHex: this.stroke_color_hex,
-                        Expression: this.expression,
+                        Expression: Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(this.expression),
                         UseCache: this.use_cache,
                         CacheItemId: this.cache_item_id,
-                        Visible: this.visible
+                        Visible: this.visible,
+                        StrokeStyle: this.stroke_style,
+                        StrokeStylePattern: this.stroke_style_pattern,
+                        GroupName: this.group_name
                     };
                 };
                 LineShapeItem.prototype._getOrientation = function (angle) {
@@ -4508,6 +4551,7 @@ var Neodynamic;
                     _this._corner_radius = new Printing.RectangleCornerRadius();
                     _this._rotation_angle = 0;
                     var self = _this;
+                    _this._guid = Neodynamic.Web.Utils.NamingUtils.newGuid();
                     var TextUtils = Neodynamic.Web.Utils.TextUtils;
                     _this._fabric_item = new fabric.RoundedRect({
                         thermal_label_object: self,
@@ -4598,6 +4642,19 @@ var Neodynamic;
                     this._fabric_item.rtr = this._corner_radius.top_right;
                     this._fabric_item.rbl = this._corner_radius.bottom_left;
                     this._fabric_item.rbr = this._corner_radius.bottom_right;
+                    if (this._stroke_thickness > 0) {
+                        if (this._stroke_style == Neodynamic.SDK.Printing.StrokeStyle.Solid) {
+                            this._fabric_item.lineDash = null;
+                        }
+                        else if (this._stroke_style == Neodynamic.SDK.Printing.StrokeStyle.Dash) {
+                            this._fabric_item.lineDash = this.getStrokeStylePattern();
+                            this._fabric_item.lineCap = 'butt';
+                        }
+                        else if (this._stroke_style == Neodynamic.SDK.Printing.StrokeStyle.Dot) {
+                            this._fabric_item.lineDash = [0, this._stroke_thickness * 2];
+                            this._fabric_item.lineCap = 'round';
+                        }
+                    }
                     var MathUtils = Neodynamic.Web.Utils.MathUtils;
                     var rect = MathUtils.calcOuterRectOfRotatedRect(0, 0, this._width, this._height, this._fabric_item.angle);
                     if (this._rotation_angle == 0 || this._rotation_angle == 360) {
@@ -4685,10 +4742,13 @@ var Neodynamic;
                         Editable: this.editable,
                         FillColorHex: this.fill_color_hex,
                         StrokeColorHex: this.stroke_color_hex,
-                        Expression: this.expression,
+                        Expression: Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(this.expression),
                         UseCache: this.use_cache,
                         CacheItemId: this.cache_item_id,
-                        Visible: this.visible
+                        Visible: this.visible,
+                        StrokeStyle: this.stroke_style,
+                        StrokeStylePattern: this.stroke_style_pattern,
+                        GroupName: this.group_name
                     };
                 };
                 return RectangleShapeItem;
@@ -4712,6 +4772,7 @@ var Neodynamic;
                     _this._epc_data_structure = '';
                     _this._image = new Image();
                     var self = _this;
+                    _this._guid = Neodynamic.Web.Utils.NamingUtils.newGuid();
                     _this._image.src = "data:image/gif;base64,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";
                     _this._image.onload = function () {
                         self._fabric_item.width = self._image.width;
@@ -4847,10 +4908,11 @@ var Neodynamic;
                         Tag: this.tag,
                         Locked: this.locked,
                         Editable: this.editable,
-                        Expression: this.expression,
+                        Expression: Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(this.expression),
                         UseCache: this.use_cache,
                         CacheItemId: this.cache_item_id,
-                        Visible: this.visible
+                        Visible: this.visible,
+                        GroupName: this.group_name
                     };
                 };
                 return RFIDTagItem;
@@ -4898,10 +4960,12 @@ var Neodynamic;
                     _this._stroke_thickness = 0;
                     _this._stroke_color_hex = '';
                     _this._char_spacing = 0;
+                    _this._line_spacing = 0;
                     _this._has_to_reload = false;
                     _this._image_item = new Image();
                     _this._is_in_edit_mode = false;
                     var self = _this;
+                    _this._guid = Neodynamic.Web.Utils.NamingUtils.newGuid();
                     _this._image_item.src = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
                     _this._image_item.onload = function () {
                         if (self._fabric_item.canvas)
@@ -5250,6 +5314,16 @@ var Neodynamic;
                     configurable: true
                 });
                 ;
+                Object.defineProperty(TextItem.prototype, "line_spacing", {
+                    get: function () { return Neodynamic.Web.Utils.UnitUtils.convertPixelToUnit(this._line_spacing, this._unit_type); },
+                    set: function (value) {
+                        this._line_spacing = Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(value, this._unit_type);
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
                 TextItem.prototype._updateFromCanvas = function () {
                     if (this._width != this._fabric_item.width || this._height != this._fabric_item.height)
                         this._has_to_reload = true;
@@ -5424,7 +5498,9 @@ var Neodynamic;
                         StrokeThickness: this.stroke_thickness,
                         StrokeColorHex: this.stroke_color_hex,
                         Visible: this.visible,
-                        CharSpacing: this.char_spacing
+                        CharSpacing: this.char_spacing,
+                        LineSpacing: this.line_spacing,
+                        GroupName: this.group_name
                     };
                 };
                 ;
@@ -6174,7 +6250,7 @@ var Neodynamic;
                 });
                 ;
                 ;
-                ThermalLabelEditor.prototype._drawRoundedRect = function (ctx, x, y, width, height, radius, fill, stroke) {
+                ThermalLabelEditor.prototype._drawRoundedRect = function (ctx, x, y, width, height, radius, fill, stroke, strokeDash) {
                     if (typeof stroke === 'undefined') {
                         stroke = true;
                     }
@@ -6205,6 +6281,10 @@ var Neodynamic;
                         ctx.fill();
                     }
                     if (stroke) {
+                        if (strokeDash && strokeDash.lineCap)
+                            ctx.lineCap = strokeDash.lineCap;
+                        if (strokeDash && strokeDash.lineDash)
+                            ctx.setLineDash(strokeDash.lineDash);
                         ctx.stroke();
                     }
                 };
@@ -6215,6 +6295,8 @@ var Neodynamic;
                         rtr: 0,
                         rbl: 0,
                         rbr: 0,
+                        lineCap: 'butt',
+                        lineDash: [],
                         initialize: function (options) {
                             options = options || {};
                             this.callSuper('initialize', options);
@@ -6225,7 +6307,7 @@ var Neodynamic;
                             var tr = this.rtr ? Math.min(this.rtr, min) : 0;
                             var bl = this.rbl ? Math.min(this.rbl, min) : 0;
                             var br = this.rbr ? Math.min(this.rbr, min) : 0;
-                            self._drawRoundedRect(ctx, noTransform ? this.left : -this.width / 2, noTransform ? this.top : -this.height / 2, this.width, this.height, { tl: tl, tr: tr, br: br, bl: bl }, true, true);
+                            self._drawRoundedRect(ctx, noTransform ? this.left : -this.width / 2, noTransform ? this.top : -this.height / 2, this.width, this.height, { tl: tl, tr: tr, br: br, bl: bl }, true, true, { lineCap: this.lineCap, lineDash: this.lineDash });
                         }
                     });
                 };
@@ -6334,7 +6416,24 @@ var Neodynamic;
                     fabric.util.object.extend(fabric.Object.prototype, {
                         drawIcons: function (ctx) {
                             var bw = this.width, bh = this.height, bx = -bw / 2, bt = -bh / 2, br = bx + bw;
-                            if (this.thermal_label_object &&
+                            var selObj = self._tlweCanvasFabric.getActiveObject();
+                            var selGroupName = null;
+                            if (selObj && selObj.thermal_label_object && selObj.thermal_label_object.group_name && selObj.thermal_label_object.group_name.trim() != '') {
+                                selGroupName = selObj.thermal_label_object.group_name;
+                                if (selGroupName == this.thermal_label_object.group_name) {
+                                    ctx.save();
+                                    ctx.scale(1 / this.scaleX, 1 / this.scaleY);
+                                    ctx.beginPath();
+                                    ctx.lineWidth = "1";
+                                    ctx.strokeStyle = self.getStyleValue("--adorner-handler-background-color");
+                                    ctx.rect(bx * this.scaleX, bt * this.scaleY, bw * this.scaleX, bh * this.scaleY);
+                                    ctx.stroke();
+                                    ctx.restore();
+                                    selGroupName = true;
+                                }
+                            }
+                            if (!selGroupName &&
+                                this.thermal_label_object &&
                                 (this.thermal_label_object instanceof Neodynamic.SDK.Printing.TextItem ||
                                     this.thermal_label_object instanceof Neodynamic.SDK.Printing.BarcodeItem)) {
                                 ctx.save();
@@ -6510,8 +6609,9 @@ var Neodynamic;
                     self._tlweBackgroundCanvas.getContext('2d').canvas.height = lh;
                     this._tlweCanvasFabric = new fabric.CanvasEx(this._tlweCanvas, { controlsAboveOverlay: true, selection: false }).
                         on('object:modified', function (object) { self._canvasObjectModified(object); }).
-                        on('object:moving', function (object) { self.hideItemTooltip(); }).
+                        on('object:moving', function (object) { self.hideItemTooltip(); self._canvasObjectMoving(object); }).
                         on('object:scaling', function (object) { self.hideItemTooltip(); self._canvasObjectScaling(object); }).
+                        on('object:rotating', function (object) { self.hideItemTooltip(); self._canvasObjectRotating(object); }).
                         on('object:selected', function (object) { self.hideItemTooltip(); self._canvasObjectSelected(object); }).
                         on('selection:cleared', function (object) { self.hideItemTooltip(); self._canvasSelectionCleared(object); }).
                         on('mouse:down', function (object) { self._canvasMouseDown(object); }).
@@ -6751,13 +6851,6 @@ var Neodynamic;
                                     }
                                 }
                                 break;
-                            case 'circle':
-                                {
-                                    options.target.width -= options.target.strokeWidth;
-                                    options.target.height -= options.target.strokeWidth;
-                                    options.target.radius = options.target.width / 2;
-                                }
-                                break;
                             case 'ellipse':
                                 {
                                     options.target.width -= options.target.strokeWidth;
@@ -6771,8 +6864,126 @@ var Neodynamic;
                     options.target.setCoords();
                     if (this.angle_snap && this.angle_snap > 0)
                         options.target.angle = Math.round(options.target.angle / this.angle_snap) * this.angle_snap;
+                    if (options.target.thermal_label_object && options.target.thermal_label_object.group_name && options.target.thermal_label_object.group_name.trim() != '') {
+                        var self = this;
+                        var dl = (options.target.left / options.target.scaleX) - Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(options.target.thermal_label_object.x, options.target.thermal_label_object._unit_type);
+                        var dt = (options.target.top / options.target.scaleY) - Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(options.target.thermal_label_object.y, options.target.thermal_label_object._unit_type);
+                        var da = options.target.angle - (options.target.thermal_label_object._rotation_angle != null ? options.target.thermal_label_object._rotation_angle : 0);
+                        var gn = options.target.thermal_label_object.group_name;
+                        this._tlweCanvasFabric.getObjects().map(function (obj) {
+                            if (da == 0 &&
+                                obj.thermal_label_object &&
+                                obj.thermal_label_object.group_name == gn &&
+                                obj.thermal_label_object._guid != options.target.thermal_label_object._guid &&
+                                obj.thermal_label_object.editable &&
+                                !obj.thermal_label_object.locked &&
+                                obj.thermal_label_object.visible) {
+                                obj.setTop((Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.y, obj.thermal_label_object._unit_type) + dt) * obj.scaleY);
+                                obj.setLeft((Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.x, obj.thermal_label_object._unit_type) + dl) * obj.scaleX);
+                                switch (obj.type) {
+                                    case 'ellipse':
+                                        {
+                                            obj.ry = obj.height / 2;
+                                            obj.rx = obj.width / 2;
+                                        }
+                                        break;
+                                }
+                                if (self._snap_to_grid) {
+                                    obj.setLeft(Math.round(obj.left / self._grid_zoomed_size) * self._grid_zoomed_size);
+                                    obj.setTop(Math.round(obj.top / self._grid_zoomed_size) * self._grid_zoomed_size);
+                                    if (obj.thermal_label_object instanceof Neodynamic.SDK.Printing.LineShapeItem == false) {
+                                        obj.setHeight(Math.round(obj.height / self._grid_size) * self._grid_size);
+                                    }
+                                    obj.setWidth(Math.round(obj.width / self._grid_size) * self._grid_size);
+                                    switch (obj.type) {
+                                        case 'rect':
+                                            {
+                                                if (obj.thermal_label_object instanceof Neodynamic.SDK.Printing.LineShapeItem == false) {
+                                                    obj.width -= obj.strokeWidth;
+                                                    obj.height -= obj.strokeWidth;
+                                                }
+                                            }
+                                            break;
+                                        case 'ellipse':
+                                            {
+                                                obj.width -= obj.strokeWidth;
+                                                obj.height -= obj.strokeWidth;
+                                                obj.ry = obj.height / 2;
+                                                obj.rx = obj.width / 2;
+                                            }
+                                            break;
+                                    }
+                                }
+                                obj.setCoords();
+                                if (obj.type == 'image') {
+                                    obj.thermal_label_object._updateFromCanvas();
+                                    obj.thermal_label_object.refresh();
+                                }
+                            }
+                        });
+                    }
                     this._tlweCanvasFabric.renderAll();
                     this.saveCurrentLabelCanvasState();
+                };
+                ;
+                ThermalLabelEditor.prototype._canvasObjectRotating = function (options) {
+                    var self = this;
+                    if (options.target.thermal_label_object && options.target.thermal_label_object.group_name && options.target.thermal_label_object.group_name.trim() != '') {
+                        var da = options.target.angle - (options.target.thermal_label_object._rotation_angle != null ? options.target.thermal_label_object._rotation_angle : 0);
+                        var gn = options.target.thermal_label_object.group_name;
+                        this._tlweCanvasFabric.getObjects().map(function (obj) {
+                            if (obj.thermal_label_object &&
+                                obj.thermal_label_object.group_name == gn &&
+                                obj.thermal_label_object._guid != options.target.thermal_label_object._guid &&
+                                obj.thermal_label_object.editable &&
+                                !obj.thermal_label_object.locked &&
+                                obj.thermal_label_object.visible &&
+                                obj.thermal_label_object._rotation_angle != null) {
+                                if (da != 0) {
+                                    var objAngle = obj.thermal_label_object._rotation_angle;
+                                    var newAngle = objAngle + da;
+                                    if (self.angle_snap && self.angle_snap > 0)
+                                        newAngle = Math.round(newAngle / self.angle_snap) * self.angle_snap;
+                                    if (newAngle >= 360)
+                                        newAngle = newAngle - 360;
+                                    if (newAngle < 0)
+                                        newAngle = 360 + newAngle;
+                                    obj.setAngle(newAngle);
+                                    obj.setCoords();
+                                }
+                            }
+                        });
+                    }
+                    this._tlweCanvasFabric.renderAll();
+                };
+                ;
+                ThermalLabelEditor.prototype._canvasObjectMoving = function (options) {
+                    if (options.target.thermal_label_object && options.target.thermal_label_object.group_name && options.target.thermal_label_object.group_name.trim() != '') {
+                        var dl = (options.target.left / options.target.scaleX) - Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(options.target.thermal_label_object.x, options.target.thermal_label_object._unit_type);
+                        var dt = (options.target.top / options.target.scaleY) - Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(options.target.thermal_label_object.y, options.target.thermal_label_object._unit_type);
+                        var gn = options.target.thermal_label_object.group_name;
+                        this._tlweCanvasFabric.getObjects().map(function (obj) {
+                            if (obj.thermal_label_object &&
+                                obj.thermal_label_object.group_name == gn &&
+                                obj.thermal_label_object._guid != options.target.thermal_label_object._guid &&
+                                obj.thermal_label_object.editable &&
+                                !obj.thermal_label_object.locked &&
+                                obj.thermal_label_object.visible) {
+                                obj.setTop((Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.y, obj.thermal_label_object._unit_type) + dt) * obj.scaleY);
+                                obj.setLeft((Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.x, obj.thermal_label_object._unit_type) + dl) * obj.scaleX);
+                                switch (obj.type) {
+                                    case 'ellipse':
+                                        {
+                                            obj.ry = obj.height / 2;
+                                            obj.rx = obj.width / 2;
+                                        }
+                                        break;
+                                }
+                                obj.setCoords();
+                            }
+                        });
+                    }
+                    this._tlweCanvasFabric.renderAll();
                 };
                 ;
                 ThermalLabelEditor.prototype._canvasObjectScaling = function (options) {
@@ -6783,17 +6994,41 @@ var Neodynamic;
                     options.target.scaleX = options.target.scaleY = this._zoom;
                     options.target.hasToReload = true;
                     switch (options.target.type) {
-                        case 'circle':
-                            {
-                                options.target.radius = options.target.width / 2;
-                            }
-                            break;
                         case 'ellipse':
                             {
                                 options.target.ry = options.target.height / 2;
                                 options.target.rx = options.target.width / 2;
                             }
                             break;
+                    }
+                    if (options.target.thermal_label_object && options.target.thermal_label_object.group_name && options.target.thermal_label_object.group_name.trim() != '') {
+                        var dl = (options.target.left / options.target.scaleX) - Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(options.target.thermal_label_object.x, options.target.thermal_label_object._unit_type);
+                        var dt = (options.target.top / options.target.scaleY) - Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(options.target.thermal_label_object.y, options.target.thermal_label_object._unit_type);
+                        var dw = options.target.width - Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(options.target.thermal_label_object.width, options.target.thermal_label_object._unit_type);
+                        var dh = options.target.height - Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(options.target.thermal_label_object.height, options.target.thermal_label_object._unit_type);
+                        var gn = options.target.thermal_label_object.group_name;
+                        this._tlweCanvasFabric.getObjects().map(function (obj) {
+                            if (obj.thermal_label_object &&
+                                obj.thermal_label_object.group_name == gn &&
+                                obj.thermal_label_object._guid != options.target.thermal_label_object._guid &&
+                                obj.thermal_label_object.editable &&
+                                !obj.thermal_label_object.locked &&
+                                obj.thermal_label_object.visible) {
+                                obj.setTop((Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.y, obj.thermal_label_object._unit_type) + dt) * obj.scaleY);
+                                obj.setLeft((Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.x, obj.thermal_label_object._unit_type) + dl) * obj.scaleX);
+                                obj.setHeight(Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.height, obj.thermal_label_object._unit_type) + dh > 0 ? Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.height, obj.thermal_label_object._unit_type) + dh : 1);
+                                obj.setWidth(Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.width, obj.thermal_label_object._unit_type) + dw > 0 ? Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.width, obj.thermal_label_object._unit_type) + dw : 1);
+                                switch (obj.type) {
+                                    case 'ellipse':
+                                        {
+                                            obj.ry = obj.height / 2;
+                                            obj.rx = obj.width / 2;
+                                        }
+                                        break;
+                                }
+                                obj.setCoords();
+                            }
+                        });
                     }
                     this._tlweCanvasFabric.renderAll();
                 };
@@ -7325,33 +7560,7 @@ var Neodynamic;
                 };
                 Cloner.cloneItem = function (itm) {
                     var clone;
-                    if (itm instanceof Neodynamic.SDK.Printing.CircleShapeItem) {
-                        clone = new Neodynamic.SDK.Printing.CircleShapeItem();
-                        clone.unit_type = itm.unit_type;
-                        clone.rotation_angle = itm.rotation_angle;
-                        clone.fill_color = itm.fill_color;
-                        clone.stroke_thickness = itm.stroke_thickness;
-                        clone.stroke_color = itm.stroke_color;
-                        clone.width = itm.width;
-                        clone.height = itm.height;
-                        clone.name = itm.name;
-                        clone.x = itm.x;
-                        clone.y = itm.y;
-                        clone.data_field = itm.data_field;
-                        clone.data_field_format_string = itm.data_field_format_string;
-                        clone.print_as_graphic = itm.print_as_graphic;
-                        clone.comments = itm.comments;
-                        clone.tag = itm.tag;
-                        clone.locked = itm.locked;
-                        clone.editable = itm.editable;
-                        clone.stroke_color_hex = itm.stroke_color_hex;
-                        clone.fill_color_hex = itm.fill_color_hex;
-                        clone.expression = itm.expression;
-                        clone.use_cache = itm.use_cache;
-                        clone.cache_item_id = itm.cache_item_id;
-                        clone.visible = itm.visible;
-                    }
-                    else if (itm instanceof Neodynamic.SDK.Printing.EllipseShapeItem) {
+                    if (itm instanceof Neodynamic.SDK.Printing.EllipseShapeItem) {
                         clone = new Neodynamic.SDK.Printing.EllipseShapeItem();
                         clone.unit_type = itm.unit_type;
                         clone.rotation_angle = itm.rotation_angle;
@@ -7376,6 +7585,9 @@ var Neodynamic;
                         clone.use_cache = itm.use_cache;
                         clone.cache_item_id = itm.cache_item_id;
                         clone.visible = itm.visible;
+                        clone.stroke_style = itm.stroke_style;
+                        clone.stroke_style_pattern = itm.stroke_style_pattern;
+                        clone.group_name = itm.group_name;
                     }
                     else if (itm instanceof Neodynamic.SDK.Printing.ImageItem) {
                         clone = new Neodynamic.SDK.Printing.ImageItem();
@@ -7403,6 +7615,7 @@ var Neodynamic;
                         clone.use_cache = itm.use_cache;
                         clone.cache_item_id = itm.cache_item_id;
                         clone.visible = itm.visible;
+                        clone.group_name = itm.group_name;
                     }
                     else if (itm instanceof Neodynamic.SDK.Printing.LineShapeItem) {
                         clone = new Neodynamic.SDK.Printing.LineShapeItem();
@@ -7427,6 +7640,9 @@ var Neodynamic;
                         clone.use_cache = itm.use_cache;
                         clone.cache_item_id = itm.cache_item_id;
                         clone.visible = itm.visible;
+                        clone.stroke_style = itm.stroke_style;
+                        clone.stroke_style_pattern = itm.stroke_style_pattern;
+                        clone.group_name = itm.group_name;
                     }
                     else if (itm instanceof Neodynamic.SDK.Printing.RectangleShapeItem) {
                         clone = new Neodynamic.SDK.Printing.RectangleShapeItem();
@@ -7457,6 +7673,9 @@ var Neodynamic;
                         clone.use_cache = itm.use_cache;
                         clone.cache_item_id = itm.cache_item_id;
                         clone.visible = itm.visible;
+                        clone.stroke_style = itm.stroke_style;
+                        clone.stroke_style_pattern = itm.stroke_style_pattern;
+                        clone.group_name = itm.group_name;
                     }
                     else if (itm instanceof Neodynamic.SDK.Printing.RFIDTagItem) {
                         clone = new Neodynamic.SDK.Printing.RFIDTagItem();
@@ -7478,6 +7697,7 @@ var Neodynamic;
                         clone.use_cache = itm.use_cache;
                         clone.cache_item_id = itm.cache_item_id;
                         clone.visible = itm.visible;
+                        clone.group_name = itm.group_name;
                     }
                     else if (itm instanceof Neodynamic.SDK.Printing.TextItem) {
                         clone = new Neodynamic.SDK.Printing.TextItem();
@@ -7544,7 +7764,10 @@ var Neodynamic;
                         clone.cache_item_id = itm.cache_item_id;
                         clone.stroke_color_hex = itm.stroke_color_hex;
                         clone.stroke_thickness = itm.stroke_thickness;
+                        clone.char_spacing = itm.char_spacing;
+                        clone.line_spacing = itm.line_spacing;
                         clone.visible = itm.visible;
+                        clone.group_name = itm.group_name;
                     }
                     else if (itm instanceof Neodynamic.SDK.Printing.BarcodeItem) {
                         clone = new Neodynamic.SDK.Printing.BarcodeItem();
@@ -7739,6 +7962,9 @@ var Neodynamic;
                         clone.code11_two_digits_checksum = itm.code11_two_digits_checksum;
                         clone.tlc39_micro_pdf417_bar_width = itm.tlc39_micro_pdf417_bar_width;
                         clone.tlc39_micro_pdf417_row_bar_height = itm.tlc39_micro_pdf417_row_bar_height;
+                        clone.right_to_left = itm.right_to_left;
+                        clone.rect_microqr_code_version = itm.rect_microqr_code_version;
+                        clone.group_name = itm.group_name;
                     }
                     return clone;
                 };
@@ -7877,10 +8103,7 @@ var Neodynamic;
                 NamingUtils.convertXMLUCS2ToChar = function (text) {
                     return text.replace(/_x(([A-F]|[a-f]|[0-9]){4})_/g, function (x, x1) {
                         return String.fromCharCode(parseInt(x1, 16));
-                    }).replace(/\"/g, '_x0022_').replace(/&#34;/g, '_x0022_')
-                        .replace(/</g, '_x003c_').replace(/&#60;/g, '_x003c_')
-                        .replace(/>/g, '_x003e_').replace(/&#62;/g, '_x003e_')
-                        .replace(/&/g, '_x0026_').replace(/&#38;/g, '_x0026_');
+                    });
                 };
                 NamingUtils.newGuid = function () {
                     function s4() {
@@ -8115,6 +8338,12 @@ var Neodynamic;
                             e.cache_item_id = json.cacheitemid;
                         if (json.visible != null)
                             e.visible = json.visible;
+                        if (json.strokestyle != null)
+                            e.stroke_style = (Neodynamic.SDK.Printing.StrokeStyle)[json.strokestyle];
+                        if (json.strokestylepattern != null)
+                            e.stroke_style_pattern = json.strokestylepattern;
+                        if (json.groupname != null)
+                            e.group_name = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.groupname);
                         return e;
                     }
                     if (type == "EllipseShapeItem") {
@@ -8164,6 +8393,12 @@ var Neodynamic;
                             e.cache_item_id = json.cacheitemid;
                         if (json.visible != null)
                             e.visible = json.visible;
+                        if (json.strokestyle != null)
+                            e.stroke_style = (Neodynamic.SDK.Printing.StrokeStyle)[json.strokestyle];
+                        if (json.strokestylepattern != null)
+                            e.stroke_style_pattern = json.strokestylepattern;
+                        if (json.groupname != null)
+                            e.group_name = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.groupname);
                         return e;
                     }
                     if (type == "BarcodeItem") {
@@ -8503,6 +8738,12 @@ var Neodynamic;
                             e.tlc39_micro_pdf417_bar_width = json.tlc39micropdf417barwidth;
                         if (json.tlc39micropdf417rowbarheight != null)
                             e.tlc39_micro_pdf417_row_bar_height = json.tlc39micropdf417rowbarheight;
+                        if (json.righttoleft != null)
+                            e.right_to_left = json.righttoleft;
+                        if (json.rectmicroqrcodeversion != null)
+                            e.rect_microqr_code_version = Neodynamic.SDK.Printing.RectMicroQRCodeVersion[json.rectmicroqrcodeversion];
+                        if (json.groupname != null)
+                            e.group_name = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.groupname);
                         return e;
                     }
                     if (type == "ImageItem") {
@@ -8579,6 +8820,8 @@ var Neodynamic;
                             e.cache_item_id = json.cacheitemid;
                         if (json.visible != null)
                             e.visible = json.visible;
+                        if (json.groupname != null)
+                            e.group_name = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.groupname);
                         return e;
                     }
                     if (type == "LineShapeItem") {
@@ -8624,6 +8867,12 @@ var Neodynamic;
                             e.cache_item_id = json.cacheitemid;
                         if (json.visible != null)
                             e.visible = json.visible;
+                        if (json.strokestyle != null)
+                            e.stroke_style = (Neodynamic.SDK.Printing.StrokeStyle)[json.strokestyle];
+                        if (json.strokestylepattern != null)
+                            e.stroke_style_pattern = json.strokestylepattern;
+                        if (json.groupname != null)
+                            e.group_name = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.groupname);
                         return e;
                     }
                     if (type == "TextItem") {
@@ -8737,8 +8986,12 @@ var Neodynamic;
                             e.stroke_color_hex = json.strokecolorhex;
                         if (json.charspacing != null)
                             e.char_spacing = json.charspacing;
+                        if (json.linespacing != null)
+                            e.line_spacing = json.linespacing;
                         if (json.hideifempty != null)
                             e.hide_if_empty = json.hideifempty;
+                        if (json.groupname != null)
+                            e.group_name = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.groupname);
                         return e;
                     }
                     if (type == "RFIDTagItem") {
@@ -8778,6 +9031,8 @@ var Neodynamic;
                             e.cache_item_id = json.cacheitemid;
                         if (json.visible != null)
                             e.visible = json.visible;
+                        if (json.groupname != null)
+                            e.group_name = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.groupname);
                         return e;
                     }
                     throw "Object not supported";
@@ -9038,6 +9293,7 @@ var Neodynamic;
                     props.push("expression");
                     props.push("code");
                     props.push("visible");
+                    props.push("right_to_left");
                     switch (symbology) {
                         case Neodynamic.SDK.Printing.BarcodeSymbology.AustraliaPost:
                         case Neodynamic.SDK.Printing.BarcodeSymbology.RoyalTpgPostKix:
@@ -9048,6 +9304,7 @@ var Neodynamic;
                         case Neodynamic.SDK.Printing.BarcodeSymbology.JapanPost:
                         case Neodynamic.SDK.Printing.BarcodeSymbology.Mailmark4StateC:
                         case Neodynamic.SDK.Printing.BarcodeSymbology.Mailmark4StateL:
+                        case Neodynamic.SDK.Printing.BarcodeSymbology.DAFT:
                             props.push("postal_4_state_tracker_bar_height");
                             props.push("postal_4_state_tracker_bar_width");
                             props.push("postal_4_state_bars_spacing");
@@ -9109,9 +9366,11 @@ var Neodynamic;
                         case Neodynamic.SDK.Printing.BarcodeSymbology.UspsPicCode128:
                         case Neodynamic.SDK.Printing.BarcodeSymbology.AustraliaPostDomesticEParcelBarcode:
                         case Neodynamic.SDK.Printing.BarcodeSymbology.DeutschePostBzl:
+                        case Neodynamic.SDK.Printing.BarcodeSymbology.DPDCode:
                             props.push("bar_height");
                             props.push("bar_width");
-                            if (symbology == Neodynamic.SDK.Printing.BarcodeSymbology.Code128) {
+                            if (symbology == Neodynamic.SDK.Printing.BarcodeSymbology.Code128 ||
+                                symbology == Neodynamic.SDK.Printing.BarcodeSymbology.DPDCode) {
                                 props.push("code128_char_set");
                             }
                             props.push("bar_width_adjustment");
@@ -9309,6 +9568,8 @@ var Neodynamic;
                         case Neodynamic.SDK.Printing.BarcodeSymbology.SwissQRCode:
                         case Neodynamic.SDK.Printing.BarcodeSymbology.EPCQRCode:
                         case Neodynamic.SDK.Printing.BarcodeSymbology.DINSpecQRCode:
+                        case Neodynamic.SDK.Printing.BarcodeSymbology.RectMicroQRCode:
+                        case Neodynamic.SDK.Printing.BarcodeSymbology.GS1RectMicroQRCode:
                             props.push("qr_code_module_size");
                             props.push("qr_code_error_correction_level");
                             props.push("qr_code_encoding");
@@ -9316,17 +9577,21 @@ var Neodynamic;
                             if (symbology == Neodynamic.SDK.Printing.BarcodeSymbology.MicroQRCode) {
                                 props.push("microqr_code_version");
                             }
+                            else if (symbology == Neodynamic.SDK.Printing.BarcodeSymbology.RectMicroQRCode ||
+                                symbology == Neodynamic.SDK.Printing.BarcodeSymbology.GS1RectMicroQRCode) {
+                                props.push("rect_microqr_code_version");
+                            }
                             else {
                                 props.push("qr_code_version");
                             }
-                            if (symbology == Neodynamic.SDK.Printing.BarcodeSymbology.GS1QRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.MicroQRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.SwissQRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.EPCQRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.DINSpecQRCode)
+                            if (symbology == Neodynamic.SDK.Printing.BarcodeSymbology.GS1QRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.MicroQRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.SwissQRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.EPCQRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.DINSpecQRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.RectMicroQRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.GS1RectMicroQRCode)
                                 props.push("qr_code_process_tilde");
                             if (symbology == Neodynamic.SDK.Printing.BarcodeSymbology.HibcPasQRCode ||
                                 symbology == Neodynamic.SDK.Printing.BarcodeSymbology.HibcLicQRCode) {
                                 props.push("hibc_format_human_readable_text");
                                 props.push("hibc_use_iso_iec_15434_encoding");
                             }
-                            if (symbology == Neodynamic.SDK.Printing.BarcodeSymbology.GS1QRCode)
+                            if (symbology == Neodynamic.SDK.Printing.BarcodeSymbology.GS1QRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.GS1RectMicroQRCode)
                                 props.push("gs1_data_strict_validation");
                             break;
                         case Neodynamic.SDK.Printing.BarcodeSymbology.UspsFim:
@@ -9592,7 +9857,8 @@ var Neodynamic;
                         symbology == Neodynamic.SDK.Printing.BarcodeSymbology.Dun14Ean ||
                         symbology == Neodynamic.SDK.Printing.BarcodeSymbology.Dun14Itf ||
                         symbology == Neodynamic.SDK.Printing.BarcodeSymbology.DeutschePostBzl ||
-                        symbology == Neodynamic.SDK.Printing.BarcodeSymbology.DataLogic2of5) {
+                        symbology == Neodynamic.SDK.Printing.BarcodeSymbology.DataLogic2of5 ||
+                        symbology == Neodynamic.SDK.Printing.BarcodeSymbology.DPDCode) {
                         props.push("bearer_bar_style");
                         props.push("bearer_bar_thickness");
                     }

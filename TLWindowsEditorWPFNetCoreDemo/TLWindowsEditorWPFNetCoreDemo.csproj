@@ -95,9 +95,9 @@
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.4.0" />
     <PackageReference Include="System.IO.Ports" Version="4.7.0" />
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="4.6.97" />
-	<PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting.NetCore" Version="10.0.0" />
-    <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor.NetCore" Version="10.0.20.1105" />
-    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="10.0.21.330" />
+	<PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting.NetCore" Version="10.0.21.1018" />
+    <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor.NetCore" Version="10.0.21.1018" />
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="10.0.21.1018" />
   </ItemGroup>
 
   <ItemGroup>
