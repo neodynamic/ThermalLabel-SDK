@@ -84,10 +84,10 @@
 
     escapeExpr: function (s) {
         var tagsToReplace = {
-            '"': '&#34;',
-            '&': '&#38;',
-            '<': '&#60;',
-            '>': '&#62;'
+            '_x0022_': '&#34;',
+            '_x0026_': '&#38;',
+            '_x003c_': '&#60;',
+            '_x003e_': '&#62;'
         };
         return s.replace(/["&<>]/g, function (tag) {
             return tagsToReplace[tag] || tag;
@@ -121,7 +121,7 @@
         $('#expr-desc').empty();
         $('#expr-syntax').empty();
         $('#expr-example').empty();
-
+        
 
         if ($("#expr-category option[name='Items']")[0])
             $("#expr-category option[name='Items']").remove();
