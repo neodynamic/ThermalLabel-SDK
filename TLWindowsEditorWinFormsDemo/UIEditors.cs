@@ -193,6 +193,9 @@ namespace TLWindowsEditorWinFormsDemo
 
         [TypeConverter(typeof(DataFieldConverter))]
         public string DataField { get; set; }
+
+        [Browsable(false)]
+        public bool GroupName { get; set; }
     }
 
 

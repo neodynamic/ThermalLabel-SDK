@@ -1,5 +1,5 @@
 ﻿// Sample Label Editor UI
-// - Referencing and Using ThermalLabelWebEditor-10.0.N.N.js
+// - Referencing and Using ThermalLabelWebEditor-11.0.N.N.js
 // NOTE: You can create your own Editor UI around the ThermalLabel Web Editor Canvas 
 
 var UIEditor = {
@@ -118,12 +118,7 @@ var UIEditor = {
             case 'Text': {
                 var newTextItem = new Neodynamic.SDK.Printing.TextItem();
                 newTextItem.font.name = "ZPL Font 0";
-
-                if (textInputMask) {
-                    newTextItem.input_mask_pattern = textInputMask;
-                } else {
-                    newTextItem.text = "Type here...";
-                }
+                newTextItem.text = "Type here...";
 
                 tleditor.active_tool_item = newTextItem;
                 tleditor.active_tool = Neodynamic.Web.Editor.EditorTool.Text;
@@ -185,15 +180,13 @@ var UIEditor = {
     lockItem : function() {
         if (tleditor.current_selection === null)
             return;
-        tleditor.current_selection.locked = true;
-        tleditor.current_selection.refresh();
+        tleditor.lockSelectedItems();
     },
 
     unlockItem: function () {
         if (tleditor.current_selection === null)
             return;
-        tleditor.current_selection.locked = false;
-        tleditor.current_selection.refresh();
+        tleditor.unlockSelectedItems();
     },
 
     deleteSelectedItems : function() {
@@ -301,7 +294,7 @@ var UIEditor = {
         if (tleditor.get_thermal_label) {
 
             let htmlExpr = '';
-            tleditor.get_thermal_label.expressions.forEach(x => {
+            tleditor.get_thermal_label.expressions.forEach(function(x) {
                 htmlExpr += '<tr><td>' + x + '</td></tr>';
             });
             $('#tableGlobalExpressions').html(htmlExpr);
@@ -331,6 +324,39 @@ var UIEditor = {
         $("#error-msg").text(msg);
         $("#error-dialog").modal();
         return;
+    },
+
+    startGroup: function () {
+        tleditor.startGroup();
+    },
+    cancelGroup: function () {
+        tleditor.cancelGroup();
+    },
+    createGroup: function () {
+        tleditor.createGroup();
+    },
+    unGroup: function () {
+        tleditor.unGroup();
+    },
+    updateGroupUI: function () {
+        $("#tlbGroupSelectedItems").css('display', 'none');
+        $("#tlbCreateGroup").css('display', 'none');
+        $("#tlbCancelGroup").css('display', 'none');
+        $("#tlbStartGroup").css('display', 'none');
+        $("#tlbUngroup").css('display', 'none');
+
+        $("#tlbGroupSelectedItems").text(tleditor.items_in_started_group + ' items in the group');
+        if (tleditor.group_started) {
+            $("#tlbGroupSelectedItems").css('display', 'block');
+            $("#tlbCreateGroup").css('display', 'block');
+            $("#tlbCancelGroup").css('display', 'block');
+        } else {
+            if (tleditor.current_selection && tleditor.current_selection.group_name && tleditor.current_selection.group_name.length > 0) {
+                $("#tlbUngroup").css('display', 'block');
+            } else if (tleditor.items_in_started_group == 0) {
+                $("#tlbStartGroup").css('display', 'block');
+            }
+        }
     }
 
 };
@@ -360,6 +386,8 @@ tleditor.newItemCreated = function () {
 tleditor.selectionChanged = tleditor.selectionItemPropertyChanged = function () {
     var selObj = tleditor.current_selection ? tleditor.current_selection : tleditor.get_thermal_label;
     neoPropertyGrid.createPropertyGrid(selObj, 'propGrid');
+
+    if (tleditor.current_selection == null && tleditor.group_started) tleditor.cancelGroup();
 };
 
 tleditor.selectionChanged();
@@ -451,6 +479,7 @@ setInterval(function myTimer() {
     if (tleditor) {
         $('#tlbUndo').prop('disabled', !tleditor.can_undo);
         $('#tlbRedo').prop('disabled', !tleditor.can_redo);
+        UIEditor.updateGroupUI();
     }
 }, 500);
 

@@ -150,6 +150,9 @@
                     <RibbonButton SmallImageSource="Icons\16x16\LA-DistV.png" x:Name="menuDistributeVertical" Click="menuLA_Click" />
                     <RibbonButton SmallImageSource="Icons\16x16\LA-Right.png" x:Name="menuRight" Click="menuLA_Click" />
                     <RibbonButton SmallImageSource="Icons\16x16\LA-Bottom.png" x:Name="menuBottom" Click="menuLA_Click" />
+                    <RibbonSeparator></RibbonSeparator>
+                    <RibbonButton SmallImageSource="Icons\16x16\group.png" x:Name="menuGroup" Click="menuGroup_Click" />
+                    <RibbonButton SmallImageSource="Icons\16x16\ungroup.png" x:Name="menuUngroup" Click="menuUngroup_Click" />
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="View" KeyTip="V">
@@ -157,6 +160,12 @@
                     <RibbonButton SmallImageSource="Icons\16x16\ZoomIn.png" Label="Zoom In" x:Name="cmdZoomIn" Click="cmdZoomIn_Click" />
                     <RibbonButton SmallImageSource="Icons\16x16\ZoomOut.png" Label="Zoom Out" x:Name="cmdZoomOut" Click="cmdZoomOut_Click" />
                     <RibbonButton SmallImageSource="Icons\16x16\Zoom100.png" Label="Zoom 100%" x:Name="cmdZoom100" Click="cmdZoom100_Click"/>
+                </RibbonGroup>
+                <RibbonGroup x:Name="ViewRotationGroup" Header="View Rotation">
+                    <RibbonRadioButton LargeImageSource="Icons\RotViewNone.png" Label="None" x:Name="cmdRotViewNone" Click="cmdRotViewNone_Click" />
+                    <RibbonRadioButton LargeImageSource="Icons\RotView90.png" Label="90°" x:Name="cmdRotView90" Click="cmdRotView90_Click" />
+                    <RibbonRadioButton LargeImageSource="Icons\RotView180.png" Label="180°" x:Name="cmdRotView180" Click="cmdRotView180_Click" />
+                    <RibbonRadioButton LargeImageSource="Icons\RotView270.png" Label="270°" x:Name="cmdRotView270" Click="cmdRotView270_Click" />
                 </RibbonGroup>
                 <RibbonGroup x:Name="DesignGroup" Header="Editor">
                     <RibbonButton LargeImageSource="Icons\DesignOptions.png" Label="Options" x:Name="cmdOptions" Click="cmdOptions_Click"   />
@@ -195,12 +204,15 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="20"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <my:ThermalLabelEditor HorizontalAlignment="Stretch"  Name="thermalLabelEditor1" VerticalAlignment="Stretch" MouseDoubleClick="thermalLabelEditor1_MouseDoubleClick" CurrentSelectionBeforeDelete="thermalLabelEditor1_CurrentSelectionBeforeDelete" CurrentSelectionTextChanged="thermalLabelEditor1_CurrentSelectionTextChanged" NewItemCreated="thermalLabelEditor1_NewItemCreated" SelectionAreaChanged="thermalLabelEditor1_SelectionAreaChanged" ClipboardStateChanged="thermalLabelEditor1_ClipboardStateChanged" UndoStateChanged="thermalLabelEditor1_UndoStateChanged" SelectionChanged="thermalLabelEditor1_SelectionChanged" SelectionItemPropertyChanged="thermalLabelEditor1_SelectionItemPropertyChanged" LostFocus="thermalLabelEditor1_LostFocus">
+                        <my:ThermalLabelEditor HorizontalAlignment="Stretch"  Name="thermalLabelEditor1" VerticalAlignment="Stretch" MouseDoubleClick="thermalLabelEditor1_MouseDoubleClick" CurrentSelectionBeforeDelete="thermalLabelEditor1_CurrentSelectionBeforeDelete" CurrentSelectionTextChanged="thermalLabelEditor1_CurrentSelectionTextChanged" NewItemCreated="thermalLabelEditor1_NewItemCreated" SelectionAreaChanged="thermalLabelEditor1_SelectionAreaChanged" ClipboardStateChanged="thermalLabelEditor1_ClipboardStateChanged" UndoStateChanged="thermalLabelEditor1_UndoStateChanged" SelectionChanged="thermalLabelEditor1_SelectionChanged" SelectionItemPropertyChanged="thermalLabelEditor1_SelectionItemPropertyChanged" ViewRotationChanged="thermalLabelEditor1_ViewRotationChanged" LostFocus="thermalLabelEditor1_LostFocus">
                             <my:ThermalLabelEditor.ContextMenu>
                                 <ContextMenu Name="editorContextMenu" Opened="editorContextMenu_Opened" >
                                     <MenuItem Name="cmCut" Header="Cut" Click="menuCut_Click" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                                     <MenuItem Name="cmCopy" Header="Copy" Click="menuCopy_Click" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
                                     <MenuItem Name="cmPaste" Header="Paste" Click="menuPaste_Click" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                                    <Separator Name="cmSep0"></Separator>
+                                    <MenuItem Name="cmGroup" Header="Group" Click="menuGroup_Click" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                                    <MenuItem Name="cmUngroup" Header="Ungroup" Click="menuUngroup_Click" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
                                     <Separator Name="cmSep1"></Separator>
                                     <MenuItem Name="cmArrange" Header="Arrange">
                                         <MenuItem Name="cmBringToFront" Header="Bring to Front" Click="menuBringToFront_Click" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />

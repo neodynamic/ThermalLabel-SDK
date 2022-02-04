@@ -2,23 +2,33 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:my="clr-namespace:TLWindowsEditorWPFDemo"
-        Title="Label Document" Height="585" Width="800"  Loaded="Window_Loaded" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" WindowStartupLocation="CenterScreen">
+        Title="Label Document" Height="658" Width="984"  Loaded="Window_Loaded" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" WindowStartupLocation="CenterScreen">
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="67*"></ColumnDefinition>
+            <ColumnDefinition Width="50*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TabControl Grid.Column="0" SelectionChanged="TabControl_SelectionChanged">
-            <TabItem Header="Roll - Single Labels" Name="tabRollSingleLabel">
-                <Image Name="picRollSingleLabels" Stretch="Fill" Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}" Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}"></Image>
-            </TabItem>
-            <TabItem Header="Roll - Multicolumn Labels" Name="tabRollMulticolLabels">
-                <Image Name="picRollMulticolumnLabels" Stretch="Fill" Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}" Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}"></Image>
-            </TabItem>
-            <TabItem Header="Sheet Labels" Name="tabSheetLabels">
-                <Image Name="picSheetLabels" Stretch="Fill" Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}" Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}"></Image>
-            </TabItem>
-        </TabControl>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="552*"></RowDefinition>
+            <RowDefinition Height="35*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0">
+            <TabControl SelectionChanged="TabControl_SelectionChanged" Margin="0,0,2,10" Height="543">
+                <TabItem Header="Roll - Single Labels" Name="tabRollSingleLabel">
+                    <Image Name="picRollSingleLabels" Stretch="Fill" Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}" Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}"></Image>
+                </TabItem>
+                <TabItem Header="Roll - Multicolumn Labels" Name="tabRollMulticolLabels">
+                    <Image Name="picRollMulticolumnLabels" Stretch="Fill" Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}" Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}"></Image>
+                </TabItem>
+                <TabItem Header="Sheet Labels" Name="tabSheetLabels">
+                    <Image Name="picSheetLabels" Stretch="Fill" Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}" Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}"></Image>
+                </TabItem>
+                <TabItem Header="Multi Pages" Name="tabPages">
+                    <Image Name="picPages" Stretch="Fill" Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}" Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}"></Image>
+                </TabItem>
+            </TabControl>
+
+        </StackPanel>
         <StackPanel Grid.Column="1" Margin="10 0 0 0">
             <GroupBox Header="General" Padding="10">
                 <StackPanel Orientation="Horizontal">
@@ -31,10 +41,10 @@
                     <Label Content="Width:"  />
                     <TextBox   Name="txtWidth" Width="90" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="0" />
                     <Label Content="Height:" Margin="10 0 0 0" />
-                    <TextBox  Name="txtHeight" Width="90" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="0" />   
+                    <TextBox  Name="txtHeight" Width="90" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="0" />
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Vartical Layout" Padding="10">
+            <GroupBox Name="gbVLayout" Header="Vartical Layout" Padding="10">
                 <StackPanel>
                     <CheckBox Content="Is Continuous?" Name="chkIsContinuous" Checked="chkIsContinuous_Checked" Unchecked="chkIsContinuous_Unchecked" />
                     <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
@@ -83,15 +93,20 @@
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
-
-            <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Right">
-                <Button Content="OK" IsDefault="True" Name="button1" Width="75" Click="button1_Click" />
-                <Button Content="Cancel" IsCancel="True" Name="button2" Width="75" Margin="40 0 0 0" />
-            </StackPanel>
-            
-            
-
-            
+            <GroupBox Name="gbPages" Header="Pages" Padding="10" Height="200">
+                <DataGrid x:Name="dgPages" CanUserAddRows="True" AutoGenerateColumns="True" ColumnWidth="*" CanUserSortColumns="False" CanUserReorderColumns="False"></DataGrid>
+            </GroupBox>
         </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1"  Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Right" Width="190">
+            <Button Content="OK" IsDefault="True" Name="button1" Width="75" Click="button1_Click" />
+            <Button Content="Cancel" IsCancel="True" Name="button2" Width="75" Margin="40 0 0 0" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0 10 0 0">
+            <Button x:Name="btnSetBackImage" Content="Set Design Background Image..." Click="btnSetBackImage_Click" Width="190" />
+            <Button x:Name="btnClearBackImage" Content="Clear Design Background Image" Click="btnClearBackImage_Click" Margin="20,0,0,0" Width="185" />
+        </StackPanel>
+
     </Grid>
+
 </Window>

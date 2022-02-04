@@ -29,6 +29,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\RotView180.png" Link="Icons\RotView180.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\RotView270.png" Link="Icons\RotView270.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\RotView90.png" Link="Icons\RotView90.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\RotViewNone.png" Link="Icons\RotViewNone.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\group.png" Link="Icons\16x16\group.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\ungroup.png" Link="Icons\16x16\ungroup.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\BringForward.png" Link="Icons\16x16\BringForward.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\BringToFront.png" Link="Icons\16x16\BringToFront.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\copy.png" Link="Icons\16x16\copy.png" />
@@ -95,9 +107,9 @@
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.4.0" />
     <PackageReference Include="System.IO.Ports" Version="4.7.0" />
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="4.6.97" />
-	<PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting.NetCore" Version="10.0.21.1018" />
-    <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor.NetCore" Version="10.0.21.1018" />
-    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="10.0.21.1018" />
+	<PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting.NetCore" Version="11.0.0" />
+    <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor.NetCore" Version="11.0.0" />
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="11.0.0" />
   </ItemGroup>
 
   <ItemGroup>

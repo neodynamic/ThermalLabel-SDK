@@ -97,7 +97,7 @@ namespace TLWindowsEditorWinFormsDemo
             thermalLabelEditor1.SelectionChanged += thermalLabelEditor1_SelectionChanged;
             thermalLabelEditor1.SelectionItemPropertyChanged += thermalLabelEditor1_SelectionItemPropertyChanged;
             thermalLabelEditor1.Leave += thermalLabelEditor1_Leave;
-
+            thermalLabelEditor1.ViewRotationChanged += ThermalLabelEditor1_ViewRotationChanged;
 
             //THIS IS A LIST OF PROPERTIES FOR CUSTOMIZING THE EDITOR UI
             //==========================================================
@@ -111,7 +111,6 @@ namespace TLWindowsEditorWinFormsDemo
             //thermalLabelEditor1.LabelDocumentFrameBorderColor = System.Drawing.Color.Black;
             //thermalLabelEditor1.LabelDocumentFrameBorderThickness = 3;
             //thermalLabelEditor1.LabelDocumentFrameCornerRadius = 0;
-
             //thermalLabelEditor1.NoImageFileName = @"c:\noimage.jpg";
 
 
@@ -133,6 +132,7 @@ namespace TLWindowsEditorWinFormsDemo
             //thermalLabelEditor1.SnapToGrid = true;
             //thermalLabelEditor1.GridSize = 0.1;
             //thermalLabelEditor1.ShowGrid = true;
+            //thermalLabelEditor1.GridColor = System.Drawing.Color.FromArgb(128, 255, 0, 255);
 
             //thermalLabelEditor1.AdornerLegendsVisible = false;
 
@@ -167,11 +167,18 @@ namespace TLWindowsEditorWinFormsDemo
 
         }
 
-        
+        private void ThermalLabelEditor1_ViewRotationChanged(object sender, EventArgs e)
+        {
+            this.menuViewRotateNone.Checked = thermalLabelEditor1.ViewRotation == Rotate.None;
+            this.menuViewRotate90.Checked = thermalLabelEditor1.ViewRotation == Rotate.Degree90;
+            this.menuViewRotate180.Checked = thermalLabelEditor1.ViewRotation == Rotate.Degree180;
+            this.menuViewRotate270.Checked = thermalLabelEditor1.ViewRotation == Rotate.Degree270;
+        }
 
         private void thermalLabelEditor1_NewItemCreated(object sender, EventArgs e)
         {
             Console.WriteLine(DateTime.Now.Ticks);
+
         }
 
         private void thermalLabelEditor1_CurrentSelectionTextChanged(object sender, TextChangedEventArgs e)
@@ -367,6 +374,11 @@ namespace TLWindowsEditorWinFormsDemo
                 tLabel.SheetLabelsHeight = doc.SheetLabelsHeight;
                 tLabel.SheetLabelsWidth = doc.SheetLabelsWidth;
                 tLabel.SheetLabelsMargin = doc.SheetLabelsMargin;
+                tLabel.DesignBackgroundImage = doc.DesignBackgroundImage;
+                foreach(var p in doc.Pages)
+                {
+                    tLabel.Pages.Add(p);
+                }
 
                 //load it on the editor surface
                 thermalLabelEditor1.LoadThermalLabel(tLabel);
@@ -393,6 +405,7 @@ namespace TLWindowsEditorWinFormsDemo
                     //Create a ThermalLabel obj from a Template
                     ThermalLabel tl = dlg.FileName.EndsWith(".tlj") ? ThermalLabel.CreateFromJsonTemplate(System.IO.File.ReadAllText(dlg.FileName)) : ThermalLabel.CreateFromXmlTemplate(System.IO.File.ReadAllText(dlg.FileName));
 
+                    
                     //load it on the editor surface
                     thermalLabelEditor1.LoadThermalLabel(tl);
 
@@ -425,7 +438,8 @@ namespace TLWindowsEditorWinFormsDemo
                     try
                     {
                         // get ThermalLabel obj from the editor canvas
-                        ThermalLabel tLabel = thermalLabelEditor1.CreateThermalLabel();
+                        ThermalLabel tLabel = this.thermalLabelEditor1.ViewRotation == Rotate.None ? this.thermalLabelEditor1.CreateThermalLabel() : this.thermalLabelEditor1.RotateLabel(this.thermalLabelEditor1.CreateThermalLabel(), this.thermalLabelEditor1.ViewRotation, Rotate.None);
+
                         // set Label expressions (if any)
                         SetLabelExpressions(ref tLabel);
 
@@ -469,7 +483,8 @@ namespace TLWindowsEditorWinFormsDemo
         {
 
             //Create the ThermalLabel obj from the editor
-            ThermalLabel tLabel = thermalLabelEditor1.CreateThermalLabel();
+            ThermalLabel tLabel = this.thermalLabelEditor1.ViewRotation == Rotate.None ? this.thermalLabelEditor1.CreateThermalLabel() : this.thermalLabelEditor1.RotateLabel(this.thermalLabelEditor1.CreateThermalLabel(), this.thermalLabelEditor1.ViewRotation, Rotate.None);
+
 
             if (tLabel != null)
             {
@@ -525,7 +540,8 @@ namespace TLWindowsEditorWinFormsDemo
         {
             
              //Create the ThermalLabel obj from the editor
-            ThermalLabel tLabel = thermalLabelEditor1.CreateThermalLabel();
+            ThermalLabel tLabel = this.thermalLabelEditor1.ViewRotation == Rotate.None ? this.thermalLabelEditor1.CreateThermalLabel() : this.thermalLabelEditor1.RotateLabel(this.thermalLabelEditor1.CreateThermalLabel(), this.thermalLabelEditor1.ViewRotation, Rotate.None);
+
 
             if (tLabel != null)
             {
@@ -554,7 +570,7 @@ namespace TLWindowsEditorWinFormsDemo
 
                                 tLabel.DataSource = ds;
                             }
-
+                            
 
                             //export ThermalLabel to PDF
                             using (PrintJob pj = new PrintJob())
@@ -563,7 +579,7 @@ namespace TLWindowsEditorWinFormsDemo
 
                                 //pj.PrintOrientation = PrintOrientation.Landscape90;
 
-                                pj.ExportToPdf(dlg.FileName, dpi, new PdfMetadata() { Author="Me", Title="Label" /*, UseVectorDrawing=true */});
+                                pj.ExportToPdf(dlg.FileName, dpi, new PdfMetadata() { Author="Me", Title="Label" /*, UseVectorDrawing=true*/ });
                             }
                         }
                         catch (Exception ex)
@@ -644,6 +660,7 @@ namespace TLWindowsEditorWinFormsDemo
 
         private void thermalLabelEditor1_SelectionAreaChanged(object sender, EventArgs e)
         {
+
             //Show in the 'status bar' the dimensions of the selected area
             //we're going to format it including the unit
 
@@ -679,8 +696,8 @@ namespace TLWindowsEditorWinFormsDemo
                 lblSelectionInfo.Text = "";
             }
 
-            
 
+            
         }
 
         private void thermalLabelEditor1_ClipboardStateChanged(object sender, EventArgs e)
@@ -701,6 +718,7 @@ namespace TLWindowsEditorWinFormsDemo
 
         private void thermalLabelEditor1_UndoStateChanged(object sender, EventArgs e)
         {
+            
             //Enable/disable undo/redo options depending on the state of the editor
             menuUndo.Enabled = thermalLabelEditor1.CanUndo;
             menuRedo.Enabled = thermalLabelEditor1.CanRedo;
@@ -737,7 +755,6 @@ namespace TLWindowsEditorWinFormsDemo
 
         private void SetCurrentSelectedItem()
         {
-            
             //clean up resources if needed!
             if (_currentSelectedItem != null)
             {
@@ -754,6 +771,8 @@ namespace TLWindowsEditorWinFormsDemo
                 _currentSelectedItem.PropertyChanged += new PropertyChangedEventHandler(_currentSelection_PropertyChanged);
             }
 
+
+            
             //display Item's property on the property grid control
             //----------------------------------------------------
             //NOTE: there may be more than one item selected on the editor.
@@ -802,7 +821,6 @@ namespace TLWindowsEditorWinFormsDemo
        
         void _currentSelection_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            
             //update-refresh the selected item on the editor
             thermalLabelEditor1.CurrentSelection.UpdateFrom(_currentSelectedItem);
             thermalLabelEditor1.UpdateSelectionItemsProperties();
@@ -1082,7 +1100,8 @@ namespace TLWindowsEditorWinFormsDemo
         private void ExportToImage(ImageFormat imageFormat)
         {
             //Create the ThermalLabel obj from the editor
-            ThermalLabel tLabel = thermalLabelEditor1.CreateThermalLabel();
+            ThermalLabel tLabel = this.thermalLabelEditor1.ViewRotation == Rotate.None ? this.thermalLabelEditor1.CreateThermalLabel() : this.thermalLabelEditor1.RotateLabel(this.thermalLabelEditor1.CreateThermalLabel(), this.thermalLabelEditor1.ViewRotation, Rotate.None);
+
 
             if (tLabel != null)
             {
@@ -1136,7 +1155,7 @@ namespace TLWindowsEditorWinFormsDemo
 
                                 tLabel.DataSource = ds;
                             }
-
+                            
 
                             //export ThermalLabel to Image
                             using (PrintJob pj = new PrintJob())
@@ -1262,7 +1281,7 @@ namespace TLWindowsEditorWinFormsDemo
                 try
                 {
                     //create label from editor
-                    var tLabel = this.thermalLabelEditor1.CreateThermalLabel();
+                    var tLabel = this.thermalLabelEditor1.ViewRotation == Rotate.None ? this.thermalLabelEditor1.CreateThermalLabel() : this.thermalLabelEditor1.RotateLabel(this.thermalLabelEditor1.CreateThermalLabel(), this.thermalLabelEditor1.ViewRotation, Rotate.None);
 
                     // set Label expressions (if any)
                     SetLabelExpressions(ref tLabel);
@@ -1292,8 +1311,8 @@ namespace TLWindowsEditorWinFormsDemo
                     {
                         throw new Exception("The label requires a Data Source which is missimg. Could not preview the label.");
                     }
-
-
+                    
+                    
                     //Create ThermalLabel images
                     using (PrintJob pj = new PrintJob())
                     {
@@ -1380,7 +1399,8 @@ namespace TLWindowsEditorWinFormsDemo
         private void menuExportToHtml_Click(object sender, EventArgs e)
         {
             //Create the ThermalLabel obj from the editor
-            ThermalLabel tLabel = thermalLabelEditor1.CreateThermalLabel();
+            ThermalLabel tLabel = this.thermalLabelEditor1.ViewRotation == Rotate.None ? this.thermalLabelEditor1.CreateThermalLabel() : this.thermalLabelEditor1.RotateLabel(this.thermalLabelEditor1.CreateThermalLabel(), this.thermalLabelEditor1.ViewRotation, Rotate.None);
+
 
             if (tLabel != null)
             {
@@ -1411,7 +1431,7 @@ namespace TLWindowsEditorWinFormsDemo
 
                                 tLabel.DataSource = ds;
                             }
-
+                            
 
                             //export ThermalLabel to HTML
                             using (PrintJob pj = new PrintJob())
@@ -1597,9 +1617,37 @@ namespace TLWindowsEditorWinFormsDemo
 
         }
 
-        private void cmdRefresh_Click(object sender, EventArgs e)
+        private void tsbGroup_Click(object sender, EventArgs e)
         {
-            this.PreviewLabel();
+            //Perform grouping
+            thermalLabelEditor1.Group();
+        }
+
+        private void tsbUngroup_Click(object sender, EventArgs e)
+        {
+            //Perform ungrouping
+            thermalLabelEditor1.Ungroup();
+        }
+
+
+        private void menuViewRotateNone_Click(object sender, EventArgs e)
+        {
+            thermalLabelEditor1.RotateView(Rotate.None);
+        }
+
+        private void menuViewRotate90_Click(object sender, EventArgs e)
+        {
+            thermalLabelEditor1.RotateView(Rotate.Degree90);
+        }
+
+        private void menuViewRotate180_Click(object sender, EventArgs e)
+        {
+            thermalLabelEditor1.RotateView(Rotate.Degree180);
+        }
+
+        private void menuViewRotate270_Click(object sender, EventArgs e)
+        {
+            thermalLabelEditor1.RotateView(Rotate.Degree270);
         }
     }
 }

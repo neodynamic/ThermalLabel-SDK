@@ -1,6 +1,6 @@
 ﻿/*
  * ThermalLabel Web Editor Add-on
- * ThermalLabelWebEditor-10.0.21.1007.js
+ * ThermalLabelWebEditor-11.0.0.0.js
  * @author Neodynamic (http://neodynamic.com/)
  * Contact: https://neodynamic.com/support
  * WebPage: https://neodynamic.com/products/printing/thermal-label/web-editor/
@@ -302,6 +302,8 @@ var Neodynamic;
                     this._cache_item_id = '';
                     this._visible = true;
                     this._group_name = '';
+                    this._resizable = true;
+                    this._readonly = false;
                     this._fabric_item = '';
                     this._guid = '';
                     this._missing_image = "data:image/gif;base64,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";
@@ -475,6 +477,28 @@ var Neodynamic;
                     get: function () { return this._group_name; },
                     set: function (value) {
                         this._group_name = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                ;
+                Object.defineProperty(Item.prototype, "resizable", {
+                    get: function () { return this._resizable; },
+                    set: function (value) {
+                        this._resizable = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                ;
+                Object.defineProperty(Item.prototype, "read_only", {
+                    get: function () { return this._readonly; },
+                    set: function (value) {
+                        this._readonly = value;
                         this.propertyChanged();
                     },
                     enumerable: true,
@@ -922,6 +946,8 @@ var Neodynamic;
                 Object.defineProperty(BarcodeItem.prototype, "code", {
                     get: function () { return this._code; },
                     set: function (value) {
+                        if (this._readonly)
+                            return;
                         this._code = value;
                         this.propertyChanged();
                     },
@@ -1186,6 +1212,8 @@ var Neodynamic;
                 Object.defineProperty(BarcodeItem.prototype, "ean_upc_supplement_code", {
                     get: function () { return this._ean_upc_supplement_code; },
                     set: function (value) {
+                        if (this._readonly)
+                            return;
                         this._ean_upc_supplement_code = value;
                         this.propertyChanged();
                     },
@@ -1353,6 +1381,8 @@ var Neodynamic;
                 Object.defineProperty(BarcodeItem.prototype, "human_readable_text", {
                     get: function () { return this._human_readable_text; },
                     set: function (value) {
+                        if (this._readonly)
+                            return;
                         this._human_readable_text = value;
                         this.propertyChanged();
                     },
@@ -1826,6 +1856,8 @@ var Neodynamic;
                 Object.defineProperty(BarcodeItem.prototype, "symbology", {
                     get: function () { return this._symbology; },
                     set: function (value) {
+                        if (this._readonly)
+                            return;
                         this._symbology = value;
                         this.propertyChanged();
                     },
@@ -1846,6 +1878,8 @@ var Neodynamic;
                 Object.defineProperty(BarcodeItem.prototype, "text", {
                     get: function () { return this._text; },
                     set: function (value) {
+                        if (this._readonly)
+                            return;
                         this._text = value;
                         this.propertyChanged();
                     },
@@ -2343,7 +2377,9 @@ var Neodynamic;
                         Tlc39MicroPdf417RowBarHeight: this.tlc39_micro_pdf417_row_bar_height,
                         RightToLeft: this.right_to_left,
                         RectMicroQRCodeVersion: this.rect_microqr_code_version,
-                        GroupName: this.group_name
+                        GroupName: this.group_name,
+                        Resizable: this.resizable,
+                        ReadOnly: this.read_only
                     };
                 };
                 ;
@@ -2370,8 +2406,8 @@ var Neodynamic;
                     this._fabric_item.selectable = this._editable;
                     this._fabric_item.lockMovementX = this._locked;
                     this._fabric_item.lockMovementY = this._locked;
-                    this._fabric_item.lockScalingX = this._locked;
-                    this._fabric_item.lockScalingY = this._locked;
+                    this._fabric_item.lockScalingX = this._locked || !this.resizable;
+                    this._fabric_item.lockScalingY = this._locked || !this.resizable;
                     this._fabric_item.lockRotation = this._locked;
                     this._fabric_item.angle = this._rotation_angle;
                     this._rotation_angle = Math.round(this._rotation_angle / 90) * 90;
@@ -2675,8 +2711,8 @@ var Neodynamic;
                     this._fabric_item.stroke = TextUtils.isEmpty(this._stroke_color_hex) ? (this._stroke_color == Neodynamic.SDK.Printing.Color.Black ? 'black' : 'transparent') : this._stroke_color_hex;
                     this._fabric_item.lockMovementX = this._locked;
                     this._fabric_item.lockMovementY = this._locked;
-                    this._fabric_item.lockScalingX = this._locked;
-                    this._fabric_item.lockScalingY = this._locked;
+                    this._fabric_item.lockScalingX = this._locked || !this.resizable;
+                    this._fabric_item.lockScalingY = this._locked || !this.resizable;
                     this._fabric_item.lockRotation = this._locked;
                     this._fabric_item.strokeWidth = this._stroke_thickness;
                     if (this._stroke_thickness > 0) {
@@ -2782,7 +2818,8 @@ var Neodynamic;
                         Visible: this.visible,
                         StrokeStyle: this.stroke_style,
                         StrokeStylePattern: this.stroke_style_pattern,
-                        GroupName: this.group_name
+                        GroupName: this.group_name,
+                        Resizable: this.resizable
                     };
                 };
                 return EllipseShapeItem;
@@ -4004,6 +4041,8 @@ var Neodynamic;
                 Object.defineProperty(ImageItem.prototype, "source_base64", {
                     get: function () { return this._source_base64; },
                     set: function (value) {
+                        if (this._readonly)
+                            return;
                         this._source_base64 = value;
                         this._original_image_item.src = "data:image;base64," + value;
                         this.propertyChanged();
@@ -4045,6 +4084,8 @@ var Neodynamic;
                 Object.defineProperty(ImageItem.prototype, "source_file", {
                     get: function () { return this._source_file; },
                     set: function (value) {
+                        if (this._readonly)
+                            return;
                         this._source_file = value;
                         if (this._source_file && this.source_file.length > 0 && !this._httpPattern.test(this.source_file))
                             this._original_image_item.src = this._missing_image;
@@ -4087,7 +4128,9 @@ var Neodynamic;
                         UseCache: this.use_cache,
                         CacheItemId: this.cache_item_id,
                         Visible: this.visible,
-                        GroupName: this.group_name
+                        GroupName: this.group_name,
+                        Resizable: this.resizable,
+                        ReadOnly: this.read_only
                     };
                 };
                 ;
@@ -4112,8 +4155,8 @@ var Neodynamic;
                     this._fabric_item.selectable = this._editable;
                     this._fabric_item.lockMovementX = this._locked;
                     this._fabric_item.lockMovementY = this._locked;
-                    this._fabric_item.lockScalingX = this._locked;
-                    this._fabric_item.lockScalingY = this._locked;
+                    this._fabric_item.lockScalingX = this._locked || !this.resizable;
+                    this._fabric_item.lockScalingY = this._locked || !this.resizable;
                     this._fabric_item.lockRotation = this._locked;
                     this._fabric_item.angle = this._rotation_angle;
                     var MathUtils = Neodynamic.Web.Utils.MathUtils;
@@ -4204,6 +4247,74 @@ var Neodynamic;
                 return ImageItem;
             }(Printing.Item));
             Printing.ImageItem = ImageItem;
+        })(Printing = SDK.Printing || (SDK.Printing = {}));
+    })(SDK = Neodynamic.SDK || (Neodynamic.SDK = {}));
+})(Neodynamic || (Neodynamic = {}));
+var Neodynamic;
+(function (Neodynamic) {
+    var SDK;
+    (function (SDK) {
+        var Printing;
+        (function (Printing) {
+            var ThermalLabelPage = (function () {
+                function ThermalLabelPage() {
+                    this._x = 0;
+                    this._y = 0;
+                    this._width = 0;
+                    this._height = 0;
+                }
+                Object.defineProperty(ThermalLabelPage.prototype, "x", {
+                    get: function () { return this._x; },
+                    set: function (value) {
+                        this._x = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                ;
+                Object.defineProperty(ThermalLabelPage.prototype, "y", {
+                    get: function () { return this._y; },
+                    set: function (value) {
+                        this._y = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                ;
+                Object.defineProperty(ThermalLabelPage.prototype, "width", {
+                    get: function () { return this._width; },
+                    set: function (value) {
+                        this._width = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                ;
+                Object.defineProperty(ThermalLabelPage.prototype, "height", {
+                    get: function () { return this._height; },
+                    set: function (value) {
+                        this._height = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                ;
+                ThermalLabelPage.prototype._getProperties = function () {
+                    return {
+                        X: this.x,
+                        Y: this.y,
+                        Height: this.height,
+                        Width: this.width
+                    };
+                };
+                ;
+                return ThermalLabelPage;
+            }());
+            Printing.ThermalLabelPage = ThermalLabelPage;
         })(Printing = SDK.Printing || (SDK.Printing = {}));
     })(SDK = Neodynamic.SDK || (Neodynamic.SDK = {}));
 })(Neodynamic || (Neodynamic = {}));
@@ -4373,8 +4484,8 @@ var Neodynamic;
                     }
                     this._fabric_item.lockMovementX = this._locked;
                     this._fabric_item.lockMovementY = this._locked;
-                    this._fabric_item.lockScalingX = this._locked;
-                    this._fabric_item.lockScalingY = this._locked;
+                    this._fabric_item.lockScalingX = this._locked || !this.resizable;
+                    this._fabric_item.lockScalingY = this._locked || !this.resizable;
                     this._fabric_item.lockRotation = this._locked;
                     this._fabric_item.selectable = this._editable;
                     this._fabric_item.setCoords();
@@ -4410,7 +4521,8 @@ var Neodynamic;
                         Visible: this.visible,
                         StrokeStyle: this.stroke_style,
                         StrokeStylePattern: this.stroke_style_pattern,
-                        GroupName: this.group_name
+                        GroupName: this.group_name,
+                        Resizable: this.resizable
                     };
                 };
                 LineShapeItem.prototype._getOrientation = function (angle) {
@@ -4633,8 +4745,8 @@ var Neodynamic;
                     this._fabric_item.stroke = TextUtils.isEmpty(this._stroke_color_hex) ? (this._stroke_color == Neodynamic.SDK.Printing.Color.Black ? 'black' : 'transparent') : this._stroke_color_hex;
                     this._fabric_item.lockMovementX = this._locked;
                     this._fabric_item.lockMovementY = this._locked;
-                    this._fabric_item.lockScalingX = this._locked;
-                    this._fabric_item.lockScalingY = this._locked;
+                    this._fabric_item.lockScalingX = this._locked || !this.resizable;
+                    this._fabric_item.lockScalingY = this._locked || !this.resizable;
                     this._fabric_item.lockRotation = this._locked;
                     this._fabric_item.strokeWidth = this._stroke_thickness;
                     this._fabric_item.angle = this._rotation_angle;
@@ -4748,7 +4860,8 @@ var Neodynamic;
                         Visible: this.visible,
                         StrokeStyle: this.stroke_style,
                         StrokeStylePattern: this.stroke_style_pattern,
-                        GroupName: this.group_name
+                        GroupName: this.group_name,
+                        Resizable: this.resizable
                     };
                 };
                 return RectangleShapeItem;
@@ -4810,6 +4923,8 @@ var Neodynamic;
                 Object.defineProperty(RFIDTagItem.prototype, "data_to_encode", {
                     get: function () { return this._data_to_encode; },
                     set: function (value) {
+                        if (this._readonly)
+                            return;
                         this._data_to_encode = value;
                         this.propertyChanged();
                     },
@@ -4912,7 +5027,9 @@ var Neodynamic;
                         UseCache: this.use_cache,
                         CacheItemId: this.cache_item_id,
                         Visible: this.visible,
-                        GroupName: this.group_name
+                        GroupName: this.group_name,
+                        Resizable: this.resizable,
+                        ReadOnly: this.read_only
                     };
                 };
                 return RFIDTagItem;
@@ -4961,6 +5078,8 @@ var Neodynamic;
                     _this._stroke_color_hex = '';
                     _this._char_spacing = 0;
                     _this._line_spacing = 0;
+                    _this._validation_regex = '';
+                    _this._validation_error_message = '';
                     _this._has_to_reload = false;
                     _this._image_item = new Image();
                     _this._is_in_edit_mode = false;
@@ -5165,6 +5284,13 @@ var Neodynamic;
                         return this._text;
                     },
                     set: function (value) {
+                        if (this._readonly)
+                            return;
+                        if (this._validation_regex && this._validation_regex.length > 0) {
+                            var regex = new RegExp(this._validation_regex);
+                            if (!regex.test(value))
+                                throw new Error((this._validation_error_message && this._validation_error_message.length > 0) ? this._validation_error_message : 'The specified value is not valid.');
+                        }
                         this._text = value;
                         this.propertyChanged();
                     },
@@ -5324,6 +5450,26 @@ var Neodynamic;
                     configurable: true
                 });
                 ;
+                Object.defineProperty(TextItem.prototype, "validation_regex", {
+                    get: function () { return this._validation_regex; },
+                    set: function (value) {
+                        this._validation_regex = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                Object.defineProperty(TextItem.prototype, "validation_error_message", {
+                    get: function () { return this._validation_error_message; },
+                    set: function (value) {
+                        this._validation_error_message = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
                 TextItem.prototype._updateFromCanvas = function () {
                     if (this._width != this._fabric_item.width || this._height != this._fabric_item.height)
                         this._has_to_reload = true;
@@ -5348,8 +5494,8 @@ var Neodynamic;
                     this._fabric_item.selectable = this._editable;
                     this._fabric_item.lockMovementX = this._locked;
                     this._fabric_item.lockMovementY = this._locked;
-                    this._fabric_item.lockScalingX = this._locked;
-                    this._fabric_item.lockScalingY = this._locked;
+                    this._fabric_item.lockScalingX = this._locked || !this.resizable;
+                    this._fabric_item.lockScalingY = this._locked || !this.resizable;
                     this._fabric_item.lockRotation = this._locked;
                     if (this._font.name.indexOf('NativePrinterFont') == 0) {
                         this._rotation_angle = Math.round(this._rotation_angle / 90) * 90;
@@ -5500,12 +5646,16 @@ var Neodynamic;
                         Visible: this.visible,
                         CharSpacing: this.char_spacing,
                         LineSpacing: this.line_spacing,
-                        GroupName: this.group_name
+                        GroupName: this.group_name,
+                        Resizable: this.resizable,
+                        ReadOnly: this.read_only,
+                        ValidationRegEx: Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(this.validation_regex),
+                        ValidationErrorMessage: Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(this.validation_error_message)
                     };
                 };
                 ;
                 TextItem.prototype._dblClick = function (e) {
-                    if (this.editable)
+                    if (this.editable && this.read_only == false)
                         this.enterInEditMode();
                 };
                 ;
@@ -5597,6 +5747,9 @@ var Neodynamic;
                     this.sheet_labels_count = 0;
                     this._sheet_labels_margin = new Printing.FrameThickness();
                     this.expressions = [];
+                    this.batch_cut = 1;
+                    this.design_background_image = '';
+                    this.pages = [];
                 }
                 ThermalLabel.prototype._onUnitChange = function () { };
                 ;
@@ -5725,6 +5878,7 @@ var Neodynamic;
                     var toRet = new ThermalLabel();
                     var items_list = [];
                     var exprs_list = [];
+                    var pages_list = [];
                     var xml = $.parseXML(xmlTemplate);
                     var thermal_label = xml.getElementsByTagName("ThermalLabel")[0];
                     for (var i = 0; i < thermal_label.attributes.length; i++) {
@@ -5768,6 +5922,10 @@ var Neodynamic;
                             var margin = attr.value.split(',');
                             toRet.sheet_labels_margin = new Printing.FrameThickness(margin[0], margin.length == 1 ? margin[0] : margin[1], margin.length == 1 ? margin[0] : margin[2], margin.length == 1 ? margin[0] : margin[3]);
                         }
+                        if (attr.name == "BatchCut")
+                            toRet.batch_cut = parseInt(attr.value);
+                        if (attr.name == "DesignBackgroundImage")
+                            toRet.design_background_image = attr.value;
                     }
                     if (thermal_label.getElementsByTagName("Items")) {
                         var items = $(thermal_label.getElementsByTagName("Items")[0]).children();
@@ -5789,6 +5947,16 @@ var Neodynamic;
                         }
                         toRet.expressions = exprs_list;
                     }
+                    if (thermal_label.getElementsByTagName("Pages")) {
+                        var pages = $(thermal_label.getElementsByTagName("Pages")[0]).children();
+                        for (var i = 0; i < pages.length; i++) {
+                            var xml_2_json = Neodynamic.Web.Utils.XMLParser.XML2Json(pages[i]);
+                            var parsed_page = Neodynamic.Web.Utils.TLParser.parsePage(xml_2_json);
+                            if (parsed_page)
+                                pages_list.push(parsed_page);
+                        }
+                        toRet.pages = pages_list;
+                    }
                     return toRet;
                 };
                 ;
@@ -5796,6 +5964,7 @@ var Neodynamic;
                     var toRet = new ThermalLabel();
                     var items_list = [];
                     var exprs_list = [];
+                    var pages_list = [];
                     var tlJsonObj = (typeof jsonTemplate == "string") ? JSON.parse(jsonTemplate) : jsonTemplate;
                     var tlj = Neodynamic.Web.Utils.TLParser.JsonConvertKeysToLowerCase(tlJsonObj);
                     var oldJsonFormat = (tlj["thermallabel"] != null);
@@ -5848,6 +6017,10 @@ var Neodynamic;
                             toRet.sheet_labels_margin = new Printing.FrameThickness(margin[0], margin.length == 1 ? margin[0] : margin[1], margin.length == 1 ? margin[0] : margin[2], margin.length == 1 ? margin[0] : margin[3]);
                         }
                     }
+                    if (tlj["BatchCut".toLowerCase()])
+                        toRet.batch_cut = tlj["BatchCut".toLowerCase()];
+                    if (tlj["DesignBackgroundImage".toLowerCase()])
+                        toRet.design_background_image = tlj["DesignBackgroundImage".toLowerCase()];
                     if (tlj["items"]) {
                         var items = tlj["items"];
                         for (var i = 0; i < items.length; i++) {
@@ -5866,6 +6039,15 @@ var Neodynamic;
                         }
                         toRet.expressions = exprs_list;
                     }
+                    if (tlj["pages"]) {
+                        var pages = tlj["pages"];
+                        for (var i = 0; i < pages.length; i++) {
+                            var parsed_page = Neodynamic.Web.Utils.TLParser.parsePage(pages[i]);
+                            if (parsed_page)
+                                pages_list.push(parsed_page);
+                        }
+                        toRet.pages = pages_list;
+                    }
                     return toRet;
                 };
                 ;
@@ -5873,6 +6055,10 @@ var Neodynamic;
                     var items = [];
                     for (var i = 0; i < this.items.length; i++) {
                         items.push(this.items[i]._getProperties());
+                    }
+                    var pages = [];
+                    for (var i = 0; i < this.pages.length; i++) {
+                        pages.push(this.pages[i]._getProperties());
                     }
                     return {
                         Width: this.width,
@@ -5898,8 +6084,11 @@ var Neodynamic;
                         SheetLabelsMargin_Left: this.sheet_labels_margin.left,
                         SheetLabelsMargin_Right: this.sheet_labels_margin.right,
                         SheetLabelsMargin_Top: this.sheet_labels_margin.top,
+                        BatchCut: this.batch_cut,
+                        DesignBackgroundImage: this.design_background_image,
                         Items: items,
-                        Expressions: this.expressions
+                        Expressions: this.expressions,
+                        Pages: pages
                     };
                 };
                 ;
@@ -6073,9 +6262,11 @@ var Neodynamic;
                     this._workspaceOffsetX = 0;
                     this._workspaceOffsetY = 0;
                     this._undoRedo = false;
-                    this._clipboardBuffer = null;
+                    this._clipboardBuffer = [];
                     this._objFromCut = false;
                     this._pasteCounter = 1;
+                    this._isGrouping = false;
+                    this._itemsGuidsInGroup = [];
                     this._container_div = container;
                     this._undoManager = new Editor.UndoManager();
                     fabric.Image.prototype._render = function (ctx) {
@@ -6221,6 +6412,7 @@ var Neodynamic;
                         this._tlweCanvasFabric.calcOffset();
                         this._tlweCanvasFabric.renderAll();
                         this._zoom = value;
+                        this._setCanvasBackground();
                         if (this.show_grid)
                             this._buildGrids(this._grid_zoomed_size, this.getStyleValue('--grid-color'));
                         this._centerCanvas();
@@ -6418,9 +6610,13 @@ var Neodynamic;
                             var bw = this.width, bh = this.height, bx = -bw / 2, bt = -bh / 2, br = bx + bw;
                             var selObj = self._tlweCanvasFabric.getActiveObject();
                             var selGroupName = null;
-                            if (selObj && selObj.thermal_label_object && selObj.thermal_label_object.group_name && selObj.thermal_label_object.group_name.trim() != '') {
+                            var objIsInTempGroup = false;
+                            if (this.thermal_label_object)
+                                objIsInTempGroup = self._isItemInGrouping(this.thermal_label_object._guid);
+                            if (objIsInTempGroup || (selObj && selObj.thermal_label_object && selObj.thermal_label_object.group_name && selObj.thermal_label_object.group_name.trim() != '')) {
                                 selGroupName = selObj.thermal_label_object.group_name;
-                                if (selGroupName == this.thermal_label_object.group_name) {
+                                if (selGroupName == this.thermal_label_object.group_name
+                                    || objIsInTempGroup) {
                                     ctx.save();
                                     ctx.scale(1 / this.scaleX, 1 / this.scaleY);
                                     ctx.beginPath();
@@ -6468,7 +6664,8 @@ var Neodynamic;
                                     this.thermal_label_object.expression ||
                                     this.thermal_label_object.comments ||
                                     !this.thermal_label_object.editable ||
-                                    !this.thermal_label_object.visible)) {
+                                    !this.thermal_label_object.visible ||
+                                    this.thermal_label_object.read_only)) {
                                 ctx.save();
                                 ctx.scale(1 / this.scaleX, 1 / this.scaleY);
                                 var icon_size = 12;
@@ -6495,6 +6692,10 @@ var Neodynamic;
                                 }
                                 if (!this.thermal_label_object.visible) {
                                     ctx.drawImage(document.getElementById("tleNotVisibleIcon"), br * this.scaleX - (icon_offset * icon_size), bt * this.scaleY);
+                                    icon_offset += 1;
+                                }
+                                if (this.thermal_label_object.read_only) {
+                                    ctx.drawImage(document.getElementById("tleReadOnlyIcon"), br * this.scaleX - (icon_offset * icon_size), bt * this.scaleY);
                                     icon_offset += 1;
                                 }
                                 ctx.restore();
@@ -6563,6 +6764,11 @@ var Neodynamic;
                     commentsIcon.id = "tleCommentsIcon";
                     commentsIcon.style.display = "none";
                     $(this._container_div).append(commentsIcon);
+                    var readOnlyIcon = new Image();
+                    readOnlyIcon.src = "data:image/gif;base64,R0lGODlhDAAMAJEAAIgAFf////8A/wAAACH5BAEHAAIALAAAAAAMAAwAAAIglH+BusDhEpgvQtoUZFlwuSHG5UQSFnqTqWrYMgafWAAAOw==";
+                    readOnlyIcon.id = "tleReadOnlyIcon";
+                    readOnlyIcon.style.display = "none";
+                    $(this._container_div).append(readOnlyIcon);
                 };
                 ;
                 ThermalLabelEditor.prototype.getStyleValue = function (styleName) {
@@ -6577,6 +6783,7 @@ var Neodynamic;
                 ThermalLabelEditor.prototype.loadThermalLabel = function (tl) {
                     var self = this;
                     var UnitUtils = Neodynamic.Web.Utils.UnitUtils;
+                    this._tl = tl;
                     if (!this._undoRedo) {
                         this._undoManager.clear();
                         this._undoManager.saveState(tl);
@@ -6593,10 +6800,6 @@ var Neodynamic;
                     $(this._master_container).html('').append(self._tlweCanvas).append(self._tlweBackgroundCanvas).append(self._itemToolTip);
                     $(this._master_container).css("position", "relative").css("background-color", this.getStyleValue("--workspace-background-color")).css("width", "100%").css("height", "100%").
                         css("overflow", "scroll");
-                    $(self._tlweCanvas).css('border-style', 'solid').css('border-width', 1).css('border-color', this.getStyleValue("--label-document-frame-border-color")).
-                        css('border-radius', this.getStyleValue("--label-document-frame-corner-radius"));
-                    $(self._tlweBackgroundCanvas).css('border-style', 'solid').css('border-width', 1).css('border-color', this.getStyleValue("--label-document-frame-border-color")).
-                        css('border-radius', this.getStyleValue("--label-document-frame-corner-radius")).css('background-image', this.getStyleValue("--label-document-frame-background-image")).css('background-repeat', 'no-repeat').css('background-position', 'center');
                     var lw = UnitUtils.convertUnitToPixel(tl.width, tl.unit_type);
                     var lh = UnitUtils.convertUnitToPixel(tl.height, tl.unit_type);
                     var lw_f = lw * self._workspace_factor;
@@ -6641,10 +6844,9 @@ var Neodynamic;
                         }
                         self._itemToolTipOverCount = 0;
                     });
-                    this._tlweBackgroundCanvasFabric = new fabric.StaticCanvas(self._tlweBackgroundCanvas, { backgroundColor: self.getStyleValue("--label-document-frame-background-color") });
+                    this._setCanvasBackground();
                     this._centerCanvas();
                     this._tlweCanvas.getContext('2d').imageSmoothingEnabled = false;
-                    this._tl = tl;
                     for (var i = 0; i < tl.items.length; i++) {
                         self._tlweCanvasFabric.add(tl.items[i]._fabric_item);
                         tl.items[i].onError = self._onError.bind(self);
@@ -6864,31 +7066,19 @@ var Neodynamic;
                     options.target.setCoords();
                     if (this.angle_snap && this.angle_snap > 0)
                         options.target.angle = Math.round(options.target.angle / this.angle_snap) * this.angle_snap;
+                    this._selObjLT.x = options.target.oCoords.tl.x;
+                    this._selObjLT.y = options.target.oCoords.tl.y;
                     if (options.target.thermal_label_object && options.target.thermal_label_object.group_name && options.target.thermal_label_object.group_name.trim() != '') {
                         var self = this;
-                        var dl = (options.target.left / options.target.scaleX) - Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(options.target.thermal_label_object.x, options.target.thermal_label_object._unit_type);
-                        var dt = (options.target.top / options.target.scaleY) - Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(options.target.thermal_label_object.y, options.target.thermal_label_object._unit_type);
-                        var da = options.target.angle - (options.target.thermal_label_object._rotation_angle != null ? options.target.thermal_label_object._rotation_angle : 0);
                         var gn = options.target.thermal_label_object.group_name;
                         this._tlweCanvasFabric.getObjects().map(function (obj) {
-                            if (da == 0 &&
-                                obj.thermal_label_object &&
+                            if (obj.thermal_label_object &&
                                 obj.thermal_label_object.group_name == gn &&
                                 obj.thermal_label_object._guid != options.target.thermal_label_object._guid &&
                                 obj.thermal_label_object.editable &&
                                 !obj.thermal_label_object.locked &&
                                 obj.thermal_label_object.visible) {
-                                obj.setTop((Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.y, obj.thermal_label_object._unit_type) + dt) * obj.scaleY);
-                                obj.setLeft((Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.x, obj.thermal_label_object._unit_type) + dl) * obj.scaleX);
-                                switch (obj.type) {
-                                    case 'ellipse':
-                                        {
-                                            obj.ry = obj.height / 2;
-                                            obj.rx = obj.width / 2;
-                                        }
-                                        break;
-                                }
-                                if (self._snap_to_grid) {
+                                if (this._snap_to_grid) {
                                     obj.setLeft(Math.round(obj.left / self._grid_zoomed_size) * self._grid_zoomed_size);
                                     obj.setTop(Math.round(obj.top / self._grid_zoomed_size) * self._grid_zoomed_size);
                                     if (obj.thermal_label_object instanceof Neodynamic.SDK.Printing.LineShapeItem == false) {
@@ -6915,6 +7105,8 @@ var Neodynamic;
                                     }
                                 }
                                 obj.setCoords();
+                                if (self.angle_snap && self.angle_snap > 0)
+                                    obj.angle = Math.round(obj.angle / self.angle_snap) * self.angle_snap;
                                 if (obj.type == 'image') {
                                     obj.thermal_label_object._updateFromCanvas();
                                     obj.thermal_label_object.refresh();
@@ -6959,8 +7151,8 @@ var Neodynamic;
                 ;
                 ThermalLabelEditor.prototype._canvasObjectMoving = function (options) {
                     if (options.target.thermal_label_object && options.target.thermal_label_object.group_name && options.target.thermal_label_object.group_name.trim() != '') {
-                        var dl = (options.target.left / options.target.scaleX) - Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(options.target.thermal_label_object.x, options.target.thermal_label_object._unit_type);
-                        var dt = (options.target.top / options.target.scaleY) - Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(options.target.thermal_label_object.y, options.target.thermal_label_object._unit_type);
+                        var dl = options.e.movementX;
+                        var dt = options.e.movementY;
                         var gn = options.target.thermal_label_object.group_name;
                         this._tlweCanvasFabric.getObjects().map(function (obj) {
                             if (obj.thermal_label_object &&
@@ -6969,8 +7161,8 @@ var Neodynamic;
                                 obj.thermal_label_object.editable &&
                                 !obj.thermal_label_object.locked &&
                                 obj.thermal_label_object.visible) {
-                                obj.setTop((Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.y, obj.thermal_label_object._unit_type) + dt) * obj.scaleY);
-                                obj.setLeft((Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.x, obj.thermal_label_object._unit_type) + dl) * obj.scaleX);
+                                obj.setTop(obj.top + dt);
+                                obj.setLeft(obj.left + dl);
                                 switch (obj.type) {
                                     case 'ellipse':
                                         {
@@ -6987,6 +7179,17 @@ var Neodynamic;
                 };
                 ;
                 ThermalLabelEditor.prototype._canvasObjectScaling = function (options) {
+                    var offsetX = options.target.left - this._selObjLT.x;
+                    var offsetY = options.target.top - this._selObjLT.y;
+                    this._selObjLT.x = options.target.left;
+                    this._selObjLT.y = options.target.top;
+                    var scaleInfo = {
+                        'corner': options.target.__corner,
+                        'scaleX': options.target.scaleX,
+                        'scaleY': options.target.scaleY,
+                        'dX': offsetX,
+                        'dY': offsetY
+                    };
                     options.target.top = options.target.top;
                     options.target.left = options.target.left;
                     options.target.height = Math.abs(options.target.height * options.target.scaleY / this._zoom);
@@ -7002,10 +7205,7 @@ var Neodynamic;
                             break;
                     }
                     if (options.target.thermal_label_object && options.target.thermal_label_object.group_name && options.target.thermal_label_object.group_name.trim() != '') {
-                        var dl = (options.target.left / options.target.scaleX) - Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(options.target.thermal_label_object.x, options.target.thermal_label_object._unit_type);
-                        var dt = (options.target.top / options.target.scaleY) - Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(options.target.thermal_label_object.y, options.target.thermal_label_object._unit_type);
-                        var dw = options.target.width - Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(options.target.thermal_label_object.width, options.target.thermal_label_object._unit_type);
-                        var dh = options.target.height - Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(options.target.thermal_label_object.height, options.target.thermal_label_object._unit_type);
+                        var self = this;
                         var gn = options.target.thermal_label_object.group_name;
                         this._tlweCanvasFabric.getObjects().map(function (obj) {
                             if (obj.thermal_label_object &&
@@ -7014,10 +7214,18 @@ var Neodynamic;
                                 obj.thermal_label_object.editable &&
                                 !obj.thermal_label_object.locked &&
                                 obj.thermal_label_object.visible) {
-                                obj.setTop((Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.y, obj.thermal_label_object._unit_type) + dt) * obj.scaleY);
-                                obj.setLeft((Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.x, obj.thermal_label_object._unit_type) + dl) * obj.scaleX);
-                                obj.setHeight(Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.height, obj.thermal_label_object._unit_type) + dh > 0 ? Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.height, obj.thermal_label_object._unit_type) + dh : 1);
-                                obj.setWidth(Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.width, obj.thermal_label_object._unit_type) + dw > 0 ? Neodynamic.Web.Utils.UnitUtils.convertUnitToPixel(obj.thermal_label_object.width, obj.thermal_label_object._unit_type) + dw : 1);
+                                if (scaleInfo.corner != 'ml' && scaleInfo.corner != 'mr')
+                                    obj.height = Math.abs(obj.height * scaleInfo.scaleY / self._zoom);
+                                if (scaleInfo.corner != 'mt' && scaleInfo.corner != 'mb')
+                                    obj.width = Math.abs(obj.width * scaleInfo.scaleX / self._zoom);
+                                if (scaleInfo.corner == 'tl' || scaleInfo.corner == 'ml' || scaleInfo.corner == 'bl') {
+                                    obj.left += scaleInfo.dX;
+                                }
+                                if (scaleInfo.corner == 'tl' || scaleInfo.corner == 'mt' || scaleInfo.corner == 'tr') {
+                                    obj.top += scaleInfo.dY;
+                                }
+                                obj.scaleX = obj.scaleY = self._zoom;
+                                obj.hasToReload = true;
                                 switch (obj.type) {
                                     case 'ellipse':
                                         {
@@ -7034,8 +7242,11 @@ var Neodynamic;
                 };
                 ;
                 ThermalLabelEditor.prototype._canvasObjectSelected = function (options) {
+                    this._selObjLT = new fabric.Point(options.target.oCoords.tl.x, options.target.oCoords.tl.y);
                     this._selected_objects = options;
                     this._selected_objects.target.thermal_label_object.propertyChanged = this.selectionItemPropertyChanged;
+                    if (this._selected_objects.target.thermal_label_object)
+                        this._updateGroup(this._selected_objects.target.thermal_label_object._guid);
                     this.selectionChanged();
                 };
                 ;
@@ -7044,9 +7255,48 @@ var Neodynamic;
                     this.selectionChanged();
                 };
                 ;
+                ThermalLabelEditor.prototype._setCanvasBackground = function () {
+                    var UnitUtils = Neodynamic.Web.Utils.UnitUtils;
+                    var self = this;
+                    $(self._tlweBackgroundCanvas).css('border-style', 'solid').css('border-width', 1).css('border-color', this.getStyleValue("--label-document-frame-border-color")).
+                        css('border-radius', this.getStyleValue("--label-document-frame-corner-radius")).css('background-repeat', 'no-repeat').css('background-position', 'center');
+                    this._tlweBackgroundCanvasFabric = new fabric.StaticCanvas(self._tlweBackgroundCanvas, { backgroundColor: self.getStyleValue("--label-document-frame-background-color") });
+                    var designBgImgSrc = self.getStyleValue("--label-document-frame-background-image").replace(/"/g, '');
+                    if (this._tl.design_background_image && this._tl.design_background_image.length > 0) {
+                        designBgImgSrc = this._tl.design_background_image;
+                    }
+                    if (designBgImgSrc && designBgImgSrc.length > 0 && designBgImgSrc.trim() != "none") {
+                        var designBgImg = new Image();
+                        designBgImg.onload = function () {
+                            var f_img = new fabric.Image(designBgImg, {});
+                            self._tlweBackgroundCanvasFabric.setBackgroundImage(f_img);
+                            self._tlweBackgroundCanvasFabric.renderAll();
+                        };
+                        designBgImg.src = ((this._tl.design_background_image && this._tl.design_background_image.length > 0) ? "data:image/png;base64," : "") + designBgImgSrc;
+                    }
+                    else if (this._tl.pages && this._tl.pages.length > 0) {
+                        for (var i = 0; i < this._tl.pages.length; i++) {
+                            var tlp = this._tl.pages[i];
+                            var rectPage = new fabric.RoundedRect();
+                            rectPage.left = UnitUtils.convertUnitToPixel(tlp.x * this._zoom, this._tl.unit_type);
+                            rectPage.top = UnitUtils.convertUnitToPixel(tlp.y * this._zoom, this._tl.unit_type);
+                            rectPage.width = UnitUtils.convertUnitToPixel(tlp.width * this._zoom, this._tl.unit_type);
+                            rectPage.height = UnitUtils.convertUnitToPixel(tlp.height * this._zoom, this._tl.unit_type);
+                            rectPage.fill = this._tlweBackgroundCanvasFabric.backgroundColor;
+                            rectPage.stroke = this.getStyleValue("--label-document-frame-border-color");
+                            rectPage.StrokeWidth = 1;
+                            rectPage.rtl = rectPage.rtr = rectPage.rbl = rectPage.rbr = parseFloat(this.getStyleValue("--label-document-frame-corner-radius"));
+                            rectPage.selectable = false;
+                            this._tlweBackgroundCanvasFabric.add(rectPage);
+                        }
+                        $(self._tlweBackgroundCanvas).css('border-width', 0);
+                        this._tlweBackgroundCanvasFabric.setBackgroundColor('transparent');
+                    }
+                    this._tlweBackgroundCanvasFabric.renderAll();
+                };
+                ;
                 ThermalLabelEditor.prototype._buildGrids = function (size, color) {
-                    this._tlweBackgroundCanvasFabric.clear();
-                    this._tlweBackgroundCanvasFabric.backgroundColor = this.getStyleValue("--label-document-frame-background-color");
+                    this._setCanvasBackground();
                     for (var i = 0; i < (this._tlweBackgroundCanvas.width / size); i++) {
                         this._tlweBackgroundCanvasFabric.add(new fabric.Line([i * size, 0, i * size, this._tlweBackgroundCanvas.height], { stroke: this.getStyleValue('--grid-color'), selectable: false }));
                     }
@@ -7056,9 +7306,7 @@ var Neodynamic;
                 };
                 ;
                 ThermalLabelEditor.prototype._clearGrids = function () {
-                    this._tlweBackgroundCanvasFabric.clear();
-                    this._tlweBackgroundCanvasFabric.backgroundColor = this.getStyleValue("--label-document-frame-background-color");
-                    this._tlweBackgroundCanvasFabric.renderAll();
+                    this._setCanvasBackground();
                 };
                 ;
                 ThermalLabelEditor.prototype.lockSelectedItems = function () {
@@ -7071,8 +7319,18 @@ var Neodynamic;
                         p.lockScalingY = true;
                         p.lockRotation = true;
                     };
-                    if (this._selected_objects.target.objects != undefined) {
-                        this._selected_objects.target.objects.forEach(function (x) { _l(x); });
+                    if (this._selected_objects.target.thermal_label_object && this._selected_objects.target.thermal_label_object.group_name && this._selected_objects.target.thermal_label_object.group_name.trim() != '') {
+                        var gn = this._selected_objects.target.thermal_label_object.group_name;
+                        var self = this;
+                        this._tlweCanvasFabric.getObjects().map(function (obj) {
+                            if (obj.thermal_label_object &&
+                                obj.thermal_label_object.group_name == gn &&
+                                obj.thermal_label_object.editable &&
+                                obj.thermal_label_object.visible) {
+                                _l(obj);
+                                obj.thermal_label_object.locked = true;
+                            }
+                        });
                     }
                     else {
                         _l(this._selected_objects.target);
@@ -7092,8 +7350,18 @@ var Neodynamic;
                         p.lockScalingY = false;
                         p.lockRotation = false;
                     };
-                    if (this._selected_objects.target.objects != undefined) {
-                        this._selected_objects.target.objects.forEach(function (x) { _u(x); });
+                    if (this._selected_objects.target.thermal_label_object && this._selected_objects.target.thermal_label_object.group_name && this._selected_objects.target.thermal_label_object.group_name.trim() != '') {
+                        var gn = this._selected_objects.target.thermal_label_object.group_name;
+                        var self = this;
+                        this._tlweCanvasFabric.getObjects().map(function (obj) {
+                            if (obj.thermal_label_object &&
+                                obj.thermal_label_object.group_name == gn &&
+                                obj.thermal_label_object.editable &&
+                                obj.thermal_label_object.visible) {
+                                _u(obj);
+                                obj.thermal_label_object.locked = false;
+                            }
+                        });
                     }
                     else {
                         _u(this._selected_objects.target);
@@ -7106,10 +7374,27 @@ var Neodynamic;
                 ThermalLabelEditor.prototype.bringForward = function () {
                     if (this._selected_objects == null)
                         return;
-                    this._selected_objects.target.bringForward(this._tlweCanvasFabric);
-                    var element_idx = this._tl.items.indexOf(this.current_selection);
-                    if (element_idx != this._tl.items.length - 1)
-                        this._tl.items[element_idx + 1] = this._tl.items.splice(element_idx, 1, this._tl.items[element_idx + 1])[0];
+                    if (this._selected_objects.target.thermal_label_object && this._selected_objects.target.thermal_label_object.group_name && this._selected_objects.target.thermal_label_object.group_name.trim() != '') {
+                        var gn = this._selected_objects.target.thermal_label_object.group_name;
+                        var self = this;
+                        this._tlweCanvasFabric.getObjects().map(function (obj) {
+                            if (obj.thermal_label_object &&
+                                obj.thermal_label_object.group_name == gn &&
+                                obj.thermal_label_object.editable &&
+                                obj.thermal_label_object.visible) {
+                                obj.bringForward(self._tlweCanvasFabric);
+                                var element_idx = self._tl.items.indexOf(obj.thermal_label_object);
+                                if (element_idx != self._tl.items.length - 1)
+                                    self._tl.items[element_idx + 1] = self._tl.items.splice(element_idx, 1, self._tl.items[element_idx + 1])[0];
+                            }
+                        });
+                    }
+                    else {
+                        this._selected_objects.target.bringForward(this._tlweCanvasFabric);
+                        var element_idx = this._tl.items.indexOf(this.current_selection);
+                        if (element_idx != this._tl.items.length - 1)
+                            this._tl.items[element_idx + 1] = this._tl.items.splice(element_idx, 1, this._tl.items[element_idx + 1])[0];
+                    }
                     this._tlweCanvasFabric.renderAll();
                     this.saveCurrentLabelCanvasState();
                 };
@@ -7117,9 +7402,25 @@ var Neodynamic;
                 ThermalLabelEditor.prototype.bringToFront = function () {
                     if (this._selected_objects == null)
                         return;
-                    this._selected_objects.target.bringToFront(this._tlweCanvasFabric);
-                    var element_idx = this._tl.items.indexOf(this.current_selection);
-                    this._tl.items.push(this._tl.items.splice(element_idx, 1)[0]);
+                    if (this._selected_objects.target.thermal_label_object && this._selected_objects.target.thermal_label_object.group_name && this._selected_objects.target.thermal_label_object.group_name.trim() != '') {
+                        var gn = this._selected_objects.target.thermal_label_object.group_name;
+                        var self = this;
+                        this._tlweCanvasFabric.getObjects().map(function (obj) {
+                            if (obj.thermal_label_object &&
+                                obj.thermal_label_object.group_name == gn &&
+                                obj.thermal_label_object.editable &&
+                                obj.thermal_label_object.visible) {
+                                obj.bringToFront(self._tlweCanvasFabric);
+                                var element_idx = self._tl.items.indexOf(obj.thermal_label_object);
+                                self._tl.items.push(self._tl.items.splice(element_idx, 1)[0]);
+                            }
+                        });
+                    }
+                    else {
+                        this._selected_objects.target.bringToFront(this._tlweCanvasFabric);
+                        var element_idx = this._tl.items.indexOf(this.current_selection);
+                        this._tl.items.push(this._tl.items.splice(element_idx, 1)[0]);
+                    }
                     this._tlweCanvasFabric.renderAll();
                     this.saveCurrentLabelCanvasState();
                 };
@@ -7127,10 +7428,27 @@ var Neodynamic;
                 ThermalLabelEditor.prototype.sendBackward = function () {
                     if (this._selected_objects == null)
                         return;
-                    this._selected_objects.target.sendBackwards(this._tlweCanvasFabric);
-                    var element_idx = this._tl.items.indexOf(this.current_selection);
-                    if (element_idx != 0)
-                        this._tl.items[element_idx - 1] = this._tl.items.splice(element_idx, 1, this._tl.items[element_idx - 1])[0];
+                    if (this._selected_objects.target.thermal_label_object && this._selected_objects.target.thermal_label_object.group_name && this._selected_objects.target.thermal_label_object.group_name.trim() != '') {
+                        var gn = this._selected_objects.target.thermal_label_object.group_name;
+                        var self = this;
+                        this._tlweCanvasFabric.getObjects().map(function (obj) {
+                            if (obj.thermal_label_object &&
+                                obj.thermal_label_object.group_name == gn &&
+                                obj.thermal_label_object.editable &&
+                                obj.thermal_label_object.visible) {
+                                obj.sendBackwards(self._tlweCanvasFabric);
+                                var element_idx = self._tl.items.indexOf(obj.thermal_label_object);
+                                if (element_idx != 0)
+                                    self._tl.items[element_idx - 1] = self._tl.items.splice(element_idx, 1, self._tl.items[element_idx - 1])[0];
+                            }
+                        });
+                    }
+                    else {
+                        this._selected_objects.target.sendBackwards(this._tlweCanvasFabric);
+                        var element_idx = this._tl.items.indexOf(this.current_selection);
+                        if (element_idx != 0)
+                            this._tl.items[element_idx - 1] = this._tl.items.splice(element_idx, 1, this._tl.items[element_idx - 1])[0];
+                    }
                     this._tlweCanvasFabric.renderAll();
                     this.saveCurrentLabelCanvasState();
                 };
@@ -7138,9 +7456,25 @@ var Neodynamic;
                 ThermalLabelEditor.prototype.sendToBack = function () {
                     if (this._selected_objects == null)
                         return;
-                    this._selected_objects.target.sendToBack(this._tlweCanvasFabric);
-                    var element_idx = this._tl.items.indexOf(this.current_selection);
-                    this._tl.items.unshift(this._tl.items.splice(element_idx, 1)[0]);
+                    if (this._selected_objects.target.thermal_label_object && this._selected_objects.target.thermal_label_object.group_name && this._selected_objects.target.thermal_label_object.group_name.trim() != '') {
+                        var gn = this._selected_objects.target.thermal_label_object.group_name;
+                        var self = this;
+                        this._tlweCanvasFabric.getObjects().map(function (obj) {
+                            if (obj.thermal_label_object &&
+                                obj.thermal_label_object.group_name == gn &&
+                                obj.thermal_label_object.editable &&
+                                obj.thermal_label_object.visible) {
+                                obj.sendToBack(self._tlweCanvasFabric);
+                                var element_idx = self._tl.items.indexOf(obj.thermal_label_object);
+                                self._tl.items.unshift(self._tl.items.splice(element_idx, 1)[0]);
+                            }
+                        });
+                    }
+                    else {
+                        this._selected_objects.target.sendToBack(this._tlweCanvasFabric);
+                        var element_idx = this._tl.items.indexOf(this.current_selection);
+                        this._tl.items.unshift(this._tl.items.splice(element_idx, 1)[0]);
+                    }
                     this._tlweCanvasFabric.renderAll();
                     this.saveCurrentLabelCanvasState();
                 };
@@ -7156,8 +7490,19 @@ var Neodynamic;
                     var cancel = !this.currentSelectionBeforeDelete();
                     if (!cancel) {
                         var object = this._tlweCanvasFabric.getActiveObject();
+                        var gn = object.thermal_label_object.group_name;
                         this._tl.items.splice(this._tl.items.indexOf(object.thermal_label_object), 1);
                         object.remove();
+                        var self = this;
+                        this._tlweCanvasFabric.getObjects().map(function (obj) {
+                            if (obj.thermal_label_object &&
+                                obj.thermal_label_object.group_name == gn &&
+                                obj.thermal_label_object.editable &&
+                                obj.thermal_label_object.visible) {
+                                self._tl.items.splice(self._tl.items.indexOf(obj.thermal_label_object), 1);
+                                obj.remove();
+                            }
+                        });
                         this._tlweCanvasFabric.renderAll();
                         this.currentSelectionAfterDelete();
                         this.saveCurrentLabelCanvasState();
@@ -7389,14 +7734,32 @@ var Neodynamic;
                 };
                 ThermalLabelEditor.prototype.clipboardCopy = function () {
                     if (this.current_selection) {
-                        this._clipboardBuffer = this.current_selection;
+                        this._clipboardBuffer = [];
+                        if (this.current_selection.group_name && this.current_selection.group_name.trim() != '') {
+                            var self = this;
+                            this.getItemsInGroup(this.current_selection.group_name).map(function (obj) {
+                                self._clipboardBuffer.push(obj);
+                            });
+                        }
+                        else {
+                            this._clipboardBuffer.push(this.current_selection);
+                        }
                         this._objFromCut = false;
                     }
                     this._pasteCounter = 1;
                 };
                 ThermalLabelEditor.prototype.clipboardCut = function () {
                     if (this.current_selection) {
-                        this._clipboardBuffer = this.current_selection;
+                        this._clipboardBuffer = [];
+                        if (this.current_selection.group_name && this.current_selection.group_name.trim() != '') {
+                            var self = this;
+                            this.getItemsInGroup(this.current_selection.group_name).map(function (obj) {
+                                self._clipboardBuffer.push(obj);
+                            });
+                        }
+                        else {
+                            this._clipboardBuffer.push(this.current_selection);
+                        }
                         this.deleteSelectedItems();
                         this._pasteCounter = 0;
                         this._objFromCut = true;
@@ -7404,38 +7767,64 @@ var Neodynamic;
                     }
                 };
                 ThermalLabelEditor.prototype.clipboardPaste = function () {
-                    if (this._clipboardBuffer) {
-                        var itm = this._objFromCut ? this._clipboardBuffer : Neodynamic.Web.Utils.Cloner.cloneItem(this._clipboardBuffer);
-                        if (!this._objFromCut)
-                            itm._updateToCanvas();
-                        var UnitUtils = Neodynamic.Web.Utils.UnitUtils;
-                        var curUnit = this._tl.unit_type;
-                        itm.x += UnitUtils.convertPixelToUnit(10 * this._pasteCounter, curUnit);
-                        itm.y += UnitUtils.convertPixelToUnit(10 * this._pasteCounter, curUnit);
+                    if (this._clipboardBuffer && this._clipboardBuffer.length > 0) {
+                        for (var i = 0; i < this._clipboardBuffer.length; i++) {
+                            var itm = this._objFromCut ? this._clipboardBuffer[i] : Neodynamic.Web.Utils.Cloner.cloneItem(this._clipboardBuffer[i]);
+                            if (!this._objFromCut)
+                                itm._updateToCanvas();
+                            var UnitUtils = Neodynamic.Web.Utils.UnitUtils;
+                            var curUnit = this._tl.unit_type;
+                            itm.x += UnitUtils.convertPixelToUnit(10 * this._pasteCounter, curUnit);
+                            itm.y += UnitUtils.convertPixelToUnit(10 * this._pasteCounter, curUnit);
+                            itm.onError = this._onError.bind(this);
+                            this.addItem(itm);
+                            this.newItemCreated();
+                            if (this._objFromCut) {
+                                this._clipboardBuffer = [];
+                                this._objFromCut = false;
+                            }
+                            if (itm instanceof Neodynamic.SDK.Printing.RFIDTagItem) {
+                                itm._image.src = this._rfid_tag_image_file_name;
+                                this._tlweCanvasFabric.renderAll();
+                            }
+                        }
                         this._pasteCounter++;
-                        itm.onError = this._onError.bind(this);
-                        this.addItem(itm);
-                        this.newItemCreated();
-                        if (this._objFromCut) {
-                            this._clipboardBuffer = null;
-                            this._objFromCut = false;
-                        }
-                        if (this.current_selection instanceof Neodynamic.SDK.Printing.RFIDTagItem) {
-                            this.current_selection._image.src = this._rfid_tag_image_file_name;
-                            this._tlweCanvasFabric.renderAll();
-                        }
                         this.saveCurrentLabelCanvasState();
                     }
                 };
                 ThermalLabelEditor.prototype.moveSelectedItems = function (deltaX, deltaY) {
-                    this.current_selection.x += deltaX;
-                    this.current_selection.y += deltaY;
-                    if (this.current_selection._updateToCanvas) {
-                        this.current_selection._updateToCanvas();
-                        if (this.current_selection._fabric_item.canvas) {
-                            this.current_selection._fabric_item.canvas.renderAll();
+                    var gn = this.current_selection.group_name;
+                    if (gn && gn.length > 0) {
+                        var f = false;
+                        this._tlweCanvasFabric.getObjects().map(function (obj) {
+                            if (obj.thermal_label_object &&
+                                obj.thermal_label_object.group_name == gn &&
+                                obj.thermal_label_object.editable &&
+                                obj.thermal_label_object.visible) {
+                                obj.thermal_label_object.x += deltaX;
+                                obj.thermal_label_object.y += deltaY;
+                                if (obj.thermal_label_object._updateToCanvas) {
+                                    obj.thermal_label_object._updateToCanvas();
+                                    if (obj.thermal_label_object._fabric_item.canvas) {
+                                        obj.thermal_label_object._fabric_item.canvas.renderAll();
+                                    }
+                                    f = true;
+                                }
+                            }
+                        });
+                        if (f)
+                            this.saveCurrentLabelCanvasState();
+                    }
+                    else {
+                        this.current_selection.x += deltaX;
+                        this.current_selection.y += deltaY;
+                        if (this.current_selection._updateToCanvas) {
+                            this.current_selection._updateToCanvas();
+                            if (this.current_selection._fabric_item.canvas) {
+                                this.current_selection._fabric_item.canvas.renderAll();
+                            }
+                            this.saveCurrentLabelCanvasState();
                         }
-                        this.saveCurrentLabelCanvasState();
                     }
                 };
                 Object.defineProperty(ThermalLabelEditor.prototype, "can_undo", {
@@ -7495,6 +7884,97 @@ var Neodynamic;
                     this._undoManager.saveState(this._getCurrentLabelCanvasState());
                     this.undoStateChanged();
                 };
+                ThermalLabelEditor.prototype.startGroup = function () {
+                    this._isGrouping = true;
+                    this._itemsGuidsInGroup = [];
+                    if (this.current_selection && this.current_selection._guid)
+                        this._updateGroup(this.current_selection._guid);
+                };
+                ThermalLabelEditor.prototype.cancelGroup = function () {
+                    this._isGrouping = false;
+                    this._itemsGuidsInGroup = [];
+                };
+                ThermalLabelEditor.prototype._updateGroup = function (itemGuid) {
+                    if (this._isGrouping) {
+                        for (var i = 0; i < this._itemsGuidsInGroup.length; i++) {
+                            if (this._itemsGuidsInGroup[i] == itemGuid)
+                                return;
+                        }
+                        this._itemsGuidsInGroup.push(itemGuid);
+                        this._tlweCanvasFabric.renderAll();
+                    }
+                };
+                ThermalLabelEditor.prototype._isItemInGrouping = function (guid) {
+                    for (var i = 0; i < this._itemsGuidsInGroup.length; i++) {
+                        if (guid == this._itemsGuidsInGroup[i])
+                            return true;
+                    }
+                    return false;
+                };
+                Object.defineProperty(ThermalLabelEditor.prototype, "items_in_started_group", {
+                    get: function () {
+                        return this._itemsGuidsInGroup ? this._itemsGuidsInGroup.length : 0;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                Object.defineProperty(ThermalLabelEditor.prototype, "group_started", {
+                    get: function () {
+                        return this._isGrouping;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                ThermalLabelEditor.prototype.createGroup = function () {
+                    if (this._isGrouping && this._itemsGuidsInGroup && this._itemsGuidsInGroup.length > 0) {
+                        var gn = 'G' + Date.now();
+                        var self = this;
+                        for (var i = 0; i < this._itemsGuidsInGroup.length; i++) {
+                            this._tlweCanvasFabric.getObjects().map(function (obj) {
+                                if (obj.thermal_label_object &&
+                                    obj.thermal_label_object._guid == self._itemsGuidsInGroup[i]) {
+                                    obj.thermal_label_object.group_name = gn;
+                                }
+                            });
+                        }
+                        this._isGrouping = false;
+                        this._itemsGuidsInGroup = [];
+                        this._tlweCanvasFabric.renderAll();
+                        this.saveCurrentLabelCanvasState();
+                    }
+                };
+                ThermalLabelEditor.prototype.unGroup = function () {
+                    if (!this._isGrouping && this.current_selection) {
+                        var self = this;
+                        var gn = this.current_selection.group_name;
+                        this._tlweCanvasFabric.getObjects().map(function (obj) {
+                            if (obj.thermal_label_object &&
+                                obj.thermal_label_object.group_name == gn) {
+                                obj.thermal_label_object.group_name = '';
+                            }
+                        });
+                        this._isGrouping = false;
+                        this._itemsGuidsInGroup = [];
+                        this._tlweCanvasFabric.renderAll();
+                        this.saveCurrentLabelCanvasState();
+                    }
+                };
+                ThermalLabelEditor.prototype.getItemsInGroup = function (groupName, cloneItems) {
+                    var group = [];
+                    if (groupName && groupName.length > 0) {
+                        this._tlweCanvasFabric.getObjects().map(function (obj) {
+                            if (obj.thermal_label_object &&
+                                obj.thermal_label_object.group_name == groupName &&
+                                obj.thermal_label_object.editable &&
+                                obj.thermal_label_object.visible) {
+                                group.push((cloneItems && cloneItems == true) ? Neodynamic.Web.Utils.Cloner.cloneItem(obj.thermal_label_object) : obj.thermal_label_object);
+                            }
+                        });
+                    }
+                    return group;
+                };
                 ThermalLabelEditor.prototype.newItemCreated = function () {
                 };
                 ThermalLabelEditor.prototype.currentSelectionBeforeDelete = function () {
@@ -7550,11 +8030,15 @@ var Neodynamic;
                     clone.sheet_labels_height = tl.sheet_labels_height;
                     clone.sheet_labels_count = tl.sheet_labels_count;
                     clone.sheet_labels_margin = new Neodynamic.SDK.Printing.FrameThickness(tl.sheet_labels_margin.left, tl.sheet_labels_margin.top, tl.sheet_labels_margin.right, tl.sheet_labels_margin.bottom);
+                    clone.design_background_image = tl.design_background_image;
                     tl.items.forEach(function (x) {
                         clone.items.push(Neodynamic.Web.Utils.Cloner.cloneItem(x));
                     });
                     tl.expressions.forEach(function (x) {
                         clone.expressions.push(x);
+                    });
+                    tl.pages.forEach(function (x) {
+                        clone.pages.push(Neodynamic.Web.Utils.Cloner.clonePage(x));
                     });
                     return clone;
                 };
@@ -7588,6 +8072,7 @@ var Neodynamic;
                         clone.stroke_style = itm.stroke_style;
                         clone.stroke_style_pattern = itm.stroke_style_pattern;
                         clone.group_name = itm.group_name;
+                        clone.resizable = itm.resizable;
                     }
                     else if (itm instanceof Neodynamic.SDK.Printing.ImageItem) {
                         clone = new Neodynamic.SDK.Printing.ImageItem();
@@ -7616,6 +8101,7 @@ var Neodynamic;
                         clone.cache_item_id = itm.cache_item_id;
                         clone.visible = itm.visible;
                         clone.group_name = itm.group_name;
+                        clone.read_only = itm.read_only;
                     }
                     else if (itm instanceof Neodynamic.SDK.Printing.LineShapeItem) {
                         clone = new Neodynamic.SDK.Printing.LineShapeItem();
@@ -7643,14 +8129,12 @@ var Neodynamic;
                         clone.stroke_style = itm.stroke_style;
                         clone.stroke_style_pattern = itm.stroke_style_pattern;
                         clone.group_name = itm.group_name;
+                        clone.resizable = itm.resizable;
                     }
                     else if (itm instanceof Neodynamic.SDK.Printing.RectangleShapeItem) {
                         clone = new Neodynamic.SDK.Printing.RectangleShapeItem();
                         clone.unit_type = itm.unit_type;
-                        clone.corner_radius.bottom_left = itm.corner_radius.bottom_left;
-                        clone.corner_radius.bottom_right = itm.corner_radius.bottom_right;
-                        clone.corner_radius.top_left = itm.corner_radius.top_left;
-                        clone.corner_radius.top_right = itm.corner_radius.top_right;
+                        clone.corner_radius = new Neodynamic.SDK.Printing.RectangleCornerRadius(itm.corner_radius.top_left, itm.corner_radius.top_right, itm.corner_radius.bottom_right, itm.corner_radius.bottom_left);
                         clone.rotation_angle = itm.rotation_angle;
                         clone.fill_color = itm.fill_color;
                         clone.stroke_thickness = itm.stroke_thickness;
@@ -7676,6 +8160,7 @@ var Neodynamic;
                         clone.stroke_style = itm.stroke_style;
                         clone.stroke_style_pattern = itm.stroke_style_pattern;
                         clone.group_name = itm.group_name;
+                        clone.resizable = itm.resizable;
                     }
                     else if (itm instanceof Neodynamic.SDK.Printing.RFIDTagItem) {
                         clone = new Neodynamic.SDK.Printing.RFIDTagItem();
@@ -7698,6 +8183,8 @@ var Neodynamic;
                         clone.cache_item_id = itm.cache_item_id;
                         clone.visible = itm.visible;
                         clone.group_name = itm.group_name;
+                        clone.resizable = itm.resizable;
+                        clone.read_only = itm.read_only;
                     }
                     else if (itm instanceof Neodynamic.SDK.Printing.TextItem) {
                         clone = new Neodynamic.SDK.Printing.TextItem();
@@ -7705,18 +8192,9 @@ var Neodynamic;
                         clone.name = itm.name;
                         clone.x = itm.x;
                         clone.y = itm.y;
-                        clone.border_thickness.bottom = itm.border_thickness.bottom;
-                        clone.border_thickness.left = itm.border_thickness.left;
-                        clone.border_thickness.right = itm.border_thickness.right;
-                        clone.border_thickness.top = itm.border_thickness.top;
-                        clone.text_padding.bottom = itm.text_padding.bottom;
-                        clone.text_padding.left = itm.text_padding.left;
-                        clone.text_padding.right = itm.text_padding.right;
-                        clone.text_padding.top = itm.text_padding.top;
-                        clone.corner_radius.bottom_left = itm.corner_radius.bottom_left;
-                        clone.corner_radius.bottom_right = itm.corner_radius.bottom_right;
-                        clone.corner_radius.top_left = itm.corner_radius.top_left;
-                        clone.corner_radius.top_right = itm.corner_radius.top_right;
+                        clone.border_thickness = new Neodynamic.SDK.Printing.FrameThickness(itm.border_thickness.left, itm.border_thickness.top, itm.border_thickness.right, itm.border_thickness.bottom);
+                        clone.text_padding = new Neodynamic.SDK.Printing.FrameThickness(itm.text_padding.left, itm.text_padding.top, itm.text_padding.right, itm.text_padding.bottom);
+                        clone.corner_radius = new Neodynamic.SDK.Printing.RectangleCornerRadius(itm.corner_radius.top_left, itm.corner_radius.top_right, itm.corner_radius.bottom_right, itm.corner_radius.bottom_left);
                         clone.font.bold = itm.font.bold;
                         clone.font.code_page = itm.font.code_page;
                         clone.font.custom_font_file = itm.font.custom_font_file;
@@ -7768,6 +8246,10 @@ var Neodynamic;
                         clone.line_spacing = itm.line_spacing;
                         clone.visible = itm.visible;
                         clone.group_name = itm.group_name;
+                        clone.resizable = itm.resizable;
+                        clone.read_only = itm.read_only;
+                        clone.validation_regex = itm.validation_regex;
+                        clone.validation_error_message = itm.validation_error_message;
                     }
                     else if (itm instanceof Neodynamic.SDK.Printing.BarcodeItem) {
                         clone = new Neodynamic.SDK.Printing.BarcodeItem();
@@ -7777,22 +8259,10 @@ var Neodynamic;
                         clone.y = itm.y;
                         clone.width = itm.width;
                         clone.height = itm.height;
-                        clone.corner_radius.bottom_left = itm.corner_radius.bottom_left;
-                        clone.corner_radius.bottom_right = itm.corner_radius.bottom_right;
-                        clone.corner_radius.top_left = itm.corner_radius.top_left;
-                        clone.corner_radius.top_right = itm.corner_radius.top_right;
-                        clone.border_thickness.bottom = itm.border_thickness.bottom;
-                        clone.border_thickness.left = itm.border_thickness.left;
-                        clone.border_thickness.right = itm.border_thickness.right;
-                        clone.border_thickness.top = itm.border_thickness.top;
-                        clone.barcode_padding.bottom = itm.barcode_padding.bottom;
-                        clone.barcode_padding.left = itm.barcode_padding.left;
-                        clone.barcode_padding.right = itm.barcode_padding.right;
-                        clone.barcode_padding.top = itm.barcode_padding.top;
-                        clone.quiet_zone.bottom = itm.quiet_zone.bottom;
-                        clone.quiet_zone.left = itm.quiet_zone.left;
-                        clone.quiet_zone.right = itm.quiet_zone.right;
-                        clone.quiet_zone.top = itm.quiet_zone.top;
+                        clone.corner_radius = new Neodynamic.SDK.Printing.RectangleCornerRadius(itm.corner_radius.top_left, itm.corner_radius.top_right, itm.corner_radius.bottom_right, itm.corner_radius.bottom_left);
+                        clone.border_thickness = new Neodynamic.SDK.Printing.FrameThickness(itm.border_thickness.left, itm.border_thickness.top, itm.border_thickness.right, itm.border_thickness.bottom);
+                        clone.barcode_padding = new Neodynamic.SDK.Printing.FrameThickness(itm.barcode_padding.left, itm.barcode_padding.top, itm.barcode_padding.right, itm.barcode_padding.bottom);
+                        clone.quiet_zone = new Neodynamic.SDK.Printing.FrameThickness(itm.quiet_zone.left, itm.quiet_zone.top, itm.quiet_zone.right, itm.quiet_zone.bottom);
                         clone.text_font.bold = itm.text_font.bold;
                         clone.text_font.code_page = itm.text_font.code_page;
                         clone.text_font.custom_font_file = itm.text_font.custom_font_file;
@@ -7965,7 +8435,17 @@ var Neodynamic;
                         clone.right_to_left = itm.right_to_left;
                         clone.rect_microqr_code_version = itm.rect_microqr_code_version;
                         clone.group_name = itm.group_name;
+                        clone.resizable = itm.resizable;
+                        clone.read_only = itm.read_only;
                     }
+                    return clone;
+                };
+                Cloner.clonePage = function (page) {
+                    var clone = new Neodynamic.SDK.Printing.ThermalLabelPage();
+                    clone.x = page.x;
+                    clone.y = page.y;
+                    clone.width = page.width;
+                    clone.height = page.height;
                     return clone;
                 };
                 return Cloner;
@@ -8344,6 +8824,10 @@ var Neodynamic;
                             e.stroke_style_pattern = json.strokestylepattern;
                         if (json.groupname != null)
                             e.group_name = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.groupname);
+                        if (json.resizable != null)
+                            e.resizable = json.resizable;
+                        if (json.readonly != null)
+                            e.read_only = json.readonly;
                         return e;
                     }
                     if (type == "EllipseShapeItem") {
@@ -8399,6 +8883,8 @@ var Neodynamic;
                             e.stroke_style_pattern = json.strokestylepattern;
                         if (json.groupname != null)
                             e.group_name = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.groupname);
+                        if (json.resizable != null)
+                            e.resizable = json.resizable;
                         return e;
                     }
                     if (type == "BarcodeItem") {
@@ -8744,6 +9230,10 @@ var Neodynamic;
                             e.rect_microqr_code_version = Neodynamic.SDK.Printing.RectMicroQRCodeVersion[json.rectmicroqrcodeversion];
                         if (json.groupname != null)
                             e.group_name = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.groupname);
+                        if (json.resizable != null)
+                            e.resizable = json.resizable;
+                        if (json.readonly != null)
+                            e.read_only = json.readonly;
                         return e;
                     }
                     if (type == "ImageItem") {
@@ -8822,6 +9312,10 @@ var Neodynamic;
                             e.visible = json.visible;
                         if (json.groupname != null)
                             e.group_name = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.groupname);
+                        if (json.resizable != null)
+                            e.resizable = json.resizable;
+                        if (json.readonly != null)
+                            e.read_only = json.readonly;
                         return e;
                     }
                     if (type == "LineShapeItem") {
@@ -8873,6 +9367,8 @@ var Neodynamic;
                             e.stroke_style_pattern = json.strokestylepattern;
                         if (json.groupname != null)
                             e.group_name = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.groupname);
+                        if (json.resizable != null)
+                            e.resizable = json.resizable;
                         return e;
                     }
                     if (type == "TextItem") {
@@ -8992,6 +9488,14 @@ var Neodynamic;
                             e.hide_if_empty = json.hideifempty;
                         if (json.groupname != null)
                             e.group_name = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.groupname);
+                        if (json.resizable != null)
+                            e.resizable = json.resizable;
+                        if (json.readonly != null)
+                            e.read_only = json.readonly;
+                        if (json.validationregex != null)
+                            e.validation_regex = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.validationregex);
+                        if (json.validationerrormessage != null)
+                            e.validation_error_message = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.validationerrormessage);
                         return e;
                     }
                     if (type == "RFIDTagItem") {
@@ -9033,6 +9537,10 @@ var Neodynamic;
                             e.visible = json.visible;
                         if (json.groupname != null)
                             e.group_name = Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.groupname);
+                        if (json.resizable != null)
+                            e.resizable = json.resizable;
+                        if (json.readonly != null)
+                            e.read_only = json.readonly;
                         return e;
                     }
                     throw "Object not supported";
@@ -9041,6 +9549,18 @@ var Neodynamic;
                     if (json.code)
                         return Neodynamic.Web.Utils.NamingUtils.convertXMLUCS2ToChar(json.code);
                     return json;
+                };
+                TLParser.parsePage = function (json) {
+                    var e = new Neodynamic.SDK.Printing.ThermalLabelPage();
+                    if (json.width != null)
+                        e.width = json.width;
+                    if (json.height != null)
+                        e.height = json.height;
+                    if (json.x != null)
+                        e.x = json.x;
+                    if (json.y != null)
+                        e.y = json.y;
+                    return e;
                 };
                 TLParser.JsonConvertKeysToLowerCase = function (obj) {
                     var output = {};

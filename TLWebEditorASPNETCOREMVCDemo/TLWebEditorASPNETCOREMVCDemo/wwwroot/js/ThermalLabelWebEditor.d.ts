@@ -16,7 +16,11 @@ declare namespace Neodynamic.SDK.Printing {
         protected _use_cache: boolean;
         protected _cache_item_id: string;
         protected _visible: boolean;
+        protected _group_name: string;
+        protected _resizable: boolean;
+        protected _readonly: boolean;
         _fabric_item: any;
+        _guid: string;
         get x(): number;
         set x(value: number);
         get y(): number;
@@ -47,6 +51,12 @@ declare namespace Neodynamic.SDK.Printing {
         set cache_item_id(value: string);
         get visible(): boolean;
         set visible(value: boolean);
+        get group_name(): string;
+        set group_name(value: string);
+        get resizable(): boolean;
+        set resizable(value: boolean);
+        get read_only(): boolean;
+        set read_only(value: boolean);
         _updateFromCanvas(property?: any): void;
         _updateToCanvas(property?: any): void;
         _getProperties(): void;
@@ -195,6 +205,8 @@ declare namespace Neodynamic.SDK.Printing {
         private _code11_two_digits_checksum;
         private _tlc39_micro_pdf417_bar_width;
         private _tlc39_micro_pdf417_row_bar_height;
+        private _right_to_left;
+        private _rect_microqr_code_version;
         private _has_to_reload;
         private _image_item;
         get add_checksum(): boolean;
@@ -469,6 +481,10 @@ declare namespace Neodynamic.SDK.Printing {
         set tlc39_micro_pdf417_bar_width(value: any);
         get tlc39_micro_pdf417_row_bar_height(): any;
         set tlc39_micro_pdf417_row_bar_height(value: any);
+        get right_to_left(): boolean;
+        set right_to_left(value: boolean);
+        get rect_microqr_code_version(): RectMicroQRCodeVersion;
+        set rect_microqr_code_version(value: RectMicroQRCodeVersion);
         _getProperties(): {
             Type: string;
             UnitType: UnitType;
@@ -662,6 +678,11 @@ declare namespace Neodynamic.SDK.Printing {
             Code11TwoDigitsChecksum: boolean;
             Tlc39MicroPdf417BarWidth: any;
             Tlc39MicroPdf417RowBarHeight: any;
+            RightToLeft: boolean;
+            RectMicroQRCodeVersion: RectMicroQRCodeVersion;
+            GroupName: string;
+            Resizable: boolean;
+            ReadOnly: boolean;
         };
         _updateFromCanvas(): void;
         _updateToCanvas(): void;
@@ -686,6 +707,13 @@ declare namespace Neodynamic.SDK.Printing {
         set stroke_thickness(value: any);
         get stroke_color_hex(): string;
         set stroke_color_hex(value: string);
+        protected _stroke_style: StrokeStyle;
+        get stroke_style(): StrokeStyle;
+        set stroke_style(value: StrokeStyle);
+        protected _stroke_style_pattern: string;
+        get stroke_style_pattern(): string;
+        set stroke_style_pattern(value: string);
+        getStrokeStylePattern(): any[];
     }
 }
 declare namespace Neodynamic.SDK.Printing {
@@ -696,43 +724,6 @@ declare namespace Neodynamic.SDK.Printing {
         set fill_color(value: Color);
         get fill_color_hex(): string;
         set fill_color_hex(value: string);
-    }
-}
-declare namespace Neodynamic.SDK.Printing {
-    class CircleShapeItem extends ClosedShapeItem {
-        protected _rotation_angle: number;
-        get rotation_angle(): number;
-        set rotation_angle(value: number);
-        _updateFromCanvas(property?: any): void;
-        _updateToCanvas(property?: any): void;
-        refresh(): void;
-        _getProperties(): {
-            Type: string;
-            RotationAngle: number;
-            FillColor: Color;
-            StrokeThickness: any;
-            StrokeColor: Color;
-            Width: number;
-            Height: number;
-            Name: string;
-            X: number;
-            Y: number;
-            UnitType: UnitType;
-            DataField: string;
-            DataFieldFormatString: string;
-            PrintAsGraphic: boolean;
-            Comments: string;
-            Tag: string;
-            Locked: boolean;
-            Editable: boolean;
-            FillColorHex: string;
-            StrokeColorHex: string;
-            Expression: string;
-            UseCache: boolean;
-            CacheItemId: string;
-            Visible: boolean;
-        };
-        constructor();
     }
 }
 declare namespace Neodynamic.SDK.Printing {
@@ -768,6 +759,10 @@ declare namespace Neodynamic.SDK.Printing {
             UseCache: boolean;
             CacheItemId: string;
             Visible: boolean;
+            StrokeStyle: StrokeStyle;
+            StrokeStylePattern: string;
+            GroupName: string;
+            Resizable: boolean;
         };
         constructor();
     }
@@ -1418,7 +1413,11 @@ declare namespace Neodynamic.SDK.Printing {
         HibcPasCodablockF = 180,
         TriOptic = 181,
         DINSpecQRCode = 182,
-        DINSpecDataMatrix = 183
+        DINSpecDataMatrix = 183,
+        RectMicroQRCode = 184,
+        GS1RectMicroQRCode = 185,
+        DPDCode = 186,
+        DAFT = 187
     }
     enum TelepenEncoding {
         Ascii = 0,
@@ -1473,6 +1472,46 @@ declare namespace Neodynamic.SDK.Printing {
     enum DotCodeModuleShape {
         Circle = 0,
         Square = 1
+    }
+    enum RectMicroQRCodeVersion {
+        Auto = 0,
+        R7x43 = 1,
+        R7x59 = 2,
+        R7x77 = 3,
+        R7x99 = 4,
+        R7x139 = 5,
+        R9x43 = 6,
+        R9x59 = 7,
+        R9x77 = 8,
+        R9x99 = 9,
+        R9x139 = 10,
+        R11x27 = 11,
+        R11x43 = 12,
+        R11x59 = 13,
+        R11x77 = 14,
+        R11x99 = 15,
+        R11x139 = 16,
+        R13x27 = 17,
+        R13x43 = 18,
+        R13x59 = 19,
+        R13x77 = 20,
+        R13x99 = 21,
+        R13x139 = 22,
+        R15x43 = 23,
+        R15x59 = 24,
+        R15x77 = 25,
+        R15x99 = 26,
+        R15x139 = 27,
+        R17x43 = 28,
+        R17x59 = 29,
+        R17x77 = 30,
+        R17x99 = 31,
+        R17x139 = 32
+    }
+    enum StrokeStyle {
+        Solid = 0,
+        Dash = 1,
+        Dot = 2
     }
 }
 declare namespace Neodynamic.SDK.Printing {
@@ -1615,12 +1654,37 @@ declare namespace Neodynamic.SDK.Printing {
             UseCache: boolean;
             CacheItemId: string;
             Visible: boolean;
+            GroupName: string;
+            Resizable: boolean;
+            ReadOnly: boolean;
         };
         _updateFromCanvas(): void;
         _updateToCanvas(): void;
         private _is_missing_image;
         refresh(): void;
         constructor();
+    }
+}
+declare namespace Neodynamic.SDK.Printing {
+    class ThermalLabelPage {
+        protected _x: number;
+        protected _y: number;
+        protected _width: number;
+        protected _height: number;
+        get x(): number;
+        set x(value: number);
+        get y(): number;
+        set y(value: number);
+        get width(): number;
+        set width(value: number);
+        get height(): number;
+        set height(value: number);
+        _getProperties(): {
+            X: number;
+            Y: number;
+            Height: number;
+            Width: number;
+        };
     }
 }
 declare namespace Neodynamic.SDK.Printing {
@@ -1633,6 +1697,7 @@ declare namespace Neodynamic.SDK.Printing {
         set stroke_thickness(value: any);
         protected _rotation_angle: number;
         _updateFromCanvas(property?: any): void;
+        private _drawStrokeStyle;
         _updateToCanvas(property?: any): void;
         refresh(): void;
         _getProperties(): {
@@ -1658,6 +1723,10 @@ declare namespace Neodynamic.SDK.Printing {
             UseCache: boolean;
             CacheItemId: string;
             Visible: boolean;
+            StrokeStyle: StrokeStyle;
+            StrokeStylePattern: string;
+            GroupName: string;
+            Resizable: boolean;
         };
         constructor();
         private _getOrientation;
@@ -1736,6 +1805,10 @@ declare namespace Neodynamic.SDK.Printing {
             UseCache: boolean;
             CacheItemId: string;
             Visible: boolean;
+            StrokeStyle: StrokeStyle;
+            StrokeStylePattern: string;
+            GroupName: string;
+            Resizable: boolean;
         };
         constructor();
     }
@@ -1775,6 +1848,9 @@ declare namespace Neodynamic.SDK.Printing {
             UseCache: boolean;
             CacheItemId: string;
             Visible: boolean;
+            GroupName: string;
+            Resizable: boolean;
+            ReadOnly: boolean;
         };
         constructor();
     }
@@ -1810,6 +1886,9 @@ declare namespace Neodynamic.SDK.Printing {
         private _stroke_thickness;
         private _stroke_color_hex;
         private _char_spacing;
+        private _line_spacing;
+        private _validation_regex;
+        private _validation_error_message;
         private _has_to_reload;
         private _image_item;
         get back_color(): Color;
@@ -1870,6 +1949,12 @@ declare namespace Neodynamic.SDK.Printing {
         set stroke_thickness(value: any);
         get char_spacing(): any;
         set char_spacing(value: any);
+        get line_spacing(): any;
+        set line_spacing(value: any);
+        get validation_regex(): string;
+        set validation_regex(value: string);
+        get validation_error_message(): string;
+        set validation_error_message(value: string);
         _updateFromCanvas(): void;
         _updateToCanvas(): void;
         refresh(): void;
@@ -1941,6 +2026,12 @@ declare namespace Neodynamic.SDK.Printing {
             StrokeColorHex: string;
             Visible: boolean;
             CharSpacing: any;
+            LineSpacing: any;
+            GroupName: string;
+            Resizable: boolean;
+            ReadOnly: boolean;
+            ValidationRegEx: string;
+            ValidationErrorMessage: string;
         };
         constructor();
         private _dblClick;
@@ -1974,6 +2065,9 @@ declare namespace Neodynamic.SDK.Printing {
         sheet_labels_count: number;
         private _sheet_labels_margin;
         expressions: string[];
+        batch_cut: number;
+        design_background_image: string;
+        pages: ThermalLabelPage[];
         _onUnitChange(): void;
         get width(): number;
         set width(value: number);
@@ -2021,8 +2115,11 @@ declare namespace Neodynamic.SDK.Printing {
             SheetLabelsMargin_Left: number;
             SheetLabelsMargin_Right: number;
             SheetLabelsMargin_Top: number;
+            BatchCut: number;
+            DesignBackgroundImage: string;
             Items: any[];
             Expressions: string[];
+            Pages: any[];
         };
     }
 }
@@ -2079,6 +2176,7 @@ declare namespace Neodynamic.Web.Editor {
         private _workspace_factor;
         private _workspaceOffsetX;
         private _workspaceOffsetY;
+        private _selObjLT;
         private _undoManager;
         private _undoRedo;
         private _b64Encode;
@@ -2119,9 +2217,12 @@ declare namespace Neodynamic.Web.Editor {
         private _canvasMouseMove;
         private _canvasMouseUp;
         private _canvasObjectModified;
+        private _canvasObjectRotating;
+        private _canvasObjectMoving;
         private _canvasObjectScaling;
         private _canvasObjectSelected;
         private _canvasSelectionCleared;
+        private _setCanvasBackground;
         private _buildGrids;
         private _clearGrids;
         lockSelectedItems(): void;
@@ -2156,6 +2257,17 @@ declare namespace Neodynamic.Web.Editor {
         private _updateLabelCanvasState;
         private _getCurrentLabelCanvasState;
         saveCurrentLabelCanvasState(): void;
+        private _isGrouping;
+        private _itemsGuidsInGroup;
+        startGroup(): void;
+        cancelGroup(): void;
+        private _updateGroup;
+        private _isItemInGrouping;
+        get items_in_started_group(): any;
+        get group_started(): boolean;
+        createGroup(): void;
+        unGroup(): void;
+        getItemsInGroup(groupName: string, cloneItems?: boolean): any[];
         newItemCreated(): void;
         currentSelectionBeforeDelete(): boolean;
         currentSelectionAfterDelete(): void;
@@ -2170,6 +2282,7 @@ declare namespace Neodynamic.Web.Utils {
     class Cloner {
         static cloneThermalLabel(tl: Neodynamic.SDK.Printing.ThermalLabel): Neodynamic.SDK.Printing.ThermalLabel;
         static cloneItem(itm: Neodynamic.SDK.Printing.Item): Neodynamic.SDK.Printing.Item;
+        static clonePage(page: Neodynamic.SDK.Printing.ThermalLabelPage): Neodynamic.SDK.Printing.ThermalLabelPage;
     }
 }
 declare namespace Neodynamic.Web.Editor {
@@ -2213,6 +2326,7 @@ declare namespace Neodynamic.Web.Utils {
         static parseFontObject(json: any): SDK.Printing.Font;
         static parseItem(json: any, type: any, unitType: any): any;
         static parseExpression(json: any): any;
+        static parsePage(json: any): SDK.Printing.ThermalLabelPage;
         static JsonConvertKeysToLowerCase(obj: any): {};
     }
 }

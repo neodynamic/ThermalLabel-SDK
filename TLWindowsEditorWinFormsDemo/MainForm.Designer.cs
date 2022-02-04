@@ -107,6 +107,12 @@
             this.menuUnlockSelectedItems = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuViewOptions = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuViewRotate = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuViewRotateNone = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuViewRotate90 = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuViewRotate180 = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuViewRotate270 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuUploadTTFToPrinterStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuManageFontsInPrinterStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -146,6 +152,8 @@
             this.tssb2DBarcodes = new System.Windows.Forms.ToolStripSplitButton();
             this.tsbRFID = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbGroup = new System.Windows.Forms.ToolStripButton();
+            this.tsbUngroup = new System.Windows.Forms.ToolStripButton();
             this.tsbBringToFront = new System.Windows.Forms.ToolStripButton();
             this.tsbSendToBack = new System.Windows.Forms.ToolStripButton();
             this.tsbBringForward = new System.Windows.Forms.ToolStripButton();
@@ -195,13 +203,15 @@
             this.distributeHorizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.distributeVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmGroup = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmUngroup = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem15 = new System.Windows.Forms.ToolStripSeparator();
             this.cmLock = new System.Windows.Forms.ToolStripMenuItem();
             this.cmUnlock = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripSeparator();
             this.cmSelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.cmExpressionSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.cmExpression = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmdRefresh = new System.Windows.Forms.ToolStripButton();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -353,8 +363,7 @@
             this.cmdPreviewResolution,
             this.toolStripSeparator4,
             this.toolStripLabel2,
-            this.txtPreviewCopies,
-            this.cmdRefresh});
+            this.txtPreviewCopies});
             this.toolStrip2.Location = new System.Drawing.Point(3, 3);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(681, 25);
@@ -957,7 +966,9 @@
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuViewOptions});
+            this.menuViewOptions,
+            this.toolStripMenuItem18,
+            this.menuViewRotate});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "&View";
@@ -965,9 +976,53 @@
             // menuViewOptions
             // 
             this.menuViewOptions.Name = "menuViewOptions";
-            this.menuViewOptions.Size = new System.Drawing.Size(125, 22);
+            this.menuViewOptions.Size = new System.Drawing.Size(180, 22);
             this.menuViewOptions.Text = "Options...";
             this.menuViewOptions.Click += new System.EventHandler(this.menuViewOptions_Click);
+            // 
+            // toolStripMenuItem18
+            // 
+            this.toolStripMenuItem18.Name = "toolStripMenuItem18";
+            this.toolStripMenuItem18.Size = new System.Drawing.Size(177, 6);
+            // 
+            // menuViewRotate
+            // 
+            this.menuViewRotate.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuViewRotateNone,
+            this.menuViewRotate90,
+            this.menuViewRotate180,
+            this.menuViewRotate270});
+            this.menuViewRotate.Name = "menuViewRotate";
+            this.menuViewRotate.Size = new System.Drawing.Size(180, 22);
+            this.menuViewRotate.Text = "Rotate";
+            // 
+            // menuViewRotateNone
+            // 
+            this.menuViewRotateNone.Name = "menuViewRotateNone";
+            this.menuViewRotateNone.Size = new System.Drawing.Size(180, 22);
+            this.menuViewRotateNone.Text = "None";
+            this.menuViewRotateNone.Click += new System.EventHandler(this.menuViewRotateNone_Click);
+            // 
+            // menuViewRotate90
+            // 
+            this.menuViewRotate90.Name = "menuViewRotate90";
+            this.menuViewRotate90.Size = new System.Drawing.Size(180, 22);
+            this.menuViewRotate90.Text = "90";
+            this.menuViewRotate90.Click += new System.EventHandler(this.menuViewRotate90_Click);
+            // 
+            // menuViewRotate180
+            // 
+            this.menuViewRotate180.Name = "menuViewRotate180";
+            this.menuViewRotate180.Size = new System.Drawing.Size(180, 22);
+            this.menuViewRotate180.Text = "180";
+            this.menuViewRotate180.Click += new System.EventHandler(this.menuViewRotate180_Click);
+            // 
+            // menuViewRotate270
+            // 
+            this.menuViewRotate270.Name = "menuViewRotate270";
+            this.menuViewRotate270.Size = new System.Drawing.Size(180, 22);
+            this.menuViewRotate270.Text = "270";
+            this.menuViewRotate270.Click += new System.EventHandler(this.menuViewRotate270_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -1038,6 +1093,8 @@
             this.tssb2DBarcodes,
             this.tsbRFID,
             this.toolStripSeparator3,
+            this.tsbGroup,
+            this.tsbUngroup,
             this.tsbBringToFront,
             this.tsbSendToBack,
             this.tsbBringForward,
@@ -1053,7 +1110,7 @@
             this.tsbHelp});
             this.toolStrip1.Location = new System.Drawing.Point(3, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(913, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(959, 25);
             this.toolStrip1.TabIndex = 1;
             // 
             // tsbNew
@@ -1359,6 +1416,26 @@
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
+            // tsbGroup
+            // 
+            this.tsbGroup.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbGroup.Image = ((System.Drawing.Image)(resources.GetObject("tsbGroup.Image")));
+            this.tsbGroup.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbGroup.Name = "tsbGroup";
+            this.tsbGroup.Size = new System.Drawing.Size(23, 22);
+            this.tsbGroup.Text = "Group";
+            this.tsbGroup.Click += new System.EventHandler(this.tsbGroup_Click);
+            // 
+            // tsbUngroup
+            // 
+            this.tsbUngroup.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbUngroup.Image = ((System.Drawing.Image)(resources.GetObject("tsbUngroup.Image")));
+            this.tsbUngroup.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbUngroup.Name = "tsbUngroup";
+            this.tsbUngroup.Size = new System.Drawing.Size(23, 22);
+            this.tsbUngroup.Text = "Ungroup";
+            this.tsbUngroup.Click += new System.EventHandler(this.tsbUngroup_Click);
+            // 
             // tsbBringToFront
             // 
             this.tsbBringToFront.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -1571,6 +1648,9 @@
             this.arrangeToolStripMenuItem1,
             this.cmLayoutAlign,
             this.toolStripMenuItem10,
+            this.cmGroup,
+            this.cmUngroup,
+            this.toolStripMenuItem15,
             this.cmLock,
             this.cmUnlock,
             this.toolStripMenuItem11,
@@ -1578,7 +1658,7 @@
             this.cmExpressionSeparator,
             this.cmExpression});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(142, 276);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(142, 326);
             // 
             // cmCut
             // 
@@ -1766,6 +1846,25 @@
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
             this.toolStripMenuItem10.Size = new System.Drawing.Size(138, 6);
             // 
+            // cmGroup
+            // 
+            this.cmGroup.Name = "cmGroup";
+            this.cmGroup.Size = new System.Drawing.Size(141, 22);
+            this.cmGroup.Text = "Group...";
+            this.cmGroup.Click += new System.EventHandler(this.tsbGroup_Click);
+            // 
+            // cmUngroup
+            // 
+            this.cmUngroup.Name = "cmUngroup";
+            this.cmUngroup.Size = new System.Drawing.Size(141, 22);
+            this.cmUngroup.Text = "Ungroup...";
+            this.cmUngroup.Click += new System.EventHandler(this.tsbUngroup_Click);
+            // 
+            // toolStripMenuItem15
+            // 
+            this.toolStripMenuItem15.Name = "toolStripMenuItem15";
+            this.toolStripMenuItem15.Size = new System.Drawing.Size(138, 6);
+            // 
             // cmLock
             // 
             this.cmLock.Image = ((System.Drawing.Image)(resources.GetObject("cmLock.Image")));
@@ -1805,15 +1904,6 @@
             this.cmExpression.Size = new System.Drawing.Size(141, 22);
             this.cmExpression.Text = "Expression...";
             this.cmExpression.Click += new System.EventHandler(this.cmExpression_Click);
-            // 
-            // cmdRefresh
-            // 
-            this.cmdRefresh.Image = ((System.Drawing.Image)(resources.GetObject("cmdRefresh.Image")));
-            this.cmdRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cmdRefresh.Name = "cmdRefresh";
-            this.cmdRefresh.Size = new System.Drawing.Size(75, 22);
-            this.cmdRefresh.Text = "Refresh...";
-            this.cmdRefresh.Click += new System.EventHandler(this.cmdRefresh_Click);
             // 
             // MainForm
             // 
@@ -2034,7 +2124,17 @@
         private System.Windows.Forms.ToolStripSplitButton tssb2DBarcodes;
         private System.Windows.Forms.ToolStripButton tsbResidentText;
         private System.Windows.Forms.ToolStripDropDownButton tsddbSymbols;
-        private System.Windows.Forms.ToolStripButton cmdRefresh;
+        private System.Windows.Forms.ToolStripButton tsbGroup;
+        private System.Windows.Forms.ToolStripButton tsbUngroup;
+        private System.Windows.Forms.ToolStripMenuItem cmGroup;
+        private System.Windows.Forms.ToolStripMenuItem cmUngroup;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem15;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem18;
+        private System.Windows.Forms.ToolStripMenuItem menuViewRotate;
+        private System.Windows.Forms.ToolStripMenuItem menuViewRotateNone;
+        private System.Windows.Forms.ToolStripMenuItem menuViewRotate90;
+        private System.Windows.Forms.ToolStripMenuItem menuViewRotate180;
+        private System.Windows.Forms.ToolStripMenuItem menuViewRotate270;
     }
 }
 

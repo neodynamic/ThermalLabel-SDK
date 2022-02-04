@@ -319,9 +319,9 @@
             this.label3.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.label3.Location = new System.Drawing.Point(335, 39);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(51, 37);
+            this.label3.Size = new System.Drawing.Size(49, 37);
             this.label3.TabIndex = 1;
-            this.label3.Text = "10";
+            this.label3.Text = "11";
             // 
             // linkLabel1
             // 

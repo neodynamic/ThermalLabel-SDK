@@ -1,7 +1,7 @@
 ﻿<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <h3>
-            <a href="http://neodynamic.com/products/printing/thermal-label/web-editor" target="_blank">ThermalLabel Web Editor <span class="circle">10</span> for ASP.NET </a>
+            <a href="http://neodynamic.com/products/printing/thermal-label/web-editor" target="_blank">ThermalLabel Web Editor <span class="circle">11</span> for ASP.NET </a>
             <a title="" class="btn btn-info" href="https://neodynamic.com/products/printing/thermal-label/web-editor" target="_blank">
                 About
             </a>
@@ -200,7 +200,31 @@
                                 <i class="flaticon-delete"></i>
                             </button>
                         </div>
-
+                        <br />
+                        <div class="btn-group" role="group">
+                            <button type="button" title="" class="btn btn-default">[</button>
+                            <button id="tlbStartGroup" type="button" title="" class="btn btn-default" onclick="UIEditor.startGroup()"
+                                    data-content="Start a new group" data-trigger="hover" data-placement="bottom">
+                                Start new group...
+                            </button>
+                            <button id="tlbGroupSelectedItems" type="button" title="" class="btn btn-default" style="display:none" onclick=""
+                                    data-content="Num of selected items in the group" data-trigger="hover" data-placement="bottom" disabled>
+                                0 items in the group
+                            </button>
+                            <button id="tlbCreateGroup" type="button" title="" class="btn btn-info" style="display: none" onclick="UIEditor.createGroup()"
+                                    data-content="Create and close group" data-trigger="hover" data-placement="bottom">
+                                Create
+                            </button>
+                            <button id="tlbCancelGroup" type="button" title="" class="btn btn-danger" style="display: none" onclick="UIEditor.cancelGroup()"
+                                    data-content="Cancel group creation" data-trigger="hover" data-placement="bottom">
+                                Cancel
+                            </button>
+                            <button id="tlbUngroup" type="button" title="" class="btn btn-danger" style="display: none" onclick="UIEditor.unGroup()"
+                                    data-content="Ungroup" data-trigger="hover" data-placement="bottom">
+                                Ungroup...
+                            </button>
+                            <button type="button" title="" class="btn btn-default">]</button>
+                        </div>
 
 
                     </div>
@@ -456,7 +480,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <p>Thank your for trying <a href="http://neodynamic.com/products/printing/thermal-label/web-editor">ThermalLabel Web Editor 10.0 for ASP.NET Add-on</a></p>
+                        <p>Thank your for trying <a href="http://neodynamic.com/products/printing/thermal-label/web-editor">ThermalLabel Web Editor 11.0 for ASP.NET Add-on</a></p>
                         <p>Feel free to <a href="http://neodynamic.com/products/printing/thermal-label/web-editor/download">DOWNLOAD ThermalLabel Web Editor for ASP.NET</a> part of <a href="http://neodynamic.com/products/printing/thermal-label/web-editor/download">ThermalLabel SDK for.NET</a> to test it locally!</p>
                     </div>
                 </div>

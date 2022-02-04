@@ -5,43 +5,47 @@
         //console.log(propName);
         //console.log(value);
         //console.log(typeof(value));
-
+        
         if (this.id != timestamp) return;
 
+        try {
+            if (targetTypeName === 'ThermalLabel') {
+                var tl = tleditor.get_thermal_label;
 
-        if (targetTypeName === 'ThermalLabel') {
-            var tl = tleditor.get_thermal_label;
+                if (tl[propName] !== undefined) {
+                    //var tl = Neodynamic.Web.Utils.Cloner.cloneThermalLabel(curTL);
 
-            if (tl[propName] !== undefined) {
-                //var tl = Neodynamic.Web.Utils.Cloner.cloneThermalLabel(curTL);
+                    tl[propName] = value;
 
-                tl[propName] = value;
+                    //if (propName === "unit_type") {
+                    //    for (var i = 0; i < tl.items.length; i++) {
+                    //        var myItem = tl.items[i];
+                    //        myItem.unit_type = tl.unit_type;
+                    //        myItem.refresh();
+                    //    }
+                    //}
 
-                //if (propName === "unit_type") {
-                //    for (var i = 0; i < tl.items.length; i++) {
-                //        var myItem = tl.items[i];
-                //        myItem.unit_type = tl.unit_type;
-                //        myItem.refresh();
-                //    }
-                //}
+                    if (propName === "unit_type" ||
+                        propName === "height" ||
+                        propName === "width") {
+                        tleditor.undoRedo = true;
+                        tleditor.loadThermalLabel(tl);
+                    }
 
-                if (propName === "unit_type" ||
-                    propName === "height" ||
-                    propName === "width") {
-                    tleditor.undoRedo = true;
-                    tleditor.loadThermalLabel(tl);
+                    tleditor.saveCurrentLabelCanvasState();
                 }
+
+            } else if (tleditor.current_selection &&
+                tleditor.current_selection[propName] !== undefined) {
+
+                tleditor.current_selection[propName] = value;
+                tleditor.current_selection.refresh();
 
                 tleditor.saveCurrentLabelCanvasState();
             }
-
-        } else if (tleditor.current_selection &&
-            tleditor.current_selection[propName] !== undefined) {
-
-            tleditor.current_selection[propName] = value;
-            tleditor.current_selection.refresh();
-
-            tleditor.saveCurrentLabelCanvasState();
+        }
+        catch (err) {
+            UIEditor.showErrorMsg(err);            
         }
     },
 
@@ -134,7 +138,7 @@
             var enumEntries = [];
             for (var e in theEnum) {
                 if (typeof (theEnum[e]) === "number") {
-                    enumEntries.push({ key: e, value: theEnum[e] });
+                    enumEntries.push({ key: e, value: theEnum[e]});
                 }
             }
             enumEntries.sort(function (x, y) {
@@ -207,7 +211,7 @@
 
     createPropertyGrid: function (theObj, targetContainer) {
 
-        if (!(theObj)) {
+        if (!(theObj) || (theObj.group_name && theObj.group_name.length > 0)) {
             $('#' + targetContainer).html('');
             return;
         }
@@ -235,6 +239,7 @@
         for (var prop in theObj) {
             if (prop[0] !== '_' &&
                 prop !== 'editable' &&
+                prop !== 'resizable' &&
                 prop !== 'is_in_edit_mode' &&
                 prop !== 'input_mask_pattern' &&
                 prop !== 'input_mask_prompt_char' &&
@@ -272,7 +277,7 @@
 
         for (var p in props) {
 
-            if (isTL && (props[p].name === "items" || props[p].name === "expressions" || props[p].name.indexOf("data") > -1)) continue;
+            if (isTL && (props[p].name === "items" || props[p].name === "expressions" || props[p].name.indexOf("data") > -1 || props[p].name === "pages")) continue;
             if (!isTL && props[p].name === "unit_type") continue;
 
             propGridContent += '<tr><td>' + props[p].desc + '</td><td>';
@@ -282,7 +287,7 @@
 
                 if (props[p].desc.indexOf("Color Hex") > 0)
                     propGridContent += '<input type="color" class="form-control input-sm" value="' + propVal + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')" />';
-                else if (props[p].name === "text" || props[p].name === "comments")
+                else if (props[p].name === "text" || props[p].name === "comments" || props[p].name === "design_background_image")
                     propGridContent += '<textarea class="form-control input-sm" rows="3" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')">' + propVal + '</textarea>';
                 else if (props[p].name === "expression") {
                     propVal = propVal.replace(/_x0022_/g, '&#34;')
@@ -343,6 +348,8 @@
                         propGridContent += this.createSelectForEnum(targetTypeName, "MicroPdf417Version", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "microqr_code_version")
                         propGridContent += this.createSelectForEnum(targetTypeName, "MicroQRCodeVersion", props[p].value, props[p].name, timestamp);
+                    else if (props[p].name === "rect_microqr_code_version")
+                        propGridContent += this.createSelectForEnum(targetTypeName, "RectMicroQRCodeVersion", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "pdf417_error_correction_level")
                         propGridContent += this.createSelectForEnum(targetTypeName, "Pdf417ErrorCorrection", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "qr_code_encoding")
@@ -357,6 +364,10 @@
                         propGridContent += this.createSelectForEnum(targetTypeName, "UpcE", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "usps_fim_pattern")
                         propGridContent += this.createSelectForEnum(targetTypeName, "FIM", props[p].value, props[p].name, timestamp);
+                    else if (props[p].name === "orientation")
+                        propGridContent += this.createSelectForEnum(targetTypeName, "LineOrientation", props[p].value, props[p].name, timestamp);
+                    else if (props[p].name === "stroke_style")
+                        propGridContent += this.createSelectForEnum(targetTypeName, "StrokeStyle", props[p].value, props[p].name, timestamp);
                     else
                         propGridContent += '<input type="number" class="form-control input-sm" value="' + props[p].value + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')" />';
                 }

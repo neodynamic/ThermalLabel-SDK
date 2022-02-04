@@ -561,6 +561,16 @@ namespace TLWindowsEditorWPFDemo
             thermalLabelEditor1.LayoutSelectedItems((LayoutAlignment)Enum.Parse(typeof(LayoutAlignment), ((RibbonButton)sender).Name.Substring(4)));
         }
 
+        private void menuGroup_Click(object sender, RoutedEventArgs e)
+        {
+            thermalLabelEditor1.Group();
+        }
+
+        private void menuUngroup_Click(object sender, RoutedEventArgs e)
+        {
+            thermalLabelEditor1.Ungroup();
+        }
+
         private void menuPointer_Click(object sender, RoutedEventArgs e)
         {
             //Set the ActiveTool to Pointer
@@ -810,6 +820,11 @@ namespace TLWindowsEditorWPFDemo
                 tLabel.SheetLabelsWidth = doc.SheetLabelsWidth;
                 tLabel.SheetLabelsMargin = doc.SheetLabelsMargin;
 
+                foreach (var p in doc.Pages)
+                {
+                    tLabel.Pages.Add(p);
+                }
+
                 //load it on the editor surface
                 thermalLabelEditor1.LoadThermalLabel(tLabel);
 
@@ -896,7 +911,7 @@ namespace TLWindowsEditorWPFDemo
                     try
                     {
                         // get ThermalLabel obj from the editor canvas
-                        ThermalLabel tLabel = thermalLabelEditor1.CreateThermalLabel();
+                        ThermalLabel tLabel = this.thermalLabelEditor1.ViewRotation == Rotate.None ? this.thermalLabelEditor1.CreateThermalLabel() : this.thermalLabelEditor1.RotateLabel(this.thermalLabelEditor1.CreateThermalLabel(), this.thermalLabelEditor1.ViewRotation, Rotate.None);
                         // set Label expressions (if any)
                         SetLabelExpressions(ref tLabel);
 
@@ -915,7 +930,7 @@ namespace TLWindowsEditorWPFDemo
         {
 
             //Create the ThermalLabel obj from the editor
-            ThermalLabel tLabel = thermalLabelEditor1.CreateThermalLabel();
+            ThermalLabel tLabel = this.thermalLabelEditor1.ViewRotation == Rotate.None ? this.thermalLabelEditor1.CreateThermalLabel() : this.thermalLabelEditor1.RotateLabel(this.thermalLabelEditor1.CreateThermalLabel(), this.thermalLabelEditor1.ViewRotation, Rotate.None);
 
             if (tLabel != null)
             {
@@ -969,7 +984,7 @@ namespace TLWindowsEditorWPFDemo
         private void menuExportToPDF_Click(object sender, RoutedEventArgs e)
         {
             //Create the ThermalLabel obj from the editor
-            ThermalLabel tLabel = thermalLabelEditor1.CreateThermalLabel();
+            ThermalLabel tLabel = this.thermalLabelEditor1.ViewRotation == Rotate.None ? this.thermalLabelEditor1.CreateThermalLabel() : this.thermalLabelEditor1.RotateLabel(this.thermalLabelEditor1.CreateThermalLabel(), this.thermalLabelEditor1.ViewRotation, Rotate.None);
 
             if (tLabel != null)
             {
@@ -1027,7 +1042,7 @@ namespace TLWindowsEditorWPFDemo
         private void ExportToImage(ImageFormat imageFormat)
         {
             //Create the ThermalLabel obj from the editor
-            ThermalLabel tLabel = thermalLabelEditor1.CreateThermalLabel();
+            ThermalLabel tLabel = this.thermalLabelEditor1.ViewRotation == Rotate.None ? this.thermalLabelEditor1.CreateThermalLabel() : this.thermalLabelEditor1.RotateLabel(this.thermalLabelEditor1.CreateThermalLabel(), this.thermalLabelEditor1.ViewRotation, Rotate.None);
 
             if (tLabel != null)
             {
@@ -1132,7 +1147,7 @@ namespace TLWindowsEditorWPFDemo
         private void menuExportToHTML_Click(object sender, RoutedEventArgs e)
         {
             //Create the ThermalLabel obj from the editor
-            ThermalLabel tLabel = thermalLabelEditor1.CreateThermalLabel();
+            ThermalLabel tLabel = this.thermalLabelEditor1.ViewRotation == Rotate.None ? this.thermalLabelEditor1.CreateThermalLabel() : this.thermalLabelEditor1.RotateLabel(this.thermalLabelEditor1.CreateThermalLabel(), this.thermalLabelEditor1.ViewRotation, Rotate.None);
 
             if (tLabel != null)
             {
@@ -1264,7 +1279,7 @@ namespace TLWindowsEditorWPFDemo
                 try
                 {
                     //create label from editor
-                    var tLabel = this.thermalLabelEditor1.CreateThermalLabel();
+                    var tLabel = this.thermalLabelEditor1.ViewRotation == Rotate.None ? this.thermalLabelEditor1.CreateThermalLabel() : this.thermalLabelEditor1.RotateLabel(this.thermalLabelEditor1.CreateThermalLabel(), this.thermalLabelEditor1.ViewRotation, Rotate.None);
 
                     // set Label expressions (if any)
                     SetLabelExpressions(ref tLabel);
@@ -1329,6 +1344,34 @@ namespace TLWindowsEditorWPFDemo
         private void tabMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (tabMain.SelectedIndex == 2) this.PreviewLabel();
+        }
+
+        private void cmdRotViewNone_Click(object sender, RoutedEventArgs e)
+        {
+            this.thermalLabelEditor1.RotateView(Rotate.None);
+        }
+
+        private void cmdRotView90_Click(object sender, RoutedEventArgs e)
+        {
+            this.thermalLabelEditor1.RotateView(Rotate.Degree90);
+        }
+
+        private void cmdRotView180_Click(object sender, RoutedEventArgs e)
+        {
+            this.thermalLabelEditor1.RotateView(Rotate.Degree180);
+        }
+
+        private void cmdRotView270_Click(object sender, RoutedEventArgs e)
+        {
+            this.thermalLabelEditor1.RotateView(Rotate.Degree270);
+        }
+
+        private void thermalLabelEditor1_ViewRotationChanged(object sender, EventArgs e)
+        {
+            this.cmdRotViewNone.IsChecked = this.thermalLabelEditor1.ViewRotation == Rotate.None;
+            this.cmdRotView90.IsChecked = this.thermalLabelEditor1.ViewRotation == Rotate.Degree90;
+            this.cmdRotView180.IsChecked = this.thermalLabelEditor1.ViewRotation == Rotate.Degree180;
+            this.cmdRotView270.IsChecked = this.thermalLabelEditor1.ViewRotation == Rotate.Degree270;
         }
     }
 }

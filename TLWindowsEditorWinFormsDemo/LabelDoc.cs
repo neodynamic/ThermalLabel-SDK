@@ -2,6 +2,7 @@
 using Neodynamic.Windows.ThermalLabelEditor;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -26,6 +27,7 @@ namespace TLWindowsEditorWinFormsDemo
             this.picRollSingleLabels.Image = Image.FromStream(new System.IO.MemoryStream(Convert.FromBase64String(ImageResources.SINGLE_LABEL)));
             this.picRollMulticolumnLabels.Image = Image.FromStream(new System.IO.MemoryStream(Convert.FromBase64String(ImageResources.MULTICOLUMN_LABELS)));
             this.picSheetLabels.Image = Image.FromStream(new System.IO.MemoryStream(Convert.FromBase64String(ImageResources.SHEET_LABELS)));
+            this.picPages.Image = Image.FromStream(new System.IO.MemoryStream(Convert.FromBase64String(ImageResources.MULTI_PAGES_LABEL)));
 
             this.UpdateLabelOptions();
         }
@@ -53,6 +55,17 @@ namespace TLWindowsEditorWinFormsDemo
                 this.nudSheetWidth.Value = (decimal)UnitUtils.Convert(_currentLabelUnit, (double)nudSheetWidth.Value, newUnit, 2);
                 this.nudSheetLabelsMarginLeft.Value = (decimal)UnitUtils.Convert(_currentLabelUnit, (double)nudSheetLabelsMarginLeft.Value, newUnit, 2);
                 this.nudSheetLabelsMarginTop.Value = (decimal)UnitUtils.Convert(_currentLabelUnit, (double)nudSheetLabelsMarginTop.Value, newUnit, 2);
+
+                var pages = GetPages();
+                for (int i = 0; i < pages.Count; i++)
+                {
+                    pages[i].X = UnitUtils.Convert(_currentLabelUnit, pages[i].X, newUnit, 2);
+                    pages[i].Y = UnitUtils.Convert(_currentLabelUnit, pages[i].Y, newUnit, 2);
+                    pages[i].Width = UnitUtils.Convert(_currentLabelUnit, pages[i].Width, newUnit, 2);
+                    pages[i].Height = UnitUtils.Convert(_currentLabelUnit, pages[i].Height, newUnit, 2);
+                }
+                SetPages(pages);
+
                 _currentLabelUnit = newUnit;
             }
         }
@@ -68,14 +81,14 @@ namespace TLWindowsEditorWinFormsDemo
         {
             get
             {
-                var doc = new LabelDocument() { CutAfterPrinting = this.chkCutAfterPrinting.Checked, GapLength = (double)this.nudGapLength.Value, Height = (double)this.nudHeight.Value, IsContinuous = this.chkIsContinuous.Checked,  MarkLength = (double)this.nudMarkLength.Value, PrintMirror = this.chkPrintMirror.Checked, PrintSpeed = this.txtPrintSpeed.Text,  Width = (double)this.nudWidth.Value, UnitType = (UnitType)Enum.Parse(typeof(UnitType), cboUnit.SelectedItem.ToString()) };
+                var doc = new LabelDocument() { CutAfterPrinting = this.chkCutAfterPrinting.Checked, GapLength = (double)this.nudGapLength.Value, Height = (double)this.nudHeight.Value, IsContinuous = this.chkIsContinuous.Checked,  MarkLength = (double)this.nudMarkLength.Value, PrintMirror = this.chkPrintMirror.Checked, PrintSpeed = this.txtPrintSpeed.Text,  Width = (double)this.nudWidth.Value, UnitType = (UnitType)Enum.Parse(typeof(UnitType), cboUnit.SelectedItem.ToString()), DesignBackgroundImage = _designBackgroundImage };
 
-                if (this.tabLabelType.SelectedTab == this.tabRollMulticolLabels)
+                if (this.tabPages.SelectedTab == this.tabRollMulticolLabels)
                 {
                     doc.LabelsHorizontalGapLength = (double)this.nudHorizGapLength.Value;
                     doc.LabelsPerRow = (int)this.nudLabelsPerRow.Value;
                 }
-                else if (this.tabLabelType.SelectedTab == this.tabSheetLabels)
+                else if (this.tabPages.SelectedTab == this.tabSheetLabels)
                 {
                     doc.LabelsHorizontalGapLength = (double)this.nudHorizGapLength.Value;
                     doc.LabelsPerRow = (int)this.nudLabelsPerRow.Value;
@@ -83,6 +96,10 @@ namespace TLWindowsEditorWinFormsDemo
                     doc.SheetLabelsHeight = (double)this.nudSheetHeight.Value;
                     doc.SheetLabelsWidth = (double)this.nudSheetWidth.Value;
                     doc.SheetLabelsMargin = new FrameThickness() { Left = (double)this.nudSheetLabelsMarginLeft.Value, Top = (double)this.nudSheetLabelsMarginTop.Value };
+                }
+                else if (this.tabPages.SelectedTab == this.tabMultiPages)
+                {
+                    doc.Pages = GetPages();
                 }
 
                 return doc;
@@ -107,19 +124,29 @@ namespace TLWindowsEditorWinFormsDemo
                 this.chkIsContinuous.Checked = value.IsContinuous;
                 this.chkPrintMirror.Checked = value.PrintMirror;
                 this.txtPrintSpeed.Text = value.PrintSpeed;
-                
-                if(value.SheetLabelsCount > 0 || value.SheetLabelsHeight>0 || value.SheetLabelsWidth > 0)
+
+                _designBackgroundImage = value.DesignBackgroundImage;
+
+                if (value.SheetLabelsCount > 0 || value.SheetLabelsHeight>0 || value.SheetLabelsWidth > 0)
                 {
-                    this.tabLabelType.SelectedTab = this.tabSheetLabels;
+                    this.tabPages.SelectedTab = this.tabSheetLabels;
                 }
                 else if (value.LabelsPerRow > 1)
                 {
-                    this.tabLabelType.SelectedTab = this.tabRollMulticolLabels;
+                    this.tabPages.SelectedTab = this.tabRollMulticolLabels;
+                }
+                else if (value.Pages.Count > 0)
+                {
+                    SetPages(value.Pages);
+                    this.tabPages.SelectedTab = this.tabMultiPages;
+                    _designBackgroundImage = "";
                 }
                 else
                 {
-                    this.tabLabelType.SelectedTab = this.tabRollSingleLabel;
+                    this.tabPages.SelectedTab = this.tabRollSingleLabel;
                 }
+
+                
 
                 this.UpdateLabelOptions();
             }
@@ -128,26 +155,89 @@ namespace TLWindowsEditorWinFormsDemo
 
         private void UpdateLabelOptions()
         {
-            this.gbHLayout.Visible = this.gbSheet.Visible = this.gbPrintOptions.Visible = false;
+            this.gbHLayout.Visible = this.gbSheet.Visible = this.gbPrintOptions.Visible = this.gbPages.Visible = false;
 
-            if(this.tabLabelType.SelectedTab == this.tabRollSingleLabel)
+            this.gbVLayout.Visible = true;
+
+            if(this.tabPages.SelectedTab == this.tabRollSingleLabel)
             {
                 this.gbPrintOptions.Visible = true;
-            } else if (this.tabLabelType.SelectedTab == this.tabRollMulticolLabels)
+            } else if (this.tabPages.SelectedTab == this.tabRollMulticolLabels)
             {
                 this.gbPrintOptions.Visible = true;
                 this.gbHLayout.Visible = true;
-            } else if (this.tabLabelType.SelectedTab == this.tabSheetLabels)
+            } else if (this.tabPages.SelectedTab == this.tabSheetLabels)
             {
                 this.gbSheet.Visible = true;
                 this.gbHLayout.Visible = true;
             }
+            else if (this.tabPages.SelectedTab == this.tabSheetLabels)
+            {
+                this.gbSheet.Visible = true;
+                this.gbHLayout.Visible = true;
+            }
+            else if (this.tabPages.SelectedTab == this.tabMultiPages)
+            {
+                this.gbPages.Visible = true;
+                this.gbVLayout.Visible = false;
+            }
 
+            this.btnClearBackImage.Visible = !string.IsNullOrWhiteSpace(_designBackgroundImage);
+
+            this.btnSetBackImage.Visible = (this.tabPages.SelectedTab != this.tabMultiPages);
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateLabelOptions();
         }
+
+        private string _designBackgroundImage = "";
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //show open file dialog
+            var dlg = new OpenFileDialog();
+            dlg.Filter = "Image File (*.png)|*.png";
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                //set design back image
+                _designBackgroundImage = Convert.ToBase64String(System.IO.File.ReadAllBytes(dlg.FileName));
+            }
+
+            this.btnClearBackImage.Visible = !string.IsNullOrWhiteSpace(_designBackgroundImage);
+        }
+
+        private void btnClearBackImage_Click(object sender, EventArgs e)
+        {
+            _designBackgroundImage = "";
+            this.btnClearBackImage.Visible = false;
+        }
+
+
+        private void SetPages(Collection<ThermalLabelPage> pages)
+        {
+            dgvPages.Rows.Clear();
+
+            foreach (var p in pages)
+            {
+                dgvPages.Rows.Add(new string[] { p.X.ToString(), p.Y.ToString(), p.Width.ToString(), p.Height.ToString() });
+            }
+        }
+
+        private Collection<ThermalLabelPage> GetPages()
+        {
+            var pages = new Collection<ThermalLabelPage>();
+
+            foreach (DataGridViewRow p in dgvPages.Rows)
+            {
+                var page = new ThermalLabelPage() { X = p.Cells["X"].Value != null ? double.Parse(p.Cells["X"].Value.ToString()) : 0, Y = p.Cells["Y"].Value != null ? double.Parse(p.Cells["Y"].Value.ToString()) : 0, Width = p.Cells["Width"].Value != null ? double.Parse(p.Cells["Width"].Value.ToString()) : 0, Height = p.Cells["Height"].Value != null ? double.Parse(p.Cells["Height"].Value.ToString()) : 0 };
+                
+                if(!(page.Width <= 0 && page.Height <= 0))
+                    pages.Add(page);                
+            }
+
+            return pages;
+        }
+
     }
 }
