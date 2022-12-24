@@ -916,7 +916,8 @@ namespace TLWindowsEditorWPFDemo
                         SetLabelExpressions(ref tLabel);
 
                         //save ThermalLabel template
-                        File.WriteAllText(dlg.FileName, dlg.FileName.EndsWith(".tl") ? tLabel.GetXmlTemplate() : tLabel.GetJsonTemplate());
+                        var embedFonts = (dlg.FilterIndex == 2 || dlg.FilterIndex == 4);
+                        File.WriteAllText(dlg.FileName, dlg.FileName.EndsWith(".tl") ? tLabel.GetXmlTemplate(embedFonts) : tLabel.GetJsonTemplate(embedFonts));
                     }
                     catch (Exception ex)
                     {
@@ -1372,6 +1373,61 @@ namespace TLWindowsEditorWPFDemo
             this.cmdRotView90.IsChecked = this.thermalLabelEditor1.ViewRotation == Rotate.Degree90;
             this.cmdRotView180.IsChecked = this.thermalLabelEditor1.ViewRotation == Rotate.Degree180;
             this.cmdRotView270.IsChecked = this.thermalLabelEditor1.ViewRotation == Rotate.Degree270;
+        }
+
+        
+        private void menuSameWidth_Click(object sender, RoutedEventArgs e)
+        {
+            this.thermalLabelEditor1.SetSelectedItemsToSameSize(true, false);
+        }
+
+        private void menuSameHeight_Click(object sender, RoutedEventArgs e)
+        {
+            this.thermalLabelEditor1.SetSelectedItemsToSameSize(false, true);
+        }
+
+        private void cmdZoomToLabel_Click(object sender, RoutedEventArgs e)
+        {
+            this.thermalLabelEditor1.Zoom = 0;
+        }
+
+        private void myTableSelector_SelectionChanged(object sender, EventArgs e)
+        {
+            InsertTable.IsChecked = false;
+
+            //is there any label on the editor's surface...
+            if (thermalLabelEditor1.LabelDocument != null)
+            {
+                //Set the ActiveTool to Table
+                thermalLabelEditor1.ActiveTool = EditorTool.Table;
+
+                //Create and set the ActiveToolItem i.e. a TableShapeItem
+                var tableItem = new TableShapeItem();
+                for (int i = 0; i < myTableSelector.SelectedColumns; i++)
+                    tableItem.Columns.Add(new Neodynamic.SDK.Printing.TableColumn());
+                for (int i = 0; i < myTableSelector.SelectedRows; i++)
+                    tableItem.Rows.Add(new Neodynamic.SDK.Printing.TableRow());
+
+                tableItem.ConvertToUnit(thermalLabelEditor1.LabelDocument.UnitType);
+
+                thermalLabelEditor1.ActiveToolItem = tableItem;
+            }
+        }
+
+        private void menuRepeater_Click(object sender, RoutedEventArgs e)
+        {
+            //is there any label on the editor's surface...
+            if (thermalLabelEditor1.LabelDocument != null)
+            {
+                //Set the ActiveTool to Repeater
+                thermalLabelEditor1.ActiveTool = EditorTool.Repeater;
+
+                //Create and set the ActiveToolItem i.e. a RepeaterItem
+                RepeaterItem repItem = new RepeaterItem();
+                repItem.ConvertToUnit(thermalLabelEditor1.LabelDocument.UnitType);
+
+                thermalLabelEditor1.ActiveToolItem = repItem;
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Threading;
 using Neodynamic.SDK.Printing;
+using SkiaSharp;
 
 namespace TLWindowsEditorWinFormsDemo
 {
@@ -15,18 +16,9 @@ namespace TLWindowsEditorWinFormsDemo
         [STAThread]
         static void Main()
         {
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
-        }
-
-
-      
-
-    }
-
-    
-     
-
+		}
+	}
 }

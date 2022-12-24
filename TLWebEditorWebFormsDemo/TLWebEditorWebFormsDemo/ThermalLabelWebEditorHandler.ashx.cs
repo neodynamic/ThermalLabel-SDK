@@ -42,7 +42,7 @@ namespace TLWebEditorWebFormsDemo
             }
             catch (Exception ex)
             {
-                context.Response.StatusCode = 400;
+                //context.Response.StatusCode = 400;
                 context.Response.ContentType = "text/plain";
                 context.Response.Write(ex.Message);
             }

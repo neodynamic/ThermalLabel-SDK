@@ -22,12 +22,30 @@
     <Compile Include="..\TLWindowsEditorWPFDemo\UC\ExpressionUIEditorUC.xaml.cs" Link="UC\ExpressionUIEditorUC.xaml.cs" />
     <Compile Include="..\TLWindowsEditorWPFDemo\UC\GalleryUC.xaml.cs" Link="UC\GalleryUC.xaml.cs" />
     <Compile Include="..\TLWindowsEditorWPFDemo\UC\ImageFileUIEditorUC.xaml.cs" Link="UC\ImageFileUIEditorUC.xaml.cs" />
+    <Compile Include="..\TLWindowsEditorWPFDemo\UC\TableSelector.xaml.cs" Link="UC\TableSelector.xaml.cs" />
     <Compile Include="..\TLWindowsEditorWPFDemo\Utils\Global.cs" Link="Utils\Global.cs" />
     <Compile Include="..\TLWindowsEditorWPFDemo\Utils\ImageResources.cs" Link="Utils\ImageResources.cs" />
     <Compile Include="..\TLWindowsEditorWPFDemo\Utils\TextBoxMaskBehavior.cs" Link="Utils\TextBoxMaskBehavior.cs" />
     <Compile Include="..\TLWindowsEditorWPFDemo\Utils\UIEditors.cs" Link="Utils\UIEditors.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Repeater.png" Link="Icons\Repeater.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\table.png" Link="Icons\table.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\ZoomToDoc.png" Link="Icons\16x16\ZoomToDoc.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\SameHeight.png" Link="Icons\16x16\SameHeight.png" />
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\SameWidth.png" Link="Icons\16x16\SameWidth.png" />
+  </ItemGroup>
+  
   <ItemGroup>
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\RotView180.png" Link="Icons\RotView180.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\RotView270.png" Link="Icons\RotView270.png" />
@@ -107,9 +125,9 @@
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.4.0" />
     <PackageReference Include="System.IO.Ports" Version="4.7.0" />
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="4.6.97" />
-	<PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting.NetCore" Version="11.0.0" />
-    <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor.NetCore" Version="11.0.0" />
-    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="11.0.0" />
+	<PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting.NetCore" Version="12.0.0" />
+    <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor.NetCore" Version="12.0.0" />
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="12.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -152,12 +170,14 @@
     <Page Include="..\TLWindowsEditorWPFDemo\UC\ImageFileUIEditorUC.xaml" Link="UC\ImageFileUIEditorUC.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="..\TLWindowsEditorWPFDemo\UC\TableSelector.xaml" Link="UC\TableSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   
   <ItemGroup>
     <Folder Include="Dialogs\" />
     <Folder Include="Icons\16x16\" />
-    <Folder Include="UC\" />
     <Folder Include="Utils\" />
   </ItemGroup>
 

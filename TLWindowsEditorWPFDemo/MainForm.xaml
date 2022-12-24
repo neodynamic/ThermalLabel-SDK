@@ -134,6 +134,19 @@
                     <RibbonButton LargeImageSource="Icons\Barcode.png" Label="Barcode" KeyTip="B" x:Name="menuBarcode1D" Click="menuBarcode_Click"/>
                     <RibbonButton LargeImageSource="Icons\2d.png" Label="2D" KeyTip="2" x:Name="menuBarcode2D" Click="menuBarcode_Click"/>
                     <RibbonButton LargeImageSource="Icons\RFIDTag.png" Label="RFID" KeyTip="D" x:Name="menuRFID" Click="menuRFID_Click"/>
+                    <RibbonButton LargeImageSource="Icons\Repeater.png" Label="Repeater" x:Name="menuRepeater" Click="menuRepeater_Click"/>
+                    <StackPanel Orientation="Vertical">
+                        <RibbonToggleButton
+                            x:Name="InsertTable"
+                            Label="Table"
+                            LargeImageSource="Icons\table.png"
+                            RibbonTwoLineText.HasTwoLines="True"
+                            RibbonTwoLineText.PathData="M 0 0 L 2.5 3 L 5 0 Z" >         
+                        </RibbonToggleButton>
+                        <Popup IsOpen="{Binding IsChecked, ElementName=InsertTable}">
+                            <local:TableSelector x:Name="myTableSelector" SelectionChanged="myTableSelector_SelectionChanged"></local:TableSelector>
+                        </Popup>
+                    </StackPanel>
                 </RibbonGroup>
                 <RibbonGroup x:Name="ArrangeGroup" Header="Layout">
                     <RibbonSplitButton LargeImageSource="Icons\arrange.png" Label="Arrange">
@@ -151,6 +164,9 @@
                     <RibbonButton SmallImageSource="Icons\16x16\LA-Right.png" x:Name="menuRight" Click="menuLA_Click" />
                     <RibbonButton SmallImageSource="Icons\16x16\LA-Bottom.png" x:Name="menuBottom" Click="menuLA_Click" />
                     <RibbonSeparator></RibbonSeparator>
+                    <RibbonButton SmallImageSource="Icons\16x16\SameWidth.png" x:Name="menuSameWidth" Click="menuSameWidth_Click" />
+                    <RibbonButton SmallImageSource="Icons\16x16\SameHeight.png" x:Name="menuSameHeight" Click="menuSameHeight_Click" />
+                    <RibbonSeparator></RibbonSeparator>
                     <RibbonButton SmallImageSource="Icons\16x16\group.png" x:Name="menuGroup" Click="menuGroup_Click" />
                     <RibbonButton SmallImageSource="Icons\16x16\ungroup.png" x:Name="menuUngroup" Click="menuUngroup_Click" />
                 </RibbonGroup>
@@ -160,6 +176,7 @@
                     <RibbonButton SmallImageSource="Icons\16x16\ZoomIn.png" Label="Zoom In" x:Name="cmdZoomIn" Click="cmdZoomIn_Click" />
                     <RibbonButton SmallImageSource="Icons\16x16\ZoomOut.png" Label="Zoom Out" x:Name="cmdZoomOut" Click="cmdZoomOut_Click" />
                     <RibbonButton SmallImageSource="Icons\16x16\Zoom100.png" Label="Zoom 100%" x:Name="cmdZoom100" Click="cmdZoom100_Click"/>
+                    <RibbonButton SmallImageSource="Icons\16x16\ZoomToDoc.png" Label="Zoom to Label" x:Name="cmdZoomToLabel" Click="cmdZoomToLabel_Click"/>
                 </RibbonGroup>
                 <RibbonGroup x:Name="ViewRotationGroup" Header="View Rotation">
                     <RibbonRadioButton LargeImageSource="Icons\RotViewNone.png" Label="None" x:Name="cmdRotViewNone" Click="cmdRotViewNone_Click" />

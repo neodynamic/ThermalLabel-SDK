@@ -32,7 +32,8 @@ namespace TLWindowsEditorWinFormsDemo
         //private LabelPreview labelPreview1 = new LabelPreview();
 
         private ToolStripSymbols tsSymbols = new ToolStripSymbols();
-        
+        private ToolStripTableSizeSelector tsTableSizer = new ToolStripTableSizeSelector();
+
         public MainForm()
         {
             // Windows Label Editor LICENSE
@@ -41,7 +42,7 @@ namespace TLWindowsEditorWinFormsDemo
             // SDK LICENSE
             ThermalLabel.LicenseOwner = "LICENSE OWNER FOR SDK HERE";
             ThermalLabel.LicenseKey = "LICENSE KEY FOR SDK HERE";
-
+            
             InitializeComponent();
 
             WebBrowserHelper.SetWebBrowserFeatures(ref this.webBrowser1);
@@ -59,11 +60,22 @@ namespace TLWindowsEditorWinFormsDemo
 
             this.tsSymbols.SymbolChanged += TsSymbols_SymbolChanged;
             this.tsddbSymbols.DropDownItems.Add(tsSymbols);
-            
+
+
+            tsTableSizer.Opening += new CancelEventHandler(tsTableSizer_Opening);
+            tsTableSizer.Selector.TableSizeSelected += new TableSizeSelectedEventHandler(tsTableSizer_TableSizeSelected);
+
+            this.tsbInsertTable.DropDown = tsTableSizer;
 
         }
 
-        
+
+        void tsTableSizer_Opening(object sender, CancelEventArgs e)
+        {
+            ToolStripTableSizeSelector c = (ToolStripTableSizeSelector)this.tsbInsertTable.DropDown;
+            c.Selector.SelectedSize = new Size(0, 0);
+            c.Selector.VisibleRange = new Size(10, 8);
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -80,7 +92,13 @@ namespace TLWindowsEditorWinFormsDemo
             TypeDescriptor.AddProvider(closedShapeItemProvider, typeof(ClosedShapeItem));
             var imageItemProvider = new AssociatedMetadataTypeTypeDescriptionProvider(typeof(ImageItem), typeof(ImageItemMetadata));
             TypeDescriptor.AddProvider(imageItemProvider, typeof(ImageItem));
-            
+            var tableColShapeItemProvider = new AssociatedMetadataTypeTypeDescriptionProvider(typeof(TableColumn), typeof(ClosedShapeItemMetadata));
+            TypeDescriptor.AddProvider(tableColShapeItemProvider, typeof(TableColumn));
+            var tableRowShapeItemProvider = new AssociatedMetadataTypeTypeDescriptionProvider(typeof(TableRow), typeof(ClosedShapeItemMetadata));
+            TypeDescriptor.AddProvider(tableRowShapeItemProvider, typeof(TableRow));
+
+            //var fontProvider = new AssociatedMetadataTypeTypeDescriptionProvider(typeof(Neodynamic.SDK.Printing.Font), typeof(FontMetadata));
+            //TypeDescriptor.AddProvider(fontProvider, typeof(Neodynamic.SDK.Printing.Font));
 
 
             //Enable the editor!!!
@@ -212,6 +230,28 @@ namespace TLWindowsEditorWinFormsDemo
             //Set the ActiveTool to Pointer
             thermalLabelEditor1.ActiveTool = EditorTool.Pointer;
             
+        }
+
+        void tsTableSizer_TableSizeSelected(object sender, TableSizeEventArgs e)
+        {
+            //MessageBox.Show(String.Format("Selected: {0}x{1}", e.SelectedSize.Width, e.SelectedSize.Height), Application.ProductName);
+            //is there any label on the editor's surface...
+            if (thermalLabelEditor1.LabelDocument != null)
+            {
+                //Set the ActiveTool to Table
+                thermalLabelEditor1.ActiveTool = EditorTool.Table;
+
+                //Create and set the ActiveToolItem i.e. a TableShapeItem
+                TableShapeItem tableItem = new TableShapeItem();
+                tableItem.ConvertToUnit(thermalLabelEditor1.LabelDocument.UnitType);
+                for (int i = 0; i < e.SelectedSize.Width; i++)
+                    tableItem.Columns.Add(new TableColumn());
+                for (int i = 0; i < e.SelectedSize.Height; i++)
+                    tableItem.Rows.Add(new TableRow());
+
+                thermalLabelEditor1.ActiveToolItem = tableItem;
+            }
+
         }
 
         private void txbRect_Click(object sender, EventArgs e)
@@ -432,19 +472,20 @@ namespace TLWindowsEditorWinFormsDemo
                 //BUT you can change it to whatever you want
                 SaveFileDialog dlg = new SaveFileDialog();
                 dlg.DefaultExt = ".tl";
-                dlg.Filter = "ThermalLabel XML Template (.tl)|*.tl|ThermalLabel JSON Template (.tlj)|*.tlj";
+                dlg.Filter = "ThermalLabel XML Template (.tl)|*.tl|ThermalLabel XML Template with Embedded Fonts (.tl)|*.tl|ThermalLabel JSON Template (.tlj)|*.tlj|ThermalLabel JSON Template with Embedded Fonts (.tlj)|*.tlj";
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
                         // get ThermalLabel obj from the editor canvas
                         ThermalLabel tLabel = this.thermalLabelEditor1.ViewRotation == Rotate.None ? this.thermalLabelEditor1.CreateThermalLabel() : this.thermalLabelEditor1.RotateLabel(this.thermalLabelEditor1.CreateThermalLabel(), this.thermalLabelEditor1.ViewRotation, Rotate.None);
-
+                        
                         // set Label expressions (if any)
                         SetLabelExpressions(ref tLabel);
 
                         //save ThermalLabel template
-                        File.WriteAllText(dlg.FileName, dlg.FileName.EndsWith(".tl") ? tLabel.GetXmlTemplate() : tLabel.GetJsonTemplate());
+                        var embedFonts = (dlg.FilterIndex == 2 || dlg.FilterIndex == 4);
+                        File.WriteAllText(dlg.FileName, dlg.FileName.EndsWith(".tl") ? tLabel.GetXmlTemplate(embedFonts) : tLabel.GetJsonTemplate(embedFonts));
                     }
                     catch (Exception ex)
                     {
@@ -1305,7 +1346,7 @@ namespace TLWindowsEditorWinFormsDemo
                         else
                             ds.ReadXml(new FileStream(this.txtDataSourceFile.Text, FileMode.Open, FileAccess.Read));
 
-                        tLabel.DataSource = ds;
+                        tLabel.DataSource = @"c:\temp\foodsinfo.xml";//ds;
                     }
                     else if(labelRequiresDataSource)
                     {
@@ -1603,7 +1644,9 @@ namespace TLWindowsEditorWinFormsDemo
                 //Create and set the ActiveToolItem i.e. a TextItem
                 TextItem txtItem = new TextItem();
                 txtItem.Font.CustomFontFile = Global.CustomSymbolFontBase64;
+                txtItem.Font.Name = "";
                 txtItem.Text = ((Button)sender).Text;
+                txtItem.ReadOnly = true;
                 txtItem.Sizing = TextSizing.FontSizeScaling;
                 txtItem.TextAlignment = TextAlignment.Center;
                 
@@ -1648,6 +1691,38 @@ namespace TLWindowsEditorWinFormsDemo
         private void menuViewRotate270_Click(object sender, EventArgs e)
         {
             thermalLabelEditor1.RotateView(Rotate.Degree270);
+        }
+
+        private void tsbSameWidth_Click(object sender, EventArgs e)
+        {
+            thermalLabelEditor1.SetSelectedItemsToSameSize(true, false);
+        }
+
+        private void tsbSameHeight_Click(object sender, EventArgs e)
+        {
+            thermalLabelEditor1.SetSelectedItemsToSameSize(false, true);
+        }
+
+        private void tsbZoomToLabel_Click(object sender, EventArgs e)
+        {
+            //Set up zoom to label -> 0%
+            thermalLabelEditor1.Zoom = 0;
+        }
+
+        private void tsbRepeater_Click(object sender, EventArgs e)
+        {
+            //is there any label on the editor's surface...
+            if (thermalLabelEditor1.LabelDocument != null)
+            {
+                //Set the ActiveTool to Repeater
+                thermalLabelEditor1.ActiveTool = EditorTool.Repeater;
+
+                //Create and set the ActiveToolItem i.e. a RepeaterItem
+                var repeaterItem = new RepeaterItem();
+                repeaterItem.ConvertToUnit(thermalLabelEditor1.LabelDocument.UnitType);
+
+                thermalLabelEditor1.ActiveToolItem = repeaterItem;
+            }
         }
     }
 }

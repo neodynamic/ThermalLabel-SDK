@@ -198,7 +198,8 @@
             "ZPL",
             "EPL",
             "Fingerprint",
-            "ESCPOS"});
+            "ESCPOS",
+            "IPL"});
             this.cboProgLang.Location = new System.Drawing.Point(263, 29);
             this.cboProgLang.Name = "cboProgLang";
             this.cboProgLang.Size = new System.Drawing.Size(42, 21);

@@ -121,6 +121,169 @@
         }
     },
 
+    addTableColumn: function () {
+        try {
+            if (tleditor.current_selection &&
+                tleditor.current_selection['columns'] !== undefined) {
+
+                tleditor.current_selection.columns.push(new Neodynamic.SDK.Printing.TableColumn());
+                tleditor.current_selection.refresh();
+                tleditor.saveCurrentLabelCanvasState();
+                tleditor.selectionChanged();
+            }
+        }
+        catch (err) {
+            UIEditor.showErrorMsg(err);
+        }
+    },
+
+    removeTableColumn: function (index) {
+        try {
+            if (tleditor.current_selection &&
+                tleditor.current_selection['columns'] !== undefined) {
+
+                tleditor.current_selection.columns.splice(index, 1);
+                tleditor.current_selection.refresh();
+                tleditor.saveCurrentLabelCanvasState();
+                tleditor.selectionChanged();
+            }
+        }
+        catch (err) {
+            UIEditor.showErrorMsg(err);
+        }
+    },
+
+    updateTableColumn: function (index, propName, value) {
+        try {
+            if (tleditor.current_selection &&
+                tleditor.current_selection['columns'] !== undefined) {
+
+                tleditor.current_selection.columns[index][propName] = value;
+                tleditor.current_selection.refresh();
+
+                tleditor.saveCurrentLabelCanvasState();
+            }
+        }
+        catch (err) {
+            UIEditor.showErrorMsg(err);
+        }
+    },
+
+    addTableRow: function () {
+        try {
+            if (tleditor.current_selection &&
+                tleditor.current_selection['rows'] !== undefined) {
+
+                tleditor.current_selection.rows.push(new Neodynamic.SDK.Printing.TableRow());
+                tleditor.current_selection.refresh();
+                tleditor.saveCurrentLabelCanvasState();
+                tleditor.selectionChanged();
+            }
+        }
+        catch (err) {
+            UIEditor.showErrorMsg(err);
+        }
+    },
+
+    removeTableRow: function (index) {
+        try {
+            if (tleditor.current_selection &&
+                tleditor.current_selection['rows'] !== undefined) {
+
+                tleditor.current_selection.rows.splice(index, 1);
+                tleditor.current_selection.refresh();
+                tleditor.saveCurrentLabelCanvasState();
+                tleditor.selectionChanged();
+            }
+        }
+        catch (err) {
+            UIEditor.showErrorMsg(err);
+        }
+    },
+
+    updateTableRow: function (index, propName, value) {
+        try {
+            if (tleditor.current_selection &&
+                tleditor.current_selection['rows'] !== undefined) {
+
+                tleditor.current_selection.rows[index][propName] = value;
+                tleditor.current_selection.refresh();
+
+                tleditor.saveCurrentLabelCanvasState();
+            }
+        }
+        catch (err) {
+            UIEditor.showErrorMsg(err);
+        }
+    },
+
+    createObjectComplexProp: function (targetTypeName, propObj, timestamp) {
+        var objVal = propObj.value;
+        var propGridContent = '<table class="table">';
+        for (var o in objVal) {
+            if (o[0] !== '_' &&
+                typeof (objVal[o]) !== 'function') {
+
+                let isTableColumn = propObj.name === "TableColumn"; 
+                let isTableRow = propObj.name === "TableRow";
+
+                propGridContent += '<tr>';
+                propGridContent += '<td>';
+                propGridContent += '<span>' + o.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function (key, p1) { return key.toUpperCase(); }) + '</span>';
+                propGridContent += '</td>';
+                propGridContent += '<td>';
+                if (typeof (objVal[o]) === "number" || typeof (objVal[o]) === "string") {
+                    if (typeof (objVal[o]) === "number") {
+                        if (o.indexOf("color") > -1) {
+                            if (isTableColumn)
+                                propGridContent += this.createSelectForEnum("TableColumn", "Color", objVal[o], o, propObj.index);
+                            else if (isTableRow)
+                                propGridContent += this.createSelectForEnum("TableRow", "Color", objVal[o], o, propObj.index);
+                            else
+                                propGridContent += this.createSelectForEnum(targetTypeName, "Color", objVal[o], propObj.name, timestamp);
+                        }
+                        else if (o.indexOf("unit") > -1)
+                            propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "FontUnit", propObj.name, propObj.class_name, o, objVal[o], timestamp);
+                        else if (o.indexOf("page") > -1)
+                            propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "CodePage", propObj.name, propObj.class_name, o, objVal[o], timestamp);
+                        else if (o === "dither_method")
+                            propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "DitherMethod", propObj.name, propObj.class_name, o, objVal[o], timestamp);
+                        else {
+                            if (isTableColumn)
+                                propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateTableColumn(' + propObj.index + ',\'' + o + '\', this.value)" />';
+                            else if (isTableRow)
+                                propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateTableRow(' + propObj.index + ',\'' + o + '\', this.value) " />';
+                        else
+                                propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + propObj.name + '\', \'' + propObj.class_name + '\',\'' + o + '\', \'' + typeof (objVal[o]) + '\', this.value,' + timestamp + ')" />';
+                        }
+                            
+                    }
+                    else if (typeof (objVal[o]) === "string" && o.indexOf("color_hex") > -1) {
+                        if (isTableColumn)
+                            propGridContent += '<input type="color" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateTableColumn(' + propObj.index + ',\'' + o + '\', this.value)" />';
+                        else if (isTableRow)
+                            propGridContent += '<input type="color" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateTableRow(' + propObj.index + ',\'' + o + '\', this.value) " />';
+                        else
+                            propGridContent += '<input type="color" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + propObj.name + '\', this.value,' + timestamp + ')" />';
+                    }
+                    else if ((propObj.name === "font" || propObj.name === "text_font") && o === "name")
+                        propGridContent += this.createSelectForFont(targetTypeName, propObj.name, propObj.class_name, o, objVal[o], timestamp);
+                    else
+                        propGridContent += '<input type="text" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + propObj.name + '\', \'' + propObj.class_name + '\',\'' + o + '\', \'' + typeof (objVal[o]) + '\', this.value,' + timestamp + ')" />';
+                }
+                else if (typeof (objVal[o]) === 'boolean')
+                    propGridContent += this.createCheckboxComplexProp(targetTypeName, '', propObj.name, propObj.class_name, o, objVal[o], timestamp);
+
+
+                propGridContent += '</td>';
+
+            }
+        }
+        propGridContent += '</table>';
+
+        return propGridContent;
+    },
+
     createCheckbox: function (targetTypeName, label, value, propName, timestamp) {
         return '<div class="checkbox"><label><input type="checkbox" ' + (value ? 'checked' : '') + ' onclick="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + propName + '\', this.checked,' + timestamp + ')" /><span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i>' + label + '</span></label></div >';
     },
@@ -145,8 +308,14 @@
                 return x.key < y.key ? -1 : (x.key > y.key ? 1 : 0);
             });
 
+            var sel = '';
 
-            var sel = '<select class="form-control input-sm" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + propName + '\', parseInt(this.value),' + timestamp + ')" >';
+            if (targetTypeName === "TableColumn")
+                sel = '<select class="form-control input-sm" onchange="neoPropertyGrid.updateTableColumn(' + timestamp + ',\'' + propName + '\', parseInt(this.value))" >';
+            else if (targetTypeName === "TableRow")
+                sel = '<select class="form-control input-sm" onchange="neoPropertyGrid.updateTableRow(' + timestamp + ',\'' + propName + '\', parseInt(this.value))" >';
+            else
+                sel = '<select class="form-control input-sm" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + propName + '\', parseInt(this.value),' + timestamp + ')" >';
 
             for (var i in enumEntries) {
                 sel += '<option value="' + enumEntries[i].value + '" ' + (value === enumEntries[i].value ? 'selected' : '') + '>' + enumEntries[i].key + '</option>';
@@ -203,6 +372,7 @@
         sel += '<li><a href="#" onclick="$(\'#' + id + '\').val(this.innerHTML).trigger(\'change\');">Times New Roman</a></li>';
         sel += '<li><a href="#" onclick="$(\'#' + id + '\').val(this.innerHTML).trigger(\'change\');">Verdana</a></li>';
         sel += '<li><a href="#" onclick="$(\'#' + id + '\').val(this.innerHTML).trigger(\'change\');">Wingdings</a></li>';
+        sel += '<li><a href="#" onclick="$(\'#' + id + '\').val(this.innerHTML).trigger(\'change\');">Fresh Fruit</a></li>';
         sel += '</ul>';
         sel += '</div>';
         sel += '</div>';
@@ -280,7 +450,16 @@
             if (isTL && (props[p].name === "items" || props[p].name === "expressions" || props[p].name.indexOf("data") > -1 || props[p].name === "pages")) continue;
             if (!isTL && props[p].name === "unit_type") continue;
 
-            propGridContent += '<tr><td>' + props[p].desc + '</td><td>';
+            if (props[p].name === "columns" || props[p].name === "rows") {
+
+                var funcName = props[p].name === "columns" ? "addTableColumn()" : "addTableRow()";
+
+                propGridContent += '<tr><td>' + props[p].desc + '<br/>';
+                propGridContent += '<button type="button" class="btn btn-sm btn-info" onclick="neoPropertyGrid.' + funcName + '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>';
+                propGridContent += '</td><td>';
+            }
+            else
+                propGridContent += '<tr><td>' + props[p].desc + '</td><td>';
 
             if (props[p].type === "number" || props[p].type === "string") {
                 var propVal = props[p].value;
@@ -375,39 +554,35 @@
                     propGridContent += '<input type="text" class="form-control input-sm" value="' + propVal + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')" />';
 
             }
-            else if (props[p].type === "object") { //Complex Property
-                //console.log(props[p].name);
+            else if (props[p].class_name === "Array" &&
+                (props[p].name === "columns" || props[p].name === "rows")) {
+
+                var removeFuncName = props[p].name === "columns" ? "removeTableColumn" : "removeTableRow";
+                
                 var objVal = props[p].value;
                 propGridContent += '<table class="table">';
+
                 for (var o in objVal) {
                     if (o[0] !== '_' &&
                         typeof (objVal[o]) !== 'function') {
 
                         //console.log(o);
 
+                        var propsObj = [];
+
+                        var objName = objVal[o] !== null ? objVal[o].constructor.name : "";
+                        propsObj.push({"index": parseInt(o), "name": objName, "type": typeof (objVal[o]), "value": objVal[o], "class_name": objName, "desc": objName.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function (key, p1) { return key.toUpperCase(); }) });
+                        
                         propGridContent += '<tr>';
+
                         propGridContent += '<td>';
                         propGridContent += '<span>' + o.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function (key, p1) { return key.toUpperCase(); }) + '</span>';
+                        propGridContent += '<br/><br/><button type="button" class="btn btn-sm btn-danger" onclick="neoPropertyGrid.' + removeFuncName + '(' + o + ')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>';
                         propGridContent += '</td>';
+
                         propGridContent += '<td>';
-                        if (typeof (objVal[o]) === "number" || typeof (objVal[o]) === "string") {
-                            if (typeof (objVal[o]) === "number") {
-                                if (o.indexOf("unit") > -1)
-                                    propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "FontUnit", props[p].name, props[p].class_name, o, objVal[o], timestamp);
-                                else if (o.indexOf("page") > -1)
-                                    propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "CodePage", props[p].name, props[p].class_name, o, objVal[o], timestamp);
-                                else if (o === "dither_method")
-                                    propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "DitherMethod", props[p].name, props[p].class_name, o, objVal[o], timestamp);
-                                else
-                                    propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', \'' + props[p].class_name + '\',\'' + o + '\', \'' + typeof (objVal[o]) + '\', this.value,' + timestamp + ')" />';
-                            }
-                            else if ((props[p].name === "font" || props[p].name === "text_font") && o === "name")
-                                propGridContent += this.createSelectForFont(targetTypeName, props[p].name, props[p].class_name, o, objVal[o], timestamp);
-                            else
-                                propGridContent += '<input type="text" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', \'' + props[p].class_name + '\',\'' + o + '\', \'' + typeof (objVal[o]) + '\', this.value,' + timestamp + ')" />';
-                        }
-                        else if (typeof (objVal[o]) === 'boolean')
-                            propGridContent += this.createCheckboxComplexProp(targetTypeName, '', props[p].name, props[p].class_name, o, objVal[o], timestamp);
+
+                        propGridContent += this.createObjectComplexProp(targetTypeName, propsObj[0], timestamp);
 
                         propGridContent += '</td>';
 
@@ -415,6 +590,11 @@
                 }
                 propGridContent += '</table>';
             }
+            else if (props[p].type === "object") { //Complex Property
+                //console.log(props[p].name);
+                propGridContent += this.createObjectComplexProp(targetTypeName, props[p], timestamp);
+                
+            }            
             else if (props[p].type === "boolean")
                 propGridContent += this.createCheckbox(targetTypeName, '', props[p].value, props[p].name, timestamp);
             propGridContent += '</td></tr>';

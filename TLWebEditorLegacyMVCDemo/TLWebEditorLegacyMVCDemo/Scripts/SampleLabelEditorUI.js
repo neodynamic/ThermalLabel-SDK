@@ -1,14 +1,14 @@
 ﻿// Sample Label Editor UI
-// - Referencing and Using ThermalLabelWebEditor-11.0.N.N.js
+// - Referencing and Using ThermalLabelWebEditor-12.0.N.N.js
 // NOTE: You can create your own Editor UI around the ThermalLabel Web Editor Canvas 
 
 var UIEditor = {
 
-    closeModal: function () {
+    closeModal : function() {
         $(".modal").modal("hide");
     },
 
-    newDocument: function () {
+    newDocument : function () {
         var tl = new Neodynamic.SDK.Printing.ThermalLabel();
         tl.unit_type = $("#doc_unit").children("option:selected").val();
         tl.width = $("#doc_width").val();
@@ -19,8 +19,8 @@ var UIEditor = {
         tleditor.zoom = 100;
     },
 
-    openDocument: function () {
-
+    openDocument : function () {
+        
 
         if ($("#open_file_url").val() && $("#open_file_url").val().length > 0) {
             $.get($("#open_file_url").val()).
@@ -50,14 +50,14 @@ var UIEditor = {
                     $('#editorTabs a[href="#label-design-tab"]').tab('show');
                     tleditor.zoom = 100;
                 };
-                fr.readAsText($("#open_file_local").prop('files')[0]);
-
+                fr.readAsText($("#open_file_local").prop('files')[0] );
+                    
             } else {
                 UIEditor.showErrorMsg('The File APIs are not fully supported in this browser.');
                 UIEditor.closeModal();
             }
         }
-
+        
     },
 
     saveDocument: function (format) {
@@ -66,7 +66,7 @@ var UIEditor = {
         }
     },
 
-    addNewItem: function (itemType, textInputMask) {
+    addNewItem : async function(itemType, textInputMask) {
         switch (itemType) {
             case 'Rectangle': {
                 var newRectItem = new Neodynamic.SDK.Printing.RectangleShapeItem();
@@ -100,7 +100,7 @@ var UIEditor = {
             }
             case 'Barcode': {
                 var newBarcodeItem = new Neodynamic.SDK.Printing.BarcodeItem();
-                newBarcodeItem.sizing = Neodynamic.SDK.Printing.BarcodeSizing.FitProportional;
+                newBarcodeItem.sizing = Neodynamic.SDK.Printing.BarcodeSizing.FitProportional; 
                 tleditor.active_tool_item = newBarcodeItem;
                 tleditor.active_tool = Neodynamic.Web.Editor.EditorTool.Barcode;
                 return;
@@ -108,7 +108,7 @@ var UIEditor = {
             case 'Barcode2D': {
                 var newBarcodeItem = new Neodynamic.SDK.Printing.BarcodeItem();
                 newBarcodeItem.symbology = Neodynamic.SDK.Printing.BarcodeSymbology.QRCode;
-                newBarcodeItem.sizing = Neodynamic.SDK.Printing.BarcodeSizing.FitProportional;
+                newBarcodeItem.sizing = Neodynamic.SDK.Printing.BarcodeSizing.FitProportional; 
                 newBarcodeItem.barcode_alignment = Neodynamic.SDK.Printing.BarcodeAlignment.MiddleCenter;
 
                 tleditor.active_tool_item = newBarcodeItem;
@@ -160,24 +160,43 @@ var UIEditor = {
                 tleditor.active_tool = Neodynamic.Web.Editor.EditorTool.Text;
                 return;
             }
+            case 'Table': {
+                var b = document.getElementById("tlbTable");
+                var bData = b.getBoundingClientRect();
+                let [colCount, rowCount] = await tablePicker(bData.left, bData.top + bData.height);
+
+                var newTableItem = new Neodynamic.SDK.Printing.TableShapeItem();
+                for (var i = 0; i < colCount; i++) newTableItem.columns.push(new Neodynamic.SDK.Printing.TableColumn());
+                for (var i = 0; i < rowCount; i++) newTableItem.rows.push(new Neodynamic.SDK.Printing.TableRow());
+
+                tleditor.active_tool_item = newTableItem;
+                tleditor.active_tool = Neodynamic.Web.Editor.EditorTool.Table;
+                return;
+            }
+            case 'Repeater': {
+                var newRepItem = new Neodynamic.SDK.Printing.RepeaterItem();
+                tleditor.active_tool_item = newRepItem;
+                tleditor.active_tool = Neodynamic.Web.Editor.EditorTool.Repeater;
+                return;
+            }
         }
     },
 
-    changeZoom: function (val) {
+    changeZoom : function(val) {
         switch (val) {
-            case "+": {
+        case "+": {
                 tleditor.zoom += 10;
             } break;
-            case "-": {
+        case "-": {
                 tleditor.zoom -= 10;
             } break;
-            default: {
+        default: {
                 tleditor.zoom = 100;
             } break;
         }
     },
 
-    lockItem: function () {
+    lockItem : function() {
         if (tleditor.current_selection === null)
             return;
         tleditor.lockSelectedItems();
@@ -189,35 +208,35 @@ var UIEditor = {
         tleditor.unlockSelectedItems();
     },
 
-    deleteSelectedItems: function () {
+    deleteSelectedItems : function() {
         tleditor.deleteSelectedItems();
     },
 
-    sendToBack: function () {
+    sendToBack : function() {
         tleditor.sendToBack();
     },
 
-    sendBackward: function () {
+    sendBackward : function() {
         tleditor.sendBackward();
     },
 
-    bringToFront: function () {
+    bringToFront : function() {
         tleditor.bringToFront();
     },
 
-    bringForward: function () {
+    bringForward : function() {
         tleditor.bringForward();
     },
 
-    clipboardCut: function () {
+    clipboardCut : function() {
         tleditor.clipboardCut();
     },
 
-    clipboardCopy: function () {
+    clipboardCopy : function() {
         tleditor.clipboardCopy();
     },
 
-    clipboardPaste: function () {
+    clipboardPaste : function() {
         tleditor.clipboardPaste();
     },
 
@@ -254,7 +273,7 @@ var UIEditor = {
             tleditor.getLabelPreview(null, null, 'html', dataSourceFormat, dataSource, function (htmlLabelPreviewContent) {
                 $('#htmlLabelPreview').html(htmlLabelPreviewContent);
             });
-
+            
         }
     },
 
@@ -294,7 +313,7 @@ var UIEditor = {
         if (tleditor.get_thermal_label) {
 
             let htmlExpr = '';
-            tleditor.get_thermal_label.expressions.forEach(function (x) {
+            tleditor.get_thermal_label.expressions.forEach(function(x) {
                 htmlExpr += '<tr><td>' + x + '</td></tr>';
             });
             $('#tableGlobalExpressions').html(htmlExpr);
@@ -302,7 +321,7 @@ var UIEditor = {
         }
     },
 
-    getGridSettings: function () {
+    getGridSettings : function () {
         $("#gs_grid_size").val(tleditor.grid_size);
         $("#gs_show_grid").prop('checked', tleditor.show_grid);
         $("#gs_snap_to_grid").prop('checked', tleditor.snap_to_grid);
@@ -312,7 +331,7 @@ var UIEditor = {
         return;
     },
 
-    setGridSettings: function () {
+    setGridSettings : function () {
         tleditor.grid_size = $("#gs_grid_size").val();
         tleditor.show_grid = $("#gs_show_grid").prop('checked');
         tleditor.snap_to_grid = $("#gs_snap_to_grid").prop('checked');
@@ -405,21 +424,21 @@ tleditor.currentSelectionAfterDelete = function () {
 
 //Handle Keyboard for specific actions...
 var ctrlDown = false,
-    ctrlKey = 17,
-    cmdKey = 91;
+        ctrlKey = 17,
+        cmdKey = 91;
 var shiftDown = false, shiftKey = 16;
-
+        
 window.addEventListener('keyup', function (e) {
     if (e.keyCode === ctrlKey || e.keyCode === cmdKey) ctrlDown = false;
     if (e.keyCode === shiftKey) shiftDown = false;
 }, false);
 
 window.addEventListener('keydown', function (e) {
-
+    
     if (e.keyCode === ctrlKey || e.keyCode === cmdKey) ctrlDown = true;
     if (e.keyCode === shiftKey) shiftDown = true;
     var selectionAndFocused = (document.activeElement === document.body && tleditor.current_selection);
-
+    
     var textItemInEditMode = (tleditor.current_selection instanceof Neodynamic.SDK.Printing.TextItem && tleditor.current_selection.is_in_edit_mode);
 
     if (textItemInEditMode === false) {
@@ -470,8 +489,12 @@ window.addEventListener('keydown', function (e) {
             e.preventDefault();
             return false;
         }
+        else if (e.keyCode == 27) {
+            tleditor.active_tool_item = null;
+            tleditor.active_tool = Neodynamic.Web.Editor.EditorTool.Pointer;
+        }
     }
-
+    
 }, false);
 
 
@@ -520,7 +543,7 @@ $('#tlbResidentFontText').popover();
 $('#tlbTextArc').popover();
 $('#tlbTextOutline').popover();
 $('#tlbBarcode2D').popover();
-
+$('#tlbRepeater').popover();
 
 // load sample data source
 $('#txtDataSource').val("<?xml version=\"1.0\"?><catalog><book id=\"bk101\"><author>Gambardella, Matthew</author><title>XML Developer's Guide</title > <genre>Computer</genre><price>44.95</price><publish_date>2000-10-01</publish_date><description>An in-depth look at creating applications with XML.</description></book > <book id=\"bk102\"><author>Ralls, Kim</author><title>Midnight Rain</title><genre>Fantasy</genre><price>5.95</price><publish_date>2000-12-16</publish_date><description>A former architect battles corporate zombies, an evil sorceress, and her own childhood to become queen of the world.</description></book><book id=\"bk103\"><author>Corets, Eva</author><title>Maeve Ascendant</title><genre>Fantasy</genre><price>5.95</price><publish_date>2000-11-17</publish_date><description>After the collapse of a nanotechnology society in England, the young survivors lay the foundation for a new society.</description></book><book id=\"bk104\"><author>Corets, Eva</author><title>Oberon's Legacy</title><genre>Fantasy</genre><price>5.95</price><publish_date>2001-03-10</publish_date><description>In post-apocalypse England, the mysterious agent known only as Oberon helps to create a new life for the inhabitants of London. Sequel to Maeve Ascendant.</description></book><book id=\"bk105\"><author>Corets, Eva</author><title>The Sundered Grail</title><genre>Fantasy</genre><price>5.95</price><publish_date>2001-09-10</publish_date><description>The two daughters of Maeve, half-sisters, battle one another for control of England. Sequel to Oberon's Legacy.</description></book><book id=\"bk106\"><author>Randall, Cynthia</author><title>Lover Birds</title><genre>Romance</genre><price>4.95</price><publish_date>2000-09-02</publish_date><description>When Carla meets Paul at an ornithology conference, tempers fly as feathers get ruffled.</description></book><book id=\"bk107\"><author>Thurman, Paula</author><title>Splish Splash</title><genre>Romance</genre><price>4.95</price><publish_date>2000-11-02</publish_date><description>A deep sea diver finds true love twenty thousand leagues beneath the sea.</description></book><book id=\"bk108\"><author>Knorr, Stefan</author><title>Creepy Crawlies</title><genre>Horror</genre><price>4.95</price><publish_date>2000-12-06</publish_date><description>An anthology of horror stories about roaches,centipedes, scorpions  and other insects.</description></book><book id=\"bk109\"><author>Kress, Peter</author><title>Paradox Lost</title><genre>Science Fiction</genre><price>6.95</price><publish_date>2000-11-02</publish_date><description>After an inadvertant trip through a HeisenbergUncertainty Device, James Salway discovers the problems of being quantum.</description></book><book id=\"bk110\"><author>O'Brien, Tim</author><title>Microsoft .NET: The Programming Bible</title><genre>Computer</genre><price>36.95</price><publish_date>2000-12-09</publish_date><description>Microsoft's .NET initiative is explored in detail in this deep programmer's reference.</description></book><book id=\"bk111\"><author>O'Brien, Tim</author><title>MSXML3: A Comprehensive Guide</title><genre>Computer</genre><price>36.95</price><publish_date>2000-12-01</publish_date><description>The Microsoft MSXML3 parser is covered in detail, with attention to XML DOM interfaces, XSLT processing, SAX and more.</description></book><book id=\"bk112\"><author>Galos, Mike</author><title>Visual Studio 7: A Comprehensive Guide</title><genre>Computer</genre><price>49.95</price><publish_date>2001-04-16</publish_date><description>Microsoft Visual Studio 7 is explored in depth,looking at how Visual Basic, Visual C++, C#, and ASP+ are integrated into a comprehensive development environment.</description></book></catalog>");
@@ -532,3 +555,47 @@ $(function () {
         $(this).closest("." + $(this).attr("data-hide")).hide();
     });
 });
+
+
+// table picker (https://stackoverflow.com/a/59163692)
+function tablePicker(x, y) {
+    return new Promise(resolve => {
+        let div = document.querySelector("#tblpck");
+        if (div) div.remove();
+        let colCount = 0;
+        let rowCount = 0;
+        div = document.createElement("div");
+        div.setAttribute("id", "tblpck");
+        div.innerHTML = `<style>
+            #tblpck div{background:#ccc;font-family:Verdana;text-align:right}
+            #tblpck table{border-spacing:3px;background:#f8f8f8}
+            #tblpck td{border:1px solid #888;width:16px;height:16px;box-sizing:border-box}
+            #tblpck .tblpckhighlight{border:2px solid orange;}
+        <\/style><div>0x0 Table<\/div>
+        <table>${`<tr>${`<td><\/td>`.repeat(10)}<\/tr>`.repeat(10)}<\/table>`;
+        document.body.appendChild(div);
+        Object.assign(div.style, { left: x + "px", top: y + "px", position: "absolute", border: "1px solid #ccc" });
+
+        div.onmouseover = (e) => {
+            if (e.target.tagName !== "TD") return;
+            let td = e.target;
+            let tr = td.parentNode;
+            let table = tr.parentNode;
+            colCount = td.cellIndex + 1;
+            rowCount = tr.rowIndex + 1;
+            for (let row of table.rows) {
+                let inside = row.rowIndex < rowCount;
+                for (let cell of row.cells) {
+                    cell.classList.toggle("tblpckhighlight", inside && cell.cellIndex < colCount);
+                }
+            }
+            div.children[1].textContent = `${colCount}x${rowCount} Table`;
+            return false;
+        };
+
+        div.onmousedown = () => {
+            div.remove();
+            resolve([colCount, rowCount]);
+        };
+    });
+}

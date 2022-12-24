@@ -6,7 +6,7 @@
         
         var _this = this;
         $.ajax({
-            url: 'https://raw.githubusercontent.com/neodynamic/ThermalLabel-SDK/main/LabelsGallery/index-v10.xml',
+            url: 'https://raw.githubusercontent.com/neodynamic/thermal-label/master/LabelsGallery/index-v10.xml',
             async: true
         }).done(function (data) {
 
@@ -33,7 +33,7 @@
                     //console.log(attr.nodeValue);
 
                     $.ajax({
-                        url: 'https://raw.githubusercontent.com/neodynamic/ThermalLabel-SDK/main/LabelsGallery/' + attr.nodeValue,
+                        url: 'https://raw.githubusercontent.com/neodynamic/thermal-label/master/LabelsGallery/' + attr.nodeValue,
                         async: true,
                         curLabelIndex: _this.curIndex
                     }).done(function (data) {
@@ -41,10 +41,10 @@
                         _this.labels['labelTemplate' + this.curLabelIndex] = data;
 
                         var thumbnail = '<div class="gallery-entry">';
-                        thumbnail += '<img id="labelIndex' + this.curLabelIndex + '" src="' + _this.getProgressIcon() +'" >';
                         thumbnail += '<p><small>' + _this.labels['labelName' + this.curLabelIndex] + '</small></p>';
-                        thumbnail += '<a href="#" class="btn btn-sm btn-default" onclick="gallery.editLabel(' + this.curLabelIndex + ');" ><i class="glyphicon glyphicon-pencil"></i>&nbsp;Edit...</a>';
+                        thumbnail += '<img id="labelIndex' + this.curLabelIndex + '" src="' + _this.getProgressIcon() +'" >';
                         thumbnail += '<br /><br />';
+                        thumbnail += '<a href="#" class="btn btn-sm btn-default" onclick="gallery.editLabel(' + this.curLabelIndex + ');" ><i class="glyphicon glyphicon-pencil"></i>&nbsp;Edit...</a>';
                         thumbnail += '</div>';
 
                         $('#label-gallery-entries').append(thumbnail);
@@ -53,7 +53,7 @@
 
                         
                     }).
-                        fail((data) => {
+                        fail(function(data) {
                             console.log("Error: " + data.responseText);
                         });
 
@@ -62,7 +62,7 @@
             }
 
         }).
-            fail((data) => {
+            fail(function(data) {
                 console.log ("Error: " + data.responseText);
             });
 
@@ -86,7 +86,7 @@
             tleditor.zoom = 100;
 
             let htmlExpr = '';
-            tl.expressions.forEach(x => {
+            tl.expressions.forEach(function(x) {
                 htmlExpr += '<tr><td>' + x + '</td></tr>';
             });
             $('#tableGlobalExpressions').html(htmlExpr);

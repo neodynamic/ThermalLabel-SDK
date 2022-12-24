@@ -48,14 +48,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Neodynamic.SDK.ThermalLabel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neodynamic.SDK.ThermalLabel.11.0.0\lib\netstandard2.0\Neodynamic.SDK.ThermalLabel.dll</HintPath>
+    <Reference Include="Neodynamic.SDK.ThermalLabel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neodynamic.SDK.ThermalLabel.12.0.0\lib\netstandard2.0\Neodynamic.SDK.ThermalLabel.dll</HintPath>
     </Reference>
-    <Reference Include="Neodynamic.SDK.ThermalLabel.WebPrinting, Version=11.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neodynamic.SDK.ThermalLabel.WebPrinting.11.0.0\lib\netstandard2.0\Neodynamic.SDK.ThermalLabel.WebPrinting.dll</HintPath>
+    <Reference Include="Neodynamic.SDK.ThermalLabel.WebPrinting, Version=12.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neodynamic.SDK.ThermalLabel.WebPrinting.12.0.0\lib\netstandard2.0\Neodynamic.SDK.ThermalLabel.WebPrinting.dll</HintPath>
     </Reference>
-    <Reference Include="Neodynamic.Web.ThermalLabelEditor, Version=11.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neodynamic.Web.ThermalLabelEditor.Server.11.0.0\lib\netstandard2.0\Neodynamic.Web.ThermalLabelEditor.dll</HintPath>
+    <Reference Include="Neodynamic.Web.ThermalLabelEditor, Version=12.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neodynamic.Web.ThermalLabelEditor.Server.12.0.0\lib\netstandard2.0\Neodynamic.Web.ThermalLabelEditor.dll</HintPath>
     </Reference>
     <Reference Include="SkiaSharp, Version=2.80.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\SkiaSharp.2.80.2\lib\net462\SkiaSharp.dll</HintPath>
@@ -166,19 +166,12 @@
     <Content Include="Content\neoPropGrid.css" />
     <Content Include="Content\ThermalLabelWebEditor.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\flaticon.css" />
-    <Content Include="fonts\Flaticon.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Readme.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="fonts\Flaticon.eot" />
-    <Content Include="fonts\Flaticon.ttf" />
-    <Content Include="fonts\Flaticon.woff" />
-    <Content Include="fonts\Flaticon.woff2" />
-    <Content Include="fonts\_flaticon.scss" />
     <Content Include="fonts\ZPL Font 0.ttf" />
     <Content Include="fonts\NativePrinterFontS.ttf" />
     <Content Include="fonts\NativePrinterFontB.ttf" />
@@ -260,7 +253,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61213</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44318/</IISUrl>
+          <IISUrl>http://localhost:33333/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:33333/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -276,10 +271,10 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\SkiaSharp.2.80.2\build\net462\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.2.80.2\build\net462\SkiaSharp.targets'))" />
-    <Error Condition="!Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.11.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.11.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets'))" />
+    <Error Condition="!Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.12.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.12.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets'))" />
   </Target>
   <Import Project="..\packages\SkiaSharp.2.80.2\build\net462\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.2.80.2\build\net462\SkiaSharp.targets')" />
-  <Import Project="..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.11.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets" Condition="Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.11.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" />
+  <Import Project="..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.12.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets" Condition="Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.12.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
