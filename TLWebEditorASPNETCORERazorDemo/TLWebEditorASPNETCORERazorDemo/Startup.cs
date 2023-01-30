@@ -56,6 +56,7 @@ namespace TLWebEditorASPNETCORERazorDemo
 
                 this.WebRootPath = env.WebRootPath;
                 endpoints.MapPost("/ThermalLabelWebEditorProcessRequest", ThermalLabelWebEditorProcessRequest);
+                endpoints.MapGet("/ThermalLabelWebEditorProcessRequest", ThermalLabelWebEditorProcessRequest);
 
             });
         }
@@ -78,8 +79,24 @@ namespace TLWebEditorASPNETCORERazorDemo
 
                 //Pass data processing to ThermalLabelWebEditor
                 var reqData = new NameValueCollection();
-                foreach (var entry in context.Request.Form) 
-                    reqData.Add(entry.Key, entry.Value.ToString());
+
+                try
+                {
+                    if (context.Request.Form != null)
+                    {
+                        foreach (var entry in context.Request.Form)
+                            reqData.Add(entry.Key, entry.Value.ToString());
+                    }
+                }
+                catch
+                {
+                    if (context.Request.Query != null)
+                    {
+                        foreach (var entry in context.Request.Query)
+                            reqData.Add(entry.Key, entry.Value.ToString());
+                    }
+                }
+                
 
                 ThermalLabelWebEditorHttpResponse httpResponse = ThermalLabelWebEditor.ProcessRequest(reqData);
 
