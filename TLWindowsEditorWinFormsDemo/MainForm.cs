@@ -1346,7 +1346,7 @@ namespace TLWindowsEditorWinFormsDemo
                         else
                             ds.ReadXml(new FileStream(this.txtDataSourceFile.Text, FileMode.Open, FileAccess.Read));
 
-                        tLabel.DataSource = @"c:\temp\foodsinfo.xml";//ds;
+                        tLabel.DataSource = ds;
                     }
                     else if(labelRequiresDataSource)
                     {
