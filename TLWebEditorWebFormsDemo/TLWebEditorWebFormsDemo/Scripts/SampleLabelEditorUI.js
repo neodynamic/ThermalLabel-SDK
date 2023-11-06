@@ -1,5 +1,5 @@
 ﻿// Sample Label Editor UI
-// - Referencing and Using ThermalLabelWebEditor-12.0.N.N.js
+// - Referencing and Using ThermalLabelWebEditor-13.0.N.N.js
 // NOTE: You can create your own Editor UI around the ThermalLabel Web Editor Canvas 
 
 var UIEditor = {
@@ -392,8 +392,9 @@ tleditor.enableEditor();
 
 //Handle events related to items...
 tleditor.onError = function (errMsg, className) {
-    $('#errorMsg').html(errMsg + ' (' + className + ')');
-    $('#errorBox').fadeIn(1000);
+    $("#error-msg").html('<strong>' + className + '</strong><br/>' + errMsg.replaceAll("\r\n", "<br/>"));
+    $("#error-dialog").modal();
+    return;
 };
 
 

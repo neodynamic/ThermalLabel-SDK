@@ -5,10 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="12.0.0" />
-    <PackageReference Include="Neodynamic.SDK.ThermalLabel.WebPrinting" Version="12.0.0" />
-    <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Assets" Version="12.0.0" />
-    <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Server" Version="12.0.0" />
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="13.0.0" />
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel.WebPrinting" Version="13.0.0" />
+    <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Assets" Version="13.0.0" />
+    <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Server" Version="13.0.0" />
   </ItemGroup>
 
 </Project>

@@ -1,14 +1,14 @@
 ﻿// Sample Label Editor UI
-// - Referencing and Using ThermalLabelWebEditor-12.0.N.N.js
+// - Referencing and Using ThermalLabelWebEditor-13.0.N.N.js
 // NOTE: You can create your own Editor UI around the ThermalLabel Web Editor Canvas 
 
 var UIEditor = {
 
-    closeModal : function() {
+    closeModal: function () {
         $(".modal").modal("hide");
     },
 
-    newDocument : function () {
+    newDocument: function () {
         var tl = new Neodynamic.SDK.Printing.ThermalLabel();
         tl.unit_type = $("#doc_unit").children("option:selected").val();
         tl.width = $("#doc_width").val();
@@ -19,8 +19,8 @@ var UIEditor = {
         tleditor.zoom = 100;
     },
 
-    openDocument : function () {
-        
+    openDocument: function () {
+
 
         if ($("#open_file_url").val() && $("#open_file_url").val().length > 0) {
             $.get($("#open_file_url").val()).
@@ -50,14 +50,14 @@ var UIEditor = {
                     $('#editorTabs a[href="#label-design-tab"]').tab('show');
                     tleditor.zoom = 100;
                 };
-                fr.readAsText($("#open_file_local").prop('files')[0] );
-                    
+                fr.readAsText($("#open_file_local").prop('files')[0]);
+
             } else {
                 UIEditor.showErrorMsg('The File APIs are not fully supported in this browser.');
                 UIEditor.closeModal();
             }
         }
-        
+
     },
 
     saveDocument: function (format) {
@@ -66,7 +66,7 @@ var UIEditor = {
         }
     },
 
-    addNewItem : async function(itemType, textInputMask) {
+    addNewItem: async function (itemType, textInputMask) {
         switch (itemType) {
             case 'Rectangle': {
                 var newRectItem = new Neodynamic.SDK.Printing.RectangleShapeItem();
@@ -100,7 +100,7 @@ var UIEditor = {
             }
             case 'Barcode': {
                 var newBarcodeItem = new Neodynamic.SDK.Printing.BarcodeItem();
-                newBarcodeItem.sizing = Neodynamic.SDK.Printing.BarcodeSizing.FitProportional; 
+                newBarcodeItem.sizing = Neodynamic.SDK.Printing.BarcodeSizing.FitProportional;
                 tleditor.active_tool_item = newBarcodeItem;
                 tleditor.active_tool = Neodynamic.Web.Editor.EditorTool.Barcode;
                 return;
@@ -108,7 +108,7 @@ var UIEditor = {
             case 'Barcode2D': {
                 var newBarcodeItem = new Neodynamic.SDK.Printing.BarcodeItem();
                 newBarcodeItem.symbology = Neodynamic.SDK.Printing.BarcodeSymbology.QRCode;
-                newBarcodeItem.sizing = Neodynamic.SDK.Printing.BarcodeSizing.FitProportional; 
+                newBarcodeItem.sizing = Neodynamic.SDK.Printing.BarcodeSizing.FitProportional;
                 newBarcodeItem.barcode_alignment = Neodynamic.SDK.Printing.BarcodeAlignment.MiddleCenter;
 
                 tleditor.active_tool_item = newBarcodeItem;
@@ -182,21 +182,21 @@ var UIEditor = {
         }
     },
 
-    changeZoom : function(val) {
+    changeZoom: function (val) {
         switch (val) {
-        case "+": {
+            case "+": {
                 tleditor.zoom += 10;
             } break;
-        case "-": {
+            case "-": {
                 tleditor.zoom -= 10;
             } break;
-        default: {
+            default: {
                 tleditor.zoom = 100;
             } break;
         }
     },
 
-    lockItem : function() {
+    lockItem: function () {
         if (tleditor.current_selection === null)
             return;
         tleditor.lockSelectedItems();
@@ -208,35 +208,35 @@ var UIEditor = {
         tleditor.unlockSelectedItems();
     },
 
-    deleteSelectedItems : function() {
+    deleteSelectedItems: function () {
         tleditor.deleteSelectedItems();
     },
 
-    sendToBack : function() {
+    sendToBack: function () {
         tleditor.sendToBack();
     },
 
-    sendBackward : function() {
+    sendBackward: function () {
         tleditor.sendBackward();
     },
 
-    bringToFront : function() {
+    bringToFront: function () {
         tleditor.bringToFront();
     },
 
-    bringForward : function() {
+    bringForward: function () {
         tleditor.bringForward();
     },
 
-    clipboardCut : function() {
+    clipboardCut: function () {
         tleditor.clipboardCut();
     },
 
-    clipboardCopy : function() {
+    clipboardCopy: function () {
         tleditor.clipboardCopy();
     },
 
-    clipboardPaste : function() {
+    clipboardPaste: function () {
         tleditor.clipboardPaste();
     },
 
@@ -273,7 +273,7 @@ var UIEditor = {
             tleditor.getLabelPreview(null, null, 'html', dataSourceFormat, dataSource, function (htmlLabelPreviewContent) {
                 $('#htmlLabelPreview').html(htmlLabelPreviewContent);
             });
-            
+
         }
     },
 
@@ -313,7 +313,7 @@ var UIEditor = {
         if (tleditor.get_thermal_label) {
 
             let htmlExpr = '';
-            tleditor.get_thermal_label.expressions.forEach(function(x) {
+            tleditor.get_thermal_label.expressions.forEach(function (x) {
                 htmlExpr += '<tr><td>' + x + '</td></tr>';
             });
             $('#tableGlobalExpressions').html(htmlExpr);
@@ -321,7 +321,7 @@ var UIEditor = {
         }
     },
 
-    getGridSettings : function () {
+    getGridSettings: function () {
         $("#gs_grid_size").val(tleditor.grid_size);
         $("#gs_show_grid").prop('checked', tleditor.show_grid);
         $("#gs_snap_to_grid").prop('checked', tleditor.snap_to_grid);
@@ -331,7 +331,7 @@ var UIEditor = {
         return;
     },
 
-    setGridSettings : function () {
+    setGridSettings: function () {
         tleditor.grid_size = $("#gs_grid_size").val();
         tleditor.show_grid = $("#gs_show_grid").prop('checked');
         tleditor.snap_to_grid = $("#gs_snap_to_grid").prop('checked');
@@ -392,8 +392,9 @@ tleditor.enableEditor();
 
 //Handle events related to items...
 tleditor.onError = function (errMsg, className) {
-    $('#errorMsg').html(errMsg + ' (' + className + ')');
-    $('#errorBox').fadeIn(1000);
+    $("#error-msg").html('<strong>' + className + '</strong><br/>' + errMsg.replaceAll("\r\n", "<br/>"));
+    $("#error-dialog").modal();
+    return;
 };
 
 
@@ -424,21 +425,21 @@ tleditor.currentSelectionAfterDelete = function () {
 
 //Handle Keyboard for specific actions...
 var ctrlDown = false,
-        ctrlKey = 17,
-        cmdKey = 91;
+    ctrlKey = 17,
+    cmdKey = 91;
 var shiftDown = false, shiftKey = 16;
-        
+
 window.addEventListener('keyup', function (e) {
     if (e.keyCode === ctrlKey || e.keyCode === cmdKey) ctrlDown = false;
     if (e.keyCode === shiftKey) shiftDown = false;
 }, false);
 
 window.addEventListener('keydown', function (e) {
-    
+
     if (e.keyCode === ctrlKey || e.keyCode === cmdKey) ctrlDown = true;
     if (e.keyCode === shiftKey) shiftDown = true;
     var selectionAndFocused = (document.activeElement === document.body && tleditor.current_selection);
-    
+
     var textItemInEditMode = (tleditor.current_selection instanceof Neodynamic.SDK.Printing.TextItem && tleditor.current_selection.is_in_edit_mode);
 
     if (textItemInEditMode === false) {
@@ -494,7 +495,7 @@ window.addEventListener('keydown', function (e) {
             tleditor.active_tool = Neodynamic.Web.Editor.EditorTool.Pointer;
         }
     }
-    
+
 }, false);
 
 

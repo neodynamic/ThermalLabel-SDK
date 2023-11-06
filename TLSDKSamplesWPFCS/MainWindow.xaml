@@ -29,7 +29,7 @@
                     <Run Text="Questions? support@neodynamic.com"/>
                 </Hyperlink>
             </TextBlock>
-            <Label x:Name="label" Content="12" HorizontalAlignment="Left" Margin="335,23,0,0" VerticalAlignment="Top" FontSize="36" Foreground="#FF2EB9F9"/>
+            <Label x:Name="label" Content="13" HorizontalAlignment="Left" Margin="335,23,0,0" VerticalAlignment="Top" FontSize="36" Foreground="#FF2EB9F9"/>
         </Grid>
         <Grid Grid.Row="1" Margin="10">
             <Grid.ColumnDefinitions>

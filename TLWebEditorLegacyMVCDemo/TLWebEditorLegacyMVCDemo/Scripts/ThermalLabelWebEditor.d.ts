@@ -347,6 +347,8 @@ declare namespace Neodynamic.SDK.Printing {
         private _tlc39_micro_pdf417_row_bar_height;
         private _right_to_left;
         private _rect_microqr_code_version;
+        private _print_as_resident_element;
+        private _qr_code_mask;
         private _has_to_reload;
         private _image_item;
         get add_checksum(): boolean;
@@ -625,6 +627,11 @@ declare namespace Neodynamic.SDK.Printing {
         set right_to_left(value: boolean);
         get rect_microqr_code_version(): RectMicroQRCodeVersion;
         set rect_microqr_code_version(value: RectMicroQRCodeVersion);
+        get print_as_resident_element(): boolean;
+        set print_as_resident_element(value: boolean);
+        get qr_code_mask(): QRCodeMask;
+        set qr_code_mask(value: QRCodeMask);
+        private _printAsResidentElementValidationResult;
         _getProperties(): {
             Type: string;
             UnitType: UnitType;
@@ -820,6 +827,8 @@ declare namespace Neodynamic.SDK.Printing {
             Tlc39MicroPdf417RowBarHeight: any;
             RightToLeft: boolean;
             RectMicroQRCodeVersion: RectMicroQRCodeVersion;
+            PrintAsResidentElement: boolean;
+            QRCodeMask: QRCodeMask;
             GroupName: string;
             Resizable: boolean;
             ReadOnly: boolean;
@@ -827,6 +836,7 @@ declare namespace Neodynamic.SDK.Printing {
         _updateFromCanvas(): void;
         _updateToCanvas(): void;
         refresh(): void;
+        printAsResidentElementIsSupported(): void;
         constructor();
     }
 }
@@ -1333,7 +1343,8 @@ declare namespace Neodynamic.SDK.Printing {
     enum BarcodeSizing {
         None = 0,
         Fill = 1,
-        FitProportional = 2
+        FitProportional = 2,
+        AutoSize = 3
     }
     enum BarcodeSymbology {
         Codabar = 0,
@@ -1481,31 +1492,31 @@ declare namespace Neodynamic.SDK.Printing {
         RssExpandedStackedCCA = 143,
         GS1DataBarExpandedStackedCCB = 144,
         RssExpandedStackedCCB = 145,
-        Ean14 = 146,
-        Dun14Itf = 147,
-        Dun14Ean = 148,
-        GS1QRCode = 149,
-        Ppn = 150,
-        IFAsecurPharm = 151,
-        DhlAwb = 152,
-        HibcLicDataMatrix = 153,
-        HibcLicQRCode = 154,
-        HibcLicAztecCode = 155,
-        HibcPasDataMatrix = 156,
-        HibcPasQRCode = 157,
-        HibcPasAztecCode = 158,
-        Isbt128DataMatrix = 159,
-        DeutschePostResponsePlusPostMatrix = 160,
-        DeutschePostBzl = 161,
-        UspsIntelligentMailPackageBarcode = 162,
-        HanXinCode = 163,
-        JapanPost = 164,
-        KoreaPost = 165,
-        DataLogic2of5 = 166,
-        MailmarkCMDM = 167,
-        Mailmark4StateC = 168,
-        Mailmark4StateL = 169,
-        DotCode = 170,
+        Ean14 = 147,
+        Dun14Itf = 148,
+        Dun14Ean = 149,
+        GS1QRCode = 150,
+        Ppn = 151,
+        IFAsecurPharm = 152,
+        DhlAwb = 153,
+        HibcLicDataMatrix = 154,
+        HibcLicQRCode = 155,
+        HibcLicAztecCode = 156,
+        HibcPasDataMatrix = 157,
+        HibcPasQRCode = 158,
+        HibcPasAztecCode = 159,
+        Isbt128DataMatrix = 160,
+        DeutschePostResponsePlusPostMatrix = 161,
+        DeutschePostBzl = 162,
+        UspsIntelligentMailPackageBarcode = 163,
+        HanXinCode = 164,
+        JapanPost = 165,
+        KoreaPost = 166,
+        DataLogic2of5 = 167,
+        MailmarkCMDM = 168,
+        Mailmark4StateC = 169,
+        Mailmark4StateL = 170,
+        DotCode = 171,
         GS1AztecCode = 172,
         SwissQRCode = 173,
         Plessey = 174,
@@ -1550,7 +1561,8 @@ declare namespace Neodynamic.SDK.Printing {
         ParagraphScaling = 3,
         Arc = 4,
         Vertical = 5,
-        OuterArc = 6
+        OuterArc = 6,
+        ParagraphScalingAndFill = 7
     }
     enum TextAlignment {
         Left = 0,
@@ -1628,7 +1640,23 @@ declare namespace Neodynamic.SDK.Printing {
         ZPL = 0,
         EPL = 1,
         Fingerprint = 2,
-        ESCPOS = 3
+        ESCPOS = 3,
+        PCL = 4
+    }
+    enum TextVerticalAlignment {
+        Top = 0,
+        Bottom = 1
+    }
+    enum QRCodeMask {
+        Auto = 0,
+        Mask0 = 1,
+        Mask1 = 2,
+        Mask2 = 3,
+        Mask3 = 4,
+        Mask4 = 5,
+        Mask5 = 6,
+        Mask6 = 7,
+        Mask7 = 8
     }
 }
 declare namespace Neodynamic.SDK.Printing {
@@ -2072,6 +2100,7 @@ declare namespace Neodynamic.SDK.Printing {
         private _validation_regex;
         private _validation_error_message;
         private _multiline;
+        private _text_vertical_alignment;
         private _has_to_reload;
         private _image_item;
         get back_color(): Color;
@@ -2140,6 +2169,8 @@ declare namespace Neodynamic.SDK.Printing {
         set validation_error_message(value: string);
         get multiline(): boolean;
         set multiline(value: boolean);
+        get text_vertical_alignment(): TextVerticalAlignment;
+        set text_vertical_alignment(value: TextVerticalAlignment);
         _updateFromCanvas(): void;
         _updateToCanvas(): void;
         refresh(): void;
@@ -2218,6 +2249,7 @@ declare namespace Neodynamic.SDK.Printing {
             ValidationRegEx: string;
             ValidationErrorMessage: string;
             Multiline: boolean;
+            TextVerticalAlignment: TextVerticalAlignment;
         };
         constructor();
         private _dblClick;
@@ -2349,6 +2381,7 @@ declare namespace Neodynamic.Web.Editor {
         private _container_div;
         private _tl;
         private _zoom;
+        private _ruler;
         private _active_tool_item;
         private _angle_snap;
         private _grid_size;
@@ -2388,6 +2421,7 @@ declare namespace Neodynamic.Web.Editor {
         set undoRedo(value: boolean);
         get zoom(): number;
         set zoom(value: number);
+        private _updateSelectionRuler;
         get current_selection(): any;
         get get_thermal_label(): SDK.Printing.ThermalLabel;
         constructor(container: string);
@@ -2466,6 +2500,7 @@ declare namespace Neodynamic.Web.Editor {
         undoStateChanged(): void;
         onError(errMsg: string, className: string): void;
         private _onError;
+        private ruler;
     }
 }
 declare namespace Neodynamic.Web.Utils {

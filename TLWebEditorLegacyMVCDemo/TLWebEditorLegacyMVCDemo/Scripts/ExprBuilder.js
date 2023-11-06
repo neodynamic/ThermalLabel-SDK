@@ -49,17 +49,17 @@
     openExpressionBuilder: function (curExpr, isGlobalExpr) {
         if (isGlobalExpr) {
             this.addLabelItems();
-            $('#expression').val(this.unescapeExpr(curExpr));
+            $('#expression').val(curExpr);
             $("#expression-builder").modal();
         }
         else if (curExpr) {
             this.addLabelItems();
-            $('#expression').val(this.unescapeExpr(curExpr));
+            $('#expression').val(curExpr);
             $("#expression-builder").modal();
         }
         else if (tleditor.current_selection) {
             this.addLabelItems();
-            $('#expression').val(this.unescapeExpr(tleditor.current_selection.expression));
+            $('#expression').val(tleditor.current_selection.expression);
             $("#expression-builder").modal();
         }
         else {
@@ -92,12 +92,6 @@
         return s.replace(/["&<>]/g, function (tag) {
             return tagsToReplace[tag] || tag;
         });
-    },
-    unescapeExpr: function (s) {
-        return s.replace(/_x0022_/g, '\"')
-            .replace(/_x003c_/g, '<')
-            .replace(/_x003e_/g, '>')
-            .replace(/_x0026_/g, '&');
     },
 
     addLabelItems: function () {

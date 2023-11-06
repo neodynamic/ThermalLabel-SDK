@@ -68,6 +68,11 @@
             this.txtIPAddress = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.gbMargins = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.nudMarginLeft = new System.Windows.Forms.NumericUpDown();
+            this.nudMarginTop = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCopies)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -78,6 +83,9 @@
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.gbMargins.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMarginLeft)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMarginTop)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -199,7 +207,7 @@
             "EPL",
             "Fingerprint",
             "ESCPOS",
-            "IPL"});
+            "PCL"});
             this.cboProgLang.Location = new System.Drawing.Point(263, 29);
             this.cboProgLang.Name = "cboProgLang";
             this.cboProgLang.Size = new System.Drawing.Size(42, 21);
@@ -256,6 +264,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.gbMargins);
             this.tabPage1.Controls.Add(this.chkPrintAsGraphic);
             this.tabPage1.Controls.Add(this.cboPrinters);
             this.tabPage1.Controls.Add(this.label2);
@@ -276,6 +285,7 @@
             this.chkPrintAsGraphic.TabIndex = 3;
             this.chkPrintAsGraphic.Text = "Print as graphic";
             this.chkPrintAsGraphic.UseVisualStyleBackColor = true;
+            this.chkPrintAsGraphic.CheckedChanged += new System.EventHandler(this.chkPrintAsGraphic_CheckedChanged);
             // 
             // cboPrinters
             // 
@@ -497,6 +507,64 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // gbMargins
+            // 
+            this.gbMargins.Controls.Add(this.nudMarginTop);
+            this.gbMargins.Controls.Add(this.label15);
+            this.gbMargins.Controls.Add(this.nudMarginLeft);
+            this.gbMargins.Controls.Add(this.label14);
+            this.gbMargins.Enabled = false;
+            this.gbMargins.Location = new System.Drawing.Point(28, 94);
+            this.gbMargins.Name = "gbMargins";
+            this.gbMargins.Size = new System.Drawing.Size(239, 49);
+            this.gbMargins.TabIndex = 4;
+            this.gbMargins.TabStop = false;
+            this.gbMargins.Text = "Margins";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(12, 23);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(30, 13);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "Left:";
+            // 
+            // nudMarginLeft
+            // 
+            this.nudMarginLeft.DecimalPlaces = 2;
+            this.nudMarginLeft.Location = new System.Drawing.Point(47, 19);
+            this.nudMarginLeft.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.nudMarginLeft.Name = "nudMarginLeft";
+            this.nudMarginLeft.Size = new System.Drawing.Size(56, 21);
+            this.nudMarginLeft.TabIndex = 1;
+            // 
+            // nudMarginTop
+            // 
+            this.nudMarginTop.DecimalPlaces = 2;
+            this.nudMarginTop.Location = new System.Drawing.Point(168, 19);
+            this.nudMarginTop.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.nudMarginTop.Name = "nudMarginTop";
+            this.nudMarginTop.Size = new System.Drawing.Size(56, 21);
+            this.nudMarginTop.TabIndex = 3;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(124, 23);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(29, 13);
+            this.label15.TabIndex = 2;
+            this.label15.Text = "Top:";
+            // 
             // PrintJobDialog
             // 
             this.AcceptButton = this.btnOk;
@@ -531,6 +599,10 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.gbMargins.ResumeLayout(false);
+            this.gbMargins.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMarginLeft)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMarginTop)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -576,5 +648,10 @@
         private System.Windows.Forms.ComboBox cboPrintOrientation;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.CheckBox chkPrintAsGraphic;
+        private System.Windows.Forms.GroupBox gbMargins;
+        private System.Windows.Forms.NumericUpDown nudMarginTop;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.NumericUpDown nudMarginLeft;
+        private System.Windows.Forms.Label label14;
     }
 }

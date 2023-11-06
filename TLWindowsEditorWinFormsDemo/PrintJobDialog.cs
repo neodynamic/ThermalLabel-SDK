@@ -65,6 +65,22 @@ namespace TLWindowsEditorWinFormsDemo
             get { return this.chkPrintAsGraphic.Checked; }
         }
 
+        public decimal MarginLeft
+        {
+            get
+            {
+                return this.nudMarginLeft.Value;
+            }
+        }
+
+        public decimal MarginTop
+        {
+            get
+            {
+                return this.nudMarginTop.Value;
+            }
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;   
@@ -164,8 +180,9 @@ namespace TLWindowsEditorWinFormsDemo
                 e.Cancel = true;
         }
 
-
-
-
+        private void chkPrintAsGraphic_CheckedChanged(object sender, EventArgs e)
+        {
+            this.gbMargins.Enabled = this.chkPrintAsGraphic.Checked;
+        }
     }
 }

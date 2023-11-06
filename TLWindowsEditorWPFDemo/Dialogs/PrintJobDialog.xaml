@@ -24,6 +24,7 @@
                         <ComboBoxItem Content="EPL"></ComboBoxItem>
                         <ComboBoxItem Content="Fingerprint"></ComboBoxItem>
                         <ComboBoxItem Content="ESCPOS"></ComboBoxItem>
+                        <ComboBoxItem Content="PCL"></ComboBoxItem>
                     </ComboBox>
                 </StackPanel>
                 <TabControl Name="tabPrintComm" Grid.Row="1" Margin="5">
@@ -31,7 +32,15 @@
                         <StackPanel Margin="20">
                             <TextBlock Text="Printer Name:"></TextBlock>
                             <ComboBox Name="cboPrinters" IsEditable="True" ItemsSource="{Binding}"></ComboBox>
-                            <CheckBox Name="chkPrintAsGraphic" Content="Print As Graphic"  Margin="0,20"/>
+                            <CheckBox Name="chkPrintAsGraphic" Content="Print As Graphic"  Margin="0,20" Checked="chkPrintAsGraphic_Checked" Unchecked="chkPrintAsGraphic_Checked"/>
+                            <GroupBox x:Name="gbMargins" Header="Margins" Height="67" IsEnabled="False" >
+                                <StackPanel  Orientation="Horizontal">
+                                    <Label Content="Left:" HorizontalAlignment="Left" Margin="9,11,0,0" VerticalAlignment="Top"/>
+                                    <TextBox  Name="txtMarginLeft" Width="50" Height="24" Text="0" Margin="9,11,0,0"  VerticalAlignment="Top" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="-1"></TextBox>
+                                    <Label Content="Top:" HorizontalAlignment="Left" Margin="9,11,0,0" VerticalAlignment="Top"/>
+                                    <TextBox  Name="txtMarginTop" Width="50" Height="24" Text="0" Margin="9,11,0,0"  VerticalAlignment="Top" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="-1"></TextBox>
+                                </StackPanel>
+                            </GroupBox>
                         </StackPanel>
                     </TabItem>
                     <TabItem Header="Parallel">

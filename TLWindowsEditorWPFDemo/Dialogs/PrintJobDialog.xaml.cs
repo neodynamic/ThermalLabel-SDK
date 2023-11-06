@@ -78,6 +78,36 @@ namespace TLWindowsEditorWPFDemo
             get { return this.chkPrintAsGraphic.IsChecked.Value; }
         }
 
+        public double MarginLeft
+        {
+            get
+            {
+                try
+                {
+                    return double.Parse(this.txtMarginLeft.Text);
+                }
+                catch
+                {
+                    return -1;
+                }
+            }
+        }
+
+        public double MarginTop
+        {
+            get
+            {
+                try
+                {
+                    return double.Parse(this.txtMarginTop.Text);
+                }
+                catch
+                {
+                    return -1;
+                }
+            }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
@@ -148,6 +178,11 @@ namespace TLWindowsEditorWPFDemo
                 this.DialogResult = false;
             }
 
+        }
+
+        private void chkPrintAsGraphic_Checked(object sender, RoutedEventArgs e)
+        {
+            this.gbMargins.IsEnabled = this.chkPrintAsGraphic.IsChecked.Value;
         }
     }
 }

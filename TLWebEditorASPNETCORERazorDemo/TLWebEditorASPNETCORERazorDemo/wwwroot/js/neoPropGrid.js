@@ -513,6 +513,8 @@
                         propGridContent += this.createSelectForEnum(targetTypeName, "Code16K", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "text_alignment")
                         propGridContent += this.createSelectForEnum(targetTypeName, theObj.constructor.name === "TextItem" ? "TextAlignment" : "BarcodeTextAlignment", props[p].value, props[p].name, timestamp);
+                    else if (props[p].name === "text_vertical_alignment")
+                        propGridContent += this.createSelectForEnum(targetTypeName, "TextVerticalAlignment", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "code_alignment")
                         propGridContent += this.createSelectForEnum(targetTypeName, "BarcodeTextAlignment", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "ean_upc_supplement")
@@ -537,6 +539,8 @@
                         propGridContent += this.createSelectForEnum(targetTypeName, "QRCodeErrorCorrectionLevel", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "qr_code_version")
                         propGridContent += this.createSelectForEnum(targetTypeName, "QRCodeVersion", props[p].value, props[p].name, timestamp);
+                    else if (props[p].name === "qr_code_mask")
+                        propGridContent += this.createSelectForEnum(targetTypeName, "QRCodeMask", props[p].value, props[p].name, timestamp);
                     //else if (props[p].name === "symbology")
                     //    propGridContent += this.createSelectForEnum("BarcodeSymbology", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "upce_system")
