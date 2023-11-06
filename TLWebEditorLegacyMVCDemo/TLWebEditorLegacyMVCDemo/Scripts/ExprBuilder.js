@@ -83,8 +83,9 @@
     },
 
     escapeExpr: function (s) {
-        var tagsToReplace = {
+       var tagsToReplace = {
             '_x0022_': '&#34;',
+            '"': '_x0022_',
             '_x0026_': '&#38;',
             '_x003c_': '&#60;',
             '_x003e_': '&#62;'
