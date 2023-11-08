@@ -11,7 +11,7 @@
   <ItemGroup>
     <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="13.0.0" />
     <PackageReference Include="Neodynamic.SDK.ThermalLabel.WebPrinting" Version="13.0.0" />
-    <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Assets" Version="13.0.0" />
+    <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Assets" Version="13.0.1" />
     <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Server" Version="13.0.0" />
     <PackageReference Include="SkiaSharp" Version="2.80.2" />
   </ItemGroup>
