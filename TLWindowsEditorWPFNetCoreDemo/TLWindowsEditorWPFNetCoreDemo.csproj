@@ -121,13 +121,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SkiaSharp" Version="1.68.3" />
+    <PackageReference Include="SkiaSharp" Version="2.80.2" />
+    <PackageReference Include="SkiaSharp.HarfBuzz" Version="2.80.2" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.4.0" />
     <PackageReference Include="System.IO.Ports" Version="4.7.0" />
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="4.6.97" />
-	<PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting.NetCore" Version="13.0.0" />
-    <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor.NetCore" Version="13.0.0" />
-    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="13.0.0" />
+	<PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting.NetCore" Version="13.0.23.1207" />
+    <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor.NetCore" Version="13.0.24.211" />
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="13.0.24.213" />
   </ItemGroup>
 
   <ItemGroup>

@@ -152,19 +152,22 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting">
-      <Version>13.0.0</Version>
+      <Version>13.0.23.1207</Version>
     </PackageReference>
     <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor">
-      <Version>13.0.0.0</Version>
+      <Version>13.0.24.211</Version>
     </PackageReference>
     <PackageReference Include="Neodynamic.SDK.ThermalLabel">
-      <Version>13.0.0</Version>
+      <Version>13.0.24.213</Version>
     </PackageReference>
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit">
       <Version>4.6.97</Version>
     </PackageReference>
     <PackageReference Include="SkiaSharp">
-      <Version>1.68.3</Version>
+      <Version>2.80.2</Version>
+    </PackageReference>
+    <PackageReference Include="SkiaSharp.HarfBuzz">
+      <Version>2.80.2</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Encoding.CodePages">
       <Version>4.4.0</Version>

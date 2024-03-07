@@ -47,21 +47,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HarfBuzzSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\HarfBuzzSharp.2.6.1.7\lib\net462\HarfBuzzSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Neodynamic.SDK.ThermalLabel, Version=13.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neodynamic.SDK.ThermalLabel.13.0.0\lib\netstandard2.0\Neodynamic.SDK.ThermalLabel.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Neodynamic.SDK.ThermalLabel.13.0.24.213\lib\netstandard2.0\Neodynamic.SDK.ThermalLabel.dll</HintPath>
     </Reference>
     <Reference Include="Neodynamic.SDK.ThermalLabel.WebPrinting, Version=13.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
       <HintPath>..\packages\Neodynamic.SDK.ThermalLabel.WebPrinting.13.0.0\lib\netstandard2.0\Neodynamic.SDK.ThermalLabel.WebPrinting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Neodynamic.Web.ThermalLabelEditor, Version=13.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neodynamic.Web.ThermalLabelEditor.Server.13.0.0\lib\netstandard2.0\Neodynamic.Web.ThermalLabelEditor.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Neodynamic.Web.ThermalLabelEditor.Server.13.0.24.205\lib\netstandard2.0\Neodynamic.Web.ThermalLabelEditor.dll</HintPath>
     </Reference>
     <Reference Include="SkiaSharp, Version=2.80.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\SkiaSharp.2.80.2\lib\net462\SkiaSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.HarfBuzz, Version=2.80.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.HarfBuzz.2.80.2\lib\net462\SkiaSharp.HarfBuzz.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -275,9 +279,11 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\SkiaSharp.2.80.2\build\net462\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.2.80.2\build\net462\SkiaSharp.targets'))" />
     <Error Condition="!Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.13.0.1\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.13.0.1\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets'))" />
+    <Error Condition="!Exists('..\packages\HarfBuzzSharp.2.6.1.7\build\net462\HarfBuzzSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\HarfBuzzSharp.2.6.1.7\build\net462\HarfBuzzSharp.targets'))" />
   </Target>
   <Import Project="..\packages\SkiaSharp.2.80.2\build\net462\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.2.80.2\build\net462\SkiaSharp.targets')" />
   <Import Project="..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.13.0.1\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets" Condition="Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.13.0.1\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" />
+  <Import Project="..\packages\HarfBuzzSharp.2.6.1.7\build\net462\HarfBuzzSharp.targets" Condition="Exists('..\packages\HarfBuzzSharp.2.6.1.7\build\net462\HarfBuzzSharp.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -171,15 +171,18 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Neodynamic.SDK.ThermalLabel">
-      <Version>13.0.0</Version>
+      <Version>13.0.24.213</Version>
     </PackageReference>
     <PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting">
-      <Version>13.0.0</Version>
+      <Version>13.0.23.1207</Version>
     </PackageReference>
     <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor">
-      <Version>13.0.0.0</Version>
+      <Version>13.0.24.211</Version>
     </PackageReference>
     <PackageReference Include="SkiaSharp">
+      <Version>2.80.2</Version>
+    </PackageReference>
+    <PackageReference Include="SkiaSharp.HarfBuzz">
       <Version>2.80.2</Version>
     </PackageReference>
   </ItemGroup>
