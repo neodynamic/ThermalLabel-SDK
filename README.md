@@ -32,9 +32,17 @@ This repo contains **Visual Studio (2019+)** sample projects for **ASP.NET (CORE
 
 ## Notes about ASP.NET CORE Samples under Linux
 
-- Add the following package reference in the sample project: [**SkiaSharp.NativeAssets.Linux**](https://www.nuget.org/packages/SkiaSharp.NativeAssets.Linux)
-
-- **libfontconfig1** is also required so install it from Terminal: `apt-get install libfontconfig1 -y`
+- Add the following package references in the sample project:
+```
+<ItemGroup>
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="13.0.24.811" />
+    <PackageReference Include="SkiaSharp" Version="2.88.8" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.8" />
+    <PackageReference Include="SkiaSharp.HarfBuzz" Version="2.88.8" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="7.3.0.2" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.1" />
+</ItemGroup>
+```
 
 
 ## Licensing
