@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="13.0.24.213" />
-    <PackageReference Include="Neodynamic.SDK.ThermalLabel.WebPrinting" Version="13.0.0" />
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="14.0.25.217" />
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel.WebPrinting" Version="14.0.0" />
   </ItemGroup>
 
 </Project>
