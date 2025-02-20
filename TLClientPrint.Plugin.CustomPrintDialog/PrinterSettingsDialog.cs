@@ -12,7 +12,7 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
 {
     public partial class PrinterSettingsDialog : Form
     {
-        private static string MAJOR_VERSION = "13.0";
+        private static string MAJOR_VERSION = "14.0";
         private static string FILE_INI = "TLClientPrint.ini";
 
         PrinterSettings _printerSettings = new PrinterSettings();
