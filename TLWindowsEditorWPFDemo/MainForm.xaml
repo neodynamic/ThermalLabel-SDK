@@ -135,6 +135,7 @@
                     <RibbonButton LargeImageSource="Icons\2d.png" Label="2D" KeyTip="2" x:Name="menuBarcode2D" Click="menuBarcode_Click"/>
                     <RibbonButton LargeImageSource="Icons\RFIDTag.png" Label="RFID" KeyTip="D" x:Name="menuRFID" Click="menuRFID_Click"/>
                     <RibbonButton LargeImageSource="Icons\Repeater.png" Label="Repeater" x:Name="menuRepeater" Click="menuRepeater_Click"/>
+                    <RibbonButton LargeImageSource="Icons\literal.png" Label="Literal" x:Name="menuLiteral" Click="menuLiteral_Click"/>
                     <StackPanel Orientation="Vertical">
                         <RibbonToggleButton
                             x:Name="InsertTable"

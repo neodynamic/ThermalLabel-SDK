@@ -47,7 +47,7 @@ namespace TLWindowsEditorWPFDemo
         {
             this.gbHLayout.Visibility = this.gbSheet.Visibility = this.gbPrintOptions.Visibility = this.gbPages.Visibility = Visibility.Collapsed;
 
-            this.gbVLayout.Visibility = Visibility.Visible;
+            this.gbVLayout.Visibility = this.gbMargin.Visibility = Visibility.Visible;
 
             if (this.tabRollSingleLabel.IsSelected)
             {
@@ -59,7 +59,8 @@ namespace TLWindowsEditorWPFDemo
                 this.gbHLayout.Visibility = Visibility.Visible;
             }
             else if (this.tabSheetLabels.IsSelected)
-            {
+            { 
+                this.gbMargin.Visibility = Visibility.Collapsed;
                 this.gbSheet.Visibility = Visibility.Visible;
                 this.gbHLayout.Visibility = Visibility.Visible;
             }
@@ -100,6 +101,13 @@ namespace TLWindowsEditorWPFDemo
             get
             {
                 var doc = new LabelDocument() { CutAfterPrinting = this.chkCutAfterPrinting.IsChecked.Value, GapLength = double.Parse(this.txtGapLength.Text), Height = double.Parse(this.txtHeight.Text), IsContinuous = this.chkIsContinuous.IsChecked.Value, MarkLength = double.Parse(this.txtMarkLength.Text), PrintMirror = this.chkPrintMirror.IsChecked.Value, PrintSpeed = this.txtPrintSpeed.Text, Width = double.Parse(this.txtWidth.Text), UnitType = (UnitType)Enum.Parse(typeof(UnitType), cboUnit.SelectedItem.ToString()), DesignBackgroundImage = _designBackgroundImage };
+                doc.Margin = new FrameThickness() { 
+                    Left = double.Parse(this.txtMarginLeft.Text), 
+                    Top = double.Parse(this.txtMarginTop.Text),
+                    Right = double.Parse(this.txtMarginRight.Text),
+                    Bottom = double.Parse(this.txtMarginBottom.Text)
+                };
+
 
                 if (this.tabRollMulticolLabels.IsSelected)
                 {
@@ -142,6 +150,11 @@ namespace TLWindowsEditorWPFDemo
                 this.chkIsContinuous.IsChecked = value.IsContinuous;
                 this.chkPrintMirror.IsChecked = value.PrintMirror;
                 this.txtPrintSpeed.Text = value.PrintSpeed;
+
+                this.txtMarginLeft.Text = value.Margin.Left.ToString();
+                this.txtMarginTop.Text = value.Margin.Top.ToString();
+                this.txtMarginRight.Text = value.Margin.Right.ToString();
+                this.txtMarginBottom.Text = value.Margin.Bottom.ToString();
 
                 _designBackgroundImage = value.DesignBackgroundImage;
 
@@ -192,6 +205,12 @@ namespace TLWindowsEditorWPFDemo
                 this.txtSheetWidth.Text = UnitUtils.Convert(_currentLabelUnit, double.Parse(txtSheetWidth.Text), newUnit, 2).ToString();
                 this.txtSheetLabelsMarginLeft.Text = UnitUtils.Convert(_currentLabelUnit, double.Parse(txtSheetLabelsMarginLeft.Text), newUnit, 2).ToString();
                 this.txtSheetLabelsMarginTop.Text = UnitUtils.Convert(_currentLabelUnit, double.Parse(txtSheetLabelsMarginTop.Text), newUnit, 2).ToString();
+
+                this.txtMarginLeft.Text = UnitUtils.Convert(_currentLabelUnit, double.Parse(txtMarginLeft.Text), newUnit, 2).ToString();
+                this.txtMarginTop.Text = UnitUtils.Convert(_currentLabelUnit, double.Parse(txtMarginTop.Text), newUnit, 2).ToString();
+                this.txtMarginRight.Text = UnitUtils.Convert(_currentLabelUnit, double.Parse(txtMarginRight.Text), newUnit, 2).ToString();
+                this.txtMarginBottom.Text = UnitUtils.Convert(_currentLabelUnit, double.Parse(txtMarginBottom.Text), newUnit, 2).ToString();
+
 
                 var pages = GetPages();
                 for (int i = 0; i < pages.Count; i++)

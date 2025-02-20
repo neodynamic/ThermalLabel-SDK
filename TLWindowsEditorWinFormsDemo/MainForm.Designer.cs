@@ -147,6 +147,7 @@
             this.tsbArcText = new System.Windows.Forms.ToolStripButton();
             this.tsbOutlineText = new System.Windows.Forms.ToolStripButton();
             this.tsbPicture = new System.Windows.Forms.ToolStripButton();
+            this.tsbRepeater = new System.Windows.Forms.ToolStripButton();
             this.tsddbSymbols = new System.Windows.Forms.ToolStripDropDownButton();
             this.tssbLinearBarcodes = new System.Windows.Forms.ToolStripSplitButton();
             this.tssb2DBarcodes = new System.Windows.Forms.ToolStripSplitButton();
@@ -216,7 +217,7 @@
             this.cmSelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.cmExpressionSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.cmExpression = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsbRepeater = new System.Windows.Forms.ToolStripButton();
+            this.tsbLiteral = new System.Windows.Forms.ToolStripButton();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -1099,6 +1100,7 @@
             this.tssb2DBarcodes,
             this.tsbRFID,
             this.tsbInsertTable,
+            this.tsbLiteral,
             this.toolStripSeparator3,
             this.tsbGroup,
             this.tsbUngroup,
@@ -1120,7 +1122,7 @@
             this.tsbHelp});
             this.toolStrip1.Location = new System.Drawing.Point(3, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1111, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1119, 25);
             this.toolStrip1.TabIndex = 1;
             // 
             // tsbNew
@@ -1381,6 +1383,16 @@
             this.tsbPicture.Size = new System.Drawing.Size(23, 22);
             this.tsbPicture.Text = "Picture";
             this.tsbPicture.Click += new System.EventHandler(this.tsbPicture_Click);
+            // 
+            // tsbRepeater
+            // 
+            this.tsbRepeater.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbRepeater.Image = ((System.Drawing.Image)(resources.GetObject("tsbRepeater.Image")));
+            this.tsbRepeater.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbRepeater.Name = "tsbRepeater";
+            this.tsbRepeater.Size = new System.Drawing.Size(23, 22);
+            this.tsbRepeater.Text = "Repeater";
+            this.tsbRepeater.Click += new System.EventHandler(this.tsbRepeater_Click);
             // 
             // tsddbSymbols
             // 
@@ -1954,15 +1966,15 @@
             this.cmExpression.Text = "Expression...";
             this.cmExpression.Click += new System.EventHandler(this.cmExpression_Click);
             // 
-            // tsbRepeater
+            // tsbLiteral
             // 
-            this.tsbRepeater.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbRepeater.Image = ((System.Drawing.Image)(resources.GetObject("tsbRepeater.Image")));
-            this.tsbRepeater.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbRepeater.Name = "tsbRepeater";
-            this.tsbRepeater.Size = new System.Drawing.Size(23, 22);
-            this.tsbRepeater.Text = "Repeater";
-            this.tsbRepeater.Click += new System.EventHandler(this.tsbRepeater_Click);
+            this.tsbLiteral.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbLiteral.Image = ((System.Drawing.Image)(resources.GetObject("tsbLiteral.Image")));
+            this.tsbLiteral.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbLiteral.Name = "tsbLiteral";
+            this.tsbLiteral.Size = new System.Drawing.Size(23, 22);
+            this.tsbLiteral.Text = "Literal";
+            this.tsbLiteral.Click += new System.EventHandler(this.tsbLiteral_Click);
             // 
             // MainForm
             // 
@@ -1972,7 +1984,7 @@
             this.Controls.Add(this.toolStripContainer1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "Neodynamic ThermalLabel Editor v12 for Windows (C#)";
+            this.Text = "Neodynamic ThermalLabel Editor v14 for Windows (C#)";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
@@ -2199,6 +2211,7 @@
         private System.Windows.Forms.ToolStripButton tsbZoomToLabel;
         private System.Windows.Forms.ToolStripDropDownButton tsbInsertTable;
         private System.Windows.Forms.ToolStripButton tsbRepeater;
+        private System.Windows.Forms.ToolStripButton tsbLiteral;
     }
 }
 

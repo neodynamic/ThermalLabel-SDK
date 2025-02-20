@@ -1,5 +1,5 @@
 ﻿// Sample Label Editor UI
-// - Referencing and Using ThermalLabelWebEditor-13.0.N.N.js
+// - Referencing and Using ThermalLabelWebEditor-14.0.N.N.js
 // NOTE: You can create your own Editor UI around the ThermalLabel Web Editor Canvas 
 
 var UIEditor = {
@@ -179,6 +179,12 @@ var UIEditor = {
                 tleditor.active_tool = Neodynamic.Web.Editor.EditorTool.Repeater;
                 return;
             }
+            case 'Literal': {
+                var newLitItem = new Neodynamic.SDK.Printing.LiteralItem();
+                tleditor.active_tool_item = newLitItem;
+                tleditor.active_tool = Neodynamic.Web.Editor.EditorTool.Literal;
+                return;
+            }
         }
     },
 
@@ -321,21 +327,23 @@ var UIEditor = {
         }
     },
 
-    getGridSettings : function () {
+    getGridSettings: function () {
         $("#gs_grid_size").val(tleditor.grid_size);
         $("#gs_show_grid").prop('checked', tleditor.show_grid);
         $("#gs_snap_to_grid").prop('checked', tleditor.snap_to_grid);
         $("#gs_angle_snap").val(tleditor.angle_snap);
         $("#gs_label_unit").text(this.getLabelUnit());
+        $("#gs_grid_type").val(tleditor.grid_type);
         $("#grid-settings").modal();
         return;
     },
 
-    setGridSettings : function () {
+    setGridSettings: function () {
         tleditor.grid_size = $("#gs_grid_size").val();
         tleditor.show_grid = $("#gs_show_grid").prop('checked');
         tleditor.snap_to_grid = $("#gs_snap_to_grid").prop('checked');
         tleditor.angle_snap = $("#gs_angle_snap").val();
+        tleditor.grid_type = $("#gs_grid_type").val();
         this.closeModal();
     },
 
@@ -398,7 +406,6 @@ tleditor.onError = function (errMsg, className) {
 };
 
 
-
 tleditor.newItemCreated = function () {
     console.log('NEW ITEM CREATED!');
     console.log(tleditor.current_selection);
@@ -406,6 +413,7 @@ tleditor.newItemCreated = function () {
 
 tleditor.selectionChanged = tleditor.selectionItemPropertyChanged = function () {
     var selObj = tleditor.current_selection ? tleditor.current_selection : tleditor.get_thermal_label;
+    neoPropertyGrid.numOfDecimalPlaces = tleditor.num_of_fractional_digits;
     neoPropertyGrid.createPropertyGrid(selObj, 'propGrid');
 
     if (tleditor.current_selection == null && tleditor.group_started) tleditor.cancelGroup();

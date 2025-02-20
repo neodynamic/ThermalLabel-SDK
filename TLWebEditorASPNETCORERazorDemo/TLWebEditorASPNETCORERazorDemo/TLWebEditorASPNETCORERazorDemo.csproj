@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,6 +10,8 @@
     <PackageReference Include="Neodynamic.SDK.ThermalLabel.WebPrinting" Version="14.0.0" />
     <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Assets" Version="14.0.0" />
     <PackageReference Include="Neodynamic.Web.ThermalLabelEditor.Server" Version="14.0.0" />
+    <PackageReference Include="SkiaSharp" Version="2.88.9" />
+    <PackageReference Include="SkiaSharp.HarfBuzz" Version="2.88.9" />
   </ItemGroup>
 
 </Project>

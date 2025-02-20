@@ -46,6 +46,10 @@
             this.nudArrowKeysLargeStep = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.nudArrowKeysShortStep = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cboGridType = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnGridColor = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudGridSize)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -57,6 +61,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnGridColor);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.cboGridType);
+            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.lblUnit1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.chkSnapToGrid);
@@ -64,7 +72,7 @@
             this.groupBox1.Controls.Add(this.chkShowGrid);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(393, 66);
+            this.groupBox1.Size = new System.Drawing.Size(393, 103);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Grid";
@@ -123,7 +131,7 @@
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(332, 268);
+            this.button2.Location = new System.Drawing.Point(332, 307);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 9;
@@ -133,7 +141,7 @@
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(224, 268);
+            this.button1.Location = new System.Drawing.Point(224, 307);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 8;
@@ -145,7 +153,7 @@
             // 
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.nudAngleSnap);
-            this.groupBox2.Location = new System.Drawing.Point(12, 94);
+            this.groupBox2.Location = new System.Drawing.Point(12, 133);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(393, 74);
             this.groupBox2.TabIndex = 10;
@@ -186,7 +194,7 @@
             this.groupBox3.Controls.Add(this.nudArrowKeysLargeStep);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.nudArrowKeysShortStep);
-            this.groupBox3.Location = new System.Drawing.Point(12, 185);
+            this.groupBox3.Location = new System.Drawing.Point(12, 224);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(393, 65);
             this.groupBox3.TabIndex = 11;
@@ -255,13 +263,50 @@
             this.nudArrowKeysShortStep.Size = new System.Drawing.Size(65, 20);
             this.nudArrowKeysShortStep.TabIndex = 13;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(17, 67);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(56, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Grid Type:";
+            // 
+            // cboGridType
+            // 
+            this.cboGridType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboGridType.FormattingEnabled = true;
+            this.cboGridType.Location = new System.Drawing.Point(75, 64);
+            this.cboGridType.Name = "cboGridType";
+            this.cboGridType.Size = new System.Drawing.Size(100, 21);
+            this.cboGridType.TabIndex = 14;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(222, 67);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(56, 13);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Grid Color:";
+            // 
+            // btnGridColor
+            // 
+            this.btnGridColor.BackColor = System.Drawing.SystemColors.Control;
+            this.btnGridColor.Location = new System.Drawing.Point(280, 62);
+            this.btnGridColor.Name = "btnGridColor";
+            this.btnGridColor.Size = new System.Drawing.Size(23, 23);
+            this.btnGridColor.TabIndex = 16;
+            this.btnGridColor.UseVisualStyleBackColor = false;
+            this.btnGridColor.Click += new System.EventHandler(this.btnGridColor_Click);
+            // 
             // ViewOptions
             // 
             this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button2;
-            this.ClientSize = new System.Drawing.Size(419, 303);
+            this.ClientSize = new System.Drawing.Size(419, 343);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button2);
@@ -273,6 +318,7 @@
             this.Name = "ViewOptions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "View Options";
+            this.Load += new System.EventHandler(this.ViewOptions_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudGridSize)).EndInit();
@@ -307,5 +353,9 @@
         private System.Windows.Forms.Label lblUnit1;
         private System.Windows.Forms.Label lblUnit3;
         private System.Windows.Forms.Label lblUnit2;
+        private System.Windows.Forms.Button btnGridColor;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cboGridType;
+        private System.Windows.Forms.Label label5;
     }
 }

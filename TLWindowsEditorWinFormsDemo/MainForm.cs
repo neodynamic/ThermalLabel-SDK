@@ -67,6 +67,32 @@ namespace TLWindowsEditorWinFormsDemo
 
             this.tsbInsertTable.DropDown = tsTableSizer;
 
+            FontManager.Add(new Neodynamic.SDK.Printing.Font() {
+                Name = "Arial Black",
+                CustomFontFile = @"C:\Windows\Fonts\ariblk.ttf"
+            });
+
+            FontManager.Add(new Neodynamic.SDK.Printing.Font()
+            {
+                Name = "Arial Narrow",
+                CustomFontFile = @"C:\Windows\Fonts\ARIALN.TTF"
+            });
+
+            FontManager.Add(new Neodynamic.SDK.Printing.Font()
+            {
+                Name = "Arial Narrow",
+                CustomFontFile = @"C:\Windows\Fonts\ARIALNB.TTF",
+                Bold = true
+            });
+
+            FontManager.Add(new Neodynamic.SDK.Printing.Font()
+            {
+                Name = "Arial Bold",
+                CustomFontFile = @"C:\Windows\Fonts\arialbd.TTF",
+                Bold = true
+            });
+
+            //thermalLabelEditor1.DisableShortcuts = KeyboardShortcuts.CtrlC | KeyboardShortcuts.CtrlX | KeyboardShortcuts.CtrlV;
         }
 
 
@@ -161,6 +187,8 @@ namespace TLWindowsEditorWinFormsDemo
             //thermalLabelEditor1.ItemToolTipBorderColor = System.Drawing.Color.SteelBlue;
             //thermalLabelEditor1.ItemToolTipForeColor = System.Drawing.Color.White;
 
+            //ThermalLabelEditor.IconDataBound = "iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAA8ElEQVR4nHWRsU4CQRRFz7o7xSI2WqyzxgkFUhg/wVg4BRWltb8AISbSGSn5ARptbf0B+QJLKzHZxDWC1CSGhHWthgwzcJNJ7n25p3hvAiy9nxyXVtSNcT7CUeAOHMgDd1wA0E5+sYMHNMb5SKgC9ZgjVIFQBZlOu1uBTKdPwBxA3n2bcXMjkOn0FWjK/myXMIIwQvZnAOemExnzeSW7UJ4mt7EAtXaMcP839gCgc3h/tgBiPL2tnA1Ug0o99MvbAREdXYjNwPOHcfbSrWmvPSmXCfab9tqI2t/QlNaWm9wkl8ADcADsAV/AtRz8rH76H6yTPmPfaITLAAAAAElFTkSuQmCC";
+
             this.gallery1.EditLabel += Gallery1_EditLabel;
             this.gallery1.DoRefresh();
 
@@ -182,6 +210,7 @@ namespace TLWindowsEditorWinFormsDemo
 
             // load sample symbols
             //this.tsddbSymbols.DropDownItems.Add();
+            //thermalLabelEditor1.DisableClipboard = true;
 
         }
 
@@ -389,42 +418,50 @@ namespace TLWindowsEditorWinFormsDemo
 
         private void menuNew_Click(object sender, EventArgs e)
         {
-            //Create a new 'document'
-            LabelDoc labelSetup = new LabelDoc();
-            labelSetup.LabelDocument = new LabelDocument() { UnitType = UnitType.Inch, Width = 4, Height = 3 };
+            try { 
+                //Create a new 'document'
+                LabelDoc labelSetup = new LabelDoc();
+                labelSetup.LabelDocument = new LabelDocument() { UnitType = UnitType.Inch, Width = 4, Height = 3 };
 
-            if (labelSetup.ShowDialog() == DialogResult.OK)
-            {
-                LabelDocument doc = labelSetup.LabelDocument;
-
-                //Create a ThermalLabel object based on the dialog box info
-                ThermalLabel tLabel = new ThermalLabel();
-                tLabel.UnitType = doc.UnitType; 
-                tLabel.Width = doc.Width;
-                tLabel.Height = doc.Height;
-                tLabel.IsContinuous = doc.IsContinuous;
-                tLabel.GapLength = doc.GapLength;
-                tLabel.MarkLength = doc.MarkLength;
-                tLabel.PrintMirror = doc.PrintMirror;
-                tLabel.PrintSpeed = doc.PrintSpeed;
-                tLabel.CutAfterPrinting = doc.CutAfterPrinting;
-                tLabel.LabelsHorizontalGapLength = doc.LabelsHorizontalGapLength;
-                tLabel.LabelsPerRow = doc.LabelsPerRow;
-                tLabel.SheetLabelsCount = doc.SheetLabelsCount;
-                tLabel.SheetLabelsHeight = doc.SheetLabelsHeight;
-                tLabel.SheetLabelsWidth = doc.SheetLabelsWidth;
-                tLabel.SheetLabelsMargin = doc.SheetLabelsMargin;
-                tLabel.DesignBackgroundImage = doc.DesignBackgroundImage;
-                foreach(var p in doc.Pages)
+                if (labelSetup.ShowDialog() == DialogResult.OK)
                 {
-                    tLabel.Pages.Add(p);
+                    LabelDocument doc = labelSetup.LabelDocument;
+
+                    //Create a ThermalLabel object based on the dialog box info
+                    ThermalLabel tLabel = new ThermalLabel();
+                    tLabel.UnitType = doc.UnitType;
+                    tLabel.Width = doc.Width;
+                    tLabel.Height = doc.Height;
+                    tLabel.IsContinuous = doc.IsContinuous;
+                    tLabel.GapLength = doc.GapLength;
+                    tLabel.MarkLength = doc.MarkLength;
+                    tLabel.PrintMirror = doc.PrintMirror;
+                    tLabel.PrintSpeed = doc.PrintSpeed;
+                    tLabel.CutAfterPrinting = doc.CutAfterPrinting;
+                    tLabel.LabelsHorizontalGapLength = doc.LabelsHorizontalGapLength;
+                    tLabel.LabelsPerRow = doc.LabelsPerRow;
+                    tLabel.SheetLabelsCount = doc.SheetLabelsCount;
+                    tLabel.SheetLabelsHeight = doc.SheetLabelsHeight;
+                    tLabel.SheetLabelsWidth = doc.SheetLabelsWidth;
+                    tLabel.SheetLabelsMargin = doc.SheetLabelsMargin;
+                    tLabel.DesignBackgroundImage = doc.DesignBackgroundImage;
+                    tLabel.Margin = doc.Margin;
+
+                    foreach (var p in doc.Pages)
+                    {
+                        tLabel.Pages.Add(p);
+                    }
+
+                    //load it on the editor surface
+                    thermalLabelEditor1.LoadThermalLabel(tLabel);
+
+                    this.tabMain.SelectedIndex = 1;
+
                 }
-
-                //load it on the editor surface
-                thermalLabelEditor1.LoadThermalLabel(tLabel);
-
-                this.tabMain.SelectedIndex = 1;
-
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -507,13 +544,19 @@ namespace TLWindowsEditorWinFormsDemo
 
                 if (labelSetup.ShowDialog() == DialogResult.OK)
                 {
-                    LabelDocument doc = labelSetup.LabelDocument;
+                    try { 
+                        LabelDocument doc = labelSetup.LabelDocument;
 
-                    //Invoke UpdateLabelDocument method for updating the label document inside the editor
-                    thermalLabelEditor1.UpdateLabelDocument(doc);
+                        //Invoke UpdateLabelDocument method for updating the label document inside the editor
+                        thermalLabelEditor1.UpdateLabelDocument(doc);
 
-                    //refresh property grid with the selected item
-                    SetCurrentSelectedItem();
+                        //refresh property grid with the selected item
+                        SetCurrentSelectedItem();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
 
                 this.tabMain.SelectedIndex = 1;
@@ -561,8 +604,13 @@ namespace TLWindowsEditorWinFormsDemo
 
                             //pj.CommandsOptimizationEnabled = false;
 
-                            if (frmPrintJob.PrintAsGraphic) 
+                            if (frmPrintJob.PrintAsGraphic)
+                            {
+                                pj.MarginLeft = (double)frmPrintJob.MarginLeft;
+                                pj.MarginTop = (double)frmPrintJob.MarginTop;
+
                                 pj.PrintAsGraphic(); //print to any printer using Windows driver
+                            }
                             else
                                 pj.Print(); //print to thermal printer      
                         }
@@ -1034,6 +1082,9 @@ namespace TLWindowsEditorWinFormsDemo
                 viewOpt.ArrowKeysShortStep = thermalLabelEditor1.ArrowKeysShortStep;
                 viewOpt.ArrowKeysLargeStep = thermalLabelEditor1.ArrowKeysLargeStep;
 
+                viewOpt.GridColor = thermalLabelEditor1.GridColor;
+                viewOpt.GridType = thermalLabelEditor1.GridType;
+
                 viewOpt.SetUnitLegends(thermalLabelEditor1.LabelDocument.UnitType);
 
                 viewOpt.Owner = this;
@@ -1046,6 +1097,8 @@ namespace TLWindowsEditorWinFormsDemo
                     thermalLabelEditor1.AngleSnap = viewOpt.AngleSnap;
                     thermalLabelEditor1.ArrowKeysShortStep = viewOpt.ArrowKeysShortStep;
                     thermalLabelEditor1.ArrowKeysLargeStep = viewOpt.ArrowKeysLargeStep;
+                    thermalLabelEditor1.GridType = viewOpt.GridType;
+                    thermalLabelEditor1.GridColor = viewOpt.GridColor;
                 }
             }
         }
@@ -1249,6 +1302,11 @@ namespace TLWindowsEditorWinFormsDemo
         
         private void cmdDataSourceFile_Click(object sender, EventArgs e)
         {
+
+            
+
+
+
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "XML Data Source (*.xml)|*.xml";
             if (dlg.ShowDialog() == DialogResult.OK)
@@ -1346,7 +1404,7 @@ namespace TLWindowsEditorWinFormsDemo
                         else
                             ds.ReadXml(new FileStream(this.txtDataSourceFile.Text, FileMode.Open, FileAccess.Read));
 
-                        tLabel.DataSource = @"c:\temp\foodsinfo.xml";//ds;
+                        tLabel.DataSource = ds;
                     }
                     else if(labelRequiresDataSource)
                     {
@@ -1722,6 +1780,22 @@ namespace TLWindowsEditorWinFormsDemo
                 repeaterItem.ConvertToUnit(thermalLabelEditor1.LabelDocument.UnitType);
 
                 thermalLabelEditor1.ActiveToolItem = repeaterItem;
+            }
+        }
+
+        private void tsbLiteral_Click(object sender, EventArgs e)
+        {
+            //is there any label on the editor's surface...
+            if (thermalLabelEditor1.LabelDocument != null)
+            {
+                //Set the ActiveTool to Literal
+                thermalLabelEditor1.ActiveTool = EditorTool.Literal;
+
+                //Create and set the ActiveToolItem i.e. a LiteralItem
+                LiteralItem literalItem = new LiteralItem();
+                literalItem.ConvertToUnit(thermalLabelEditor1.LabelDocument.UnitType);
+
+                thermalLabelEditor1.ActiveToolItem = literalItem;
             }
         }
     }

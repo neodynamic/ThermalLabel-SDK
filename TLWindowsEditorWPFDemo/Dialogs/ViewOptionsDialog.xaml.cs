@@ -21,8 +21,14 @@ namespace TLWindowsEditorWPFDemo.Dialogs
         public ViewOptionsDialog()
         {
             InitializeComponent();
+
+            this.Init();
         }
 
+        private void Init()
+        {
+            this.cboGridType.DataContext = Enum.GetNames(typeof(Neodynamic.Windows.ThermalLabelEditor.GridType));            
+        }
 
         public double GridSize
         {
@@ -60,6 +66,19 @@ namespace TLWindowsEditorWPFDemo.Dialogs
             set { txtArrowKeysLargeStep.Text = value.ToString(); }
         }
 
+        private Neodynamic.Windows.ThermalLabelEditor.GridType _gridType = Neodynamic.Windows.ThermalLabelEditor.GridType.Lines;
+        public Neodynamic.Windows.ThermalLabelEditor.GridType GridType
+        {
+            get { return (Neodynamic.Windows.ThermalLabelEditor.GridType)Enum.Parse(typeof(Neodynamic.Windows.ThermalLabelEditor.GridType), cboGridType.SelectedItem.ToString()); }
+            set { _gridType = value; }
+        }
+
+        public Color GridColor
+        {
+            get { return ((SolidColorBrush)btnGridColor.Background).Color; }
+            set { btnGridColor.Background = new SolidColorBrush(value); }
+        }
+
         public void SetUnitLegends(Neodynamic.SDK.Printing.UnitType unit)
         {
             lblUnit1.Content = lblUnit2.Content = lblUnit3.Content = unit.ToString();
@@ -70,5 +89,21 @@ namespace TLWindowsEditorWPFDemo.Dialogs
             DialogResult = true;
         }
 
+        private void btnGridColor_Click(object sender, RoutedEventArgs e)
+        {
+            var cd = new ColorDialog();
+            var c = ((SolidColorBrush)(btnGridColor.Background)).Color;
+            cd.ColorHex = string.Format("#{0:X2}{1:X2}{2:X2}", c.R, c.G, c.B);
+
+            if (cd.ShowDialog().Value)
+            {
+                btnGridColor.Background = (SolidColorBrush)new BrushConverter().ConvertFrom(cd.ColorHex); 
+            }
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            this.cboGridType.SelectedItem = _gridType.ToString();
+        }
     }
 }

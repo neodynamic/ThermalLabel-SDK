@@ -3,18 +3,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - ThermalLabel Web Editor 13.0 for ASP.NET MVC - Sample UI</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <title>@ViewBag.Title - ThermalLabel Web Editor 14.0 for ASP.NET MVC - Sample UI</title>
+    @Styles.Render("~/Content/bootstrap.min.css")
     @Styles.Render("~/Content/gallery.css")
     @Styles.Render("~/Content/neoPropGrid.css")
+    @Styles.Render("~/Content/Site.css")
     @Styles.Render("~/Content/ThermalLabelWebEditor.css")
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
 
     @RenderBody()
 
-    @Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+    @Scripts.Render("~/Scripts/jquery.min.js")
     @Scripts.Render("~/Scripts/bootstrap.min.js")
 
     @Scripts.Render("~/Scripts/fabric-1.5.0.js")
@@ -22,7 +23,7 @@
     @Scripts.Render("~/Scripts/neoPropGrid.js")
     @Scripts.Render("~/Scripts/ExprBuilder.js")
     @Scripts.Render("~/Scripts/Gallery.js")
-    @Scripts.Render("~/Scripts/SampleLabelEditorUI.js")
+    @Scripts.Render("~/Scripts/SampleLabelEditorUI-14.0.js")
 
 
     <script type="text/javascript">

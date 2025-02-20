@@ -1,606 +1,619 @@
 ﻿@page
 @model IndexModel
-    <div class="container-fluid" style="padding-top:10px">
-        <ul class="nav nav-tabs" id="editorTabs">
-            <li class="active"><a data-toggle="tab" href="#label-gallery-tab"><i class="glyphicon glyphicon-th"></i>&nbsp;<strong>Gallery</strong></a></li>
-            <li><a data-toggle="tab" href="#label-design-tab"><i class="glyphicon glyphicon-pencil"></i>&nbsp;<strong>Design</strong></a></li>
-            <li><a data-toggle="tab" href="#label-preview-tab" onclick="UIEditor.showLabelPreview();"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;<strong>Preview</strong></a></li>
-            <li>
-                <a href="https://neodynamic.com/products/printing/thermal-label/web-editor" target="_blank"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;<strong>ThermalLabel Web Editor 13 for ASP.NET</strong></a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div id="label-gallery-tab" class="tab-pane active">
-                <div id="label-gallery-entries" class="gallery">
+<div class="container-fluid" style="padding-top:10px">
+    <ul class="nav nav-tabs" id="editorTabs">
+        <li class="active"><a data-toggle="tab" href="#label-gallery-tab"><i class="glyphicon glyphicon-th"></i>&nbsp;<strong>Gallery</strong></a></li>
+        <li><a data-toggle="tab" href="#label-design-tab"><i class="glyphicon glyphicon-pencil"></i>&nbsp;<strong>Design</strong></a></li>
+        <li><a data-toggle="tab" href="#label-preview-tab" onclick="UIEditor.showLabelPreview();"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;<strong>Preview</strong></a></li>
+        <li>
+            <a href="https://neodynamic.com/products/printing/thermal-label/web-editor" target="_blank"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;<strong>ThermalLabel Web Editor 14 for ASP.NET</strong></a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div id="label-gallery-tab" class="tab-pane active">
+            <div id="label-gallery-entries" class="gallery">
 
+            </div>
+        </div>
+        <div id="label-design-tab" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="navbar-form navbar-left">
+                        <div class="btn-group" role="group">
+                            <button id="tlbNew" type="button" title="" class="btn btn-default"
+                                    data-toggle="modal" data-target="#new-document"
+                                    data-content="Create New Label" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/NewFile.png" />
+                            </button>
+                            <button id="tlbOpen" type="button" title="" class="btn btn-default" data-toggle="modal"
+                                    data-target="#open-document"
+                                    data-content="Open Label Document" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/Open.png" />
+                            </button>
+                            <div id="tlbSave" class="btn-group" role="group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="images/icons/Save.png" />
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" onclick="UIEditor.saveDocument('xml')">As XML Document (*.tl)</a></li>
+                                    <li><a href="#" onclick="UIEditor.saveDocument('json')">As JSON Document (*.tlj)</a></li>
+                                </ul>
+                            </div>
+                            <button id="tlbPrint" type="button" title="" class="btn btn-default" data-target="#printInfo" data-toggle="modal"
+                                    data-content="Print Label To Local Printer. NOTE: Client Printing requires TLClientPrint utility installed!" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/Print.png" />
+                            </button>
+                            <button id="tlbGridSettings" type="button" title="" class="btn btn-default" onclick="UIEditor.getGridSettings()"
+                                    data-content="Grid Settings" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/DesignOptions.png" />
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button id="tlbUndo" type="button" title="" class="btn btn-default" onclick="UIEditor.undo()"
+                                    data-content="Undo" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/Undo.png" />
+                            </button>
+                            <button id="tlbRedo" type="button" title="" class="btn btn-default" onclick="UIEditor.redo()"
+                                    data-content="Redo" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/Redo.png" />
+                            </button>
+
+                            <button id="tlbClipboardCut" type="button" title="" class="btn btn-default" onclick="UIEditor.clipboardCut()"
+                                    data-content="Cut" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/cut.png" />
+                            </button>
+                            <button id="tlbClipboardCopy" type="button" title="" class="btn btn-default" onclick="UIEditor.clipboardCopy()"
+                                    data-content="Copy" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/copy.png" />
+                            </button>
+                            <button id="tlbClipboardPaste" type="button" title="" class="btn btn-default" onclick="UIEditor.clipboardPaste()"
+                                    data-content="Paste" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/paste.png" />
+                            </button>
+
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button id="tlbRect" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Rectangle')"
+                                    data-content="Add Rectangle" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/rect.png" />
+                            </button>
+                            <button id="tlbEllipse" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Ellipse')"
+                                    data-content="Add Ellipse" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/ellipse.png" />
+                            </button>
+                            <button id="tlbLine" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Line')"
+                                    data-content="Add Line" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/line.png" />
+                            </button>
+                            <button id="tlbResidentFontText" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('TextResidentFont')"
+                                    data-content="Add Resident Font Text" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/ResidentFont.png" />
+                            </button>
+                            <button id="tlbText" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Text')"
+                                    data-content="Add Text" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/text.png" />
+                            </button>
+                            <div id="tlbMaskedText" class="btn-group" role="group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="images/icons/MaskedText.png" />
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" onclick="UIEditor.addNewItem('Text', '00000')">Numeric (5-digits) - [00000]</a></li>
+                                    <li><a href="#" onclick="UIEditor.addNewItem('Text', '(999) 000-0000')">Phone Number - [(999) 000-0000]</a></li>
+                                    <li><a href="#" onclick="UIEditor.addNewItem('Text', '00/00/0000')">US Short Date - [00/00/0000]</a></li>
+                                    <li><a href="#" onclick="UIEditor.addNewItem('Text', '00/00/0000 90:00')">US Short Date and Time - [00/00/0000 90:00]</a></li>
+                                    <li><a href="#" onclick="UIEditor.addNewItem('Text', '90:00')">US Time - [90:00]</a></li>
+                                    <li><a href="#" onclick="UIEditor.addNewItem('Text', '00000-9999')">US Zip Code - [00000-9999]</a></li>
+                                </ul>
+                            </div>
+                            <button id="tlbTextArc" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('TextArc')"
+                                    data-content="Add Text Arc" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/ArcText.png" />
+                            </button>
+                            <button id="tlbTextOutline" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('TextOutline')"
+                                    data-content="Add Text Outline" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/OutlineText.png" />
+                            </button>
+                            <button id="tlbImage" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Image')"
+                                    data-content="Add Image" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/Picture.png" />
+                            </button>
+                            <button id="tlbBarcode" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Barcode')"
+                                    data-content="Add Barcode" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/barcode.png" />
+                            </button>
+                            <button id="tlbBarcode2D" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Barcode2D')"
+                                    data-content="Add 2D Barcode" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/2d.png" />
+                            </button>
+                            <button id="tlbTable" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Table')"
+                                    data-content="Add Rectangle" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/table.png" />
+                            </button>
+                            <button id="tlbRepeater" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Repeater')"
+                                    data-content="Add Repeater" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/Repeater.png" />
+                            </button>
+                            <button id="tlbRFID" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('RFID')"
+                                    data-content="Add RFID" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/RFIDTag.png" />
+                            </button>
+                            <button id="tlbLiteral" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Literal')"
+                                    data-content="Add Literal" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/literal.png" />
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button id="tlbExpression" type="button" title="" class="btn btn-default" onclick="exprBuilder.openExpressionBuilder()"
+                                    data-content="Expression Builder" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/expr.png" />
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button id="tlbZoomIn" type="button" title="" class="btn btn-default" onclick="UIEditor.changeZoom('+')"
+                                    data-content="Zoom In" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/zoom-in.png" />
+                            </button>
+                            <button id="tlbZoomOut" type="button" title="" class="btn btn-default" onclick="UIEditor.changeZoom('-')"
+                                    data-content="Zoom Out" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/zoom-out.png" />
+                            </button>
+                            <button id="tlbZoom100" type="button" title="" class="btn btn-default" onclick="UIEditor.changeZoom('1')"
+                                    data-content="Zoom 100%" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/zoom-100.png" />
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button id="tlbSendToBack" type="button" title="" class="btn btn-default" onclick="UIEditor.sendToBack()"
+                                    data-content="Send To Back" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/SendToBack.png" />
+                            </button>
+                            <button id="tlbSendBackward" type="button" title="" class="btn btn-default" onclick="UIEditor.sendBackward()"
+                                    data-content="Send Backward" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/SendBackward.png" />
+                            </button>
+                            <button id="tlbBringForward" type="button" title="" class="btn btn-default" onclick="UIEditor.bringForward()"
+                                    data-content="Bring Forward" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/BringForward.png" />
+                            </button>
+                            <button id="tlbBringToFront" type="button" title="" class="btn btn-default" onclick="UIEditor.bringToFront()" data-content="Bring To Front" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/BringToFront.png" />
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button id="tlbLock" type="button" title="" class="btn btn-default" onclick="UIEditor.lockItem()"
+                                    data-content="Lock Selected Item" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/lock.png" />
+                            </button>
+                            <button id="tlbUnlock" type="button" title="" class="btn btn-default" onclick="UIEditor.unlockItem()"
+                                    data-content="Unlock Selected Item" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/unlock.png" />
+                            </button>
+                            <button id="tlbDelete" type="button" title="" class="btn btn-default" onclick="UIEditor.deleteSelectedItems()"
+                                    data-content="Delete Item" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/delete.png" />
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button id="tlbShortcuts" type="button" title="" class="btn btn-default" data-toggle="modal"
+                                    data-target="#shortcuts"
+                                    data-content="Keyboard Shortcuts" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/shortcuts.png" />
+                            </button>
+                        </div>
+                        <br />
+                        <div class="btn-group" role="group">
+                            <button type="button" title="" class="btn btn-default">[</button>
+                            <button id="tlbStartGroup" type="button" title="" class="btn btn-default" onclick="UIEditor.startGroup()"
+                                    data-content="Start a new group" data-trigger="hover" data-placement="bottom">
+                                Start new group...
+                            </button>
+                            <button id="tlbGroupSelectedItems" type="button" title="" class="btn btn-default" style="display:none" onclick=""
+                                    data-content="Num of selected items in the group" data-trigger="hover" data-placement="bottom" disabled>
+                                0 items in the group
+                            </button>
+                            <button id="tlbCreateGroup" type="button" title="" class="btn btn-info" style="display: none" onclick="UIEditor.createGroup()"
+                                    data-content="Create and close group" data-trigger="hover" data-placement="bottom">
+                                Create
+                            </button>
+                            <button id="tlbCancelGroup" type="button" title="" class="btn btn-danger" style="display: none" onclick="UIEditor.cancelGroup()"
+                                    data-content="Cancel group creation" data-trigger="hover" data-placement="bottom">
+                                Cancel
+                            </button>
+                            <button id="tlbUngroup" type="button" title="" class="btn btn-danger" style="display: none" onclick="UIEditor.unGroup()"
+                                    data-content="Ungroup" data-trigger="hover" data-placement="bottom">
+                                Ungroup...
+                            </button>
+                            <button type="button" title="" class="btn btn-default">]</button>
+                        </div>
+
+
+                    </div>
                 </div>
             </div>
-            <div id="label-design-tab" class="tab-pane">
+            <div class="row">
+                <div class="col-md-9">
+                    <div id="errorBox" class="alert alert-danger " hidden="hidden">
+                        <button type="button" class="close" data-hide="alert">&times;</button>
+                        <i class="glyphicon glyphicon-exclamation-sign"></i> <span id="errorMsg">Error Message Here</span>
+                    </div>
+                    <div id="tle-container" style="background-color:white;width:100%; height:50em;position:center"></div>
+                </div>
+                <div class="col-md-3">
+                    <ul class="nav nav-tabs" id="editorTabs2">
+                        <li class="active"><a data-toggle="tab" href="#propGrid"><i class="glyphicon glyphicon-list-alt"></i>&nbsp;<strong>Properties</strong></a></li>
+                        <li><a data-toggle="tab" href="#datasource"><i class="glyphicon glyphicon-cd"></i>&nbsp;<strong>Data Source</strong></a></li>
+                        <li><a data-toggle="tab" href="#expressions"><span id="txtExpressionsCount" class="label label-danger">0</span>&nbsp;<strong>Expressions</strong></a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="propGrid" class="table-wrapper-scroll-y my-custom-scrollbar tab-pane active">
+
+                        </div>
+                        <div id="datasource" class="tab-pane">
+                            <h4>Sample Data Source in XML format.</h4>
+                            <div class="alert alert-warning alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <small><strong>NOTE: </strong><br />This data source is fixed for this demo for simplicity only but you're free to fit it to your own scenario with another one.</small>
+                            </div>
+                            <div class="alert alert-info">
+                                <form>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="chkUseDataSourceSample" name="chkUseDataSourceSample"><strong>Use this Data Source for testing...</strong>
+                                    </label>
+                                </form>
+                            </div>
+                            <p>The following are the available Data Fields:</p>
+                            <table class="table table-hover table-condensed table-bordered">
+                                <thead> <tr> <th>Set as DataField</th> <th>Set as Expression</th> </tr> </thead>
+                                <tbody>
+                                    <tr> <td>id</td> <td>[DataFields!id]</td></tr>
+                                    <tr> <td>author</td> <td>[DataFields!author]</td></tr>
+                                    <tr> <td>title</td> <td>[DataFields!title]</td></tr>
+                                    <tr> <td>genre</td> <td>[DataFields!genre]</td></tr>
+                                    <tr> <td>price</td> <td>[DataFields!price]</td></tr>
+                                    <tr> <td>publish_date</td> <td>[DataFields!publish_date]</td></tr>
+                                    <tr> <td>description</td> <td>[DataFields!description]</td></tr>
+                                </tbody>
+                            </table>
+                            <strong>Data Source Content</strong>
+                            <textarea id="txtDataSource" rows="30" style="width:100%; font:normal 8pt Courier" readonly="readonly"></textarea>
+
+                        </div>
+                        <div id="expressions" class="tab-pane">
+                            <div class="alert alert-warning alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <small><strong>NOTE: </strong><br />&bull;&nbsp;These <strong>Expressions are applied on the whole label content and allows you to change Item Attributes/Properties</strong> based on the result of each expression code.<br />&bull;&nbsp;<strong>Each Item</strong> also features an <strong>Expression</strong> property that can be used to <strong>change the Item's content only!</strong></small>
+                            </div>
+                            <button class="btn btn-primary" onclick="UIEditor.editGlobalExpressions();">Edit Expressions...</button><br />
+                            <strong>One Expression code per line is mandatory and order does matter!</strong>
+                            <table class="table table-hover table-condensed table-bordered" style="font-family: Courier" id="tableGlobalExpressions">
+                            </table>
+                            <input type="hidden" id="txtGlobalExpressions" onchange="UIEditor.setGlobalExpressions(); UIEditor.displayGlobalExpressions();" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="label-preview-tab" class="tab-pane">
+            <div style="background-color:gray;width:100%; height:50em;display:flex;flex-direction: row;flex-wrap: wrap;justify-content: center;align-items: center;">
+                <!--<img id="imgLabelPreview" style="margin:auto" />-->
+                <div id="htmlLabelPreview"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="new-document" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">New Label Document</h4>
+            </div>
+            <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="navbar-form navbar-left">
-                            <div class="btn-group" role="group">
-                                <button id="tlbNew" type="button" title="" class="btn btn-default"
-                                        data-toggle="modal" data-target="#new-document"
-                                        data-content="Create New Label" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/NewFile.png" />
-                                </button>
-                                <button id="tlbOpen" type="button" title="" class="btn btn-default" data-toggle="modal"
-                                        data-target="#open-document"
-                                        data-content="Open Label Document" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/Open.png" />
-                                </button>
-                                <div id="tlbSave" class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/icons/Save.png" />
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#" onclick="UIEditor.saveDocument('xml')">As XML Document (*.tl)</a></li>
-                                        <li><a href="#" onclick="UIEditor.saveDocument('json')">As JSON Document (*.tlj)</a></li>
-                                    </ul>
-                                </div>
-                                <button id="tlbPrint" type="button" title="" class="btn btn-default" data-target="#printInfo" data-toggle="modal"
-                                        data-content="Print Label To Local Printer. NOTE: Client Printing requires TLClientPrint utility installed!" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/Print.png" />
-                                </button>
-                                <button id="tlbGridSettings" type="button" title="" class="btn btn-default" onclick="UIEditor.getGridSettings()"
-                                        data-content="Grid Settings" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/DesignOptions.png" />
-                                </button>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button id="tlbUndo" type="button" title="" class="btn btn-default" onclick="UIEditor.undo()"
-                                        data-content="Undo" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/Undo.png" />
-                                </button>
-                                <button id="tlbRedo" type="button" title="" class="btn btn-default" onclick="UIEditor.redo()"
-                                        data-content="Redo" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/Redo.png" />
-                                </button>
-
-                                <button id="tlbClipboardCut" type="button" title="" class="btn btn-default" onclick="UIEditor.clipboardCut()"
-                                        data-content="Cut" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/cut.png" />
-                                </button>
-                                <button id="tlbClipboardCopy" type="button" title="" class="btn btn-default" onclick="UIEditor.clipboardCopy()"
-                                        data-content="Copy" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/copy.png" />
-                                </button>
-                                <button id="tlbClipboardPaste" type="button" title="" class="btn btn-default" onclick="UIEditor.clipboardPaste()"
-                                        data-content="Paste" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/paste.png" />
-                                </button>
-
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button id="tlbRect" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Rectangle')"
-                                        data-content="Add Rectangle" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/rect.png" />
-                                </button>
-                                <button id="tlbEllipse" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Ellipse')"
-                                        data-content="Add Ellipse" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/ellipse.png" />
-                                </button>
-                                <button id="tlbLine" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Line')"
-                                        data-content="Add Line" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/line.png" />
-                                </button>
-                                <button id="tlbResidentFontText" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('TextResidentFont')"
-                                        data-content="Add Resident Font Text" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/ResidentFont.png" />
-                                </button>
-                                <button id="tlbText" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Text')"
-                                        data-content="Add Text" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/text.png" />
-                                </button>
-                                <div id="tlbMaskedText" class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="images/icons/MaskedText.png" />
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#" onclick="UIEditor.addNewItem('Text', '00000')">Numeric (5-digits) - [00000]</a></li>
-                                        <li><a href="#" onclick="UIEditor.addNewItem('Text', '(999) 000-0000')">Phone Number - [(999) 000-0000]</a></li>
-                                        <li><a href="#" onclick="UIEditor.addNewItem('Text', '00/00/0000')">US Short Date - [00/00/0000]</a></li>
-                                        <li><a href="#" onclick="UIEditor.addNewItem('Text', '00/00/0000 90:00')">US Short Date and Time - [00/00/0000 90:00]</a></li>
-                                        <li><a href="#" onclick="UIEditor.addNewItem('Text', '90:00')">US Time - [90:00]</a></li>
-                                        <li><a href="#" onclick="UIEditor.addNewItem('Text', '00000-9999')">US Zip Code - [00000-9999]</a></li>
-                                    </ul>
-                                </div>
-                                <button id="tlbTextArc" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('TextArc')"
-                                        data-content="Add Text Arc" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/ArcText.png" />
-                                </button>
-                                <button id="tlbTextOutline" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('TextOutline')"
-                                        data-content="Add Text Outline" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/OutlineText.png" />
-                                </button>
-                                <button id="tlbImage" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Image')"
-                                        data-content="Add Image" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/Picture.png" />
-                                </button>
-                                <button id="tlbBarcode" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Barcode')"
-                                        data-content="Add Barcode" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/barcode.png" />
-                                </button>
-                                <button id="tlbBarcode2D" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Barcode2D')"
-                                        data-content="Add 2D Barcode" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/2d.png" />
-                                </button>
-                                <button id="tlbTable" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Table')"
-                                        data-content="Add Rectangle" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/table.png" />
-                                </button>
-                                <button id="tlbRepeater" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Repeater')"
-                                        data-content="Add Repeater" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/Repeater.png" />
-                                </button>
-                                <button id="tlbRFID" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('RFID')"
-                                        data-content="Add RFID" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/RFIDTag.png" />
-                                </button>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button id="tlbExpression" type="button" title="" class="btn btn-default" onclick="exprBuilder.openExpressionBuilder()"
-                                        data-content="Expression Builder" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/expr.png" />
-                                </button>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button id="tlbZoomIn" type="button" title="" class="btn btn-default" onclick="UIEditor.changeZoom('+')"
-                                        data-content="Zoom In" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/zoom-in.png" />
-                                </button>
-                                <button id="tlbZoomOut" type="button" title="" class="btn btn-default" onclick="UIEditor.changeZoom('-')"
-                                        data-content="Zoom Out" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/zoom-out.png" />
-                                </button>
-                                <button id="tlbZoom100" type="button" title="" class="btn btn-default" onclick="UIEditor.changeZoom('1')"
-                                        data-content="Zoom 100%" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/zoom-100.png" />
-                                </button>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button id="tlbSendToBack" type="button" title="" class="btn btn-default" onclick="UIEditor.sendToBack()"
-                                        data-content="Send To Back" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/SendToBack.png" />
-                                </button>
-                                <button id="tlbSendBackward" type="button" title="" class="btn btn-default" onclick="UIEditor.sendBackward()"
-                                        data-content="Send Backward" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/SendBackward.png" />
-                                </button>
-                                <button id="tlbBringForward" type="button" title="" class="btn btn-default" onclick="UIEditor.bringForward()"
-                                        data-content="Bring Forward" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/BringForward.png" />
-                                </button>
-                                <button id="tlbBringToFront" type="button" title="" class="btn btn-default" onclick="UIEditor.bringToFront()" data-content="Bring To Front" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/BringToFront.png" />
-                                </button>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button id="tlbLock" type="button" title="" class="btn btn-default" onclick="UIEditor.lockItem()"
-                                        data-content="Lock Selected Item" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/lock.png" />
-                                </button>
-                                <button id="tlbUnlock" type="button" title="" class="btn btn-default" onclick="UIEditor.unlockItem()"
-                                        data-content="Unlock Selected Item" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/unlock.png" />
-                                </button>
-                                <button id="tlbDelete" type="button" title="" class="btn btn-default" onclick="UIEditor.deleteSelectedItems()"
-                                        data-content="Delete Item" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/delete.png" />
-                                </button>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button id="tlbShortcuts" type="button" title="" class="btn btn-default" data-toggle="modal"
-                                        data-target="#shortcuts"
-                                        data-content="Keyboard Shortcuts" data-trigger="hover" data-placement="bottom">
-                                    <img src="images/icons/shortcuts.png" />
-                                </button>
-                            </div>
-                            <br />
-                            <div class="btn-group" role="group">
-                                <button type="button" title="" class="btn btn-default">[</button>
-                                <button id="tlbStartGroup" type="button" title="" class="btn btn-default" onclick="UIEditor.startGroup()"
-                                        data-content="Start a new group" data-trigger="hover" data-placement="bottom">
-                                    Start new group...
-                                </button>
-                                <button id="tlbGroupSelectedItems" type="button" title="" class="btn btn-default" style="display:none" onclick=""
-                                        data-content="Num of selected items in the group" data-trigger="hover" data-placement="bottom" disabled>
-                                    0 items in the group
-                                </button>
-                                <button id="tlbCreateGroup" type="button" title="" class="btn btn-info" style="display: none" onclick="UIEditor.createGroup()"
-                                        data-content="Create and close group" data-trigger="hover" data-placement="bottom">
-                                    Create
-                                </button>
-                                <button id="tlbCancelGroup" type="button" title="" class="btn btn-danger" style="display: none" onclick="UIEditor.cancelGroup()"
-                                        data-content="Cancel group creation" data-trigger="hover" data-placement="bottom">
-                                    Cancel
-                                </button>
-                                <button id="tlbUngroup" type="button" title="" class="btn btn-danger" style="display: none" onclick="UIEditor.unGroup()"
-                                        data-content="Ungroup" data-trigger="hover" data-placement="bottom">
-                                    Ungroup...
-                                </button>
-                                <button type="button" title="" class="btn btn-default">]</button>
-                            </div>
-
-
-                        </div>
+                        <label>
+                            Unit
+                            <select class="form-control" required id="doc_unit">
+                                <option value="0">Cm</option>
+                                <option value="1" selected>Inch</option>
+                                <option value="2">Mm</option>
+                                <option value="3">DotsPerInch</option>
+                                <option value="4">Point</option>
+                                <option value="5">Pica</option>
+                                <option value="6">Mils</option>
+                            </select>
+                        </label>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-9">
-                        <div id="errorBox" class="alert alert-danger " hidden="hidden">
-                            <button type="button" class="close" data-hide="alert">&times;</button>
-                            <i class="glyphicon glyphicon-exclamation-sign"></i> <span id="errorMsg">Error Message Here</span>
-                        </div>
-                        <div id="tle-container" style="background-color:white;width:100%; height:50em;position:center"></div>
+                    <div class="col-md-6">
+                        <label>
+                            Width
+                            <input class="form-control" required id="doc_width" type="number" value="4" />
+                        </label>
                     </div>
-                    <div class="col-md-3">
-                        <ul class="nav nav-tabs" id="editorTabs2">
-                            <li class="active"><a data-toggle="tab" href="#propGrid"><i class="glyphicon glyphicon-list-alt"></i>&nbsp;<strong>Properties</strong></a></li>
-                            <li><a data-toggle="tab" href="#datasource"><i class="glyphicon glyphicon-cd"></i>&nbsp;<strong>Data Source</strong></a></li>
-                            <li><a data-toggle="tab" href="#expressions"><span id="txtExpressionsCount" class="label label-danger">0</span>&nbsp;<strong>Expressions</strong></a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div id="propGrid" class="table-wrapper-scroll-y my-custom-scrollbar tab-pane active">
-
-                            </div>
-                            <div id="datasource" class="tab-pane">
-                                <h4>Sample Data Source in XML format.</h4>
-                                <div class="alert alert-warning alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <small><strong>NOTE: </strong><br />This data source is fixed for this demo for simplicity only but you're free to fit it to your own scenario with another one.</small>
-                                </div>
-                                <div class="alert alert-info">
-                                    <form>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="chkUseDataSourceSample" name="chkUseDataSourceSample"><strong>Use this Data Source for testing...</strong>
-                                        </label>
-                                    </form>
-                                </div>
-                                <p>The following are the available Data Fields:</p>
-                                <table class="table table-hover table-condensed table-bordered">
-                                    <thead> <tr> <th>Set as DataField</th> <th>Set as Expression</th> </tr> </thead>
-                                    <tbody>
-                                        <tr> <td>id</td> <td>[DataFields!id]</td></tr>
-                                        <tr> <td>author</td> <td>[DataFields!author]</td></tr>
-                                        <tr> <td>title</td> <td>[DataFields!title]</td></tr>
-                                        <tr> <td>genre</td> <td>[DataFields!genre]</td></tr>
-                                        <tr> <td>price</td> <td>[DataFields!price]</td></tr>
-                                        <tr> <td>publish_date</td> <td>[DataFields!publish_date]</td></tr>
-                                        <tr> <td>description</td> <td>[DataFields!description]</td></tr>
-                                    </tbody>
-                                </table>
-                                <strong>Data Source Content</strong>
-                                <textarea id="txtDataSource" rows="30" style="width:100%; font:normal 8pt Courier" readonly="readonly"></textarea>
-
-                            </div>
-                            <div id="expressions" class="tab-pane">
-                                <div class="alert alert-warning alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <small><strong>NOTE: </strong><br />&bull;&nbsp;These <strong>Expressions are applied on the whole label content and allows you to change Item Attributes/Properties</strong> based on the result of each expression code.<br />&bull;&nbsp;<strong>Each Item</strong> also features an <strong>Expression</strong> property that can be used to <strong>change the Item's content only!</strong></small>
-                                </div>
-                                <button class="btn btn-primary" onclick="UIEditor.editGlobalExpressions();">Edit Expressions...</button><br />
-                                <strong>One Expression code per line is mandatory and order does matter!</strong>
-                                <table class="table table-hover table-condensed table-bordered" style="font-family: Courier" id="tableGlobalExpressions">
-                                </table>
-                                <input type="hidden" id="txtGlobalExpressions" onchange="UIEditor.setGlobalExpressions(); UIEditor.displayGlobalExpressions();" />
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="label-preview-tab" class="tab-pane">
-                <div style="background-color:gray;width:100%; height:50em;display:flex;flex-direction: row;flex-wrap: wrap;justify-content: center;align-items: center;">
-                    <!--<img id="imgLabelPreview" style="margin:auto" />-->
-                    <div id="htmlLabelPreview"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="new-document" class="modal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">New Label Document</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label>
-                                Unit
-                                <select class="form-control" required id="doc_unit">
-                                    <option value="0">Cm</option>
-                                    <option value="1" selected>Inch</option>
-                                    <option value="2">Mm</option>
-                                    <option value="3">DotsPerInch</option>
-                                    <option value="4">Point</option>
-                                    <option value="5">Pica</option>
-                                    <option value="6">Mils</option>
-                                </select>
-                            </label>
-                        </div>
-                        <div class="col-md-6">
-                            <label>
-                                Width
-                                <input class="form-control" required id="doc_width" type="number" value="4" />
-                            </label>
-                        </div>
-                        <div class="col-md-6">
-                            <label>
-                                Height
-                                <input class="form-control" required id="doc_height" type="number" value="3" />
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="UIEditor.newDocument();">OK</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div id="open-document" class="modal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Open Label Document</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>URL</label>
-                                <input id="open_file_url" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Label Template from disk (XML or JSON)</label>
-                                <input accept=".tl,.xml,.tlj" id="open_file_local" type="file" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="UIEditor.openDocument();">Open</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="grid-settings" class="modal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Grid Settings</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label>
-                                Grid size <span class="label label-info" id="gs_label_unit"></span>
-                                <input type="number" required class="form-control" id="gs_grid_size" />
-                            </label>
-                            <label style="margin-left:10px">
-                                <input type="checkbox" id="gs_show_grid" />
-                                Show grid
-                            </label>
-                            <label style="margin-left:10px">
-                                <input type="checkbox" id="gs_snap_to_grid" />
-                                Snap to grid
-                            </label>
-                        </div>
-                        <h5 class="col-md-12">Items Rotation</h5>
-                        <label class="col-md-4">
-                            Angle Snap [0-270]
-                            <input id="gs_angle_snap" name="angle_snap" class="form-control" type="number" min="0" max="270" />
+                    <div class="col-md-6">
+                        <label>
+                            Height
+                            <input class="form-control" required id="doc_height" type="number" value="3" />
                         </label>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="UIEditor.setGridSettings()">Apply</button>
-                </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="UIEditor.newDocument();">OK</button>
+            </div>
+
         </div>
     </div>
-
-    <div id="expression-builder" class="modal" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Expression Builder</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label>
-                                Expression
-                            </label>
-                            <textarea id="expression" rows="3" class="form-control input-sm"></textarea>
-
+</div>
+<div id="open-document" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Open Label Document</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>URL</label>
+                            <input id="open_file_url" class="form-control" />
                         </div>
                     </div>
-                    <div class="row">
-
-                        <div class="col-md-3">
-                            <label>
-                                Category
-                            </label>
-                            <select class="form-control" id="expr-category" size="15" onchange="exprBuilder.categoryChanged()"></select>
-                        </div>
-                        <div class="col-md-3">
-                            <label>
-                                Name
-                            </label>
-                            <select class="form-control" id="expr-name" size="15" onchange="exprBuilder.nameChanged()"></select>
-                        </div>
-                        <div class="col-md-6">
-                            <label>
-                                Description
-                            </label>
-                            <textarea id="expr-desc" rows="3" class="form-control" readonly></textarea>
-                            <label>
-                                Syntax
-                            </label>
-                            <textarea id="expr-syntax" rows="3" class="form-control" readonly></textarea>
-                            <label>
-                                Example
-                            </label>
-                            <textarea id="expr-example" rows="3" class="form-control" readonly></textarea>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Label Template from disk (XML or JSON)</label>
+                            <input accept=".tl,.xml,.tlj" id="open_file_local" type="file" />
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="exprBuilder.updateItemProp()">OK</button>
-                </div>
-
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="UIEditor.openDocument();">Open</button>
             </div>
         </div>
     </div>
+</div>
 
-
-    <div id="printInfo" class="modal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Client Printing Support</h4>
+<div id="grid-settings" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Grid Settings</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>
+                            Grid size <span class="label label-info" id="gs_label_unit"></span>
+                            <input type="number" required class="form-control" id="gs_grid_size" />
+                        </label>
+                        <label style="margin-left:10px">
+                            <input type="checkbox" id="gs_show_grid" />
+                            Show grid
+                        </label>
+                        <label style="margin-left:10px">
+                            <input type="checkbox" id="gs_snap_to_grid" />
+                            Snap to grid
+                        </label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>
+                            Grid type
+                            <select class="form-control" required id="gs_grid_type">
+                                <option value="0">Lines</option>
+                                <option value="1">Dots</option>
+                            </select>
+                        </label>
+                    </div>
+                    <h5 class="col-md-12">Items Rotation</h5>
+                    <label class="col-md-4">
+                        Angle Snap [0-270]
+                        <input id="gs_angle_snap" name="angle_snap" class="form-control" type="number" min="0" max="270" />
+                    </label>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p>Please consider the following:</p>
-                            <ul>
-                                <li>Out of the box, Client Printing is supported in <strong>Windows machines only</strong> and requires installing the <a href="https://neodynamic.com/downloads/tlclientprint/" target="_blank"><strong>TLClientPrint</strong></a> utility.</li>
-                                <li>If you want a wider range of Client Printing support, then you could integrate our <a href="https://www.neodynamic.com/products/printing/js-print-manager/" target="_blank">JSPrintManager</a> solution which can target <strong>Mac</strong>, <strong>Linux</strong>, and <strong>Raspberry Pi</strong> clients!!!</li>
-                            </ul>
-                        </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="UIEditor.setGridSettings()">Apply</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="expression-builder" class="modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Expression Builder</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>
+                            Expression
+                        </label>
+                        <textarea id="expression" rows="3" class="form-control input-sm"></textarea>
+
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="UIEditor.doPrinting();">Start Client Printing...</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div class="row">
 
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="sessionExpired" class="modal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Your Session Has Expired</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p>Thank your for trying <a href="http://neodynamic.com/products/printing/thermal-label/web-editor">ThermalLabel Web Editor 13.0 for ASP.NET Add-on</a></p>
-                            <p>Feel free to <a href="http://neodynamic.com/products/printing/thermal-label/web-editor/download">DOWNLOAD ThermalLabel Web Editor for ASP.NET</a> part of <a href="http://neodynamic.com/products/printing/thermal-label/web-editor/download">ThermalLabel SDK for.NET</a> to test it locally!</p>
-                        </div>
+                    <div class="col-md-3">
+                        <label>
+                            Category
+                        </label>
+                        <select class="form-control" id="expr-category" size="15" onchange="exprBuilder.categoryChanged()"></select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>
+                            Name
+                        </label>
+                        <select class="form-control" id="expr-name" size="15" onchange="exprBuilder.nameChanged()"></select>
+                    </div>
+                    <div class="col-md-6">
+                        <label>
+                            Description
+                        </label>
+                        <textarea id="expr-desc" rows="3" class="form-control" readonly></textarea>
+                        <label>
+                            Syntax
+                        </label>
+                        <textarea id="expr-syntax" rows="3" class="form-control" readonly></textarea>
+                        <label>
+                            Example
+                        </label>
+                        <textarea id="expr-example" rows="3" class="form-control" readonly></textarea>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload();">Close</button>
-
-                </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="exprBuilder.updateItemProp()">OK</button>
+            </div>
+
         </div>
     </div>
+</div>
 
-    <div id="error-dialog" class="modal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title"><i class="glyphicon glyphicon-exclamation-sign" style="color:firebrick"></i> Error</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p id="error-msg"></p>
-                        </div>
+
+<div id="printInfo" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Client Printing Support</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Please consider the following:</p>
+                        <ul>
+                            <li>Out of the box, Client Printing is supported in <strong>Windows machines only</strong> and requires installing the <a href="https://neodynamic.com/downloads/tlclientprint/" target="_blank"><strong>TLClientPrint</strong></a> utility.</li>
+                            <li>If you want a wider range of Client Printing support, then you could integrate our <a href="https://www.neodynamic.com/products/printing/js-print-manager/" target="_blank">JSPrintManager</a> solution which can target <strong>Mac</strong>, <strong>Linux</strong>, and <strong>Raspberry Pi</strong> clients!!!</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="UIEditor.doPrinting();">Start Client Printing...</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div id="shortcuts" class="modal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Keyboard Shortcuts</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Action</th>
-                                        <th>Shortcut</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>TextItem enter in edit mode</td>
-                                        <td><strong>F2</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td>TextItem quit edit mode</td>
-                                        <td><strong>Esc</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Undo</td>
-                                        <td><strong>Ctrl + Z</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Redo</td>
-                                        <td><strong>Ctrl + Y</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cut</td>
-                                        <td><strong>Ctrl + X</strong> or <strong>Shift + Del</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Copy</td>
-                                        <td><strong>Ctrl + C</strong> or <strong>Ctrl + Insert</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Paste</td>
-                                        <td><strong>Ctrl + V</strong> or <strong>Shift + Insert</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Delete/Remove Selected Item</td>
-                                        <td><strong>Del</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Move Selected Item</td>
-                                        <td><strong>Arrow Keys</strong> or <strong>Ctrl + Arrow Keys</strong> for large steps</td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
+<div id="sessionExpired" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Your Session Has Expired</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Thank your for trying <a href="http://neodynamic.com/products/printing/thermal-label/web-editor">ThermalLabel Web Editor 14.0 for ASP.NET Add-on</a></p>
+                        <p>Feel free to <a href="http://neodynamic.com/products/printing/thermal-label/web-editor/download">DOWNLOAD ThermalLabel Web Editor for ASP.NET</a> part of <a href="http://neodynamic.com/products/printing/thermal-label/web-editor/download">ThermalLabel SDK for.NET</a> to test it locally!</p>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload();">Close</button>
 
-                </div>
             </div>
         </div>
     </div>
+</div>
+
+<div id="error-dialog" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="glyphicon glyphicon-exclamation-sign" style="color:firebrick"></i> Error</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p id="error-msg"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="shortcuts" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Shortcut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>TextItem enter in edit mode</td>
+                                    <td><strong>F2</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>TextItem quit edit mode</td>
+                                    <td><strong>Esc</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Undo</td>
+                                    <td><strong>Ctrl + Z</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Redo</td>
+                                    <td><strong>Ctrl + Y</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Cut</td>
+                                    <td><strong>Ctrl + X</strong> or <strong>Shift + Del</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Copy</td>
+                                    <td><strong>Ctrl + C</strong> or <strong>Ctrl + Insert</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Paste</td>
+                                    <td><strong>Ctrl + V</strong> or <strong>Shift + Insert</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Delete/Remove Selected Item</td>
+                                    <td><strong>Del</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Move Selected Item</td>
+                                    <td><strong>Arrow Keys</strong> or <strong>Ctrl + Arrow Keys</strong> for large steps</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>

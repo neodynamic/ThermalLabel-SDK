@@ -1,6 +1,6 @@
 ﻿/*
  * ThermalLabel Web Editor Add-on
- * ThermalLabelWebEditor-13.0.css
+ * ThermalLabelWebEditor-14.0.css
  * @author Neodynamic (http://neodynamic.com/)
  * Contact: https://neodynamic.com/support
  * WebPage: https://neodynamic.com/products/printing/thermal-label/web-editor/
@@ -25,4 +25,5 @@
     --rulers-corner-background-color: #cccccc;
     --rulers-selection-background-color: #cccccc;
     --rulers-text-color: #000000;
+    --label-document-margin-color: #add8e6;
 }

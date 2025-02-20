@@ -35,7 +35,7 @@ This repo contains **Visual Studio (2019+)** sample projects for **ASP.NET (CORE
 - Add the following package references in the sample project:
 ```
 <ItemGroup>
-    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="13.0.24.811" />
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="14.0.25.217" />
     <PackageReference Include="SkiaSharp" Version="2.88.8" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.8" />
     <PackageReference Include="SkiaSharp.HarfBuzz" Version="2.88.8" />

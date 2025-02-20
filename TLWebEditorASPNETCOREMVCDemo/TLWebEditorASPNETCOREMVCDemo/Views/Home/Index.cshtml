@@ -4,7 +4,7 @@
         <li><a data-toggle="tab" href="#label-design-tab"><i class="glyphicon glyphicon-pencil"></i>&nbsp;<strong>Design</strong></a></li>
         <li><a data-toggle="tab" href="#label-preview-tab" onclick="UIEditor.showLabelPreview();"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;<strong>Preview</strong></a></li>
         <li>
-            <a href="https://neodynamic.com/products/printing/thermal-label/web-editor" target="_blank"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;<strong>ThermalLabel Web Editor 13 for ASP.NET</strong></a>
+            <a href="https://neodynamic.com/products/printing/thermal-label/web-editor" target="_blank"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;<strong>ThermalLabel Web Editor 14 for ASP.NET</strong></a>
         </li>
     </ul>
     <div class="tab-content">
@@ -137,6 +137,10 @@
                             <button id="tlbRFID" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('RFID')"
                                     data-content="Add RFID" data-trigger="hover" data-placement="bottom">
                                 <img src="images/icons/RFIDTag.png" />
+                            </button>
+                            <button id="tlbLiteral" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Literal')"
+                                    data-content="Add Literal" data-trigger="hover" data-placement="bottom">
+                                <img src="images/icons/literal.png" />
                             </button>
                         </div>
                         <div class="btn-group" role="group">
@@ -396,6 +400,15 @@
                             Snap to grid
                         </label>
                     </div>
+                    <div class="col-md-12">
+                        <label>
+                            Grid type
+                            <select class="form-control" required id="gs_grid_type">
+                                <option value="0">Lines</option>
+                                <option value="1">Dots</option>
+                            </select>
+                        </label>
+                    </div>
                     <h5 class="col-md-12">Items Rotation</h5>
                     <label class="col-md-4">
                         Angle Snap [0-270]
@@ -502,7 +515,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <p>Thank your for trying <a href="http://neodynamic.com/products/printing/thermal-label/web-editor">ThermalLabel Web Editor 12.0 for ASP.NET Add-on</a></p>
+                        <p>Thank your for trying <a href="http://neodynamic.com/products/printing/thermal-label/web-editor">ThermalLabel Web Editor 14.0 for ASP.NET Add-on</a></p>
                         <p>Feel free to <a href="http://neodynamic.com/products/printing/thermal-label/web-editor/download">DOWNLOAD ThermalLabel Web Editor for ASP.NET</a> part of <a href="http://neodynamic.com/products/printing/thermal-label/web-editor/download">ThermalLabel SDK for.NET</a> to test it locally!</p>
                     </div>
                 </div>

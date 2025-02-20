@@ -30,6 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\literal.png" Link="Icons\literal.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Repeater.png" Link="Icons\Repeater.png" />
   </ItemGroup>
 
@@ -126,9 +130,9 @@
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.4.0" />
     <PackageReference Include="System.IO.Ports" Version="4.7.0" />
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="4.6.97" />
-	<PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting.NetCore" Version="13.0.23.1207" />
-    <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor.NetCore" Version="13.0.24.211" />
-    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="13.0.24.213" />
+	<PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting.NetCore" Version="14.0.0" />
+    <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor.NetCore" Version="14.0.0" />
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="14.0.25.217" />
   </ItemGroup>
 
   <ItemGroup>

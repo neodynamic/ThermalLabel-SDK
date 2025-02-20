@@ -149,6 +149,16 @@ namespace TLWindowsEditorWinFormsDemo
 
         [Browsable(false)]
         public BarcodeSymbology Symbology { get; set; }
+
+        [Editor(typeof(MultilineStringEditor), typeof(UITypeEditor))]
+        [RefreshProperties(System.ComponentModel.RefreshProperties.All)]
+
+        public string Text { get; set; }
+
+        [Editor(typeof(MultilineStringEditor), typeof(UITypeEditor))]
+        [RefreshProperties(System.ComponentModel.RefreshProperties.All)]
+
+        public string HumanReadableText { get; set; }
     }
 
     public class ShapeItemMetadata

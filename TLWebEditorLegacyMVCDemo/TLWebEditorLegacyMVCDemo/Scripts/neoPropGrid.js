@@ -1,5 +1,7 @@
 ﻿var neoPropertyGrid = {
 
+    numOfFractionalDigits: 4,
+
     updateProp: function (targetTypeName, propName, value, timestamp) {
         //console.log(targetTypeName);
         //console.log(propName);
@@ -85,6 +87,11 @@
 
                 //console.log(cp);
                 tl[complexPropName] = cp;
+
+                if (complexPropName === "margin") {
+                    tleditor.undoRedo = true;
+                    tleditor.loadThermalLabel(tl);
+                }
 
                 tleditor.saveCurrentLabelCanvasState();
 
@@ -250,11 +257,11 @@
                             propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "DitherMethod", propObj.name, propObj.class_name, o, objVal[o], timestamp);
                         else {
                             if (isTableColumn)
-                                propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateTableColumn(' + propObj.index + ',\'' + o + '\', this.value)" />';
+                                propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o].toFixed(this.numOfFractionalDigits) + '" onchange="neoPropertyGrid.updateTableColumn(' + propObj.index + ',\'' + o + '\', this.value)" step="any" min="0"/>';
                             else if (isTableRow)
-                                propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateTableRow(' + propObj.index + ',\'' + o + '\', this.value) " />';
+                                propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o].toFixed(this.numOfFractionalDigits) + '" onchange="neoPropertyGrid.updateTableRow(' + propObj.index + ',\'' + o + '\', this.value) " step="any" min="0"/>';
                         else
-                                propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + propObj.name + '\', \'' + propObj.class_name + '\',\'' + o + '\', \'' + typeof (objVal[o]) + '\', this.value,' + timestamp + ')" />';
+                                propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o].toFixed(this.numOfFractionalDigits) + '" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + propObj.name + '\', \'' + propObj.class_name + '\',\'' + o + '\', \'' + typeof (objVal[o]) + '\', this.value,' + timestamp + ')" step="any" min="0"/>';
                         }
                             
                     }
@@ -552,7 +559,7 @@
                     else if (props[p].name === "stroke_style")
                         propGridContent += this.createSelectForEnum(targetTypeName, "StrokeStyle", props[p].value, props[p].name, timestamp);
                     else
-                        propGridContent += '<input type="number" class="form-control input-sm" value="' + props[p].value + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')" />';
+                        propGridContent += '<input type="number" class="form-control input-sm" value="' + props[p].value.toFixed(this.numOfFractionalDigits) + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')" />';
                 }
                 else
                     propGridContent += '<input type="text" class="form-control input-sm" value="' + propVal + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')" />';

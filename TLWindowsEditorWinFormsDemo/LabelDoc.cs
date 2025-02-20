@@ -55,6 +55,10 @@ namespace TLWindowsEditorWinFormsDemo
                 this.nudSheetWidth.Value = (decimal)UnitUtils.Convert(_currentLabelUnit, (double)nudSheetWidth.Value, newUnit, 2);
                 this.nudSheetLabelsMarginLeft.Value = (decimal)UnitUtils.Convert(_currentLabelUnit, (double)nudSheetLabelsMarginLeft.Value, newUnit, 2);
                 this.nudSheetLabelsMarginTop.Value = (decimal)UnitUtils.Convert(_currentLabelUnit, (double)nudSheetLabelsMarginTop.Value, newUnit, 2);
+                this.nudMarginTop.Value = (decimal)UnitUtils.Convert(_currentLabelUnit, (double)nudMarginTop.Value, newUnit, 2);
+                this.nudMarginLeft.Value = (decimal)UnitUtils.Convert(_currentLabelUnit, (double)nudMarginLeft.Value, newUnit, 2);
+                this.nudMarginRight.Value = (decimal)UnitUtils.Convert(_currentLabelUnit, (double)nudMarginRight.Value, newUnit, 2);
+                this.nudMarginBottom.Value = (decimal)UnitUtils.Convert(_currentLabelUnit, (double)nudMarginBottom.Value, newUnit, 2);
 
                 var pages = GetPages();
                 for (int i = 0; i < pages.Count; i++)
@@ -82,6 +86,12 @@ namespace TLWindowsEditorWinFormsDemo
             get
             {
                 var doc = new LabelDocument() { CutAfterPrinting = this.chkCutAfterPrinting.Checked, GapLength = (double)this.nudGapLength.Value, Height = (double)this.nudHeight.Value, IsContinuous = this.chkIsContinuous.Checked,  MarkLength = (double)this.nudMarkLength.Value, PrintMirror = this.chkPrintMirror.Checked, PrintSpeed = this.txtPrintSpeed.Text,  Width = (double)this.nudWidth.Value, UnitType = (UnitType)Enum.Parse(typeof(UnitType), cboUnit.SelectedItem.ToString()), DesignBackgroundImage = _designBackgroundImage };
+                doc.Margin = new FrameThickness() { 
+                    Left = (double)this.nudMarginLeft.Value, 
+                    Top = (double)this.nudMarginTop.Value,
+                    Right = (double)this.nudMarginRight.Value,
+                    Bottom = (double)this.nudMarginBottom.Value
+                };
 
                 if (this.tabPages.SelectedTab == this.tabRollMulticolLabels)
                 {
@@ -125,6 +135,11 @@ namespace TLWindowsEditorWinFormsDemo
                 this.chkPrintMirror.Checked = value.PrintMirror;
                 this.txtPrintSpeed.Text = value.PrintSpeed;
 
+                this.nudMarginLeft.Value = (decimal)value.Margin.Left;
+                this.nudMarginTop.Value = (decimal)value.Margin.Top;
+                this.nudMarginRight.Value = (decimal)value.Margin.Right;
+                this.nudMarginBottom.Value = (decimal)value.Margin.Bottom;
+
                 _designBackgroundImage = value.DesignBackgroundImage;
 
                 if (value.SheetLabelsCount > 0 || value.SheetLabelsHeight>0 || value.SheetLabelsWidth > 0)
@@ -157,7 +172,8 @@ namespace TLWindowsEditorWinFormsDemo
         {
             this.gbHLayout.Visible = this.gbSheet.Visible = this.gbPrintOptions.Visible = this.gbPages.Visible = false;
 
-            this.gbVLayout.Visible = true;
+            this.gbVLayout.Visible = this.gbMargin.Visible = true;
+
 
             if(this.tabPages.SelectedTab == this.tabRollSingleLabel)
             {
@@ -168,6 +184,7 @@ namespace TLWindowsEditorWinFormsDemo
                 this.gbHLayout.Visible = true;
             } else if (this.tabPages.SelectedTab == this.tabSheetLabels)
             {
+                this.gbMargin.Visible = false;
                 this.gbSheet.Visible = true;
                 this.gbHLayout.Visible = true;
             }
@@ -238,6 +255,5 @@ namespace TLWindowsEditorWinFormsDemo
 
             return pages;
         }
-
     }
 }

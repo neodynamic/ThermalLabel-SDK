@@ -44,7 +44,7 @@
                         thumbnail += '<p><small>' + _this.labels['labelName' + this.curLabelIndex] + '</small></p>';
                         thumbnail += '<img id="labelIndex' + this.curLabelIndex + '" src="' + _this.getProgressIcon() +'" >';
                         thumbnail += '<br /><br />';
-                        thumbnail += '<a href="#" class="btn btn-sm btn-default" onclick="gallery.editLabel(' + this.curLabelIndex + ');" ><i class="glyphicon glyphicon-pencil"></i>&nbsp;Edit...</a>';
+                        thumbnail += '<button class="btn btn-sm btn-default" onclick="gallery.editLabel(' + this.curLabelIndex + ');" ><i class="glyphicon glyphicon-pencil"></i>&nbsp;Edit...</button>';
                         thumbnail += '</div>';
 
                         $('#label-gallery-entries').append(thumbnail);

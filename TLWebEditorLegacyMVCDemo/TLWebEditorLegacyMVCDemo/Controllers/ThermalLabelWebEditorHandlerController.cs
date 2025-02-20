@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 using Neodynamic.Web.ThermalLabelEditor;
 
-namespace TLWebEditorLegacyMVCDemo.Controllers
+namespace TLWebEditorMVCDemo.Controllers
 {
     public class ThermalLabelWebEditorHandlerController : Controller
     {
@@ -22,16 +22,13 @@ namespace TLWebEditorLegacyMVCDemo.Controllers
 
                 //Set physical path of this website root folder
                 ThermalLabelWebEditor.WebsiteRootPhysicalPath = System.Web.HttpContext.Current.Server.MapPath("~/");
-
+                
                 //Pass data processing to ThermalLabelWebEditor
                 ThermalLabelWebEditorHttpResponse httpResponse = ThermalLabelWebEditor.ProcessRequest(System.Web.HttpContext.Current.Request.HttpMethod == "POST" ? System.Web.HttpContext.Current.Request.Form : System.Web.HttpContext.Current.Request.QueryString);
 
                 //set http response data
-                if (httpResponse.Content != null)
-                {
-                    System.Web.HttpContext.Current.Response.ContentType = httpResponse.ContentType;
-                    System.Web.HttpContext.Current.Response.Write(httpResponse.Content);
-                }
+                System.Web.HttpContext.Current.Response.ContentType = httpResponse.ContentType;
+                System.Web.HttpContext.Current.Response.Write(httpResponse.Content);
                 if (string.IsNullOrEmpty(httpResponse.HeaderName) == false)
                 {
                     System.Web.HttpContext.Current.Response.Headers.Add(httpResponse.HeaderName, httpResponse.HeaderValue);

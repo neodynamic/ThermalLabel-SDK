@@ -1,11 +1,13 @@
 ﻿var neoPropertyGrid = {
 
+    numOfFractionalDigits: 4,
+
     updateProp: function (targetTypeName, propName, value, timestamp) {
         //console.log(targetTypeName);
         //console.log(propName);
         //console.log(value);
         //console.log(typeof(value));
-        
+
         if (this.id != timestamp) return;
 
         try {
@@ -45,7 +47,7 @@
             }
         }
         catch (err) {
-            UIEditor.showErrorMsg(err);            
+            UIEditor.showErrorMsg(err);
         }
     },
 
@@ -85,6 +87,11 @@
 
                 //console.log(cp);
                 tl[complexPropName] = cp;
+
+                if (complexPropName === "margin") {
+                    tleditor.undoRedo = true;
+                    tleditor.loadThermalLabel(tl);
+                }
 
                 tleditor.saveCurrentLabelCanvasState();
 
@@ -224,7 +231,7 @@
             if (o[0] !== '_' &&
                 typeof (objVal[o]) !== 'function') {
 
-                let isTableColumn = propObj.name === "TableColumn"; 
+                let isTableColumn = propObj.name === "TableColumn";
                 let isTableRow = propObj.name === "TableRow";
 
                 propGridContent += '<tr>';
@@ -250,13 +257,13 @@
                             propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "DitherMethod", propObj.name, propObj.class_name, o, objVal[o], timestamp);
                         else {
                             if (isTableColumn)
-                                propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateTableColumn(' + propObj.index + ',\'' + o + '\', this.value)" />';
+                                propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o].toFixed(this.numOfFractionalDigits) + '" onchange="neoPropertyGrid.updateTableColumn(' + propObj.index + ',\'' + o + '\', this.value)" step="any" min="0"/>';
                             else if (isTableRow)
-                                propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateTableRow(' + propObj.index + ',\'' + o + '\', this.value) " />';
-                        else
-                                propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + propObj.name + '\', \'' + propObj.class_name + '\',\'' + o + '\', \'' + typeof (objVal[o]) + '\', this.value,' + timestamp + ')" />';
+                                propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o].toFixed(this.numOfFractionalDigits) + '" onchange="neoPropertyGrid.updateTableRow(' + propObj.index + ',\'' + o + '\', this.value) " step="any" min="0"/>';
+                            else
+                                propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o].toFixed(this.numOfFractionalDigits) + '" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + propObj.name + '\', \'' + propObj.class_name + '\',\'' + o + '\', \'' + typeof (objVal[o]) + '\', this.value,' + timestamp + ')" step="any" min="0"/>';
                         }
-                            
+
                     }
                     else if (typeof (objVal[o]) === "string" && o.indexOf("color_hex") > -1) {
                         if (isTableColumn)
@@ -301,7 +308,7 @@
             var enumEntries = [];
             for (var e in theEnum) {
                 if (typeof (theEnum[e]) === "number") {
-                    enumEntries.push({ key: e, value: theEnum[e]});
+                    enumEntries.push({ key: e, value: theEnum[e] });
                 }
             }
             enumEntries.sort(function (x, y) {
@@ -552,7 +559,7 @@
                     else if (props[p].name === "stroke_style")
                         propGridContent += this.createSelectForEnum(targetTypeName, "StrokeStyle", props[p].value, props[p].name, timestamp);
                     else
-                        propGridContent += '<input type="number" class="form-control input-sm" value="' + props[p].value + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')" />';
+                        propGridContent += '<input type="number" class="form-control input-sm" value="' + props[p].value.toFixed(this.numOfFractionalDigits) + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')" />';
                 }
                 else
                     propGridContent += '<input type="text" class="form-control input-sm" value="' + propVal + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')" />';
@@ -562,7 +569,7 @@
                 (props[p].name === "columns" || props[p].name === "rows")) {
 
                 var removeFuncName = props[p].name === "columns" ? "removeTableColumn" : "removeTableRow";
-                
+
                 var objVal = props[p].value;
                 propGridContent += '<table class="table">';
 
@@ -575,8 +582,8 @@
                         var propsObj = [];
 
                         var objName = objVal[o] !== null ? objVal[o].constructor.name : "";
-                        propsObj.push({"index": parseInt(o), "name": objName, "type": typeof (objVal[o]), "value": objVal[o], "class_name": objName, "desc": objName.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function (key, p1) { return key.toUpperCase(); }) });
-                        
+                        propsObj.push({ "index": parseInt(o), "name": objName, "type": typeof (objVal[o]), "value": objVal[o], "class_name": objName, "desc": objName.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function (key, p1) { return key.toUpperCase(); }) });
+
                         propGridContent += '<tr>';
 
                         propGridContent += '<td>';
@@ -597,8 +604,8 @@
             else if (props[p].type === "object") { //Complex Property
                 //console.log(props[p].name);
                 propGridContent += this.createObjectComplexProp(targetTypeName, props[p], timestamp);
-                
-            }            
+
+            }
             else if (props[p].type === "boolean")
                 propGridContent += this.createCheckbox(targetTypeName, '', props[p].value, props[p].name, timestamp);
             propGridContent += '</td></tr>';
