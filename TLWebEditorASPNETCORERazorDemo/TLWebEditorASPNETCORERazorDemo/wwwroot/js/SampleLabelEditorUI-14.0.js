@@ -392,7 +392,7 @@ var UIEditor = {
 //Create a ThermalLabelEditor instance
 var tleditor = new Neodynamic.Web.Editor.ThermalLabelEditor("#tle-container");
 //Set the label web editor controller
-Neodynamic.Web.Editor.ThermalLabelEditor.thermalLabelWebEditorControllerName = "ThermalLabelWebEditorHandler/ProcessRequest";
+Neodynamic.Web.Editor.ThermalLabelEditor.thermalLabelWebEditorControllerName = "ThermalLabelWebEditorProcessRequest";
 
 //editor canvas settings
 tleditor.rfid_tag_image_file_name = 'images/RFIDTag.png';
