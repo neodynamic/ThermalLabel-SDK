@@ -469,10 +469,18 @@
                 else if (props[p].name === "text" || props[p].name === "comments" || props[p].name === "design_background_image")
                     propGridContent += '<textarea class="form-control input-sm" rows="3" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,' + timestamp + ')">' + propVal + '</textarea>';
                 else if (props[p].name === "expression") {
-                    propVal = propVal.replace(/_x0022_/g, '&#34;')
-                        .replace(/_x003c_/g, '&#60;')
-                        .replace(/_x003e_/g, '&#62;')
-                        .replace(/_x0026_/g, '&#38;');
+                    var regEx = /_x[0-9A-Fa-f]{4}_/g;
+                    if (regEx.test(propVal)) {
+                        propVal = propVal.replace(/_x0022_/g, '&#34;')
+                            .replace(/_x003c_/g, '&#60;')
+                            .replace(/_x003e_/g, '&#62;')
+                            .replace(/_x0026_/g, '&#38;');
+                    } else {
+                        propVal = propVal.replaceAll("&", '&#38;')
+                            .replaceAll("\"", '&#34;')
+                            .replaceAll("<", '&#60;')
+                            .replaceAll(">", '&#62;');
+                    }
 
                     propGridContent += '<div class="input-group">';
                     id = 'expr' + id;
