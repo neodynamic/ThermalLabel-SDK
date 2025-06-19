@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -12,13 +13,10 @@ namespace TLWindowsEditorWinFormsDemo
 {
     public partial class PrintJobDialog : Form
     {
-
         PrinterSettings _printerSettings = new PrinterSettings();
-        int _copies = 1;
-        PrintOrientation _printOrientation = PrintOrientation.Portrait;
 
-        
-        
+        List<UsbDevice> _usbDevices = new List<UsbDevice>();
+
         public PrintJobDialog()
         {
             InitializeComponent();
@@ -28,13 +26,42 @@ namespace TLWindowsEditorWinFormsDemo
 
         private void Init()
         {
+
+            List<string> langs = new List<string>();
+            langs.Add("");
+            langs.AddRange(Enum.GetNames(typeof(ProgrammingLanguage)).OrderBy(pl => pl).ToList());
+
+            this.cboProgLang.DataSource = langs.ToArray();
             this.cboProgLang.SelectedIndex = 0;
-            this.cboPrintOrientation.SelectedIndex = 0;
 
             //Load installed printers...
-            string[] installedPrinters = new string[System.Drawing.Printing.PrinterSettings.InstalledPrinters.Count];
-            System.Drawing.Printing.PrinterSettings.InstalledPrinters.CopyTo(installedPrinters, 0);
-            this.cboPrinters.DataSource = installedPrinters;
+            try
+            {
+                this.cboPrinters.DataSource = PrintUtils.GetInstalledPrinters();
+            }
+            catch { }
+
+            //Load USB devices
+            try
+            {
+                _usbDevices = PrintUtils.GetUsbDevices();
+
+                foreach (var usbDevice in _usbDevices)
+                {
+                    this.cboUsbDevices.Items.Add(usbDevice.Name);
+                }
+
+                if (_usbDevices.Count > 0)
+                {
+                    this.cboUsbDevices.SelectedIndex = 0;
+                    this.txtUsbDevicePath.Text = _usbDevices[0].DevicePath;
+                }
+                else
+                {
+                    this.cboUsbDevices.Enabled = false;
+                }
+            }
+            catch { }
 
             //Load Serial Comm settings...
             this.cboSerialPorts.DataSource = System.IO.Ports.SerialPort.GetPortNames();
@@ -42,6 +69,8 @@ namespace TLWindowsEditorWinFormsDemo
             this.cboStopBits.DataSource = Enum.GetNames(typeof(System.IO.Ports.StopBits));
             this.cboFlowControl.DataSource = Enum.GetNames(typeof(System.IO.Ports.Handshake));
 
+            // page orientations
+            this.cboPrintOrientation.SelectedIndex = 0;
         }
 
 
@@ -52,38 +81,67 @@ namespace TLWindowsEditorWinFormsDemo
 
         public int Copies
         {
-            get { return _copies; }
+            get
+            {
+                return (int)this.nudCopies.Value;
+            }
         }
-        
+
         public PrintOrientation PrintOrientation
         {
-            get { return _printOrientation; }
+            get
+            {
+                return (PrintOrientation)Enum.Parse(typeof(PrintOrientation), this.cboPrintOrientation.SelectedItem.ToString());
+            }
+        }
+
+        public int Replicates
+        {
+            get
+            {
+                return (int)this.nudReplicates.Value;
+            }
+        }
+
+        public bool Duplex
+        {
+            get
+            {
+                return chkDuplex.Checked;
+            }
+            set
+            {
+                chkDuplex.Checked = value;
+            }
+        }
+
+        public bool CommandsOptimizationEnabled
+        {
+            get
+            {
+                return chkCommandsOptimizationEnabled.Checked;
+            }
+        }
+
+        public double MarginLeft
+        {
+            get { return (double)this.nudMarginLeft.Value; }
+        }
+
+        public double MarginTop
+        {
+            get { return (double)this.nudMarginTop.Value; }
         }
 
         public bool PrintAsGraphic
         {
-            get { return this.chkPrintAsGraphic.Checked; }
-        }
-
-        public decimal MarginLeft
-        {
-            get
-            {
-                return this.nudMarginLeft.Value;
-            }
-        }
-
-        public decimal MarginTop
-        {
-            get
-            {
-                return this.nudMarginTop.Value;
-            }
+            get { return this.chkPrintAsImage.Checked; }
+            set { this.chkPrintAsImage.Checked = value; }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;   
+            this.DialogResult = DialogResult.Cancel;
         }
 
         private void btnOk_Click(object sender, EventArgs e)
@@ -93,17 +151,12 @@ namespace TLWindowsEditorWinFormsDemo
                 this.errorProvider1.SetError(this.cboProgLang, "Please select the printer's programming language");
                 return;
             }
-            else if (this.cboProgLang.SelectedItem.ToString() == "" && this.tabControl1.SelectedIndex == 0)
-            {
-                this.chkPrintAsGraphic.Checked = true;
-            }
             else
             {
                 this.errorProvider1.SetError(this.cboProgLang, "");
-
-
             }
-            
+
+
             this.DialogResult = DialogResult.OK;
 
             try
@@ -111,17 +164,23 @@ namespace TLWindowsEditorWinFormsDemo
                 //Update printer comm object...
                 if (this.tabControl1.SelectedIndex == 0)
                 {
-                    //USB
-                    _printerSettings.Communication.CommunicationType = CommunicationType.USB;
+                    //Driver
+                    _printerSettings.Communication.CommunicationType = CommunicationType.PrinterDriver;
                     _printerSettings.PrinterName = this.cboPrinters.SelectedItem.ToString();
                 }
                 else if (this.tabControl1.SelectedIndex == 1)
+                {
+                    //USB
+                    _printerSettings.Communication.CommunicationType = CommunicationType.USB;
+                    _printerSettings.PrinterName = this.txtUsbDevicePath.Text;
+                }
+                else if (this.tabControl1.SelectedIndex == 2)
                 {
                     //Parallel
                     _printerSettings.Communication.CommunicationType = CommunicationType.Parallel;
                     _printerSettings.Communication.ParallelPortName = this.txtParallelPort.Text;
                 }
-                else if (this.tabControl1.SelectedIndex == 2)
+                else if (this.tabControl1.SelectedIndex == 3)
                 {
                     //Serial
                     _printerSettings.Communication.CommunicationType = CommunicationType.Serial;
@@ -132,7 +191,7 @@ namespace TLWindowsEditorWinFormsDemo
                     _printerSettings.Communication.SerialPortParity = (SerialPortParity)Enum.Parse(typeof(SerialPortParity), this.cboParity.SelectedItem.ToString());
                     _printerSettings.Communication.SerialPortStopBits = (SerialPortStopBits)Enum.Parse(typeof(SerialPortStopBits), this.cboStopBits.SelectedItem.ToString());
                 }
-                else if (this.tabControl1.SelectedIndex == 3)
+                else if (this.tabControl1.SelectedIndex == 4)
                 {
                     //Network
                     _printerSettings.Communication.CommunicationType = CommunicationType.Network;
@@ -145,7 +204,7 @@ namespace TLWindowsEditorWinFormsDemo
                     catch
                     { }
 
-                    if(ipAddress != System.Net.IPAddress.None) //use IP
+                    if (ipAddress != System.Net.IPAddress.None) //use IP
                         _printerSettings.Communication.NetworkIPAddress = ipAddress;
                     else //try Host Name
                         _printerSettings.PrinterName = this.txtIPAddress.Text;
@@ -156,14 +215,11 @@ namespace TLWindowsEditorWinFormsDemo
 
                 _printerSettings.Dpi = (double)this.nudDpi.Value;
 
-                if(this.chkPrintAsGraphic.Checked == false)
+                if (this.cboProgLang.SelectedIndex > 0)
                     _printerSettings.ProgrammingLanguage = (ProgrammingLanguage)Enum.Parse(typeof(ProgrammingLanguage), this.cboProgLang.SelectedItem.ToString());
 
+
                 
-                _copies = (int)this.nudCopies.Value;
-                _printOrientation = (PrintOrientation)Enum.Parse(typeof(PrintOrientation), this.cboPrintOrientation.SelectedItem.ToString());
-
-
             }
             catch (Exception ex)
             {
@@ -171,7 +227,7 @@ namespace TLWindowsEditorWinFormsDemo
                 this.DialogResult = DialogResult.Abort;
             }
 
-            
+
         }
 
         private void PrintJobDialog_FormClosing(object sender, FormClosingEventArgs e)
@@ -180,9 +236,25 @@ namespace TLWindowsEditorWinFormsDemo
                 e.Cancel = true;
         }
 
-        private void chkPrintAsGraphic_CheckedChanged(object sender, EventArgs e)
+
+
+        private void chkPrintAsImage_CheckedChanged(object sender, EventArgs e)
         {
-            this.gbMargins.Enabled = this.chkPrintAsGraphic.Checked;
+            this.gbMargins.Enabled = this.chkPrintAsImage.Checked;
+        }
+
+        private void chkCenterV_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.chkCenterV.Checked) this.nudMarginTop.Value = -1;
+
+            this.nudMarginTop.Enabled = !this.chkCenterV.Checked;
+        }
+
+        private void chkCenterH_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.chkCenterH.Checked) this.nudMarginLeft.Value = -1;
+
+            this.nudMarginLeft.Enabled = !this.chkCenterH.Checked;
         }
     }
 }

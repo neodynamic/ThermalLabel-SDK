@@ -171,13 +171,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Neodynamic.SDK.ThermalLabel">
-      <Version>14.0.25.217</Version>
+      <Version>14.0.25.609</Version>
     </PackageReference>
     <PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting">
-      <Version>14.0.0</Version>
+      <Version>14.0.25.611</Version>
     </PackageReference>
     <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor">
-      <Version>14.0.0</Version>
+      <Version>14.0.25.609</Version>
     </PackageReference>
     <PackageReference Include="SkiaSharp">
       <Version>2.80.2</Version>

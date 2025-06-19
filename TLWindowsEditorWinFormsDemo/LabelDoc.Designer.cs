@@ -58,6 +58,15 @@
             this.tabMultiPages = new System.Windows.Forms.TabPage();
             this.picPages = new System.Windows.Forms.PictureBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.gbMargin = new System.Windows.Forms.GroupBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.nudMarginBottom = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
+            this.nudMarginRight = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
+            this.nudMarginTop = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
+            this.nudMarginLeft = new System.Windows.Forms.NumericUpDown();
             this.gbHLayout = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.nudLabelsPerRow = new System.Windows.Forms.NumericUpDown();
@@ -83,15 +92,8 @@
             this.gbGeneral = new System.Windows.Forms.GroupBox();
             this.btnSetBackImage = new System.Windows.Forms.Button();
             this.btnClearBackImage = new System.Windows.Forms.Button();
-            this.gbMargin = new System.Windows.Forms.GroupBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.nudMarginLeft = new System.Windows.Forms.NumericUpDown();
-            this.label15 = new System.Windows.Forms.Label();
-            this.nudMarginTop = new System.Windows.Forms.NumericUpDown();
-            this.label16 = new System.Windows.Forms.Label();
-            this.nudMarginRight = new System.Windows.Forms.NumericUpDown();
-            this.label17 = new System.Windows.Forms.Label();
-            this.nudMarginBottom = new System.Windows.Forms.NumericUpDown();
+            this.tabDuplex = new System.Windows.Forms.TabPage();
+            this.picDuplexLabel = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHeight)).BeginInit();
             this.gbLabel.SuspendLayout();
@@ -109,6 +111,11 @@
             this.tabMultiPages.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPages)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
+            this.gbMargin.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMarginBottom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMarginRight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMarginTop)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMarginLeft)).BeginInit();
             this.gbHLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudLabelsPerRow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHorizGapLength)).BeginInit();
@@ -121,11 +128,8 @@
             this.gbPages.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPages)).BeginInit();
             this.gbGeneral.SuspendLayout();
-            this.gbMargin.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMarginLeft)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMarginTop)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMarginRight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMarginBottom)).BeginInit();
+            this.tabDuplex.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDuplexLabel)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -194,7 +198,7 @@
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(574, 556);
+            this.button1.Location = new System.Drawing.Point(622, 556);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 3;
@@ -204,7 +208,7 @@
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(682, 556);
+            this.button2.Location = new System.Drawing.Point(730, 556);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 4;
@@ -348,10 +352,11 @@
             this.tabPages.Controls.Add(this.tabRollMulticolLabels);
             this.tabPages.Controls.Add(this.tabSheetLabels);
             this.tabPages.Controls.Add(this.tabMultiPages);
+            this.tabPages.Controls.Add(this.tabDuplex);
             this.tabPages.Location = new System.Drawing.Point(12, 12);
             this.tabPages.Name = "tabPages";
             this.tabPages.SelectedIndex = 0;
-            this.tabPages.Size = new System.Drawing.Size(400, 538);
+            this.tabPages.Size = new System.Drawing.Size(459, 538);
             this.tabPages.TabIndex = 0;
             this.tabPages.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -361,7 +366,7 @@
             this.tabRollSingleLabel.Location = new System.Drawing.Point(4, 22);
             this.tabRollSingleLabel.Name = "tabRollSingleLabel";
             this.tabRollSingleLabel.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRollSingleLabel.Size = new System.Drawing.Size(392, 512);
+            this.tabRollSingleLabel.Size = new System.Drawing.Size(451, 512);
             this.tabRollSingleLabel.TabIndex = 0;
             this.tabRollSingleLabel.Text = "Roll - Single Labels";
             this.tabRollSingleLabel.UseVisualStyleBackColor = true;
@@ -373,7 +378,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picRollSingleLabels.Location = new System.Drawing.Point(6, 6);
             this.picRollSingleLabels.Name = "picRollSingleLabels";
-            this.picRollSingleLabels.Size = new System.Drawing.Size(380, 500);
+            this.picRollSingleLabels.Size = new System.Drawing.Size(439, 500);
             this.picRollSingleLabels.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.picRollSingleLabels.TabIndex = 11;
             this.picRollSingleLabels.TabStop = false;
@@ -384,7 +389,7 @@
             this.tabRollMulticolLabels.Location = new System.Drawing.Point(4, 22);
             this.tabRollMulticolLabels.Name = "tabRollMulticolLabels";
             this.tabRollMulticolLabels.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRollMulticolLabels.Size = new System.Drawing.Size(392, 361);
+            this.tabRollMulticolLabels.Size = new System.Drawing.Size(392, 512);
             this.tabRollMulticolLabels.TabIndex = 1;
             this.tabRollMulticolLabels.Text = "Roll - Multicolumn Labels";
             this.tabRollMulticolLabels.UseVisualStyleBackColor = true;
@@ -406,7 +411,7 @@
             this.tabSheetLabels.Controls.Add(this.picSheetLabels);
             this.tabSheetLabels.Location = new System.Drawing.Point(4, 22);
             this.tabSheetLabels.Name = "tabSheetLabels";
-            this.tabSheetLabels.Size = new System.Drawing.Size(392, 361);
+            this.tabSheetLabels.Size = new System.Drawing.Size(392, 512);
             this.tabSheetLabels.TabIndex = 2;
             this.tabSheetLabels.Text = "Sheet Labels";
             this.tabSheetLabels.UseVisualStyleBackColor = true;
@@ -429,7 +434,7 @@
             this.tabMultiPages.Location = new System.Drawing.Point(4, 22);
             this.tabMultiPages.Name = "tabMultiPages";
             this.tabMultiPages.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMultiPages.Size = new System.Drawing.Size(392, 361);
+            this.tabMultiPages.Size = new System.Drawing.Size(451, 512);
             this.tabMultiPages.TabIndex = 3;
             this.tabMultiPages.Text = "Multi Pages";
             this.tabMultiPages.UseVisualStyleBackColor = true;
@@ -441,7 +446,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picPages.Location = new System.Drawing.Point(6, 6);
             this.picPages.Name = "picPages";
-            this.picPages.Size = new System.Drawing.Size(380, 349);
+            this.picPages.Size = new System.Drawing.Size(439, 349);
             this.picPages.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.picPages.TabIndex = 12;
             this.picPages.TabStop = false;
@@ -457,10 +462,115 @@
             this.flowLayoutPanel1.Controls.Add(this.gbSheet);
             this.flowLayoutPanel1.Controls.Add(this.gbPages);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(429, 67);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(477, 67);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(364, 483);
             this.flowLayoutPanel1.TabIndex = 2;
+            // 
+            // gbMargin
+            // 
+            this.gbMargin.Controls.Add(this.label17);
+            this.gbMargin.Controls.Add(this.nudMarginBottom);
+            this.gbMargin.Controls.Add(this.label16);
+            this.gbMargin.Controls.Add(this.nudMarginRight);
+            this.gbMargin.Controls.Add(this.label15);
+            this.gbMargin.Controls.Add(this.nudMarginTop);
+            this.gbMargin.Controls.Add(this.label14);
+            this.gbMargin.Controls.Add(this.nudMarginLeft);
+            this.gbMargin.Location = new System.Drawing.Point(3, 67);
+            this.gbMargin.Name = "gbMargin";
+            this.gbMargin.Size = new System.Drawing.Size(337, 84);
+            this.gbMargin.TabIndex = 6;
+            this.gbMargin.TabStop = false;
+            this.gbMargin.Text = "Margin";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(112, 57);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(43, 13);
+            this.label17.TabIndex = 8;
+            this.label17.Text = "Bottom:";
+            // 
+            // nudMarginBottom
+            // 
+            this.nudMarginBottom.DecimalPlaces = 4;
+            this.nudMarginBottom.Location = new System.Drawing.Point(156, 55);
+            this.nudMarginBottom.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudMarginBottom.Name = "nudMarginBottom";
+            this.nudMarginBottom.Size = new System.Drawing.Size(61, 20);
+            this.nudMarginBottom.TabIndex = 9;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(223, 36);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(35, 13);
+            this.label16.TabIndex = 6;
+            this.label16.Text = "Right:";
+            // 
+            // nudMarginRight
+            // 
+            this.nudMarginRight.DecimalPlaces = 4;
+            this.nudMarginRight.Location = new System.Drawing.Point(261, 34);
+            this.nudMarginRight.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudMarginRight.Name = "nudMarginRight";
+            this.nudMarginRight.Size = new System.Drawing.Size(61, 20);
+            this.nudMarginRight.TabIndex = 7;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(126, 19);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(29, 13);
+            this.label15.TabIndex = 4;
+            this.label15.Text = "Top:";
+            // 
+            // nudMarginTop
+            // 
+            this.nudMarginTop.DecimalPlaces = 4;
+            this.nudMarginTop.Location = new System.Drawing.Point(156, 17);
+            this.nudMarginTop.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudMarginTop.Name = "nudMarginTop";
+            this.nudMarginTop.Size = new System.Drawing.Size(61, 20);
+            this.nudMarginTop.TabIndex = 5;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(14, 36);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(28, 13);
+            this.label14.TabIndex = 2;
+            this.label14.Text = "Left:";
+            // 
+            // nudMarginLeft
+            // 
+            this.nudMarginLeft.DecimalPlaces = 4;
+            this.nudMarginLeft.Location = new System.Drawing.Point(44, 34);
+            this.nudMarginLeft.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudMarginLeft.Name = "nudMarginLeft";
+            this.nudMarginLeft.Size = new System.Drawing.Size(61, 20);
+            this.nudMarginLeft.TabIndex = 3;
             // 
             // gbHLayout
             // 
@@ -701,7 +811,7 @@
             this.gbGeneral.Controls.Add(this.cboUnit);
             this.gbGeneral.Controls.Add(this.label1);
             this.gbGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.gbGeneral.Location = new System.Drawing.Point(432, 12);
+            this.gbGeneral.Location = new System.Drawing.Point(480, 12);
             this.gbGeneral.Name = "gbGeneral";
             this.gbGeneral.Size = new System.Drawing.Size(337, 49);
             this.gbGeneral.TabIndex = 1;
@@ -728,110 +838,28 @@
             this.btnClearBackImage.UseVisualStyleBackColor = true;
             this.btnClearBackImage.Click += new System.EventHandler(this.btnClearBackImage_Click);
             // 
-            // gbMargin
+            // tabDuplex
             // 
-            this.gbMargin.Controls.Add(this.label17);
-            this.gbMargin.Controls.Add(this.nudMarginBottom);
-            this.gbMargin.Controls.Add(this.label16);
-            this.gbMargin.Controls.Add(this.nudMarginRight);
-            this.gbMargin.Controls.Add(this.label15);
-            this.gbMargin.Controls.Add(this.nudMarginTop);
-            this.gbMargin.Controls.Add(this.label14);
-            this.gbMargin.Controls.Add(this.nudMarginLeft);
-            this.gbMargin.Location = new System.Drawing.Point(3, 67);
-            this.gbMargin.Name = "gbMargin";
-            this.gbMargin.Size = new System.Drawing.Size(337, 84);
-            this.gbMargin.TabIndex = 6;
-            this.gbMargin.TabStop = false;
-            this.gbMargin.Text = "Margin";
+            this.tabDuplex.Controls.Add(this.picDuplexLabel);
+            this.tabDuplex.Location = new System.Drawing.Point(4, 22);
+            this.tabDuplex.Name = "tabDuplex";
+            this.tabDuplex.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDuplex.Size = new System.Drawing.Size(451, 512);
+            this.tabDuplex.TabIndex = 4;
+            this.tabDuplex.Text = "Duplex Label";
+            this.tabDuplex.UseVisualStyleBackColor = true;
             // 
-            // label14
+            // picDuplexLabel
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(14, 36);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(28, 13);
-            this.label14.TabIndex = 2;
-            this.label14.Text = "Left:";
-            // 
-            // nudMarginLeft
-            // 
-            this.nudMarginLeft.DecimalPlaces = 4;
-            this.nudMarginLeft.Location = new System.Drawing.Point(44, 34);
-            this.nudMarginLeft.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudMarginLeft.Name = "nudMarginLeft";
-            this.nudMarginLeft.Size = new System.Drawing.Size(61, 20);
-            this.nudMarginLeft.TabIndex = 3;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(126, 19);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(29, 13);
-            this.label15.TabIndex = 4;
-            this.label15.Text = "Top:";
-            // 
-            // nudMarginTop
-            // 
-            this.nudMarginTop.DecimalPlaces = 4;
-            this.nudMarginTop.Location = new System.Drawing.Point(156, 17);
-            this.nudMarginTop.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudMarginTop.Name = "nudMarginTop";
-            this.nudMarginTop.Size = new System.Drawing.Size(61, 20);
-            this.nudMarginTop.TabIndex = 5;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(223, 36);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(35, 13);
-            this.label16.TabIndex = 6;
-            this.label16.Text = "Right:";
-            // 
-            // nudMarginRight
-            // 
-            this.nudMarginRight.DecimalPlaces = 4;
-            this.nudMarginRight.Location = new System.Drawing.Point(261, 34);
-            this.nudMarginRight.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudMarginRight.Name = "nudMarginRight";
-            this.nudMarginRight.Size = new System.Drawing.Size(61, 20);
-            this.nudMarginRight.TabIndex = 7;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(112, 57);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(43, 13);
-            this.label17.TabIndex = 8;
-            this.label17.Text = "Bottom:";
-            // 
-            // nudMarginBottom
-            // 
-            this.nudMarginBottom.DecimalPlaces = 4;
-            this.nudMarginBottom.Location = new System.Drawing.Point(156, 55);
-            this.nudMarginBottom.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudMarginBottom.Name = "nudMarginBottom";
-            this.nudMarginBottom.Size = new System.Drawing.Size(61, 20);
-            this.nudMarginBottom.TabIndex = 9;
+            this.picDuplexLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.picDuplexLabel.Location = new System.Drawing.Point(6, 6);
+            this.picDuplexLabel.Name = "picDuplexLabel";
+            this.picDuplexLabel.Size = new System.Drawing.Size(439, 349);
+            this.picDuplexLabel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.picDuplexLabel.TabIndex = 13;
+            this.picDuplexLabel.TabStop = false;
             // 
             // LabelDoc
             // 
@@ -839,7 +867,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button2;
-            this.ClientSize = new System.Drawing.Size(787, 591);
+            this.ClientSize = new System.Drawing.Size(855, 591);
             this.Controls.Add(this.btnClearBackImage);
             this.Controls.Add(this.btnSetBackImage);
             this.Controls.Add(this.gbGeneral);
@@ -874,6 +902,12 @@
             this.tabMultiPages.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picPages)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.gbMargin.ResumeLayout(false);
+            this.gbMargin.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMarginBottom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMarginRight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMarginTop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMarginLeft)).EndInit();
             this.gbHLayout.ResumeLayout(false);
             this.gbHLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudLabelsPerRow)).EndInit();
@@ -889,12 +923,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvPages)).EndInit();
             this.gbGeneral.ResumeLayout(false);
             this.gbGeneral.PerformLayout();
-            this.gbMargin.ResumeLayout(false);
-            this.gbMargin.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMarginLeft)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMarginTop)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMarginRight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMarginBottom)).EndInit();
+            this.tabDuplex.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picDuplexLabel)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -965,5 +995,7 @@
         private System.Windows.Forms.NumericUpDown nudMarginTop;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.NumericUpDown nudMarginLeft;
+        private System.Windows.Forms.TabPage tabDuplex;
+        private System.Windows.Forms.PictureBox picDuplexLabel;
     }
 }

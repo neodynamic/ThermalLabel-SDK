@@ -67,30 +67,45 @@ namespace TLWindowsEditorWinFormsDemo
 
             this.tsbInsertTable.DropDown = tsTableSizer;
 
-            FontManager.Add(new Neodynamic.SDK.Printing.Font() {
-                Name = "Arial Black",
-                CustomFontFile = @"C:\Windows\Fonts\ariblk.ttf"
-            });
+            //FontManager.Add(new Neodynamic.SDK.Printing.Font() {
+            //    Name = "Arial Black",
+            //    CustomFontFile = @"C:\Windows\Fonts\ariblk.ttf"
+            //});
 
-            FontManager.Add(new Neodynamic.SDK.Printing.Font()
-            {
-                Name = "Arial Narrow",
-                CustomFontFile = @"C:\Windows\Fonts\ARIALN.TTF"
-            });
+            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
+            //{
+            //    Name = "Arial Narrow",
+            //    CustomFontFile = @"C:\Windows\Fonts\ARIALN.TTF"
+            //});
 
-            FontManager.Add(new Neodynamic.SDK.Printing.Font()
-            {
-                Name = "Arial Narrow",
-                CustomFontFile = @"C:\Windows\Fonts\ARIALNB.TTF",
-                Bold = true
-            });
+            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
+            //{
+            //    Name = "Arial Narrow",
+            //    CustomFontFile = @"C:\Windows\Fonts\ARIALNB.TTF",
+            //    Bold = true
+            //});
 
-            FontManager.Add(new Neodynamic.SDK.Printing.Font()
-            {
-                Name = "Arial Bold",
-                CustomFontFile = @"C:\Windows\Fonts\arialbd.TTF",
-                Bold = true
-            });
+            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
+            //{
+            //    Name = "Arial Narrow",
+            //    CustomFontFile = @"C:\Windows\Fonts\ARIALNI.TTF",
+            //    Italic = true
+            //});
+
+            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
+            //{
+            //    Name = "Arial Narrow",
+            //    CustomFontFile = @"C:\Windows\Fonts\ARIALNBI.TTF",
+            //    Bold = true,
+            //    Italic = true
+            //});
+
+            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
+            //{
+            //    Name = "Arial",
+            //    CustomFontFile = @"C:\Windows\Fonts\arialbd.TTF",
+            //    Bold = true
+            //});
 
             //thermalLabelEditor1.DisableShortcuts = KeyboardShortcuts.CtrlC | KeyboardShortcuts.CtrlX | KeyboardShortcuts.CtrlV;
         }
@@ -446,6 +461,7 @@ namespace TLWindowsEditorWinFormsDemo
                     tLabel.SheetLabelsMargin = doc.SheetLabelsMargin;
                     tLabel.DesignBackgroundImage = doc.DesignBackgroundImage;
                     tLabel.Margin = doc.Margin;
+                    tLabel.IsDuplexDesign = doc.IsDuplexDesign;
 
                     foreach (var p in doc.Pages)
                     {
@@ -595,6 +611,13 @@ namespace TLWindowsEditorWinFormsDemo
                     frmPrintJob.Owner = this;
                     if (frmPrintJob.ShowDialog() == DialogResult.OK)
                     {
+                        // is duplex label?
+                        if (thermalLabelEditor1.LabelDocument.IsDuplexDesign)
+                        {
+                            frmPrintJob.PrintAsGraphic = true;
+                            frmPrintJob.Duplex = true;
+                        }
+
                         //create a PrintJob object
                         using (WindowsPrintJob pj = new WindowsPrintJob(frmPrintJob.PrinterSettings))
                         {
@@ -608,6 +631,7 @@ namespace TLWindowsEditorWinFormsDemo
                             {
                                 pj.MarginLeft = (double)frmPrintJob.MarginLeft;
                                 pj.MarginTop = (double)frmPrintJob.MarginTop;
+                                pj.Duplex = frmPrintJob.Duplex;
 
                                 pj.PrintAsGraphic(); //print to any printer using Windows driver
                             }

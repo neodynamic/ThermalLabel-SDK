@@ -28,6 +28,7 @@ namespace TLWindowsEditorWinFormsDemo
             this.picRollMulticolumnLabels.Image = Image.FromStream(new System.IO.MemoryStream(Convert.FromBase64String(ImageResources.MULTICOLUMN_LABELS)));
             this.picSheetLabels.Image = Image.FromStream(new System.IO.MemoryStream(Convert.FromBase64String(ImageResources.SHEET_LABELS)));
             this.picPages.Image = Image.FromStream(new System.IO.MemoryStream(Convert.FromBase64String(ImageResources.MULTI_PAGES_LABEL)));
+            this.picDuplexLabel.Image = Image.FromStream(new System.IO.MemoryStream(Convert.FromBase64String(ImageResources.DUPLEX_LABEL)));
 
             this.UpdateLabelOptions();
         }
@@ -111,6 +112,19 @@ namespace TLWindowsEditorWinFormsDemo
                 {
                     doc.Pages = GetPages();
                 }
+                else if (this.tabPages.SelectedTab == this.tabDuplex)
+                {
+                    doc.IsDuplexDesign = true;
+                    // simulated as a multipage label
+                    double sidesGapInch = 0.1;
+                    double sidesGap = UnitUtils.Convert(UnitType.Inch, sidesGapInch, doc.UnitType, doc.NumOfFractionalDigits);
+                    var pages = new Collection<ThermalLabelPage>();
+                    pages.Add(new ThermalLabelPage(0, 0, (double)this.nudWidth.Value, (double)this.nudHeight.Value));
+                    pages.Add(new ThermalLabelPage((double)this.nudWidth.Value + sidesGap, 0, (double)this.nudWidth.Value, (double)this.nudHeight.Value));
+                    doc.Pages = pages;
+                    // reset width of the whole label
+                    doc.Width = ((double)this.nudWidth.Value * 2) + sidesGap;
+                }
 
                 return doc;
                 
@@ -149,6 +163,15 @@ namespace TLWindowsEditorWinFormsDemo
                 else if (value.LabelsPerRow > 1)
                 {
                     this.tabPages.SelectedTab = this.tabRollMulticolLabels;
+                }
+                else if (value.IsDuplexDesign)
+                {
+                    this.tabPages.SelectedTab = this.tabDuplex;
+                    // calc label side size
+                    double sidesGapInch = 0.1;
+                    double sidesGap = UnitUtils.Convert(UnitType.Inch, sidesGapInch, value.UnitType, value.NumOfFractionalDigits);
+
+                    this.nudWidth.Value = (decimal)((value.Width - sidesGap) / 2);
                 }
                 else if (value.Pages.Count > 0)
                 {
@@ -196,6 +219,10 @@ namespace TLWindowsEditorWinFormsDemo
             else if (this.tabPages.SelectedTab == this.tabMultiPages)
             {
                 this.gbPages.Visible = true;
+                this.gbVLayout.Visible = false;
+            }
+            else if (this.tabPages.SelectedTab == this.tabDuplex)
+            {
                 this.gbVLayout.Visible = false;
             }
 
