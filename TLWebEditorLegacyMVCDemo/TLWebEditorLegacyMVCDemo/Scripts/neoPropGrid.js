@@ -580,6 +580,8 @@ var neoPropertyGrid = {
                         propGridContent += this.createSelectForEnum(targetTypeName, "LineOrientation", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "stroke_style")
                         propGridContent += this.createSelectForEnum(targetTypeName, "StrokeStyle", props[p].value, props[p].name, timestamp);
+                    else if (props[p].name === "code_encoding")
+                        propGridContent += this.createSelectForEnum(targetTypeName, "CodeEncoding", props[p].value, props[p].name, timestamp);
                     else
                         propGridContent += '<input type="number" class="form-control input-sm" value="' + props[p].value.toFixed(this.numOfFractionalDigits) + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,\'' + timestamp + '\')" />';
                 }
