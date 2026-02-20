@@ -153,6 +153,7 @@
             this.tssb2DBarcodes = new System.Windows.Forms.ToolStripSplitButton();
             this.tsbRFID = new System.Windows.Forms.ToolStripButton();
             this.tsbInsertTable = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsbLiteral = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbGroup = new System.Windows.Forms.ToolStripButton();
             this.tsbUngroup = new System.Windows.Forms.ToolStripButton();
@@ -217,7 +218,6 @@
             this.cmSelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.cmExpressionSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.cmExpression = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsbLiteral = new System.Windows.Forms.ToolStripButton();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -1122,7 +1122,7 @@
             this.tsbHelp});
             this.toolStrip1.Location = new System.Drawing.Point(3, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1119, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1103, 25);
             this.toolStrip1.TabIndex = 1;
             // 
             // tsbNew
@@ -1441,6 +1441,16 @@
             this.tsbInsertTable.Name = "tsbInsertTable";
             this.tsbInsertTable.Size = new System.Drawing.Size(29, 22);
             this.tsbInsertTable.Text = "Insert table...";
+            // 
+            // tsbLiteral
+            // 
+            this.tsbLiteral.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbLiteral.Image = ((System.Drawing.Image)(resources.GetObject("tsbLiteral.Image")));
+            this.tsbLiteral.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbLiteral.Name = "tsbLiteral";
+            this.tsbLiteral.Size = new System.Drawing.Size(23, 22);
+            this.tsbLiteral.Text = "Literal";
+            this.tsbLiteral.Click += new System.EventHandler(this.tsbLiteral_Click);
             // 
             // toolStripSeparator3
             // 
@@ -1966,16 +1976,6 @@
             this.cmExpression.Text = "Expression...";
             this.cmExpression.Click += new System.EventHandler(this.cmExpression_Click);
             // 
-            // tsbLiteral
-            // 
-            this.tsbLiteral.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbLiteral.Image = ((System.Drawing.Image)(resources.GetObject("tsbLiteral.Image")));
-            this.tsbLiteral.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbLiteral.Name = "tsbLiteral";
-            this.tsbLiteral.Size = new System.Drawing.Size(23, 22);
-            this.tsbLiteral.Text = "Literal";
-            this.tsbLiteral.Click += new System.EventHandler(this.tsbLiteral_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1984,7 +1984,7 @@
             this.Controls.Add(this.toolStripContainer1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "Neodynamic ThermalLabel Editor v14 for Windows (C#)";
+            this.Text = "Neodynamic ThermalLabel Editor v15 for Windows (C#)";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);

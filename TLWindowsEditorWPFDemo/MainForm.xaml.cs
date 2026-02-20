@@ -104,6 +104,8 @@ namespace TLWindowsEditorWPFDemo
             //thermalLabelEditor1.ItemToolTipBorderColor = Colors.SteelBlue;
             //thermalLabelEditor1.ItemToolTipForeColor = Colors.White;
 
+            thermalLabelEditor1.SnapToItems = true;
+            //thermalLabelEditor1.GuidelineColor = Colors.OrangeRed;
 
             this.gallery1.EditLabel += Gallery1_EditLabel;
 

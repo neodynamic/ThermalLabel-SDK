@@ -49,39 +49,39 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HarfBuzzSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\HarfBuzzSharp.2.6.1.7\lib\net462\HarfBuzzSharp.dll</HintPath>
+      <HintPath>..\packages\HarfBuzzSharp.8.3.1.3\lib\net462\HarfBuzzSharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Neodynamic.SDK.ThermalLabel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neodynamic.SDK.ThermalLabel.14.0.25.217\lib\netstandard2.0\Neodynamic.SDK.ThermalLabel.dll</HintPath>
+    <Reference Include="Neodynamic.SDK.ThermalLabel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neodynamic.SDK.ThermalLabel.15.0.0\lib\netstandard2.0\Neodynamic.SDK.ThermalLabel.dll</HintPath>
     </Reference>
-    <Reference Include="Neodynamic.SDK.ThermalLabel.WebPrinting, Version=14.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neodynamic.SDK.ThermalLabel.WebPrinting.14.0.0\lib\netstandard2.0\Neodynamic.SDK.ThermalLabel.WebPrinting.dll</HintPath>
+    <Reference Include="Neodynamic.SDK.ThermalLabel.WebPrinting, Version=15.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neodynamic.SDK.ThermalLabel.WebPrinting.15.0.0\lib\netstandard2.0\Neodynamic.SDK.ThermalLabel.WebPrinting.dll</HintPath>
     </Reference>
-    <Reference Include="Neodynamic.Web.ThermalLabelEditor, Version=14.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neodynamic.Web.ThermalLabelEditor.Server.14.0.0\lib\netstandard2.0\Neodynamic.Web.ThermalLabelEditor.dll</HintPath>
+    <Reference Include="Neodynamic.Web.ThermalLabelEditor, Version=15.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neodynamic.Web.ThermalLabelEditor.Server.15.0.0\lib\netstandard2.0\Neodynamic.Web.ThermalLabelEditor.dll</HintPath>
     </Reference>
-    <Reference Include="SkiaSharp, Version=2.80.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\SkiaSharp.2.80.2\lib\net462\SkiaSharp.dll</HintPath>
+    <Reference Include="SkiaSharp, Version=3.119.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.3.119.2\lib\net462\SkiaSharp.dll</HintPath>
     </Reference>
-    <Reference Include="SkiaSharp.HarfBuzz, Version=2.80.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\SkiaSharp.HarfBuzz.2.80.2\lib\net462\SkiaSharp.HarfBuzz.dll</HintPath>
+    <Reference Include="SkiaSharp.HarfBuzz, Version=3.119.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.HarfBuzz.3.119.2\lib\net462\SkiaSharp.HarfBuzz.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Text.Encoding.CodePages, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encoding.CodePages.4.4.0\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
@@ -179,9 +179,9 @@
     <Content Include="Readme.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="fonts\NativePrinterFontB.ttf" />
     <Content Include="fonts\ZPL Font 0.ttf" />
     <Content Include="fonts\NativePrinterFontS.ttf" />
+    <Content Include="fonts\NativePrinterFontB.ttf" />
     <Content Include="fonts\NativePrinterFontA.ttf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\ExprBuilder.js" />
@@ -200,7 +200,7 @@
     <Content Include="Scripts\neoPropGrid.js" />
     <Content Include="images\barcode_error.png" />
     <Content Include="images\RFIDTag.png" />
-    <Content Include="Scripts\SampleLabelEditorUI-14.0.js" />
+    <Content Include="Scripts\SampleLabelEditorUI.js" />
     <Content Include="Scripts\ThermalLabelWebEditor.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -277,13 +277,13 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('..\packages\SkiaSharp.2.80.2\build\net462\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.2.80.2\build\net462\SkiaSharp.targets'))" />
-    <Error Condition="!Exists('..\packages\HarfBuzzSharp.2.6.1.7\build\net462\HarfBuzzSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\HarfBuzzSharp.2.6.1.7\build\net462\HarfBuzzSharp.targets'))" />
-    <Error Condition="!Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.14.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.14.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets'))" />
+    <Error Condition="!Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.15.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.15.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets'))" />
+    <Error Condition="!Exists('..\packages\SkiaSharp.NativeAssets.macOS.3.119.2\build\net462\SkiaSharp.NativeAssets.macOS.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.NativeAssets.macOS.3.119.2\build\net462\SkiaSharp.NativeAssets.macOS.targets'))" />
+    <Error Condition="!Exists('..\packages\SkiaSharp.NativeAssets.Win32.3.119.2\build\net462\SkiaSharp.NativeAssets.Win32.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.NativeAssets.Win32.3.119.2\build\net462\SkiaSharp.NativeAssets.Win32.targets'))" />
   </Target>
-  <Import Project="..\packages\SkiaSharp.2.80.2\build\net462\SkiaSharp.targets" Condition="Exists('..\packages\SkiaSharp.2.80.2\build\net462\SkiaSharp.targets')" />
-  <Import Project="..\packages\HarfBuzzSharp.2.6.1.7\build\net462\HarfBuzzSharp.targets" Condition="Exists('..\packages\HarfBuzzSharp.2.6.1.7\build\net462\HarfBuzzSharp.targets')" />
-  <Import Project="..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.14.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets" Condition="Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.14.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" />
+  <Import Project="..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.15.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets" Condition="Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.15.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" />
+  <Import Project="..\packages\SkiaSharp.NativeAssets.macOS.3.119.2\build\net462\SkiaSharp.NativeAssets.macOS.targets" Condition="Exists('..\packages\SkiaSharp.NativeAssets.macOS.3.119.2\build\net462\SkiaSharp.NativeAssets.macOS.targets')" />
+  <Import Project="..\packages\SkiaSharp.NativeAssets.Win32.3.119.2\build\net462\SkiaSharp.NativeAssets.Win32.targets" Condition="Exists('..\packages\SkiaSharp.NativeAssets.Win32.3.119.2\build\net462\SkiaSharp.NativeAssets.Win32.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -7,7 +7,7 @@ var neoPropertyGrid = {
         //console.log(propName);
         //console.log(value);
         //console.log(typeof(value));
-        
+
         if (this.id != timestamp) {
             // see if update is comming from other selected item
             tleditor.get_thermal_label.items.forEach(function (itm) {
@@ -58,7 +58,7 @@ var neoPropertyGrid = {
             }
         }
         catch (err) {
-            UIEditor.showErrorMsg(err);            
+            UIEditor.showErrorMsg(err);
         }
     },
 
@@ -242,7 +242,7 @@ var neoPropertyGrid = {
             if (o[0] !== '_' &&
                 typeof (objVal[o]) !== 'function') {
 
-                let isTableColumn = propObj.name === "TableColumn"; 
+                let isTableColumn = propObj.name === "TableColumn";
                 let isTableRow = propObj.name === "TableRow";
 
                 propGridContent += '<tr>';
@@ -266,15 +266,17 @@ var neoPropertyGrid = {
                             propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "CodePage", propObj.name, propObj.class_name, o, objVal[o], timestamp);
                         else if (o === "dither_method")
                             propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "DitherMethod", propObj.name, propObj.class_name, o, objVal[o], timestamp);
+                        else if (o === "kill_password" || o === "access_password" || o === "epc_memory_bank" || o === "user_memory_bank")
+                            propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "RFIDLockValue", propObj.name, propObj.class_name, o, objVal[o], timestamp);
                         else {
                             if (isTableColumn)
                                 propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o].toFixed(this.numOfFractionalDigits) + '" onchange="neoPropertyGrid.updateTableColumn(' + propObj.index + ',\'' + o + '\', this.value)" step="any" min="0"/>';
                             else if (isTableRow)
                                 propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o].toFixed(this.numOfFractionalDigits) + '" onchange="neoPropertyGrid.updateTableRow(' + propObj.index + ',\'' + o + '\', this.value) " step="any" min="0"/>';
-                        else
+                            else
                                 propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o].toFixed(this.numOfFractionalDigits) + '" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + propObj.name + '\', \'' + propObj.class_name + '\',\'' + o + '\', \'' + typeof (objVal[o]) + '\', this.value,\'' + timestamp + '\')" step="any" min="0"/>';
                         }
-                            
+
                     }
                     else if (typeof (objVal[o]) === "string" && o.indexOf("color_hex") > -1) {
                         if (isTableColumn)
@@ -319,7 +321,7 @@ var neoPropertyGrid = {
             var enumEntries = [];
             for (var e in theEnum) {
                 if (typeof (theEnum[e]) === "number") {
-                    enumEntries.push({ key: e, value: theEnum[e]});
+                    enumEntries.push({ key: e, value: theEnum[e] });
                 }
             }
             enumEntries.sort(function (x, y) {
@@ -404,7 +406,7 @@ var neoPropertyGrid = {
             return;
         }
 
-        
+
 
         var isTL = theObj.constructor.name === 'ThermalLabel';
 
@@ -443,7 +445,11 @@ var neoPropertyGrid = {
                 }
 
                 if (propAccepted) {
-                    props.push({ "name": prop, "type": typeof (theObj[prop]), "value": theObj[prop], "class_name": theObj[prop] !== null ? theObj[prop].constructor.name : "", "desc": prop.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function (key, p1) { return key.toUpperCase(); }) });
+
+                    var propType = typeof (theObj[prop]);
+                    if (prop == "data_source") propType = "string";
+
+                    props.push({ "name": prop, "type": propType, "value": theObj[prop], "class_name": theObj[prop] !== null ? theObj[prop].constructor.name : "", "desc": prop.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function (key, p1) { return key.toUpperCase(); }) });
                 }
 
             }
@@ -468,7 +474,7 @@ var neoPropertyGrid = {
 
         for (var p in props) {
 
-            if (isTL && (props[p].name === "items" || props[p].name === "expressions" || props[p].name.indexOf("data") > -1 || props[p].name === "pages")) continue;
+            if (isTL && (props[p].name === "items" || props[p].name === "expressions" || props[p].name === "pages")) continue;
             if (!isTL && props[p].name === "unit_type") continue;
 
             if (props[p].name === "columns" || props[p].name === "rows") {
@@ -487,7 +493,7 @@ var neoPropertyGrid = {
 
                 if (props[p].desc.indexOf("Color Hex") > 0)
                     propGridContent += '<input type="color" class="form-control input-sm" value="' + propVal + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,\'' + timestamp + '\')" />';
-                else if (props[p].name === "text" || props[p].name === "comments" || props[p].name === "design_background_image")
+                else if (props[p].name === "text" || props[p].name === "comments" || props[p].name === "design_background_image" || props[p].name === "data_source")
                     propGridContent += '<textarea class="form-control input-sm" rows="3" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,\'' + timestamp + '\')">' + propVal + '</textarea>';
                 else if (props[p].name === "expression") {
                     var regEx = /_x[0-9A-Fa-f]{4}_/g;
@@ -593,7 +599,7 @@ var neoPropertyGrid = {
                 (props[p].name === "columns" || props[p].name === "rows")) {
 
                 var removeFuncName = props[p].name === "columns" ? "removeTableColumn" : "removeTableRow";
-                
+
                 var objVal = props[p].value;
                 propGridContent += '<table class="table">';
 
@@ -606,8 +612,8 @@ var neoPropertyGrid = {
                         var propsObj = [];
 
                         var objName = objVal[o] !== null ? objVal[o].constructor.name : "";
-                        propsObj.push({"index": parseInt(o), "name": objName, "type": typeof (objVal[o]), "value": objVal[o], "class_name": objName, "desc": objName.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function (key, p1) { return key.toUpperCase(); }) });
-                        
+                        propsObj.push({ "index": parseInt(o), "name": objName, "type": typeof (objVal[o]), "value": objVal[o], "class_name": objName, "desc": objName.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function (key, p1) { return key.toUpperCase(); }) });
+
                         propGridContent += '<tr>';
 
                         propGridContent += '<td>';
@@ -628,8 +634,8 @@ var neoPropertyGrid = {
             else if (props[p].type === "object") { //Complex Property
                 //console.log(props[p].name);
                 propGridContent += this.createObjectComplexProp(targetTypeName, props[p], timestamp);
-                
-            }            
+
+            }
             else if (props[p].type === "boolean")
                 propGridContent += this.createCheckbox(targetTypeName, '', props[p].value, props[p].name, timestamp);
             propGridContent += '</td></tr>';

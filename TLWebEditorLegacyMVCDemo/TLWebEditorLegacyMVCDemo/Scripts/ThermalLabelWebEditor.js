@@ -1,6 +1,6 @@
 ﻿/*
  * ThermalLabel Web Editor Add-on
- * ThermalLabelWebEditor-14.0.0.0.js
+ * ThermalLabelWebEditor-15.0.0.0.js
  * @author Neodynamic (http://neodynamic.com/)
  * Contact: https://neodynamic.com/support
  * WebPage: https://neodynamic.com/products/printing/thermal-label/web-editor/
@@ -277,6 +277,108 @@
 
 })();
 
+var Neodynamic;
+(function (Neodynamic) {
+    var SDK;
+    (function (SDK) {
+        var Printing;
+        (function (Printing) {
+            var RFIDPermaLockMemorySection = /** @class */ (function () {
+                function RFIDPermaLockMemorySection() {
+                    this._apply = false;
+                    this._starting_section = 0;
+                    this._number_of_sections = 0;
+                }
+                Object.defineProperty(RFIDPermaLockMemorySection.prototype, "apply", {
+                    get: function () { return this._apply; },
+                    set: function (value) {
+                        this._apply = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(RFIDPermaLockMemorySection.prototype, "starting_section", {
+                    get: function () { return this._starting_section; },
+                    set: function (value) {
+                        this._starting_section = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(RFIDPermaLockMemorySection.prototype, "number_of_sections", {
+                    get: function () { return this._number_of_sections; },
+                    set: function (value) {
+                        this._number_of_sections = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                return RFIDPermaLockMemorySection;
+            }());
+            Printing.RFIDPermaLockMemorySection = RFIDPermaLockMemorySection;
+        })(Printing = SDK.Printing || (SDK.Printing = {}));
+    })(SDK = Neodynamic.SDK || (Neodynamic.SDK = {}));
+})(Neodynamic || (Neodynamic = {}));
+var Neodynamic;
+(function (Neodynamic) {
+    var SDK;
+    (function (SDK) {
+        var Printing;
+        (function (Printing) {
+            var RFIDLockMemoryBank = /** @class */ (function () {
+                function RFIDLockMemoryBank() {
+                    this._kill_password = Printing.RFIDLockValue.None;
+                    this._access_password = Printing.RFIDLockValue.None;
+                    this._epc_memory_bank = Printing.RFIDLockValue.None;
+                    this._user_memory_bank = Printing.RFIDLockValue.None;
+                    this._apply = false;
+                }
+                Object.defineProperty(RFIDLockMemoryBank.prototype, "kill_password", {
+                    get: function () { return this._kill_password; },
+                    set: function (value) {
+                        this._kill_password = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(RFIDLockMemoryBank.prototype, "access_password", {
+                    get: function () { return this._access_password; },
+                    set: function (value) {
+                        this._access_password = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(RFIDLockMemoryBank.prototype, "epc_memory_bank", {
+                    get: function () { return this._epc_memory_bank; },
+                    set: function (value) {
+                        this._epc_memory_bank = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(RFIDLockMemoryBank.prototype, "user_memory_bank", {
+                    get: function () { return this._user_memory_bank; },
+                    set: function (value) {
+                        this._user_memory_bank = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(RFIDLockMemoryBank.prototype, "apply", {
+                    get: function () { return this._apply; },
+                    set: function (value) {
+                        this._apply = value;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                return RFIDLockMemoryBank;
+            }());
+            Printing.RFIDLockMemoryBank = RFIDLockMemoryBank;
+        })(Printing = SDK.Printing || (SDK.Printing = {}));
+    })(SDK = Neodynamic.SDK || (Neodynamic.SDK = {}));
+})(Neodynamic || (Neodynamic = {}));
 var Neodynamic;
 (function (Neodynamic) {
     var SDK;
@@ -1027,6 +1129,10 @@ var Neodynamic;
                     _this._rotation_angle = 0;
                     _this._columns_line_visible = true;
                     _this._rows_line_visible = true;
+                    _this._bottom_side_visible = true;
+                    _this._top_side_visible = true;
+                    _this._left_side_visible = true;
+                    _this._right_side_visible = true;
                     /*  Booleano si tiene que recargar la imagen    */
                     _this._has_to_reload = false;
                     /*  Imagen contenedora del BC   */
@@ -1112,6 +1218,46 @@ var Neodynamic;
                     configurable: true
                 });
                 ;
+                Object.defineProperty(TableShapeItem.prototype, "bottom_side_visible", {
+                    get: function () { return this._bottom_side_visible; },
+                    set: function (value) {
+                        this._bottom_side_visible = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                Object.defineProperty(TableShapeItem.prototype, "top_side_visible", {
+                    get: function () { return this._top_side_visible; },
+                    set: function (value) {
+                        this._top_side_visible = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                Object.defineProperty(TableShapeItem.prototype, "left_side_visible", {
+                    get: function () { return this._left_side_visible; },
+                    set: function (value) {
+                        this._left_side_visible = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                Object.defineProperty(TableShapeItem.prototype, "right_side_visible", {
+                    get: function () { return this._right_side_visible; },
+                    set: function (value) {
+                        this._right_side_visible = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
                 //#endregion
                 TableShapeItem.prototype._getProperties = function () {
                     var c = [];
@@ -1145,6 +1291,10 @@ var Neodynamic;
                         StrokeStylePattern: this.stroke_style_pattern,
                         ColumnsLineVisible: this.columns_line_visible,
                         RowsLineVisible: this.rows_line_visible,
+                        BottomSideVisible: this.bottom_side_visible,
+                        TopSideVisible: this.top_side_visible,
+                        LeftSideVisible: this.left_side_visible,
+                        RightSideVisible: this.right_side_visible,
                         Columns: c,
                         Rows: r,
                         Comments: this.comments,
@@ -1178,9 +1328,10 @@ var Neodynamic;
                         this._y = this._fabric_item.top / this._fabric_item.scaleY;
                     }
                     else {
-                        var boundRect = this._fabric_item.getBoundingRect();
-                        this._x = boundRect.left / this._fabric_item.scaleX;
-                        this._y = boundRect.top / this._fabric_item.scaleY;
+                        var r = MathUtils.getRotatedBoundingBox(this._fabric_item.left / this._fabric_item.scaleX, this._fabric_item.top / this._fabric_item.scaleY, this._fabric_item.width, this._fabric_item.height, this._fabric_item.angle);
+                        //var boundRect = this._fabric_item.getBoundingRect();
+                        this._x = r.x;
+                        this._y = r.y;
                     }
                 };
                 ;
@@ -1236,7 +1387,7 @@ var Neodynamic;
                         async: true
                     }).
                         done(function (data) {
-                        if (data.startsWith("ERROR")) {
+                        if (Neodynamic.Web.Utils.ImageUtils.isPNG(data) == false) {
                             _this._fabric_item.dpi = -1; // force fitting the error image to the fabric.Image obj
                             _this._image_item.src = _this._missing_image;
                             _super.prototype._onError.call(_this, data, "TableShapeItem");
@@ -3517,9 +3668,10 @@ var Neodynamic;
                         this._y = this._fabric_item.top / this._fabric_item.scaleY;
                     }
                     else {
-                        var boundRect = this._fabric_item.getBoundingRect();
-                        this._x = boundRect.left / this._fabric_item.scaleX;
-                        this._y = boundRect.top / this._fabric_item.scaleY;
+                        var r = MathUtils.getRotatedBoundingBox(this._fabric_item.left / this._fabric_item.scaleX, this._fabric_item.top / this._fabric_item.scaleY, this._fabric_item.width, this._fabric_item.height, this._fabric_item.angle);
+                        //var boundRect = this._fabric_item.getBoundingRect();
+                        this._x = r.x;
+                        this._y = r.y;
                     }
                 };
                 ;
@@ -3575,7 +3727,7 @@ var Neodynamic;
                         async: true
                     }).
                         done(function (data) {
-                        if (data.startsWith("ERROR")) {
+                        if (Neodynamic.Web.Utils.ImageUtils.isPNG(data) == false) {
                             _this._fabric_item.dpi = -1; // force fitting the error image to the fabric.Image obj
                             _this._image_item.src = _this._missing_image;
                             _super.prototype._onError.call(_this, data, "BarcodeItem");
@@ -5062,6 +5214,7 @@ var Neodynamic;
             (function (TextVerticalAlignment) {
                 TextVerticalAlignment[TextVerticalAlignment["Top"] = 0] = "Top";
                 TextVerticalAlignment[TextVerticalAlignment["Bottom"] = 1] = "Bottom";
+                TextVerticalAlignment[TextVerticalAlignment["Middle"] = 2] = "Middle";
             })(TextVerticalAlignment = Printing.TextVerticalAlignment || (Printing.TextVerticalAlignment = {}));
             ;
             var QRCodeMask;
@@ -5084,6 +5237,14 @@ var Neodynamic;
                 CodeEncoding[CodeEncoding["Hex"] = 2] = "Hex";
             })(CodeEncoding = Printing.CodeEncoding || (Printing.CodeEncoding = {}));
             ;
+            var RFIDLockValue;
+            (function (RFIDLockValue) {
+                RFIDLockValue[RFIDLockValue["None"] = 0] = "None";
+                RFIDLockValue[RFIDLockValue["Lock"] = 1] = "Lock";
+                RFIDLockValue[RFIDLockValue["Open"] = 2] = "Open";
+                RFIDLockValue[RFIDLockValue["Unlock"] = 3] = "Unlock";
+                RFIDLockValue[RFIDLockValue["Protected"] = 4] = "Protected";
+            })(RFIDLockValue = Printing.RFIDLockValue || (Printing.RFIDLockValue = {}));
         })(Printing = SDK.Printing || (SDK.Printing = {}));
     })(SDK = Neodynamic.SDK || (Neodynamic.SDK = {}));
 })(Neodynamic || (Neodynamic = {}));
@@ -5656,9 +5817,10 @@ var Neodynamic;
                         this._y = this._fabric_item.top / this._fabric_item.scaleY;
                     }
                     else {
-                        var boundRect = this._fabric_item.getBoundingRect();
-                        this._x = boundRect.left / this._fabric_item.scaleX;
-                        this._y = boundRect.top / this._fabric_item.scaleY;
+                        var r = MathUtils.getRotatedBoundingBox(this._fabric_item.left / this._fabric_item.scaleX, this._fabric_item.top / this._fabric_item.scaleY, this._fabric_item.width, this._fabric_item.height, this._fabric_item.angle);
+                        //var boundRect = this._fabric_item.getBoundingRect();
+                        this._x = r.x;
+                        this._y = r.y;
                     }
                 };
                 ImageItem.prototype._updateToCanvas = function () {
@@ -5790,7 +5952,7 @@ var Neodynamic;
                             async: true
                         }).
                             done(function (data) {
-                            if (data.startsWith("ERROR")) {
+                            if (Neodynamic.Web.Utils.ImageUtils.isPNG(data) == false) {
                                 _this._fabric_item.dpi = -1; // force fitting the error image to the fabric.Image obj
                                 _this._image_item.src = _this._missing_image;
                                 _this._is_missing_image = true;
@@ -7006,11 +7168,13 @@ var Neodynamic;
                     _this._memory_bank = '';
                     _this._access_password = '';
                     _this._kill_password = '';
+                    _this._lock_memory_bank = new Printing.RFIDLockMemoryBank();
+                    _this._perma_lock_memory_section = new Printing.RFIDPermaLockMemorySection();
                     //#endregion
                     _this._image = new Image();
                     var self = _this;
                     _this._guid = Neodynamic.Web.Utils.NamingUtils.newGuid();
-                    _this._image.src = "data:image/gif;base64,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";
+                    _this._image.src = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
                     _this._image.onload = function () {
                         self._fabric_item.width = self._image.width;
                         self._fabric_item.height = self._image.height;
@@ -7120,6 +7284,26 @@ var Neodynamic;
                     enumerable: true,
                     configurable: true
                 });
+                Object.defineProperty(RFIDTagItem.prototype, "lock_memory_bank", {
+                    get: function () { return this._lock_memory_bank; },
+                    set: function (value) {
+                        this._lock_memory_bank = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
+                Object.defineProperty(RFIDTagItem.prototype, "perma_lock_memory_section", {
+                    get: function () { return this._perma_lock_memory_section; },
+                    set: function (value) {
+                        this._perma_lock_memory_section = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                ;
                 //#endregion
                 RFIDTagItem.prototype._updateFromCanvas = function (property) {
                     if (property == null) {
@@ -7216,7 +7400,15 @@ var Neodynamic;
                         NumberOfBytes: this.number_of_bytes,
                         MemoryBank: this.memory_bank,
                         AccessPassword: this.access_password,
-                        KillPassword: this.kill_password
+                        KillPassword: this.kill_password,
+                        LockMemoryBank_AccessPassword: this.lock_memory_bank.access_password,
+                        LockMemoryBank_KillPassword: this.lock_memory_bank.kill_password,
+                        LockMemoryBank_EPCMemoryBank: this.lock_memory_bank.epc_memory_bank,
+                        LockMemoryBank_USERMemoryBank: this.lock_memory_bank.user_memory_bank,
+                        LockMemoryBank_Apply: this.lock_memory_bank.apply,
+                        PermaLockMemorySection_Apply: this.perma_lock_memory_section.apply,
+                        PermaLockMemorySection_StartingSection: this.perma_lock_memory_section.starting_section,
+                        PermaLockMemorySection_NumberOfSections: this.perma_lock_memory_section.number_of_sections
                     };
                 };
                 return RFIDTagItem;
@@ -7341,6 +7533,8 @@ var Neodynamic;
                     _this._text_vertical_alignment = Printing.TextVerticalAlignment.Top;
                     _this._min_font_size = 0;
                     _this._use_slashed_zero = false;
+                    _this._scaleX = 0;
+                    _this._scaleY = 0;
                     /*  Booleano si tiene que recargar la imagen    */
                     _this._has_to_reload = false;
                     /*  Imagen contenedora del BC   */
@@ -7846,6 +8040,24 @@ var Neodynamic;
                     enumerable: true,
                     configurable: true
                 });
+                Object.defineProperty(TextItem.prototype, "scaleX", {
+                    get: function () { return this._scaleX; },
+                    set: function (value) {
+                        this._scaleX = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(TextItem.prototype, "scaleY", {
+                    get: function () { return this._scaleY; },
+                    set: function (value) {
+                        this._scaleY = value;
+                        this.propertyChanged();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
                 //#endregion
                 TextItem.prototype._updateFromCanvas = function () {
                     /*
@@ -7894,9 +8106,10 @@ var Neodynamic;
                         this._y = this._fabric_item.top / this._fabric_item.scaleY;
                     }
                     else {
-                        var boundRect = this._fabric_item.getBoundingRect();
-                        this._x = boundRect.left / this._fabric_item.scaleX;
-                        this._y = boundRect.top / this._fabric_item.scaleY;
+                        var r = MathUtils.getRotatedBoundingBox(this._fabric_item.left / this._fabric_item.scaleX, this._fabric_item.top / this._fabric_item.scaleY, this._fabric_item.width, this._fabric_item.height, this._fabric_item.angle);
+                        //var boundRect = this._fabric_item.getBoundingRect();
+                        this._x = r.x;
+                        this._y = r.y;
                     }
                 };
                 TextItem.prototype._updateToCanvas = function () {
@@ -8018,7 +8231,7 @@ var Neodynamic;
                         async: true
                     }).
                         done(function (data) {
-                        if (data.startsWith("ERROR")) {
+                        if (Neodynamic.Web.Utils.ImageUtils.isPNG(data) == false) {
                             _this._fabric_item.dpi = -1; // force fitting the error image to the fabric.Image obj
                             _this._image_item.src = _this._missing_image;
                             _super.prototype._onError.call(_this, data, "TextItem");
@@ -8120,7 +8333,9 @@ var Neodynamic;
                         Multiline: this.multiline,
                         TextVerticalAlignment: this.text_vertical_alignment,
                         MinFontSize: this.min_font_size,
-                        UseSlashedZero: this.use_slashed_zero
+                        UseSlashedZero: this.use_slashed_zero,
+                        ScaleX: this.scaleX,
+                        ScaleY: this.scaleY
                     };
                 };
                 ;
@@ -8221,6 +8436,8 @@ var Neodynamic;
                     this.design_background_image = '';
                     this._margin = new Printing.FrameThickness();
                     this.use_default_media_type = false;
+                    this.is_duplex_design = false;
+                    this.data_field_replicates = '';
                     this.pages = [];
                     //public getCopy(): ThermalLabel {
                     //    var clone = new Neodynamic.SDK.Printing.ThermalLabel();
@@ -8463,6 +8680,10 @@ var Neodynamic;
                         }
                         if (attr.name == "UseDefaultMediaType")
                             toRet.use_default_media_type = attr.value == "False" ? false : true;
+                        if (attr.name == "IsDuplexDesign")
+                            toRet.is_duplex_design = attr.value == "False" ? false : true;
+                        if (attr.name == "DataFieldReplicates")
+                            toRet.data_field_replicates = attr.value;
                     }
                     if (thermal_label.getElementsByTagName("Items")) {
                         var items = $(thermal_label.getElementsByTagName("Items")[0]).children();
@@ -8573,6 +8794,10 @@ var Neodynamic;
                     }
                     if (tlj["UseDefaultMediaType".toLowerCase()])
                         toRet.use_default_media_type = tlj["UseDefaultMediaType".toLowerCase()];
+                    if (tlj["IsDuplexDesign".toLowerCase()])
+                        toRet.is_duplex_design = tlj["IsDuplexDesign".toLowerCase()];
+                    if (tlj["DataFieldReplicates".toLowerCase()])
+                        toRet.data_field_replicates = tlj["DataFieldReplicates".toLowerCase()];
                     if (tlj["items"]) {
                         var items = tlj["items"];
                         for (var i = 0; i < items.length; i++) {
@@ -8645,6 +8870,8 @@ var Neodynamic;
                         BatchCut: this.batch_cut,
                         DesignBackgroundImage: this.design_background_image,
                         UseDefaultMediaType: this.use_default_media_type,
+                        IsDuplexDesign: this.is_duplex_design,
+                        DataFieldReplicates: this.data_field_replicates,
                         Items: items,
                         Expressions: this.expressions,
                         Pages: pages
@@ -8872,6 +9099,9 @@ var Neodynamic;
                     this._workspaceOffsetY = 0;
                     this._undoRedo = false;
                     this._numOfFractionalDigits = 4;
+                    this._snap_to_items = false;
+                    this._snapItemLeft = 0;
+                    this._snapItemTop = 0;
                     this._clipboardBuffer = [];
                     this._objFromCut = false;
                     this._pasteCounter = 1;
@@ -9369,6 +9599,7 @@ var Neodynamic;
                     enumerable: true,
                     configurable: true
                 });
+                //private _debugRect: any;
                 //#endregion
                 ThermalLabelEditor.prototype._b64Encode = function (s) {
                     return btoa(encodeURIComponent(s).replace(/%([0-9A-F]{2})/g, function (match, p1) {
@@ -9418,6 +9649,12 @@ var Neodynamic;
                 Object.defineProperty(ThermalLabelEditor.prototype, "active_tool_item", {
                     get: function () { return this._active_tool_item; },
                     set: function (value) { this._active_tool_item = value; },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(ThermalLabelEditor.prototype, "snap_to_items", {
+                    get: function () { return this._snap_to_items; },
+                    set: function (value) { this._snap_to_items = value; },
                     enumerable: true,
                     configurable: true
                 });
@@ -10596,6 +10833,24 @@ var Neodynamic;
                         this._is_drawing = false;
                         this.saveCurrentLabelCanvasState();
                     }
+                    else {
+                        this._setHGuideline(-10);
+                        this._setVGuideline(-10);
+                        if (this._snap_to_items) {
+                            if (this._snapItemLeft != 0 || this._snapItemTop != 0) {
+                                var rect = options.target.getBoundingRect();
+                                var offsetX = options.target.left - rect.left;
+                                var offsetY = options.target.top - rect.top;
+                                options.target.set({
+                                    left: this._snapItemLeft != 0 ? this._snapItemLeft + offsetX : options.target.left,
+                                    top: this._snapItemTop != 0 ? this._snapItemTop + offsetY : options.target.top
+                                });
+                                options.target.setCoords();
+                                this._tlweCanvasFabric.renderAll();
+                            }
+                        }
+                        this._snapItemLeft = this._snapItemTop = 0;
+                    }
                 };
                 ;
                 /*
@@ -10771,10 +11026,150 @@ var Neodynamic;
                             }
                         });
                     }
+                    else {
+                        if (this._snap_to_items) {
+                            var dragBounds = options.target.getBoundingRect();
+                            //this._debugRect.set({
+                            //    left: dragBounds.left,
+                            //    top: dragBounds.top,
+                            //    width: dragBounds.width,
+                            //    height: dragBounds.height
+                            //});
+                            //this._debugRect.setCoords();
+                            //this._tlweBackgroundCanvasFabric.renderAll();
+                            var newLoc = this._doSnapToItems(options.target.left, options.target.top, dragBounds, options.target.thermal_label_object._guid);
+                            if (options.target.left != newLoc.l)
+                                options.target.left = newLoc.l;
+                            if (options.target.top != newLoc.t)
+                                options.target.top = newLoc.t;
+                            options.target.setCoords();
+                        }
+                    }
                     this._tlweCanvasFabric.renderAll();
                     //this._updateSelectionRuler();
                 };
                 ;
+                ThermalLabelEditor.prototype._doSnapToItems = function (left, top, dragBounds, draggedObjGuid) {
+                    var _this = this;
+                    var SnapThreshold = 1.0;
+                    var foundNearXObj = false;
+                    var foundNearYObj = false;
+                    var newLeft = 0.0;
+                    var newTop = 0.0;
+                    //let dragBounds = {
+                    //    left: left,
+                    //    top: top,
+                    //    width: draggedObjWidth,
+                    //    height: draggedObjHeight
+                    //};
+                    this._tlweCanvasFabric.getObjects().map(function (obj) {
+                        var showVertGuideline = true;
+                        var showHorzGuideline = true;
+                        var l = 0.0;
+                        var t = 0.0;
+                        if (obj.thermal_label_object &&
+                            obj.thermal_label_object._guid == draggedObjGuid) {
+                            // do nothing
+                        }
+                        else {
+                            var targetBounds = obj.getBoundingRect();
+                            // Check and snap to horizontal alignments (left, center, right edges)
+                            // center to center horizontally
+                            if (Math.abs((dragBounds.left + dragBounds.width / 2) - (targetBounds.left + targetBounds.width / 2)) < SnapThreshold) {
+                                newLeft = targetBounds.left + targetBounds.width / 2 - dragBounds.width / 2;
+                                l = targetBounds.left + targetBounds.width / 2;
+                                //left += xOffset;
+                            }
+                            // Left edge to left edge
+                            else if (Math.abs(dragBounds.left - targetBounds.left) < SnapThreshold) {
+                                newLeft = targetBounds.left;
+                                l = targetBounds.left;
+                                //left += xOffset;
+                            }
+                            // Right edge to right edge
+                            else if (Math.abs((dragBounds.left + dragBounds.width) - (targetBounds.left + targetBounds.width)) < SnapThreshold) {
+                                newLeft = (targetBounds.left + targetBounds.width) - dragBounds.width;
+                                l = (targetBounds.left + targetBounds.width);
+                                //left += xOffset;
+                            }
+                            // Left edge to right edge
+                            else if (Math.abs(dragBounds.left - (targetBounds.left + targetBounds.width)) < SnapThreshold) {
+                                newLeft = (targetBounds.left + targetBounds.width);
+                                l = (targetBounds.left + targetBounds.width);
+                                //left += xOffset;
+                            }
+                            // Right edge to left edge
+                            else if (Math.abs((dragBounds.left + dragBounds.width) - targetBounds.left) < SnapThreshold) {
+                                newLeft = targetBounds.left - dragBounds.width;
+                                l = targetBounds.left;
+                                //left += xOffset;
+                            }
+                            else {
+                                showVertGuideline = false;
+                                l = 0;
+                            }
+                            // Check and snap to vertical alignments (top, middle, bottom edges)
+                            // center to center vertically
+                            if (Math.abs((dragBounds.top + dragBounds.height / 2) - (targetBounds.top + targetBounds.height / 2)) < SnapThreshold) {
+                                newTop = targetBounds.top + targetBounds.height / 2 - dragBounds.height / 2;
+                                t = targetBounds.top + targetBounds.height / 2;
+                                //top += yOffset;
+                            }
+                            // Top edge to top edge
+                            else if (Math.abs(dragBounds.top - targetBounds.top) < SnapThreshold) {
+                                newTop = targetBounds.top;
+                                t = targetBounds.top;
+                                //top += yOffset;
+                            }
+                            // Bottom edge to bottom edge
+                            else if (Math.abs((dragBounds.top + dragBounds.height) - (targetBounds.top + targetBounds.height)) < SnapThreshold) {
+                                newTop = (targetBounds.top + targetBounds.height) - dragBounds.height;
+                                t = (targetBounds.top + targetBounds.height);
+                                //top += yOffset;
+                            }
+                            // Top edge to bottom edge
+                            else if (Math.abs(dragBounds.top - (targetBounds.top + targetBounds.height)) < SnapThreshold) {
+                                newTop = (targetBounds.top + targetBounds.height);
+                                t = (targetBounds.top + targetBounds.height);
+                                //top += yOffset;
+                            }
+                            // Bottom edge to top edge
+                            else if (Math.abs((dragBounds.top + dragBounds.height) - targetBounds.top) < SnapThreshold) {
+                                newTop = targetBounds.top - dragBounds.height;
+                                t = targetBounds.top;
+                                //top += yOffset;
+                            }
+                            else {
+                                showHorzGuideline = false;
+                                t = 0;
+                            }
+                            if (foundNearXObj == false) {
+                                foundNearXObj = showVertGuideline;
+                                if (showVertGuideline) {
+                                    _this._setVGuideline(l);
+                                    //newLeft = l;
+                                }
+                                else
+                                    _this._setVGuideline(-10);
+                            }
+                            if (foundNearYObj == false) {
+                                foundNearYObj = showHorzGuideline;
+                                if (showHorzGuideline) {
+                                    _this._setHGuideline(t);
+                                    //newTop = t;
+                                }
+                                else
+                                    _this._setHGuideline(-10);
+                            }
+                        }
+                    });
+                    this._snapItemLeft = newLeft;
+                    this._snapItemTop = newTop;
+                    return {
+                        l: left,
+                        t: top
+                    };
+                };
                 /*
                 *   @private
                 *   Evento fabric object:scaling
@@ -10893,9 +11288,25 @@ var Neodynamic;
                     this.selectionChanged();
                 };
                 ;
+                ThermalLabelEditor.prototype._setHGuideline = function (y) {
+                    this._hGuideline.set({
+                        top: y
+                    });
+                    this._hGuideline.setCoords();
+                    this._tlweBackgroundCanvasFabric.renderAll();
+                };
+                ThermalLabelEditor.prototype._setVGuideline = function (x) {
+                    this._vGuideline.set({
+                        left: x
+                    });
+                    this._vGuideline.setCoords();
+                    this._tlweBackgroundCanvasFabric.renderAll();
+                };
                 ThermalLabelEditor.prototype._setCanvasBackground = function () {
                     var UnitUtils = Neodynamic.Web.Utils.UnitUtils;
                     var self = this;
+                    if (this._tlweBackgroundCanvasFabric)
+                        this._tlweBackgroundCanvasFabric.clear();
                     $(self._tlweBackgroundCanvas).css('border-style', 'solid').css('border-width', 1).css('border-color', this.getStyleValue("--label-document-frame-border-color")).
                         css('border-radius', this.getStyleValue("--label-document-frame-corner-radius")).css('background-repeat', 'no-repeat').css('background-position', 'center');
                     this._tlweBackgroundCanvasFabric = new fabric.StaticCanvas(self._tlweBackgroundCanvas, { backgroundColor: self.getStyleValue("--label-document-frame-background-color") });
@@ -10928,6 +11339,22 @@ var Neodynamic;
                             rectPage.rtl = rectPage.rtr = rectPage.rbl = rectPage.rbr = parseFloat(this.getStyleValue("--label-document-frame-corner-radius"));
                             rectPage.selectable = false;
                             this._tlweBackgroundCanvasFabric.add(rectPage);
+                            if (this._tl.is_duplex_design && this._tl.pages.length == 2) {
+                                var side;
+                                if (i == 0)
+                                    side = "▲ " + this._getI18NRes('VisualEditorDuplexFrontSide');
+                                else
+                                    side = "▼ " + this._getI18NRes('VisualEditorDuplexBackSide');
+                                var labelSide = new fabric.Text(side);
+                                labelSide.left = rectPage.left + rectPage.rtl * this._zoom;
+                                labelSide.top = rectPage.top;
+                                labelSide.fill = "#D0D0D0";
+                                labelSide.fontSize = 12 * this._zoom;
+                                labelSide.fontStyle = "bold";
+                                labelSide.fontFamily = "sans-serif";
+                                labelSide.selectable = false;
+                                this._tlweBackgroundCanvasFabric.add(labelSide);
+                            }
                         }
                         $(self._tlweBackgroundCanvas).css('border-width', 0);
                         this._tlweBackgroundCanvasFabric.setBackgroundColor('transparent');
@@ -10962,6 +11389,19 @@ var Neodynamic;
                         $(self._tlweBackgroundCanvas).css('border-width', 0);
                         this._tlweBackgroundCanvasFabric.setBackgroundColor('transparent');
                     }
+                    this._vGuideline = new fabric.Line([-10, 0, -10, this._tlweBackgroundCanvas.height], { stroke: this.getStyleValue('--guidelines-color'), selectable: false, strokeDashArray: [2, 2] });
+                    this._hGuideline = new fabric.Line([0, -10, this._tlweBackgroundCanvas.width, -10], { stroke: this.getStyleValue('--guidelines-color'), selectable: false, strokeDashArray: [2, 2] });
+                    this._tlweBackgroundCanvasFabric.add(this._vGuideline);
+                    this._tlweBackgroundCanvasFabric.add(this._hGuideline);
+                    //this._debugRect = new fabric.Rect({
+                    //    //check the unittype
+                    //    width: 1,
+                    //    height: 1,
+                    //    top: -10,
+                    //    left: -10,
+                    //    fill: 'yellow'
+                    //});
+                    //this._tlweBackgroundCanvasFabric.add(this._debugRect);
                     this._tlweBackgroundCanvasFabric.renderAll();
                 };
                 ;
@@ -10970,17 +11410,19 @@ var Neodynamic;
                 *   Construye el grid de fondo
                 */
                 ThermalLabelEditor.prototype._buildGrids = function (size, color) {
-                    this._setCanvasBackground();
-                    var _strokeDashArray = [];
-                    if (this._grid_type == Neodynamic.Web.Editor.GridType.Dots)
-                        _strokeDashArray = [1, size - 1];
-                    /* Verticales */
-                    for (var i = 0; i < (this._tlweBackgroundCanvas.width / size); i++) {
-                        this._tlweBackgroundCanvasFabric.add(new fabric.Line([i * size, 0, i * size, this._tlweBackgroundCanvas.height], { stroke: this.getStyleValue('--grid-color'), selectable: false, strokeDashArray: _strokeDashArray }));
-                    }
-                    /* Horizontales */
-                    for (var i = 0; i < (this._tlweBackgroundCanvas.height / size); i++) {
-                        this._tlweBackgroundCanvasFabric.add(new fabric.Line([0, i * size, this._tlweBackgroundCanvas.width, i * size], { stroke: this.getStyleValue('--grid-color'), selectable: false, strokeDashArray: _strokeDashArray }));
+                    if (this._show_grid) {
+                        this._setCanvasBackground();
+                        var _strokeDashArray = [];
+                        if (this._grid_type == Neodynamic.Web.Editor.GridType.Dots)
+                            _strokeDashArray = [1, size - 1];
+                        /* Verticales */
+                        for (var i = 0; i < (this._tlweBackgroundCanvas.width / size); i++) {
+                            this._tlweBackgroundCanvasFabric.add(new fabric.Line([i * size, 0, i * size, this._tlweBackgroundCanvas.height], { stroke: this.getStyleValue('--grid-color'), selectable: false, strokeDashArray: _strokeDashArray }));
+                        }
+                        /* Horizontales */
+                        for (var i = 0; i < (this._tlweBackgroundCanvas.height / size); i++) {
+                            this._tlweBackgroundCanvasFabric.add(new fabric.Line([0, i * size, this._tlweBackgroundCanvas.width, i * size], { stroke: this.getStyleValue('--grid-color'), selectable: false, strokeDashArray: _strokeDashArray }));
+                        }
                     }
                 };
                 ;
@@ -11291,7 +11733,7 @@ var Neodynamic;
                 ThermalLabelEditor.prototype.print = function (custom_url, data_source_format, data_source) {
                     //1. Save label to the server cache (By default Application cache) and get the LabelID
                     //2. Get the LabelID and pass it to the TLClientPrint
-                    var _this = this;
+                    var _this_1 = this;
                     var rootUrl = $(location).attr('protocol') + "//" + $(location).attr('host');
                     if (ThermalLabelEditor.websiteRootAbsoluteUrl)
                         rootUrl = ThermalLabelEditor.websiteRootAbsoluteUrl;
@@ -11331,11 +11773,38 @@ var Neodynamic;
                         //END CODE
                     }).
                         fail(function (data) {
-                        _this._onError("print: " + data.responseText, "ThermalLabelEditor");
+                        _this_1._onError("print: " + data.responseText, "ThermalLabelEditor");
                     });
                 };
+                ThermalLabelEditor.prototype._getI18NRes = function (resKey, callback) {
+                    var _this_1 = this;
+                    var custom_url;
+                    if (ThermalLabelEditor.websiteRootAbsoluteUrl)
+                        custom_url = ThermalLabelEditor.websiteRootAbsoluteUrl + "/" + ThermalLabelEditor.thermalLabelWebEditorControllerName + "?_=" + new Date().getTime();
+                    else
+                        custom_url = $(location).attr('protocol') + "//" + $(location).attr('host') + "/" + ThermalLabelEditor.thermalLabelWebEditorControllerName + "?_=" + new Date().getTime();
+                    var resData;
+                    $.ajax({
+                        url: custom_url,
+                        type: "POST",
+                        data: { Action: "GetI18NResourceKey", ResKey: resKey },
+                        async: (callback ? true : false)
+                    }).done(function (data) {
+                        if (callback) {
+                            callback(data);
+                        }
+                        else {
+                            resData = data;
+                        }
+                    }).
+                        fail(function (data) {
+                        _this_1._onError("GetI18NResourceKey: " + data.responseText, "ThermalLabelEditor");
+                    });
+                    if (!callback)
+                        return resData;
+                };
                 ThermalLabelEditor.prototype._getLabelTemplate = function (custom_url, format, callback) {
-                    var _this = this;
+                    var _this_1 = this;
                     /*
                     *   Si el programador no especifica una URL para otro Handler, usar el predeterminado
                     */
@@ -11362,7 +11831,7 @@ var Neodynamic;
                         }
                     }).
                         fail(function (data) {
-                        _this._onError(action + ": " + data.responseText, "ThermalLabelEditor");
+                        _this_1._onError(action + ": " + data.responseText, "ThermalLabelEditor");
                     });
                     if (!callback)
                         return labelTemplate;
@@ -11374,7 +11843,7 @@ var Neodynamic;
                     return this._getLabelTemplate(custom_url, 'json', callback);
                 };
                 ThermalLabelEditor.prototype.getSupportedExpressions = function (custom_url, callback) {
-                    var _this = this;
+                    var _this_1 = this;
                     /*
                     *   Si el programador no especifica una URL para otro Handler, usar el predeterminado
                     */
@@ -11399,13 +11868,13 @@ var Neodynamic;
                         }
                     }).
                         fail(function (data) {
-                        _this._onError("getSupportedExpressions: " + data.responseText, "ThermalLabelEditor");
+                        _this_1._onError("getSupportedExpressions: " + data.responseText, "ThermalLabelEditor");
                     });
                     if (!callback)
                         return supportedExpressions;
                 };
                 ThermalLabelEditor.prototype.getLabelPreview = function (xml_label_template, custom_url, out_format, data_source_format, data_source, callback) {
-                    var _this = this;
+                    var _this_1 = this;
                     /*
                     *   Si el programador no especifica una URL para otro Handler, usar el predeterminado
                     */
@@ -11434,13 +11903,13 @@ var Neodynamic;
                         }
                     }).
                         fail(function (data) {
-                        _this._onError("getLabelPreview: " + data.responseText, "ThermalLabelEditor");
+                        _this_1._onError("getLabelPreview: " + data.responseText, "ThermalLabelEditor");
                     });
                     if (!callback)
                         return labelPreview;
                 };
                 ThermalLabelEditor.prototype.getLabelThumbnail = function (size, xml_label_template, custom_url, callback) {
-                    var _this = this;
+                    var _this_1 = this;
                     /*
                     *   Si el programador no especifica una URL para otro Handler, usar el predeterminado
                     */
@@ -11465,13 +11934,13 @@ var Neodynamic;
                         }
                     }).
                         fail(function (data) {
-                        _this._onError("getLabelThumbnail: " + data.responseText, "ThermalLabelEditor");
+                        _this_1._onError("getLabelThumbnail: " + data.responseText, "ThermalLabelEditor");
                     });
                     if (!callback)
                         return labelThumbnail;
                 };
                 ThermalLabelEditor.prototype.getPrinterCommands = function (xml_label_template, custom_url, print_language, print_orientation, copies, replicates, dpi, data_source_format, data_source, callback) {
-                    var _this = this;
+                    var _this_1 = this;
                     /*
                     *   Si el programador no especifica una URL para otro Handler, usar el predeterminado
                     */
@@ -11500,13 +11969,13 @@ var Neodynamic;
                         }
                     }).
                         fail(function (data) {
-                        _this._onError("getPrinterCommands: " + data.responseText, "ThermalLabelEditor");
+                        _this_1._onError("getPrinterCommands: " + data.responseText, "ThermalLabelEditor");
                     });
                     if (!callback)
                         return labelCommands;
                 };
                 ThermalLabelEditor.prototype.getLabelAsPdf = function (xml_label_template, custom_url, pdfMetadata, dpi, data_source_format, data_source, callback) {
-                    var _this = this;
+                    var _this_1 = this;
                     /*
                     *   Si el programador no especifica una URL para otro Handler, usar el predeterminado
                     */
@@ -11538,7 +12007,7 @@ var Neodynamic;
                         }
                     }).
                         fail(function (data) {
-                        _this._onError("getLabelAsPdf: " + data.responseText, "ThermalLabelEditor");
+                        _this_1._onError("getLabelAsPdf: " + data.responseText, "ThermalLabelEditor");
                     });
                     if (!callback)
                         return labelPreview;
@@ -11871,6 +12340,8 @@ var Neodynamic;
                     clone.design_background_image = tl.design_background_image;
                     clone.margin = new Neodynamic.SDK.Printing.FrameThickness(tl.margin.left, tl.margin.top, tl.margin.right, tl.margin.bottom);
                     clone.use_default_media_type = tl.use_default_media_type;
+                    clone.is_duplex_design = tl.is_duplex_design;
+                    clone.data_field_replicates = tl.data_field_replicates;
                     //clone.items = [];
                     tl.items.forEach(function (x) {
                         clone.items.push(Neodynamic.Web.Utils.Cloner.cloneItem(x));
@@ -12020,6 +12491,14 @@ var Neodynamic;
                         clone.name = itm.name; // + new Date().getTime();
                         clone.x = itm.x;
                         clone.y = itm.y;
+                        clone.lock_memory_bank.apply = itm.lock_memory_bank.apply;
+                        clone.lock_memory_bank.access_password = itm.lock_memory_bank.access_password;
+                        clone.lock_memory_bank.epc_memory_bank = itm.lock_memory_bank.epc_memory_bank;
+                        clone.lock_memory_bank.kill_password = itm.lock_memory_bank.kill_password;
+                        clone.lock_memory_bank.user_memory_bank = itm.lock_memory_bank.user_memory_bank;
+                        clone.perma_lock_memory_section.apply = itm.perma_lock_memory_section.apply;
+                        clone.perma_lock_memory_section.starting_section = itm.perma_lock_memory_section.starting_section;
+                        clone.perma_lock_memory_section.number_of_sections = itm.perma_lock_memory_section.number_of_sections;
                         clone.data_field = itm.data_field;
                         clone.data_field_format_string = itm.data_field_format_string;
                         clone.print_as_graphic = itm.print_as_graphic;
@@ -12104,6 +12583,8 @@ var Neodynamic;
                         clone.text_vertical_alignment = itm.text_vertical_alignment;
                         clone.min_font_size = itm.min_font_size;
                         clone.use_slashed_zero = itm.use_slashed_zero;
+                        clone.scaleX = itm.scaleX;
+                        clone.scaleY = itm.scaleY;
                         //clone._updateToCanvas();
                     }
                     else if (itm instanceof Neodynamic.SDK.Printing.BarcodeItem) {
@@ -12338,6 +12819,10 @@ var Neodynamic;
                         clone.y = itm.y;
                         clone.columns_line_visible = itm.columns_line_visible;
                         clone.rows_line_visible = itm.rows_line_visible;
+                        clone.bottom_side_visible = itm.bottom_side_visible;
+                        clone.top_side_visible = itm.top_side_visible;
+                        clone.left_side_visible = itm.left_side_visible;
+                        clone.right_side_visible = itm.right_side_visible;
                         itm.columns.forEach(function (x) {
                             clone.columns.push(Neodynamic.Web.Utils.Cloner.cloneTableColumn(x));
                         });
@@ -12563,6 +13048,19 @@ var Neodynamic;
                     // return the results
                     return ({ left: rx, top: ry });
                 };
+                // https://stackoverflow.com/a/69203768
+                MathUtils.getRotatedBoundingBox = function (x, y, w, h, angleInDegrees) {
+                    var a = angleInDegrees * Math.PI / 180;
+                    var sinA = Math.abs(Math.sin(a));
+                    var cosA = Math.abs(Math.cos(a));
+                    var bbH = w * sinA + h * cosA;
+                    var bbW = w * cosA + h * sinA;
+                    var cx = x + w / 2 * Math.cos(a) - h / 2 * Math.sin(a);
+                    var cy = y + w / 2 * Math.sin(a) + h / 2 * Math.cos(a);
+                    var bbX = cx - bbW / 2;
+                    var bbY = cy - bbH / 2;
+                    return { x: bbX, y: bbY, w: bbW, h: bbH };
+                };
                 return MathUtils;
             }());
             Utils.MathUtils = MathUtils;
@@ -12669,7 +13167,8 @@ var Neodynamic;
                         propName === "HanXinCodeByteEncodingName" ||
                         propName === "BackColorHex" ||
                         propName === "TextForeColorHex" ||
-                        propName === "Code");
+                        propName === "Code" ||
+                        propName === "DataFieldReplicates");
                 };
                 XMLParser.JXONTree = function (oXMLParent) {
                     var Utils = Neodynamic.Web.Utils.XMLParser;
@@ -13517,6 +14016,10 @@ var Neodynamic;
                             e.min_font_size = json.minfontsize;
                         if (json.useslashedzero != null)
                             e.use_slashed_zero = json.useslashedzero;
+                        if (json.scalex != null)
+                            e.scaleX = json.scalex;
+                        if (json.scaley != null)
+                            e.scaleY = json.scaley;
                         return e;
                     }
                     else if (type == "RFIDTagItem") {
@@ -13574,6 +14077,51 @@ var Neodynamic;
                             e.access_password = json.accesspassword;
                         if (json.killpassword != null)
                             e.kill_password = json.killpassword;
+                        if (json.lockmemorybank != null) {
+                            var lmb = new Neodynamic.SDK.Printing.RFIDLockMemoryBank();
+                            if (json.lockmemorybank.apply != null) {
+                                lmb.kill_password = Neodynamic.SDK.Printing.RFIDLockValue[json.lockmemorybank.killpassword];
+                                lmb.access_password = Neodynamic.SDK.Printing.RFIDLockValue[json.lockmemorybank.accesspassword];
+                                lmb.epc_memory_bank = Neodynamic.SDK.Printing.RFIDLockValue[json.lockmemorybank.epcmemorybank];
+                                lmb.user_memory_bank = Neodynamic.SDK.Printing.RFIDLockValue[json.lockmemorybank.usermemorybank];
+                                lmb.apply = json.lockmemorybank.apply;
+                            }
+                            else {
+                                var cutted_lmb = json.lockmemorybank.split(',');
+                                lmb.apply = cutted_lmb[0] == "True" ? true : false;
+                                ;
+                                lmb.kill_password = Neodynamic.SDK.Printing.RFIDLockValue[cutted_lmb[1]];
+                                lmb.access_password = Neodynamic.SDK.Printing.RFIDLockValue[cutted_lmb[2]];
+                                lmb.epc_memory_bank = Neodynamic.SDK.Printing.RFIDLockValue[cutted_lmb[3]];
+                                lmb.user_memory_bank = Neodynamic.SDK.Printing.RFIDLockValue[cutted_lmb[4]];
+                            }
+                            e.lock_memory_bank = lmb;
+                        }
+                        if (json.permalockmemorysection != null) {
+                            var plms = new Neodynamic.SDK.Printing.RFIDPermaLockMemorySection();
+                            if (json.permalockmemorysection.apply != null) {
+                                plms.apply = json.permalockmemorysection.apply;
+                                plms.starting_section = json.permalockmemorysection.startingsection;
+                                plms.number_of_sections = json.permalockmemorysection.numberofsections;
+                            }
+                            else {
+                                var cutted_plms = json.permalockmemorysection.split(',');
+                                plms.apply = cutted_plms[0] == "True" ? true : false;
+                                plms.starting_section = parseInt(cutted_plms[1]);
+                                plms.number_of_sections = parseInt(cutted_plms[2]);
+                            }
+                            e.perma_lock_memory_section = plms;
+                        }
+                        if (json.accesspassword != null)
+                            e.lock_memory_bank.access_password = (Neodynamic.SDK.Printing.RFIDLockValue)[json.accesspassword];
+                        if (json.killpassword != null)
+                            e.lock_memory_bank.kill_password = (Neodynamic.SDK.Printing.RFIDLockValue)[json.killpassword];
+                        if (json.epcmemorybank != null)
+                            e.lock_memory_bank.epc_memory_bank = (Neodynamic.SDK.Printing.RFIDLockValue)[json.epcmemorybank];
+                        if (json.usermemorybank != null)
+                            e.lock_memory_bank.user_memory_bank = (Neodynamic.SDK.Printing.RFIDLockValue)[json.usermemorybank];
+                        if (json.readonly != null)
+                            e.read_only = json.readonly;
                         return e;
                     }
                     else if (type == "RepeaterItem") {
@@ -13676,6 +14224,14 @@ var Neodynamic;
                             e.columns_line_visible = json.columnslinevisible;
                         if (json.rowslinevisible != null)
                             e.rows_line_visible = json.rowslinevisible;
+                        if (json.bottomsidevisible != null)
+                            e.bottom_side_visible = json.bottomsidevisible;
+                        if (json.topsidevisible != null)
+                            e.top_side_visible = json.topsidevisible;
+                        if (json.leftsidevisible != null)
+                            e.left_side_visible = json.leftsidevisible;
+                        if (json.rightsidevisible != null)
+                            e.right_side_visible = json.rightsidevisible;
                         if (json.columns || json.columns.column) {
                             var columns = json.columns.column ? json.columns.column : json.columns;
                             for (var i = 0; i < columns.length; i++) {
@@ -13976,6 +14532,24 @@ var Neodynamic;
                 return MaskEditUtils;
             }());
             Utils.MaskEditUtils = MaskEditUtils;
+        })(Utils = Web.Utils || (Web.Utils = {}));
+    })(Web = Neodynamic.Web || (Neodynamic.Web = {}));
+})(Neodynamic || (Neodynamic = {}));
+var Neodynamic;
+(function (Neodynamic) {
+    var Web;
+    (function (Web) {
+        var Utils;
+        (function (Utils) {
+            var ImageUtils = /** @class */ (function () {
+                function ImageUtils() {
+                }
+                ImageUtils.isPNG = function (value) {
+                    return value && typeof (value) === "string" && value.indexOf("iVBORw0K") >= 0;
+                };
+                return ImageUtils;
+            }());
+            Utils.ImageUtils = ImageUtils;
         })(Utils = Web.Utils || (Web.Utils = {}));
     })(Web = Neodynamic.Web || (Neodynamic.Web = {}));
 })(Neodynamic || (Neodynamic = {}));
@@ -14369,8 +14943,7 @@ var Neodynamic;
                             else {
                                 props.push("qr_code_version");
                             }
-                            if (symbology == Neodynamic.SDK.Printing.BarcodeSymbology.GS1QRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.MicroQRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.SwissQRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.EPCQRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.DINSpecQRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.RectMicroQRCode || symbology == Neodynamic.SDK.Printing.BarcodeSymbology.GS1RectMicroQRCode)
-                                props.push("qr_code_process_tilde");
+                            props.push("qr_code_process_tilde");
                             if (symbology == Neodynamic.SDK.Printing.BarcodeSymbology.HibcPasQRCode ||
                                 symbology == Neodynamic.SDK.Printing.BarcodeSymbology.HibcLicQRCode) {
                                 props.push("hibc_format_human_readable_text");
@@ -14663,4 +15236,4 @@ var Neodynamic;
         })(Utils = Web.Utils || (Web.Utils = {}));
     })(Web = Neodynamic.Web || (Neodynamic.Web = {}));
 })(Neodynamic || (Neodynamic = {}));
-//# sourceMappingURL=ThermalLabelWebEditor-14.0.0.0.js.map
+//# sourceMappingURL=ThermalLabelWebEditor-15.0.0.0.js.map

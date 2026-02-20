@@ -108,6 +108,34 @@ namespace TLWindowsEditorWinFormsDemo
             //});
 
             //thermalLabelEditor1.DisableShortcuts = KeyboardShortcuts.CtrlC | KeyboardShortcuts.CtrlX | KeyboardShortcuts.CtrlV;
+
+            /*
+            // I18N Sample through .NET classes
+            var enRes = new I18NResource(); // built-in ENGLISH strings
+            var esRes = new I18NResource() // custom SPANISH strings
+            {
+                CultureTwoLetterISOLanguageName = "es",
+                VisualEditorDuplexBackSide = "REVERSO",
+                VisualEditorDuplexFrontSide = "ANVERSO"
+            };
+            var itRes = new I18NResource() // custom ITALIAN strings
+            {
+                CultureTwoLetterISOLanguageName = "it",
+                VisualEditorDuplexBackSide = "DIETRO",
+                VisualEditorDuplexFrontSide = "DAVANTI"
+            };
+            // List of supported cultures: "en", "es" and "it"
+            var myRes = new List<I18NResource>() { enRes, esRes, itRes };
+            ThermalLabel.I18N = new I18N(myRes, "it", "en"); // Setting ITALIAN as current culture
+            */
+
+            /*
+            // I18N Sample through JSON string
+            // List of supported cultures: "en", "es" and "it"
+            string jsonI18NResources = "{\"en\":{\"VisualEditorDuplexFrontSide\":\"FRONT\",\"VisualEditorDuplexBackSide\":\"BACK\"},\"es\":{\"VisualEditorDuplexFrontSide\":\"ANVERSO\",\"VisualEditorDuplexBackSide\":\"REVERSO\"},\"it\":{\"VisualEditorDuplexFrontSide\":\"DAVANTI\",\"VisualEditorDuplexBackSide\":\"DIETRO\"}}";
+            
+            ThermalLabel.I18N = new I18N(jsonI18NResources, "it", "en"); // Setting ITALIAN as current culture
+            */
         }
 
 
@@ -226,6 +254,9 @@ namespace TLWindowsEditorWinFormsDemo
             // load sample symbols
             //this.tsddbSymbols.DropDownItems.Add();
             //thermalLabelEditor1.DisableClipboard = true;
+
+            thermalLabelEditor1.SnapToItems = true;
+            //thermalLabelEditor1.GuidelineColor = System.Drawing.Color.OrangeRed;
 
         }
 

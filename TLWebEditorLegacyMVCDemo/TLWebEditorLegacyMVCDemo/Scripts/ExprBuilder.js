@@ -49,17 +49,17 @@ var exprBuilder = {
     openExpressionBuilder: function (curExpr, isGlobalExpr) {
         if (isGlobalExpr) {
             this.addLabelItems();
-            $('#expression').val(this.unescapeExpr(curExpr));
+            $('#expression').val(curExpr);
             $("#expression-builder").modal();
         }
         else if (curExpr) {
             this.addLabelItems();
-            $('#expression').val(this.unescapeExpr(curExpr));
+            $('#expression').val(curExpr);
             $("#expression-builder").modal();
         }
         else if (tleditor.current_selection) {
             this.addLabelItems();
-            $('#expression').val(this.unescapeExpr(tleditor.current_selection.expression));
+            $('#expression').val(tleditor.current_selection.expression);
             $("#expression-builder").modal();
         }
         else {
@@ -85,7 +85,6 @@ var exprBuilder = {
     escapeExpr: function (s) {
         var tagsToReplace = {
             '_x0022_': '&#34;',
-            '"': '_x0022_',
             '_x0026_': '&#38;',
             '_x003c_': '&#60;',
             '_x003e_': '&#62;'
@@ -93,12 +92,6 @@ var exprBuilder = {
         return s.replace(/["&<>]/g, function (tag) {
             return tagsToReplace[tag] || tag;
         });
-    },
-    unescapeExpr: function (s) {
-        return s.replace(/_x0022_/g, '\"')
-            .replace(/_x003c_/g, '<')
-            .replace(/_x003e_/g, '>')
-            .replace(/_x0026_/g, '&');
     },
 
     addLabelItems: function () {
@@ -122,7 +115,7 @@ var exprBuilder = {
         $('#expr-desc').empty();
         $('#expr-syntax').empty();
         $('#expr-example').empty();
-        
+
 
         if ($("#expr-category option[name='Items']")[0])
             $("#expr-category option[name='Items']").remove();

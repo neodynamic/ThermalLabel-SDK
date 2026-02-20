@@ -14,7 +14,12 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
 
         public int Copies { get; set; }
         public PrintOrientation PrintOrientation { get; set; }
-
+        public int Replicates { get; set; }
+        public bool CommandsOptimizationEnabled { get; set; }
+        public FingerprintSettings FingerprintSettings { get; set; }
+        public double MarginLeft { get; set; }
+        public double MarginTop { get; set; }
+        public bool Duplex { get; set; }
 
         #region IPluginPrinterSettings Members
 

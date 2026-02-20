@@ -1,4 +1,36 @@
 declare namespace Neodynamic.SDK.Printing {
+    class RFIDPermaLockMemorySection {
+        private _apply;
+        private _starting_section;
+        private _number_of_sections;
+        get apply(): boolean;
+        set apply(value: boolean);
+        get starting_section(): number;
+        set starting_section(value: number);
+        get number_of_sections(): number;
+        set number_of_sections(value: number);
+    }
+}
+declare namespace Neodynamic.SDK.Printing {
+    class RFIDLockMemoryBank {
+        private _kill_password;
+        private _access_password;
+        private _epc_memory_bank;
+        private _user_memory_bank;
+        private _apply;
+        get kill_password(): RFIDLockValue;
+        set kill_password(value: RFIDLockValue);
+        get access_password(): RFIDLockValue;
+        set access_password(value: RFIDLockValue);
+        get epc_memory_bank(): RFIDLockValue;
+        set epc_memory_bank(value: RFIDLockValue);
+        get user_memory_bank(): RFIDLockValue;
+        set user_memory_bank(value: RFIDLockValue);
+        get apply(): boolean;
+        set apply(value: boolean);
+    }
+}
+declare namespace Neodynamic.SDK.Printing {
     class PdfMetadata {
         protected _author: string;
         get author(): string;
@@ -182,6 +214,10 @@ declare namespace Neodynamic.SDK.Printing {
         protected _rotation_angle: number;
         private _columns_line_visible;
         private _rows_line_visible;
+        private _bottom_side_visible;
+        private _top_side_visible;
+        private _left_side_visible;
+        private _right_side_visible;
         private _has_to_reload;
         private _image_item;
         columns: TableColumn[];
@@ -194,6 +230,14 @@ declare namespace Neodynamic.SDK.Printing {
         set columns_line_visible(value: boolean);
         get rows_line_visible(): boolean;
         set rows_line_visible(value: boolean);
+        get bottom_side_visible(): boolean;
+        set bottom_side_visible(value: boolean);
+        get top_side_visible(): boolean;
+        set top_side_visible(value: boolean);
+        get left_side_visible(): boolean;
+        set left_side_visible(value: boolean);
+        get right_side_visible(): boolean;
+        set right_side_visible(value: boolean);
         _getProperties(): {
             Type: string;
             UnitType: UnitType;
@@ -216,6 +260,10 @@ declare namespace Neodynamic.SDK.Printing {
             StrokeStylePattern: string;
             ColumnsLineVisible: boolean;
             RowsLineVisible: boolean;
+            BottomSideVisible: boolean;
+            TopSideVisible: boolean;
+            LeftSideVisible: boolean;
+            RightSideVisible: boolean;
             Columns: any[];
             Rows: any[];
             Comments: string;
@@ -1703,7 +1751,8 @@ declare namespace Neodynamic.SDK.Printing {
     }
     enum TextVerticalAlignment {
         Top = 0,
-        Bottom = 1
+        Bottom = 1,
+        Middle = 2
     }
     enum QRCodeMask {
         Auto = 0,
@@ -1720,6 +1769,13 @@ declare namespace Neodynamic.SDK.Printing {
         Text = 0,
         Base64 = 1,
         Hex = 2
+    }
+    enum RFIDLockValue {
+        None = 0,
+        Lock = 1,
+        Open = 2,
+        Unlock = 3,
+        Protected = 4
     }
 }
 declare namespace Neodynamic.SDK.Printing {
@@ -2097,6 +2153,8 @@ declare namespace Neodynamic.SDK.Printing {
         private _memory_bank;
         private _access_password;
         private _kill_password;
+        private _lock_memory_bank;
+        private _perma_lock_memory_section;
         _image: HTMLImageElement;
         get data_format(): RFIDTagDataFormat;
         set data_format(value: RFIDTagDataFormat);
@@ -2116,6 +2174,10 @@ declare namespace Neodynamic.SDK.Printing {
         set access_password(value: string);
         get kill_password(): string;
         set kill_password(value: string);
+        get lock_memory_bank(): RFIDLockMemoryBank;
+        set lock_memory_bank(value: RFIDLockMemoryBank);
+        get perma_lock_memory_section(): RFIDPermaLockMemorySection;
+        set perma_lock_memory_section(value: RFIDPermaLockMemorySection);
         _updateFromCanvas(property?: any): void;
         _updateToCanvas(property?: any): void;
         refresh(): void;
@@ -2148,6 +2210,14 @@ declare namespace Neodynamic.SDK.Printing {
             MemoryBank: string;
             AccessPassword: string;
             KillPassword: string;
+            LockMemoryBank_AccessPassword: RFIDLockValue;
+            LockMemoryBank_KillPassword: RFIDLockValue;
+            LockMemoryBank_EPCMemoryBank: RFIDLockValue;
+            LockMemoryBank_USERMemoryBank: RFIDLockValue;
+            LockMemoryBank_Apply: boolean;
+            PermaLockMemorySection_Apply: boolean;
+            PermaLockMemorySection_StartingSection: number;
+            PermaLockMemorySection_NumberOfSections: number;
         };
         constructor();
     }
@@ -2190,6 +2260,8 @@ declare namespace Neodynamic.SDK.Printing {
         private _text_vertical_alignment;
         private _min_font_size;
         private _use_slashed_zero;
+        private _scaleX;
+        private _scaleY;
         private _has_to_reload;
         private _image_item;
         get back_color(): Color;
@@ -2264,6 +2336,10 @@ declare namespace Neodynamic.SDK.Printing {
         set min_font_size(value: any);
         get use_slashed_zero(): boolean;
         set use_slashed_zero(value: boolean);
+        get scaleX(): number;
+        set scaleX(value: number);
+        get scaleY(): number;
+        set scaleY(value: number);
         _updateFromCanvas(): void;
         _updateToCanvas(): void;
         refresh(): void;
@@ -2345,6 +2421,8 @@ declare namespace Neodynamic.SDK.Printing {
             TextVerticalAlignment: TextVerticalAlignment;
             MinFontSize: any;
             UseSlashedZero: boolean;
+            ScaleX: number;
+            ScaleY: number;
         };
         constructor();
         private _dblClick;
@@ -2382,6 +2460,8 @@ declare namespace Neodynamic.SDK.Printing {
         design_background_image: string;
         private _margin;
         use_default_media_type: boolean;
+        is_duplex_design: boolean;
+        data_field_replicates: string;
         pages: ThermalLabelPage[];
         _onUnitChange(): void;
         get width(): number;
@@ -2439,6 +2519,8 @@ declare namespace Neodynamic.SDK.Printing {
             BatchCut: number;
             DesignBackgroundImage: string;
             UseDefaultMediaType: boolean;
+            IsDuplexDesign: boolean;
+            DataFieldReplicates: string;
             Items: any[];
             Expressions: string[];
             Pages: any[];
@@ -2510,6 +2592,9 @@ declare namespace Neodynamic.Web.Editor {
         private _undoManager;
         private _undoRedo;
         private _numOfFractionalDigits;
+        private _vGuideline;
+        private _hGuideline;
+        private _snap_to_items;
         private _b64Encode;
         get num_of_fractional_digits(): number;
         set num_of_fractional_digits(value: number);
@@ -2519,6 +2604,8 @@ declare namespace Neodynamic.Web.Editor {
         set active_tool(value: EditorTool);
         get active_tool_item(): SDK.Printing.Item;
         set active_tool_item(value: SDK.Printing.Item);
+        get snap_to_items(): boolean;
+        set snap_to_items(value: boolean);
         get angle_snap(): number;
         set angle_snap(value: number);
         get grid_size(): any;
@@ -2555,9 +2642,14 @@ declare namespace Neodynamic.Web.Editor {
         private _canvasObjectModified;
         private _canvasObjectRotating;
         private _canvasObjectMoving;
+        private _snapItemLeft;
+        private _snapItemTop;
+        private _doSnapToItems;
         private _canvasObjectScaling;
         private _canvasObjectSelected;
         private _canvasSelectionCleared;
+        private _setHGuideline;
+        private _setVGuideline;
         private _setCanvasBackground;
         private _buildGrids;
         private _clearGrids;
@@ -2573,6 +2665,7 @@ declare namespace Neodynamic.Web.Editor {
         addItem(item: any): void;
         save(file_name?: string, custom_url?: string, format?: string): void;
         print(custom_url?: string, data_source_format?: string, data_source?: string): void;
+        private _getI18NRes;
         private _getLabelTemplate;
         getXmlTemplate(custom_url?: string, callback?: any): any;
         getJsonTemplate(custom_url?: string, callback?: any): any;
@@ -2647,6 +2740,12 @@ declare namespace Neodynamic.Web.Utils {
             left: any;
             top: any;
         };
+        static getRotatedBoundingBox: (x: any, y: any, w: any, h: any, angleInDegrees: any) => {
+            x: number;
+            y: number;
+            w: number;
+            h: number;
+        };
     }
 }
 declare namespace Neodynamic.Web.Utils {
@@ -2679,6 +2778,11 @@ declare namespace Neodynamic.Web.Utils {
         private static getMaskElements;
         static masking: (inputCtrl: any, mask: any, promptChar: any) => void;
         static getMaskedData: (inputCtrl: any, promptChar: any) => any;
+    }
+}
+declare namespace Neodynamic.Web.Utils {
+    class ImageUtils {
+        static isPNG: (value: any) => boolean;
     }
 }
 declare namespace Neodynamic.Web.Utils {

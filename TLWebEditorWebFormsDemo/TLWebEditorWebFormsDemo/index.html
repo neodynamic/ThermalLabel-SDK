@@ -3,16 +3,16 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Sample Label Editor - Powered by Neodynamic ThermalLabel Web Editor 14.0</title>
+    <title>Sample Label Editor - Powered by Neodynamic ThermalLabel Web Editor 15.0</title>
 
     <script src="Scripts/jquery.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/main.css" rel="stylesheet" />
-    <link href="css/neoPropGrid.css" rel="stylesheet" />
-    <link href="css/gallery.css" rel="stylesheet" />
-    <link href="css/ThermalLabelWebEditor-14.0.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/main.css" rel="stylesheet" />
+    <link href="Content/neoPropGrid.css" rel="stylesheet" />
+    <link href="Content/gallery.css" rel="stylesheet" />
+    <link href="Content/ThermalLabelWebEditor.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -22,7 +22,7 @@
             <li><a data-toggle="tab" href="#label-design-tab"><i class="glyphicon glyphicon-pencil"></i>&nbsp;<strong>Design</strong></a></li>
             <li><a data-toggle="tab" href="#label-preview-tab" onclick="UIEditor.showLabelPreview();"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;<strong>Preview</strong></a></li>
             <li>
-                <a href="https://neodynamic.com/products/printing/thermal-label/web-editor" target="_blank"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;<strong>ThermalLabel Web Editor 14 for ASP.NET</strong></a>
+                <a href="https://neodynamic.com/products/printing/thermal-label/web-editor" target="_blank"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;<strong>ThermalLabel Web Editor 15 for ASP.NET</strong></a>
             </li>
         </ul>
         <div class="tab-content">
@@ -417,6 +417,10 @@
                                 <input type="checkbox" id="gs_snap_to_grid" />
                                 Snap to grid
                             </label>
+                            <label style="margin-left:10px">
+                                <input type="checkbox" id="gs_snap_to_items" />
+                                Snap to Items
+                            </label>
                         </div>
                         <div class="col-md-12">
                             <label>
@@ -533,7 +537,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <p>Thank your for trying <a href="http://neodynamic.com/products/printing/thermal-label/web-editor">ThermalLabel Web Editor 14.0 for ASP.NET Add-on</a></p>
+                            <p>Thank your for trying <a href="http://neodynamic.com/products/printing/thermal-label/web-editor">ThermalLabel Web Editor 15.0 for ASP.NET Add-on</a></p>
                             <p>Feel free to <a href="http://neodynamic.com/products/printing/thermal-label/web-editor/download">DOWNLOAD ThermalLabel Web Editor for ASP.NET</a> part of <a href="http://neodynamic.com/products/printing/thermal-label/web-editor/download">ThermalLabel SDK for.NET</a> to test it locally!</p>
                         </div>
                     </div>
@@ -635,11 +639,11 @@
     </div>
 
     <script src="Scripts/fabric-1.5.0.js"></script>
-    <script src="Scripts/ThermalLabelWebEditor-14.0.0.0.js"></script>
+    <script src="Scripts/ThermalLabelWebEditor.js"></script>
     <script src="Scripts/neoPropGrid.js"></script>
     <script src="Scripts/ExprBuilder.js"></script>
     <script src="Scripts/Gallery.js"></script>
-    <script src="Scripts/SampleLabelEditorUI-14.0.js"></script>
+    <script src="Scripts/SampleLabelEditorUI.js"></script>
 
     <script type="text/javascript">
 

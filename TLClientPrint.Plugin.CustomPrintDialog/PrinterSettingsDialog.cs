@@ -1,23 +1,24 @@
-﻿using System;
+﻿using Neodynamic.SDK.Printing;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-
-using Neodynamic.SDK.Printing;
-using System.Runtime.InteropServices;
 
 namespace TLClientPrint.Plugin.CustomPrintDialog
 {
     public partial class PrinterSettingsDialog : Form
     {
-        private static string MAJOR_VERSION = "14.0";
+        private static string MAJOR_VERSION = "15.0";
         private static string FILE_INI = "TLClientPrint.ini";
 
         PrinterSettings _printerSettings = new PrinterSettings();
-        
-        
+
+        List<UsbDevice> _usbDevices = new List<UsbDevice>();
+
         public PrinterSettingsDialog()
         {
             InitializeComponent();
@@ -28,14 +29,41 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
         private void Init()
         {
 
-            
+            List<string> langs = new List<string>();
+            langs.Add("");
+            langs.AddRange(Enum.GetNames(typeof(ProgrammingLanguage)).OrderBy(pl => pl).ToList());
 
+            this.cboProgLang.DataSource = langs.ToArray();
             this.cboProgLang.SelectedIndex = 0;
-            
+
             //Load installed printers...
-            string[] installedPrinters = new string[System.Drawing.Printing.PrinterSettings.InstalledPrinters.Count];
-            System.Drawing.Printing.PrinterSettings.InstalledPrinters.CopyTo(installedPrinters, 0);
-            this.cboPrinters.DataSource = installedPrinters;
+            try
+            {
+                this.cboPrinters.DataSource = PrintUtils.GetInstalledPrinters();
+            }
+            catch { }
+
+            //Load USB devices
+            try
+            {
+                _usbDevices = PrintUtils.GetUsbDevices();
+
+                foreach (var usbDevice in _usbDevices)
+                {
+                    this.cboUsbDevices.Items.Add(usbDevice.Name);
+                }
+
+                if (_usbDevices.Count > 0)
+                {
+                    this.cboUsbDevices.SelectedIndex = 0;
+                    this.txtUsbDevicePath.Text = _usbDevices[0].DevicePath;
+                }
+                else
+                {
+                    this.cboUsbDevices.Enabled = false;
+                }
+            }
+            catch { }
 
             //Load Serial Comm settings...
             this.cboSerialPorts.DataSource = System.IO.Ports.SerialPort.GetPortNames();
@@ -51,7 +79,8 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
             {
                 this.nudDpi.Value = decimal.Parse(ReadINISetting(FILE_INI, "Settings", "PS.Dpi"));
             }
-            catch { 
+            catch
+            {
             }
 
             try
@@ -71,7 +100,22 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
                     printerName = printerName.Replace("PrintAsGraphics", "");
                 }
 
-                this.cboPrinters.Text = printerName;
+                if (printerName.ToUpperInvariant().Contains("VID_") && printerName.ToUpperInvariant().Contains("PID_"))
+                {
+                    if (_usbDevices.Count > 0)
+                    {
+                        int i = _usbDevices.FindIndex(d => d.DevicePath == printerName);
+                        if (i >= 0)
+                        {
+                            this.cboUsbDevices.SelectedIndex = i;
+                            this.txtUsbDevicePath.Text = printerName;
+                        }
+                    }
+                }
+                else
+                    this.cboPrinters.Text = printerName;
+
+
             }
             catch
             {
@@ -153,14 +197,16 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
             {
                 CommunicationType ct = (CommunicationType)Enum.Parse(typeof(CommunicationType), ReadINISetting(FILE_INI, "Settings", "PS.CommType"));
 
-                if (ct == CommunicationType.USB || ct == CommunicationType.PrinterDriver)
+                if (ct == CommunicationType.PrinterDriver)
                     this.tabControl1.SelectedIndex = 0;
-                else if (ct == CommunicationType.Parallel)
+                else if (ct == CommunicationType.USB)
                     this.tabControl1.SelectedIndex = 1;
-                else if (ct == CommunicationType.Serial)
+                else if (ct == CommunicationType.Parallel)
                     this.tabControl1.SelectedIndex = 2;
-                else if (ct == CommunicationType.Network)
+                else if (ct == CommunicationType.Serial)
                     this.tabControl1.SelectedIndex = 3;
+                else if (ct == CommunicationType.Network)
+                    this.tabControl1.SelectedIndex = 4;
 
             }
             catch
@@ -184,6 +230,29 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
             {
             }
 
+            try
+            {
+                this.nudReplicates.Value = decimal.Parse(ReadINISetting(FILE_INI, "Settings", "Replicates"));
+            }
+            catch
+            {
+            }
+
+            try
+            {
+                this.chkCommandsOptimizationEnabled.Checked = bool.Parse(ReadINISetting(FILE_INI, "Settings", "CommandsOptimizationEnabled"));
+            }
+            catch
+            {
+            }
+
+            try
+            {
+                this.chkDuplex.Checked = bool.Parse(ReadINISetting(FILE_INI, "Settings", "Duplex"));
+            }
+            catch
+            {
+            }
         }
 
 
@@ -199,7 +268,7 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
                 return (int)this.nudCopies.Value;
             }
         }
-        
+
         public PrintOrientation PrintOrientation
         {
             get
@@ -207,10 +276,44 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
                 return (PrintOrientation)Enum.Parse(typeof(PrintOrientation), this.cboPrintOrientation.SelectedItem.ToString());
             }
         }
-        
+
+        public int Replicates
+        {
+            get
+            {
+                return (int)this.nudReplicates.Value;
+            }
+        }
+
+        public bool Duplex
+        {
+            get
+            {
+                return chkDuplex.Checked;
+            }
+        }
+
+        public bool CommandsOptimizationEnabled
+        {
+            get
+            {
+                return chkCommandsOptimizationEnabled.Checked;
+            }
+        }
+
+        public double MarginLeft
+        {
+            get { return (double)this.nudMarginLeft.Value; }
+        }
+
+        public double MarginTop
+        {
+            get { return (double)this.nudMarginTop.Value; }
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;   
+            this.DialogResult = DialogResult.Cancel;
         }
 
         private void btnOk_Click(object sender, EventArgs e)
@@ -233,10 +336,10 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
                 //Update printer comm object...
                 if (this.tabControl1.SelectedIndex == 0)
                 {
-                    //USB
-                    _printerSettings.Communication.CommunicationType = CommunicationType.USB;
+                    //Driver
+                    _printerSettings.Communication.CommunicationType = CommunicationType.PrinterDriver;
                     string printAsGraphics = "";
-                    if (this.cboProgLang.SelectedIndex == 0 || 
+                    if (this.cboProgLang.SelectedIndex == 0 ||
                         this.chkPrintAsImage.Checked)
                         printAsGraphics = "PrintAsGraphics";
 
@@ -244,11 +347,17 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
                 }
                 else if (this.tabControl1.SelectedIndex == 1)
                 {
+                    //USB
+                    _printerSettings.Communication.CommunicationType = CommunicationType.USB;
+                    _printerSettings.PrinterName = this.txtUsbDevicePath.Text;
+                }
+                else if (this.tabControl1.SelectedIndex == 2)
+                {
                     //Parallel
                     _printerSettings.Communication.CommunicationType = CommunicationType.Parallel;
                     _printerSettings.Communication.ParallelPortName = this.txtParallelPort.Text;
                 }
-                else if (this.tabControl1.SelectedIndex == 2)
+                else if (this.tabControl1.SelectedIndex == 3)
                 {
                     //Serial
                     _printerSettings.Communication.CommunicationType = CommunicationType.Serial;
@@ -259,7 +368,7 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
                     _printerSettings.Communication.SerialPortParity = (SerialPortParity)Enum.Parse(typeof(SerialPortParity), this.cboParity.SelectedItem.ToString());
                     _printerSettings.Communication.SerialPortStopBits = (SerialPortStopBits)Enum.Parse(typeof(SerialPortStopBits), this.cboStopBits.SelectedItem.ToString());
                 }
-                else if (this.tabControl1.SelectedIndex == 3)
+                else if (this.tabControl1.SelectedIndex == 4)
                 {
                     //Network
                     _printerSettings.Communication.CommunicationType = CommunicationType.Network;
@@ -272,7 +381,7 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
                     catch
                     { }
 
-                    if(ipAddress != System.Net.IPAddress.None) //use IP
+                    if (ipAddress != System.Net.IPAddress.None) //use IP
                         _printerSettings.Communication.NetworkIPAddress = ipAddress;
                     else //try Host Name
                         _printerSettings.PrinterName = this.txtIPAddress.Text;
@@ -286,11 +395,11 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
                 if (this.cboProgLang.SelectedIndex > 0)
                     _printerSettings.ProgrammingLanguage = (ProgrammingLanguage)Enum.Parse(typeof(ProgrammingLanguage), this.cboProgLang.SelectedItem.ToString());
 
-                
+
                 //Save settings in INI file
                 WriteINISetting(FILE_INI, "Settings", "PS.Dpi", _printerSettings.Dpi.ToString());
                 WriteINISetting(FILE_INI, "Settings", "PS.PrinterName", _printerSettings.PrinterName);
-                WriteINISetting(FILE_INI, "Settings", "PS.ProgrammingLanguage", this.cboProgLang.SelectedIndex > 0 ? _printerSettings.ProgrammingLanguage.ToString():"");
+                WriteINISetting(FILE_INI, "Settings", "PS.ProgrammingLanguage", this.cboProgLang.SelectedIndex > 0 ? _printerSettings.ProgrammingLanguage.ToString() : "");
                 WriteINISetting(FILE_INI, "Settings", "PS.CommType", _printerSettings.Communication.CommunicationType.ToString());
                 WriteINISetting(FILE_INI, "Settings", "PS.NetworkIPAddress", _printerSettings.Communication.NetworkIPAddress.ToString());
                 WriteINISetting(FILE_INI, "Settings", "PS.NetworkPort", _printerSettings.Communication.NetworkPort.ToString());
@@ -305,6 +414,10 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
                 WriteINISetting(FILE_INI, "Settings", "Copies", ((int)this.nudCopies.Value).ToString());
                 WriteINISetting(FILE_INI, "Settings", "PrintOrientation", cboPrintOrientation.SelectedItem.ToString());
 
+                WriteINISetting(FILE_INI, "Settings", "Replicates", ((int)this.nudReplicates.Value).ToString());
+                WriteINISetting(FILE_INI, "Settings", "CommandsOptimizationEnabled", this.chkCommandsOptimizationEnabled.Checked.ToString());
+
+                WriteINISetting(FILE_INI, "Settings", "Duplex", this.chkDuplex.Checked.ToString());
             }
             catch (Exception ex)
             {
@@ -312,7 +425,7 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
                 this.DialogResult = DialogResult.Abort;
             }
 
-            
+
         }
 
         private void PrinterSettingsDialog_FormClosing(object sender, FormClosingEventArgs e)
@@ -356,6 +469,23 @@ namespace TLClientPrint.Plugin.CustomPrintDialog
             }
         }
 
+        private void chkPrintAsImage_CheckedChanged(object sender, EventArgs e)
+        {
+            this.gbMargins.Enabled = this.chkPrintAsImage.Checked;
+        }
 
+        private void chkCenterV_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.chkCenterV.Checked) this.nudMarginTop.Value = -1;
+
+            this.nudMarginTop.Enabled = !this.chkCenterV.Checked;
+        }
+
+        private void chkCenterH_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.chkCenterH.Checked) this.nudMarginLeft.Value = -1;
+
+            this.nudMarginLeft.Enabled = !this.chkCenterH.Checked;
+        }
     }
 }
