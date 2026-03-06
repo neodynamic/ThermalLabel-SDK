@@ -36,7 +36,95 @@ namespace TLWindowsEditorWPFDemo
             // SDK LICENSE
             ThermalLabel.LicenseOwner = "LICENSE OWNER FOR SDK HERE";
             ThermalLabel.LicenseKey = "LICENSE KEY FOR SDK HERE";
+
+
+            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
+            //{
+            //    Name = "Arial Unicode MS",
+            //    CustomFontFile = @"C:\Windows\Fonts\ARIALUNI.TTF"
+            //});
+
+            //FontManager.Add(new Neodynamic.SDK.Printing.Font() {
+            //    Name = "Arial Black",
+            //    CustomFontFile = @"C:\Windows\Fonts\ariblk.ttf"
+            //});
+
+            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
+            //{
+            //    Name = "Arial Narrow",
+            //    CustomFontFile = @"C:\Windows\Fonts\ARIALN.TTF"
+            //});
+
+            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
+            //{
+            //    Name = "Arial Narrow",
+            //    CustomFontFile = @"C:\Windows\Fonts\ARIALNB.TTF",
+            //    Bold = true
+            //});
+
+            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
+            //{
+            //    Name = "Arial Narrow",
+            //    CustomFontFile = @"C:\Windows\Fonts\ARIALNI.TTF",
+            //    Italic = true
+            //});
+
+            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
+            //{
+            //    Name = "Arial Narrow",
+            //    CustomFontFile = @"C:\Windows\Fonts\ARIALNBI.TTF",
+            //    Bold = true,
+            //    Italic = true
+            //});
+
+            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
+            //{
+            //    Name = "Arial",
+            //    CustomFontFile = @"C:\Windows\Fonts\arialbd.TTF",
+            //    Bold = true
+            //});
+
+            //thermalLabelEditor1.DisableShortcuts = KeyboardShortcuts.CtrlC | KeyboardShortcuts.CtrlX | KeyboardShortcuts.CtrlV;
+
+            /*
+            // I18N Sample through .NET classes
+            var enRes = new I18NResource(); // built-in ENGLISH strings
+            var esRes = new I18NResource() // custom SPANISH strings
+            {
+                CultureTwoLetterISOLanguageName = "es",
+                VisualEditorDuplexBackSide = "REVERSO",
+                VisualEditorDuplexFrontSide = "ANVERSO"
+            };
+            var itRes = new I18NResource() // custom ITALIAN strings
+            {
+                CultureTwoLetterISOLanguageName = "it",
+                VisualEditorDuplexBackSide = "DIETRO",
+                VisualEditorDuplexFrontSide = "DAVANTI"
+            };
+            // List of supported cultures: "en", "es" and "it"
+            var myRes = new List<I18NResource>() { enRes, esRes, itRes };
+            ThermalLabel.I18N = new I18N(myRes, "it", "en"); // Setting ITALIAN as current culture
+            */
+
+            /*
+            // I18N Sample through JSON string
+            // List of supported cultures: "en", "es" and "it"
+            string jsonI18NResources = "{\"en\":{\"VisualEditorDuplexFrontSide\":\"FRONT\",\"VisualEditorDuplexBackSide\":\"BACK\"},\"es\":{\"VisualEditorDuplexFrontSide\":\"ANVERSO\",\"VisualEditorDuplexBackSide\":\"REVERSO\"},\"it\":{\"VisualEditorDuplexFrontSide\":\"DAVANTI\",\"VisualEditorDuplexBackSide\":\"DIETRO\"}}";
             
+            ThermalLabel.I18N = new I18N(jsonI18NResources, "it", "en"); // Setting ITALIAN as current culture
+            */
+
+            // CUSTOM FUNC EXPRESSION Passing Item Obj as param
+            // Must be invoked as: GetTextAutoSizeHeight(Obj_Items_NAME) 
+            Func<object, double> GetTextAutoSizeHeight = (myItem) => {
+                if (myItem != null && myItem is TextItem)
+                {
+                    return ((TextItem)myItem).GetAutoSize().Item2;
+                }
+                return 0;
+            };
+            ExpressionBuilder.SetCustomFunction("GetTextAutoSizeHeight", GetTextAutoSizeHeight);
+
 
             InitializeComponent();
         }

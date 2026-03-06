@@ -136,6 +136,17 @@ namespace TLWindowsEditorWinFormsDemo
             
             ThermalLabel.I18N = new I18N(jsonI18NResources, "it", "en"); // Setting ITALIAN as current culture
             */
+
+            // CUSTOM FUNC EXPRESSION Passing Item Obj as param
+            // Must be invoked as: GetTextAutoSizeHeight(Obj_Items_NAME) 
+            Func<object, double> GetTextAutoSizeHeight = (myItem) => {
+                if (myItem != null && myItem is TextItem)
+                {
+                    return ((TextItem)myItem).GetAutoSize().Item2;
+                }
+                return 0;
+            };
+            ExpressionBuilder.SetCustomFunction("GetTextAutoSizeHeight", GetTextAutoSizeHeight);
         }
 
 

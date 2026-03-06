@@ -74,6 +74,10 @@ namespace TLWindowsEditorWinFormsDemo
             if (_supportedExpressions.Find(t => t.Item2 == "PRODUCT_NAME") == null)
                 _supportedExpressions.Add(new Tuple<string, string, string, string, string>("Variables", "PRODUCT_NAME", "PRODUCT_NAME", $"Returns the product name.", $"PRODUCT_NAME"));
 
+            // Adding end-user help for custom GetTextAutoSizeHeight expression which was created in the MainForm
+            if (_supportedExpressions.Find(t => t.Item2 == "GetTextAutoSizeHeight") == null)
+                _supportedExpressions.Add(new Tuple<string, string, string, string, string>("CustomFunctions", "GetTextAutoSizeHeight", "GetTextAutoSizeHeight(Obj_Items_{TextItemName})", $"Returns the autosize Height value of the specified TextItem.", $"GetTextAutoSizeHeight(Obj_Items_{{TextItemName}})"));
+
 
             //load Expression Categories
             this.lstExprCategories.DataSource = _supportedExpressions.Select(t => t.Item1.Replace("Functions", " Functions").Replace("Operators", " Operators").Replace("Attributes", " Attributes")).ToList().Distinct().ToList();
