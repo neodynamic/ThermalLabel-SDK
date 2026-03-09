@@ -53,13 +53,13 @@
 
   <ItemGroup>
 	<PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting.NetCore">
-      <Version>15.0.0</Version>
+      <Version>15.0.26.225</Version>
     </PackageReference>
     <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor.NetCore">
-      <Version>15.0.0</Version>
+      <Version>15.0.26.309</Version>
     </PackageReference>
     <PackageReference Include="Neodynamic.SDK.ThermalLabel">
-      <Version>15.0.0</Version>
+      <Version>15.0.26.309</Version>
     </PackageReference>
     <PackageReference Include="SkiaSharp" Version="3.119.2" />
     <PackageReference Include="SkiaSharp.HarfBuzz" Version="3.119.2" />

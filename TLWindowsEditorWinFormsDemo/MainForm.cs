@@ -67,6 +67,12 @@ namespace TLWindowsEditorWinFormsDemo
 
             this.tsbInsertTable.DropDown = tsTableSizer;
 
+            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
+            //{
+            //    Name = "Arial Unicode MS",
+            //    CustomFontFile = @"C:\Windows\Fonts\ARIALUNI.TTF"
+            //});
+
             //FontManager.Add(new Neodynamic.SDK.Printing.Font() {
             //    Name = "Arial Black",
             //    CustomFontFile = @"C:\Windows\Fonts\ariblk.ttf"
@@ -147,6 +153,7 @@ namespace TLWindowsEditorWinFormsDemo
                 return 0;
             };
             ExpressionBuilder.SetCustomFunction("GetTextAutoSizeHeight", GetTextAutoSizeHeight);
+
         }
 
 
@@ -269,6 +276,9 @@ namespace TLWindowsEditorWinFormsDemo
             thermalLabelEditor1.SnapToItems = true;
             //thermalLabelEditor1.GuidelineColor = System.Drawing.Color.OrangeRed;
 
+            // label outline
+            tvwItems.AfterSelect += tvwItems_AfterSelect;
+
         }
 
         private void ThermalLabelEditor1_ViewRotationChanged(object sender, EventArgs e)
@@ -283,6 +293,7 @@ namespace TLWindowsEditorWinFormsDemo
         {
             Console.WriteLine(DateTime.Now.Ticks);
 
+            SetLabelItems();
         }
 
         private void thermalLabelEditor1_CurrentSelectionTextChanged(object sender, TextChangedEventArgs e)
@@ -546,6 +557,9 @@ namespace TLWindowsEditorWinFormsDemo
 
                     //load label expressions
                     SetLabelExpressions(tl.Expressions.ToList<string>());
+
+                    //outline label items
+                    SetLabelItems();
 
                     this.tabMain.SelectedIndex = 1;
                 }
@@ -897,6 +911,9 @@ namespace TLWindowsEditorWinFormsDemo
         private void thermalLabelEditor1_SelectionChanged(object sender, EventArgs e)
         {
             SetCurrentSelectedItem();
+
+            // update label outline
+            SetLabelItems();
         }
 
         private void thermalLabelEditor1_SelectionItemPropertyChanged(object sender, EventArgs e)
@@ -952,7 +969,6 @@ namespace TLWindowsEditorWinFormsDemo
                 propertyGrid1.SelectedObject = selItem;
             }
 
-            
             //enable-disable context menu items based on the selected item
             cmSep1.Visible = cmExpressionSeparator.Visible = cmExpression.Visible = _currentSelectedItem is ImageItem ||
                              _currentSelectedItem is TextItem ||
@@ -971,6 +987,7 @@ namespace TLWindowsEditorWinFormsDemo
             var topPadding = 5;
             this.propertyGrid1.Location = new Point(this.propertyGrid1.Location.X, this.pnlBarcodeSymbology.Visible ? this.pnlBarcodeSymbology.Height + topPadding * 2 : topPadding);
             this.propertyGrid1.Size = new Size(this.propertyGrid1.Size.Width, this.pnlBarcodeSymbology.Visible ? this.tabProperties.Size.Height - (this.pnlBarcodeSymbology.Height + topPadding * 3) : this.tabProperties.Size.Height - topPadding * 2);
+
         }
 
        
@@ -1271,7 +1288,7 @@ namespace TLWindowsEditorWinFormsDemo
                 {
                     ImageSettings imgSettings = new ImageSettings();
                     imgSettings.AntiAlias = true;
-                    
+
                     //open save dialog...
                     SaveFileDialog dlg = new SaveFileDialog();
                     if (imageFormat == ImageFormat.Jpeg)
@@ -1544,6 +1561,8 @@ namespace TLWindowsEditorWinFormsDemo
             thermalLabelEditor1.LoadThermalLabel(tl);
             //load label expressions
             SetLabelExpressions(tl.Expressions.ToList<string>());
+            //outline label items
+            SetLabelItems();
 
             this.tabMain.SelectedIndex = 1;
         }
@@ -1629,6 +1648,55 @@ namespace TLWindowsEditorWinFormsDemo
             this.txtLabelExpressions.Text = exprBuffer.ToString();
 
         }
+
+
+        bool _selectItemsFromCanvas = false;
+
+        private void SetLabelItems()
+        {
+            tvwItems.BeginUpdate();
+            tvwItems.Nodes.Clear();
+
+            TreeNode root = new TreeNode("ThermalLabel");
+            
+            try
+            {
+                var items = thermalLabelEditor1.CreateThermalLabel().Items;
+                root.Nodes.AddRange(items.Select(s => new TreeNode($"{s.Name} [{s.GetType().ToString().Replace("Neodynamic.SDK.Printing.", "")}]", imageList2.Images.IndexOfKey(s.GetType().ToString().Replace("Neodynamic.SDK.Printing.", "")), imageList2.Images.IndexOfKey(s.GetType().ToString().Replace("Neodynamic.SDK.Printing.", "")))).ToArray());
+
+                tvwItems.Nodes.Add(root);
+
+                _selectItemsFromCanvas = true;
+
+                var indexes = thermalLabelEditor1.GetSelectedItemsIndexes();
+                // treeview does not support multiple selection
+                if (indexes.Length == 1)
+                    tvwItems.SelectedNode = root.Nodes[indexes[0]];                
+            }
+            catch
+            {
+
+            }
+            
+            root.Expand();
+
+            tvwItems.EndUpdate();
+
+            _selectItemsFromCanvas = false;
+        }
+
+        private void tvwItems_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if (_selectItemsFromCanvas == false)
+            {
+                if (e.Node.Parent == null) return;
+
+                var idx = tvwItems.Nodes[0].Nodes.IndexOf(e.Node);
+                if (idx != -1)
+                    thermalLabelEditor1.SelectItemByIndex(idx);
+            }
+        }
+
 
         private void SetLabelExpressions(ref ThermalLabel tLabel)
         {

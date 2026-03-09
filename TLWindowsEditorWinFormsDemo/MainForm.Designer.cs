@@ -218,6 +218,9 @@
             this.cmSelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.cmExpressionSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.cmExpression = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tvwItems = new System.Windows.Forms.TreeView();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -238,6 +241,7 @@
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripContainer1
@@ -429,6 +433,7 @@
             this.tabControl1.Controls.Add(this.tabProperties);
             this.tabControl1.Controls.Add(this.tabDataSource);
             this.tabControl1.Controls.Add(this.tabExpressions);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tabControl1.ImageList = this.imageList1;
@@ -1976,6 +1981,44 @@
             this.cmExpression.Text = "Expression...";
             this.cmExpression.Click += new System.EventHandler(this.cmExpression_Click);
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.tvwItems);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(342, 451);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "Items";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tvwItems
+            // 
+            this.tvwItems.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvwItems.HideSelection = false;
+            this.tvwItems.ImageIndex = 0;
+            this.tvwItems.ImageList = this.imageList2;
+            this.tvwItems.Location = new System.Drawing.Point(3, 3);
+            this.tvwItems.Name = "tvwItems";
+            this.tvwItems.SelectedImageIndex = 0;
+            this.tvwItems.Size = new System.Drawing.Size(336, 445);
+            this.tvwItems.TabIndex = 0;
+            // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "Label");
+            this.imageList2.Images.SetKeyName(1, "RectangleShapeItem");
+            this.imageList2.Images.SetKeyName(2, "LineShapeItem");
+            this.imageList2.Images.SetKeyName(3, "EllipseShapeItem");
+            this.imageList2.Images.SetKeyName(4, "RepeaterItem");
+            this.imageList2.Images.SetKeyName(5, "LiteralItem");
+            this.imageList2.Images.SetKeyName(6, "TableShapeItem");
+            this.imageList2.Images.SetKeyName(7, "TextItem");
+            this.imageList2.Images.SetKeyName(8, "ImageItem");
+            this.imageList2.Images.SetKeyName(9, "BarcodeItem");
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2018,6 +2061,7 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2212,6 +2256,9 @@
         private System.Windows.Forms.ToolStripDropDownButton tsbInsertTable;
         private System.Windows.Forms.ToolStripButton tsbRepeater;
         private System.Windows.Forms.ToolStripButton tsbLiteral;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TreeView tvwItems;
+        private System.Windows.Forms.ImageList imageList2;
     }
 }
 
