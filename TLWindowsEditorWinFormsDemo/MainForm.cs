@@ -678,10 +678,11 @@ namespace TLWindowsEditorWinFormsDemo
                         using (WindowsPrintJob pj = new WindowsPrintJob(frmPrintJob.PrinterSettings))
                         {
                             pj.Copies = frmPrintJob.Copies; // set copies
+                            pj.Replicates = frmPrintJob.Replicates; // set replicates for data binding copies
                             pj.PrintOrientation = frmPrintJob.PrintOrientation; //set orientation
                             pj.ThermalLabel = tLabel; // set the ThermalLabel object
 
-                            //pj.CommandsOptimizationEnabled = false;
+                            pj.CommandsOptimizationEnabled = frmPrintJob.CommandsOptimizationEnabled;
 
                             if (frmPrintJob.PrintAsGraphic)
                             {
