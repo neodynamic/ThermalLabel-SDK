@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -16,6 +17,8 @@ namespace TLWindowsEditorWinFormsDemo
         PrinterSettings _printerSettings = new PrinterSettings();
 
         List<UsbDevice> _usbDevices = new List<UsbDevice>();
+
+        List<HidDevice> _hidDevices = new List<HidDevice>();
 
         public PrintJobDialog()
         {
@@ -59,6 +62,30 @@ namespace TLWindowsEditorWinFormsDemo
                 else
                 {
                     this.cboUsbDevices.Enabled = false;
+                }
+            }
+            catch { }
+
+            //Load HID devices
+            try
+            {
+                _hidDevices = PrintUtils.GetHidDevices();
+
+                if (_hidDevices != null)
+                {
+                    foreach (var hidDevice in _hidDevices)
+                    {
+                        this.cboHidDevices.Items.Add(hidDevice.ToString());
+                    }
+                }
+
+                if (_hidDevices != null && _hidDevices.Count > 0)
+                {
+                    this.cboHidDevices.SelectedIndex = 0;
+                }
+                else
+                {
+                    this.cboHidDevices.Enabled = false;
                 }
             }
             catch { }
@@ -212,6 +239,26 @@ namespace TLWindowsEditorWinFormsDemo
                     _printerSettings.Communication.NetworkPort = int.Parse(this.txtIPPort.Text);
 
                 }
+                else if (this.tabControl1.SelectedIndex == 5)
+                {
+                    //HID
+                    _printerSettings.Communication.CommunicationType = CommunicationType.HID;
+
+                    _printerSettings.Communication.HidVendorId = int.Parse(this.txtHidVendorId.Text.Trim(), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+                    _printerSettings.Communication.HidProductId = int.Parse(this.txtHidProductId.Text.Trim(), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+
+                    _printerSettings.Communication.HidReportId = string.IsNullOrWhiteSpace(this.txtHidReportId.Text)
+                        ? (byte)0
+                        : byte.Parse(this.txtHidReportId.Text.Trim(), CultureInfo.InvariantCulture);
+
+                    _printerSettings.Communication.HidUsagePage = string.IsNullOrWhiteSpace(this.txtHidUsagePage.Text)
+                        ? -1
+                        : int.Parse(this.txtHidUsagePage.Text.Trim(), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+
+                    _printerSettings.Communication.HidUsageId = string.IsNullOrWhiteSpace(this.txtHidUsageId.Text)
+                        ? -1
+                        : int.Parse(this.txtHidUsageId.Text.Trim(), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+                }
 
                 _printerSettings.Dpi = (double)this.nudDpi.Value;
 
@@ -219,7 +266,7 @@ namespace TLWindowsEditorWinFormsDemo
                     _printerSettings.ProgrammingLanguage = (ProgrammingLanguage)Enum.Parse(typeof(ProgrammingLanguage), this.cboProgLang.SelectedItem.ToString());
 
 
-                
+
             }
             catch (Exception ex)
             {
@@ -255,6 +302,33 @@ namespace TLWindowsEditorWinFormsDemo
             if (this.chkCenterH.Checked) this.nudMarginLeft.Value = -1;
 
             this.nudMarginLeft.Enabled = !this.chkCenterH.Checked;
+        }
+
+        private void cboHidDevices_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idx = this.cboHidDevices.SelectedIndex;
+
+            if (idx < 0 || _hidDevices == null || idx >= _hidDevices.Count)
+                return;
+
+            var dev = _hidDevices[idx];
+
+            this.txtHidVendorId.Text = dev.VendorId.ToString("X4", CultureInfo.InvariantCulture);
+            this.txtHidProductId.Text = dev.ProductId.ToString("X4", CultureInfo.InvariantCulture);
+
+            // Only pre-fill Usage Page/Usage ID when the device actually exposes an Output Report
+            // (i.e. it looks usable for printing); otherwise leave them blank so FindHidDevice() falls
+            // back to matching by VID/PID alone at print time, same as leaving these fields empty by hand.
+            if (dev.OutputReportLength > 0)
+            {
+                this.txtHidUsagePage.Text = dev.UsagePage.ToString("X4", CultureInfo.InvariantCulture);
+                this.txtHidUsageId.Text = dev.UsageId.ToString("X4", CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                this.txtHidUsagePage.Text = "";
+                this.txtHidUsageId.Text = "";
+            }
         }
     }
 }

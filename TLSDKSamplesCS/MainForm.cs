@@ -29,6 +29,8 @@ namespace ThermalLabelSdkSamplesCS
         public MainForm()
         {
             InitializeComponent();
+
+            
         }
 
         
@@ -103,7 +105,7 @@ namespace ThermalLabelSdkSamplesCS
                     {
                         pj.ThermalLabel = _currentThermalLabel;
                         pj.Copies = copies;
-
+                        
                         ImageSettings imgSett = new ImageSettings();
                         imgSett.ImageFormat = ImageFormat.Png;
                         imgSett.AntiAlias = true;
@@ -159,11 +161,8 @@ namespace ThermalLabelSdkSamplesCS
             }
         }
 
-
-
         private ThermalLabel GenerateBasicThermalLabel()
         {
-
 
             //Define a ThermalLabel object and set unit to inch and label size
             ThermalLabel tLabel = new ThermalLabel(UnitType.Inch, 4, 3);
@@ -191,8 +190,6 @@ namespace ThermalLabelSdkSamplesCS
             tLabel.Items.Add(bcItem2D);
 
             return tLabel;
-
-    
         }
 
 
@@ -275,7 +272,7 @@ namespace ThermalLabelSdkSamplesCS
             txtSN.TextPadding = new FrameThickness(0.03);
             //set border
             txtSN.BorderThickness = new FrameThickness(0.02);
-            txtSN.TextAlignment = TextAlignment.Center;
+            txtSN.TextAlignment = Neodynamic.SDK.Printing.TextAlignment.Center;
 
             //Define a TextItem for legend
             TextItem txtLegend = new TextItem(txtSN.X + txtSN.Width - txtSN.BorderThickness.Right, txtSN.Y, 3.8 - txtSN.Width + txtSN.BorderThickness.Right, txtSN.Height, "This bike is ridden by race winners! Brought to you by Adventure Works Cycles professional race team.");
@@ -330,6 +327,7 @@ namespace ThermalLabelSdkSamplesCS
 
             return tLabel;
         }
+
 
         private ThermalLabel GenerateAdvancedColorThermalLabel()
         {
@@ -416,7 +414,7 @@ namespace ThermalLabelSdkSamplesCS
             //set border
             txtSN.BorderThickness = new FrameThickness(0.02);
             txtSN.BorderColorHex = "#20A9DD";
-            txtSN.TextAlignment = TextAlignment.Center;
+            txtSN.TextAlignment = Neodynamic.SDK.Printing.TextAlignment.Center;
 
             //Define a TextItem for legend
             TextItem txtLegend = new TextItem(txtSN.X + txtSN.Width - txtSN.BorderThickness.Right, txtSN.Y, 3.8 - txtSN.Width + txtSN.BorderThickness.Right, txtSN.Height, "This bike is ridden by race winners! Brought to you by Adventure Works Cycles professional race team.");
@@ -482,7 +480,6 @@ namespace ThermalLabelSdkSamplesCS
             TextItem txt = new TextItem(0.1, 0.1, 2.8, 0.5, "");
             //set data field
             txt.DataField = "Name";
-            txt.Expression = "[DataFields!Name]";
             //set font
             //txt.Font.Name = Neodynamic.SDK.Printing.Font.NativePrinterFontA;
             txt.Font.Name = "ZPL Font 0";
@@ -492,7 +489,7 @@ namespace ThermalLabelSdkSamplesCS
             txt.BorderThickness = new FrameThickness(0.03);
 
             //set alignment
-            txt.TextAlignment = TextAlignment.Center;
+            txt.TextAlignment = Neodynamic.SDK.Printing.TextAlignment.Center;
             txt.TextPadding = new FrameThickness(0, 0.1, 0, 0);
 
             //Define a BarcodeItem object for encoding product id with a Code 128 symbology
@@ -512,7 +509,7 @@ namespace ThermalLabelSdkSamplesCS
             //Add items to ThermalLabel object...
             tLabel.Items.Add(txt);
             tLabel.Items.Add(bc);
-            
+
             //Create data source...
             List<Product> products = new List<Product>();
             products.Add(new Product("OO2935", "Olive Oil Extra Virgen"));
@@ -522,7 +519,7 @@ namespace ThermalLabelSdkSamplesCS
 
             //set data source...
             tLabel.DataSource = products;
-            
+
             return tLabel;
 
         }
@@ -561,7 +558,7 @@ namespace ThermalLabelSdkSamplesCS
             //Add items to ThermalLabel object...
             tLabel.Items.Add(txt);
             tLabel.Items.Add(bc);
-            
+
             return tLabel;
         }
 

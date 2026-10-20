@@ -1,25 +1,30 @@
 ﻿/*
  * ThermalLabel Web Editor Add-on
- * ThermalLabelWebEditor-15.0.css
+ * ThermalLabelWebEditor-16.0.css
  * @author Neodynamic (http://neodynamic.com/)
  * Contact: https://neodynamic.com/support
  * WebPage: https://neodynamic.com/products/printing/thermal-label/web-editor/
  */
 
 #thermalLabelWebEditor {
-    --workspace-background-color: rgb(205, 209, 214);
+    --workspace-safe-margin: 200;
+    --workspace-background-color: #e0e0e6;
     --label-document-frame-background-image: none;
     --label-document-frame-background-color: #ffffff;
     --label-document-frame-border-color: #a9a9a9;
     --label-document-frame-corner-radius: 10px;
     --grid-color: #cccccc;
     --item-design-time-border-color: #d3d3d364;
-    --item-tooltip-color: #000000;
-    --item-tooltip-background-color: #f5f5f5;
-    --item-tooltip-border-color: #808080;
-    --adorner-handler-background-color: #00ffff;
+    --item-tooltip-color: #0369a1;
+    --item-tooltip-background-color: #e0f2fe;
+    --item-tooltip-border-color: #bae6fd;
+    --item-tooltip-index-color: #ea580c;
+    --adorner-handler-background-color: #38bdf8;
+    --adorner-handler-border-color: #0284c7;
     --adorner-frame-border-color: #000000;
     --adorner-out-of-label-border-color: #ff0000;
+    --adorner-text-color: #0369a1;
+    --adorner-font: 9pt Courier New;
     --repeater-item-color: #00bfff;
     --rulers-background-color: #ffffff;
     --rulers-corner-background-color: #cccccc;
@@ -27,4 +32,14 @@
     --rulers-text-color: #000000;
     --label-document-margin-color: #add8e6;
     --guidelines-color: magenta;
+    --marquee-background-color: rgba(0, 120, 215, 0.2);
+    --marquee-border-color: #0078d7;
+    --marquee-border-dash-array: 4, 4;
+    --duplex-legends-color: #2d2d30;
+    --duplex-flip-color: #2d2d30;
+    --duplex-flip-hover-color: #00a2da;
+    --tray-background-color: #f1f1f5;
+    --tray-border-color: #ccccd6;
+    --tray-frame-gap: 8;
+    --tray-icon-size: 32;
 }

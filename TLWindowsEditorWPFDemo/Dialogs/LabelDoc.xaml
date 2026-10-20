@@ -26,6 +26,9 @@
                 <TabItem Header="Multi Pages" Name="tabPages">
                     <Image Name="picPages" Stretch="Fill" Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}" Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}"></Image>
                 </TabItem>
+                <TabItem Header="Duplex Label" Name="tabDuplex">
+                    <Image Name="picDuplexLabel" Stretch="Fill" Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}" Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}"></Image>
+                </TabItem>
             </TabControl>
 
         </StackPanel>
@@ -37,11 +40,17 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="Label" Padding="10">
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Width:"  />
-                    <TextBox   Name="txtWidth" Width="90" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="0" />
-                    <Label Content="Height:" Margin="10 0 0 0" />
-                    <TextBox  Name="txtHeight" Width="90" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="0" />
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Width:"  />
+                        <TextBox   Name="txtWidth" Width="90" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="0" />
+                        <Label Content="Height:" Margin="10 0 0 0" />
+                        <TextBox  Name="txtHeight" Width="90" my:TextBoxMaskBehavior.Mask="Decimal" my:TextBoxMaskBehavior.MinimumValue="0" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
+                        <Label Content="Shape:"  />
+                        <ComboBox  HorizontalAlignment="Left"  Name="cboLabelShape" ItemsSource="{Binding}" />
+                    </StackPanel>
                 </StackPanel>
             </GroupBox>
             <GroupBox Name="gbMargin" Header="Margin" Padding="10">
@@ -61,7 +70,7 @@
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
-            <GroupBox Name="gbVLayout" Header="Vartical Layout" Padding="10">
+            <GroupBox Name="gbVLayout" Header="Vertical Layout" Padding="10">
                 <StackPanel>
                     <CheckBox Content="Is Continuous?" Name="chkIsContinuous" Checked="chkIsContinuous_Checked" Unchecked="chkIsContinuous_Unchecked" />
                     <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
@@ -111,7 +120,14 @@
                 </StackPanel>
             </GroupBox>
             <GroupBox Name="gbPages" Header="Pages" Padding="10" Height="200">
-                <DataGrid x:Name="dgPages" CanUserAddRows="True" AutoGenerateColumns="True" ColumnWidth="*" CanUserSortColumns="False" CanUserReorderColumns="False"></DataGrid>
+                <DataGrid x:Name="dgPages" CanUserAddRows="True" AutoGenerateColumns="False" ColumnWidth="*" CanUserSortColumns="False" CanUserReorderColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="X" Binding="{Binding X}" />
+                        <DataGridTextColumn Header="Y" Binding="{Binding Y}" />
+                        <DataGridTextColumn Header="Width" Binding="{Binding Width}" />
+                        <DataGridTextColumn Header="Height" Binding="{Binding Height}" />
+                    </DataGrid.Columns>
+                </DataGrid>
             </GroupBox>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1"  Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Right" Width="190">

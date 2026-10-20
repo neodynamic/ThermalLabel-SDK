@@ -1,4 +1,4 @@
-var neoPropertyGrid = {
+﻿var neoPropertyGrid = {
 
     numOfFractionalDigits: 4,
 
@@ -22,39 +22,16 @@ var neoPropertyGrid = {
         }
 
         try {
-            if (targetTypeName === 'ThermalLabel') {
-                var tl = tleditor.get_thermal_label;
-
-                if (tl[propName] !== undefined) {
-                    //var tl = Neodynamic.Web.Utils.Cloner.cloneThermalLabel(curTL);
-
-                    tl[propName] = value;
-
-                    //if (propName === "unit_type") {
-                    //    for (var i = 0; i < tl.items.length; i++) {
-                    //        var myItem = tl.items[i];
-                    //        myItem.unit_type = tl.unit_type;
-                    //        myItem.refresh();
-                    //    }
-                    //}
-
-                    if (propName === "unit_type" ||
-                        propName === "height" ||
-                        propName === "width") {
-                        tleditor.undoRedo = true;
-                        tleditor.loadThermalLabel(tl);
-                    }
-
-                    tleditor.saveCurrentLabelCanvasState();
-                }
-
-            } else if (tleditor.current_selection &&
-                tleditor.current_selection[propName] !== undefined) {
-
+            if (tleditor.current_selection && tleditor.current_selection[propName] !== undefined) {
                 tleditor.current_selection[propName] = value;
                 tleditor.current_selection.refresh();
-
                 tleditor.saveCurrentLabelCanvasState();
+            } else {
+                var tl = tleditor.get_thermal_label;
+                if (tl[propName] !== undefined) {
+                    tl[propName] = value;
+                    tleditor.saveCurrentLabelCanvasState();
+                }
             }
         }
         catch (err) {
@@ -266,6 +243,8 @@ var neoPropertyGrid = {
                             propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "CodePage", propObj.name, propObj.class_name, o, objVal[o], timestamp);
                         else if (o === "dither_method")
                             propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "DitherMethod", propObj.name, propObj.class_name, o, objVal[o], timestamp);
+                        else if (o === "kill_password" || o === "access_password" || o === "epc_memory_bank" || o === "user_memory_bank")
+                            propGridContent += this.createSelectForEnumComplexProp(targetTypeName, "RFIDLockValue", propObj.name, propObj.class_name, o, objVal[o], timestamp);
                         else {
                             if (isTableColumn)
                                 propGridContent += '<input type="number" class="form-control input-sm" value="' + objVal[o].toFixed(this.numOfFractionalDigits) + '" onchange="neoPropertyGrid.updateTableColumn(' + propObj.index + ',\'' + o + '\', this.value)" step="any" min="0"/>';
@@ -284,7 +263,8 @@ var neoPropertyGrid = {
                         else
                             propGridContent += '<input type="color" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + propObj.name + '\', this.value,\'' + timestamp + '\')" />';
                     }
-                    else if ((propObj.name === "font" || propObj.name === "text_font") && o === "name")
+                    else if (((propObj.name === "font" || propObj.name === "text_font") && o === "name") ||
+                        (propObj.name === "lock_memory_bank" && (o === "kill_password" || o === "access_password" || o === "epc_memory_bank" || o === "user_memory_bank")))
                         propGridContent += this.createSelectForFont(targetTypeName, propObj.name, propObj.class_name, o, objVal[o], timestamp);
                     else
                         propGridContent += '<input type="text" class="form-control input-sm" value="' + objVal[o] + '" onchange="neoPropertyGrid.updateComplexProp(\'' + targetTypeName + '\',\'' + propObj.name + '\', \'' + propObj.class_name + '\',\'' + o + '\', \'' + typeof (objVal[o]) + '\', this.value,\'' + timestamp + '\')" />';
@@ -379,6 +359,8 @@ var neoPropertyGrid = {
         sel += '<li><a href="#" onclick="$(\'#' + id + '\').val(this.innerHTML).trigger(\'change\');">NativePrinterFontB</a></li>';
         sel += '<li><a href="#" onclick="$(\'#' + id + '\').val(this.innerHTML).trigger(\'change\');">NativePrinterFontS</a></li>';
         sel += '<li><a href="#" onclick="$(\'#' + id + '\').val(this.innerHTML).trigger(\'change\');">ZPL Font 0</a></li>';
+        sel += '<li><a href="#" onclick="$(\'#' + id + '\').val(this.innerHTML).trigger(\'change\');">OCR A</a></li>';
+        sel += '<li><a href="#" onclick="$(\'#' + id + '\').val(this.innerHTML).trigger(\'change\');">OCR B</a></li>';
         sel += '<li><a href="#" onclick="$(\'#' + id + '\').val(this.innerHTML).trigger(\'change\');">Arial</a></li>';
         sel += '<li><a href="#" onclick="$(\'#' + id + '\').val(this.innerHTML).trigger(\'change\');">Comic Sans MS</a></li>';
         sel += '<li><a href="#" onclick="$(\'#' + id + '\').val(this.innerHTML).trigger(\'change\');">Courier New</a></li>';
@@ -416,7 +398,7 @@ var neoPropertyGrid = {
         var targetTypeName = theObj.constructor.name;
 
         //console.log(theObj.constructor.name);
-        var propGridContent = '<table class="table table-hover table-condensed neoPropGrid">';
+        var propGridContent = '<table class="table table-hover table-condensed small neoPropGrid">';
         propGridContent += '<thead><tr class="info" colspan="2"><th>' + targetTypeName + '</th></tr></thead><tbody>';
 
         var barcodeRelatedProps;
@@ -424,6 +406,10 @@ var neoPropertyGrid = {
             barcodeRelatedProps = Neodynamic.Web.Utils.BarcodeItemUtils.getRelatedProperties(theObj.symbology);
         }
 
+        var nonVisualItemsHideProps;
+        if (targetTypeName === "RFIDTagItem" || targetTypeName === "LiteralItem") {
+            nonVisualItemsHideProps = ['x', 'y', 'print_as_graphic', 'use_cache', 'visible', 'locked', 'read_only'];
+        }
 
         var props = [];
 
@@ -442,8 +428,17 @@ var neoPropertyGrid = {
                     propAccepted = barcodeRelatedProps.indexOf(prop) > -1;
                 }
 
+                if (nonVisualItemsHideProps) {
+                    propAccepted = nonVisualItemsHideProps.indexOf(prop) == -1;
+                }
+
+
                 if (propAccepted) {
-                    props.push({ "name": prop, "type": typeof (theObj[prop]), "value": theObj[prop], "class_name": theObj[prop] !== null ? theObj[prop].constructor.name : "", "desc": prop.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function (key, p1) { return key.toUpperCase(); }) });
+
+                    var propType = typeof (theObj[prop]);
+                    if (prop == "data_source") propType = "string";
+
+                    props.push({ "name": prop, "type": propType, "value": theObj[prop], "class_name": theObj[prop] !== null ? theObj[prop].constructor.name : "", "desc": prop.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function (key, p1) { return key.toUpperCase(); }) });
                 }
 
             }
@@ -468,7 +463,7 @@ var neoPropertyGrid = {
 
         for (var p in props) {
 
-            if (isTL && (props[p].name === "items" || props[p].name === "expressions" || props[p].name.indexOf("data") > -1 || props[p].name === "pages")) continue;
+            if (isTL && (props[p].name === "items" || props[p].name === "expressions" || props[p].name === "pages")) continue;
             if (!isTL && props[p].name === "unit_type") continue;
 
             if (props[p].name === "columns" || props[p].name === "rows") {
@@ -487,7 +482,7 @@ var neoPropertyGrid = {
 
                 if (props[p].desc.indexOf("Color Hex") > 0)
                     propGridContent += '<input type="color" class="form-control input-sm" value="' + propVal + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,\'' + timestamp + '\')" />';
-                else if (props[p].name === "text" || props[p].name === "comments" || props[p].name === "design_background_image")
+                else if (props[p].name === "text" || props[p].name === "comments" || props[p].name === "design_background_image" || props[p].name === "data_source")
                     propGridContent += '<textarea class="form-control input-sm" rows="3" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,\'' + timestamp + '\')">' + propVal + '</textarea>';
                 else if (props[p].name === "expression") {
                     var regEx = /_x[0-9A-Fa-f]{4}_/g;
@@ -506,7 +501,7 @@ var neoPropertyGrid = {
                     propGridContent += '<div class="input-group">';
                     id = 'expr' + id;
                     propGridContent += '<input type="text" id="' + id + '" class="form-control input-sm" value="' + propVal + '" onchange="neoPropertyGrid.updateProp(\'' + targetTypeName + '\',\'' + props[p].name + '\', this.value,\'' + timestamp + '\');" />';
-                    propGridContent += '<span class="input-group-btn"><button class="btn btn-primary btn-sm" onclick="exprBuilder.openExpressionBuilder($(\'#' + id + '\').val()); exprBuilder.curElemId = \'' + id + '\';"><em><strong>fx</strong></em></button></span>';
+                    propGridContent += '<span class="input-group-btn"><button class="btn btn-primary btn-sm" onclick="exprBuilder.openExpressionBuilder($(\'#' + id + '\').val()); exprBuilder.curElemId = \'' + id + '\';"><em><strong>ƒx</strong></em></button></span>';
                     propGridContent += '</div>';
                 }
                 else if (props[p].type === "number") {
@@ -514,10 +509,14 @@ var neoPropertyGrid = {
                         propGridContent += this.createSelectForEnum(targetTypeName, "Color", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "unit_type")
                         propGridContent += this.createSelectForEnum(targetTypeName, "UnitType", props[p].value, props[p].name, timestamp);
+                    else if (props[p].name === "shape")
+                        propGridContent += this.createSelectForEnum(targetTypeName, "LabelShape", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "sizing")
                         propGridContent += this.createSelectForEnum(targetTypeName, theObj.constructor.name === "TextItem" ? "TextSizing" : "BarcodeSizing", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "data_format")
                         propGridContent += this.createSelectForEnum(targetTypeName, "RFIDTagDataFormat", props[p].value, props[p].name, timestamp);
+                    else if (props[p].name === "tag_type")
+                        propGridContent += this.createSelectForEnum(targetTypeName, "RFIDTagType", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "flip" ||
                         props[p].name === "lock_aspect_ratio" ||
                         props[p].name === "aztec_code_format" ||
@@ -570,6 +569,12 @@ var neoPropertyGrid = {
                         propGridContent += this.createSelectForEnum(targetTypeName, "QRCodeVersion", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "qr_code_mask")
                         propGridContent += this.createSelectForEnum(targetTypeName, "QRCodeMask", props[p].value, props[p].name, timestamp);
+                    else if (props[p].name === "art_logo_image_position")
+                        propGridContent += this.createSelectForEnum(targetTypeName, "LogoPosition", props[p].value, props[p].name, timestamp);
+                    else if (props[p].name === "art_module_shape")
+                        propGridContent += this.createSelectForEnum(targetTypeName, "ArtModuleShape", props[p].value, props[p].name, timestamp);
+                    else if (props[p].name === "art_finder_shape")
+                        propGridContent += this.createSelectForEnum(targetTypeName, "ArtFinderShape", props[p].value, props[p].name, timestamp);
                     //else if (props[p].name === "symbology")
                     //    propGridContent += this.createSelectForEnum("BarcodeSymbology", props[p].value, props[p].name, timestamp);
                     else if (props[p].name === "upce_system")

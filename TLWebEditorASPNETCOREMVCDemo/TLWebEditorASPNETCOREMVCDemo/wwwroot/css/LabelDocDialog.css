@@ -1,0 +1,370 @@
+/* Label Document dialog */
+
+#label-document .modal-dialog {
+    width: 920px;
+    max-width: calc(100% - 20px);
+}
+
+#label-document .modal-body {
+    padding: 0;
+}
+
+/* ---- Layout picker ---- */
+.ld-layouts {
+    display: flex;
+    gap: 6px;
+    padding: 12px 15px;
+    border-bottom: 1px solid #e1e1e6;
+    background-color: #fcfcfd;
+    overflow-x: auto;
+}
+
+.ld-layout {
+    flex: 1 1 0;
+    min-width: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 6px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: transparent;
+    color: #666670;
+    font-size: 12px;
+    line-height: 1.25;
+    cursor: pointer;
+    transition: background-color .15s ease, color .15s ease;
+}
+
+    .ld-layout i {
+        font-size: 18px;
+    }
+
+    .ld-layout:hover {
+        color: #1e1e24;
+        background-color: #f0f0f2;
+    }
+
+    .ld-layout.active {
+        color: #337ab7;
+        background-color: #f0f0f2;
+        border-color: #ccd0d6;
+        font-weight: 600;
+    }
+
+    .ld-layout:focus-visible {
+        outline: 2px solid #337ab7;
+        outline-offset: 1px;
+    }
+
+/* ---- Body: diagram | settings ---- */
+.ld-body {
+    display: flex;
+    min-height: 0;
+}
+
+.ld-diagram {
+    flex: 0 0 44%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-right: 1px solid #e1e1e6;
+    background-color: #ffffff;
+}
+
+    .ld-diagram img {
+        max-width: 100%;
+        max-height: 380px;
+        height: auto;
+    }
+
+.ld-settings {
+    flex: 1 1 auto;
+    padding: 15px 18px;
+    max-height: 62vh;
+    overflow-y: auto;
+}
+
+/* ---- Group boxes ---- */
+.ld-group {
+    margin: 0 0 14px 0;
+    padding: 0;
+    border: 0;
+}
+
+    .ld-group > legend {
+        width: auto;
+        margin: 0 0 6px 0;
+        padding: 0;
+        border: 0;
+        font-size: 13px;
+        font-weight: 600;
+        color: #3a3a42;
+    }
+
+    .ld-group .ld-unit-suffix {
+        font-weight: normal;
+        color: #8a8a95;
+        margin-left: 4px;
+    }
+
+.ld-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 12px;
+}
+
+    .ld-grid.ld-grid-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+.ld-field label {
+    display: block;
+    margin: 0 0 2px 0;
+    font-size: 12px;
+    font-weight: normal;
+    color: #666670;
+}
+
+.ld-field .form-control {
+    height: 30px;
+    padding: 4px 8px;
+}
+
+    .ld-field .form-control:disabled {
+        background-color: #f5f5f7;
+        color: #9a9aa5;
+    }
+
+.ld-checks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 18px;
+    margin-bottom: 8px;
+}
+
+    .ld-checks label {
+        font-weight: normal;
+        margin: 0;
+        cursor: pointer;
+    }
+
+    .ld-checks input {
+        margin-right: 5px;
+    }
+
+/* ---- Pages grid ---- */
+.ld-pages {
+    margin-bottom: 6px;
+}
+
+    .ld-pages th {
+        font-size: 12px;
+        font-weight: normal;
+        color: #666670;
+        border-bottom: 1px solid #e1e1e6 !important;
+        padding: 4px !important;
+    }
+
+    .ld-pages td {
+        padding: 3px !important;
+        border-top: 0 !important;
+    }
+
+    .ld-pages .form-control {
+        height: 28px;
+        padding: 3px 6px;
+    }
+
+.ld-pages-del {
+    width: 28px;
+    text-align: center;
+    vertical-align: middle !important;
+}
+
+    .ld-pages-del .btn {
+        color: #b0b0bb;
+    }
+
+        .ld-pages-del .btn:hover {
+            color: #d9534f;
+        }
+
+.ld-pages-empty {
+    font-size: 12px;
+    color: #8a8a95;
+    margin: 4px 0 8px;
+}
+
+/* ---- Footer ---- */
+#label-document .modal-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    #label-document .modal-footer .ld-footer-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-right: auto;
+    }
+
+    #label-document .modal-footer .btn + .btn {
+        margin-left: 0;
+    }
+
+.ld-backimg-thumb {
+    height: 30px;
+    max-width: 60px;
+    object-fit: contain;
+    border: 1px solid #e1e1e6;
+    border-radius: 3px;
+    background: repeating-conic-gradient(#f0f0f2 0% 25%, #ffffff 0% 50%) 50% / 10px 10px;
+}
+
+.ld-errors {
+    margin: 0 18px 12px;
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+/* ---- Small screens ---- */
+@media (max-width: 767px) {
+    .ld-body {
+        flex-direction: column;
+    }
+
+    .ld-diagram {
+        flex-basis: auto;
+        border-right: 0;
+        border-bottom: 1px solid #e1e1e6;
+        padding: 12px;
+    }
+
+        .ld-diagram img {
+            max-height: 180px;
+        }
+
+    .ld-settings {
+        max-height: none;
+    }
+
+    .ld-grid.ld-grid-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #label-document .modal-footer {
+        flex-wrap: wrap;
+    }
+}
+
+/* =====================================================================
+   Editor options dialog (#options)
+   ===================================================================== */
+
+#options .modal-dialog {
+    width: 520px;
+    max-width: calc(100% - 20px);
+}
+
+#options .modal-body {
+    padding: 0;
+}
+
+#options .ld-settings {
+    padding: 15px 18px 4px;
+    max-height: 70vh;
+}
+
+
+#options .ld-group + .ld-group {
+    padding-top: 12px;
+    border-top: 1px solid #eeeef1;
+}
+
+
+#options .opt-grid-types {
+    display: inline-flex;
+    gap: 4px;
+    margin: 0 0 10px 0;
+    padding: 3px;
+    border: 1px solid #e1e1e6;
+    border-radius: 4px;
+    overflow: visible;
+}
+
+    #options .opt-grid-types .ld-layout {
+        flex: 0 0 auto;
+        min-width: 0;
+        flex-direction: row;
+        gap: 6px;
+        padding: 4px 14px;
+    }
+
+        #options .opt-grid-types .ld-layout i {
+            font-size: 14px;
+        }
+
+    #options .opt-grid-types.disabled .ld-layout {
+        opacity: .45;
+        cursor: not-allowed;
+    }
+
+        #options .opt-grid-types.disabled .ld-layout:hover {
+            background-color: transparent;
+            color: #666670;
+        }
+
+
+#options .opt-color {
+    padding: 2px 4px;
+    cursor: pointer;
+}
+
+    #options .opt-color:disabled {
+        cursor: not-allowed;
+        opacity: .6;
+    }
+
+/* Inline validation */
+.ld-field.ld-invalid label {
+    color: #a94442;
+}
+
+.ld-field.ld-invalid .form-control {
+    border-color: #d9534f;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 0 2px rgba(217, 83, 79, .15);
+}
+
+
+#options .modal-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    #options .modal-footer .ld-footer-left {
+        margin-right: auto;
+    }
+
+        #options .modal-footer .ld-footer-left .btn-link {
+            padding-left: 0;
+            color: #666670;
+        }
+
+            #options .modal-footer .ld-footer-left .btn-link:hover {
+                color: #337ab7;
+            }
+
+    #options .modal-footer .btn + .btn {
+        margin-left: 0;
+    }
+
+@media (max-width: 767px) {
+    #options .modal-footer {
+        flex-wrap: wrap;
+    }
+}

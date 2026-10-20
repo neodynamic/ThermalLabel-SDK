@@ -42,6 +42,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+	<Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -125,40 +126,40 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\barcode.png" />
+    <Resource Include="Icons\BarcodeItem.png" />
     <Resource Include="Icons\copy.png" />
     <Resource Include="Icons\cut.png" />
-    <Resource Include="Icons\ellipse.png" />
-    <Resource Include="Icons\line.png" />
+    <Resource Include="Icons\EllipseShapeItem.png" />
+    <Resource Include="Icons\LineShapeItem.png" />
     <Resource Include="Icons\NewFile.png" />
     <Resource Include="Icons\Open.png" />
     <Resource Include="Icons\paste.png" />
-    <Resource Include="Icons\Picture.png" />
+    <Resource Include="Icons\ImageItem.png" />
     <Resource Include="Icons\pointer.png" />
     <Resource Include="Icons\Print.png" />
     <Resource Include="Icons\Properties.png" />
-    <Resource Include="Icons\rect.png" />
+    <Resource Include="Icons\RectangleShapeItem.png" />
     <Resource Include="Icons\Redo.png" />
     <Resource Include="Icons\Save.png" />
-    <Resource Include="Icons\text.png" />
+    <Resource Include="Icons\TextItem.png" />
     <Resource Include="Icons\Undo.png" />
     <Resource Include="Icons\Zoom100.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\RFIDTag.png" />
+    <Resource Include="Icons\RFIDTagItem.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\lock.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting">
-      <Version>15.0.0</Version>
+      <Version>16.0.0</Version>
     </PackageReference>
     <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor">
-      <Version>15.0.0</Version>
+      <Version>16.0.0</Version>
     </PackageReference>
     <PackageReference Include="Neodynamic.SDK.ThermalLabel">
-      <Version>15.0.0</Version>
+      <Version>16.0.0</Version>
     </PackageReference>
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit">
       <Version>4.6.97</Version>
@@ -290,13 +291,16 @@
     <Resource Include="Icons\16x16\ZoomToDoc.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\table.png" />
+    <Resource Include="Icons\TableShapeItem.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\Repeater.png" />
+    <Resource Include="Icons\RepeaterItem.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\literal.png" />
+    <Resource Include="Icons\LiteralItem.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\16x16\outline.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

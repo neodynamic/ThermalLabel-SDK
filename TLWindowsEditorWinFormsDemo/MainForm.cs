@@ -23,7 +23,7 @@ namespace TLWindowsEditorWinFormsDemo
 {
     public partial class MainForm : Form
     {
-        
+
 
 
 
@@ -42,7 +42,7 @@ namespace TLWindowsEditorWinFormsDemo
             // SDK LICENSE
             ThermalLabel.LicenseOwner = "LICENSE OWNER FOR SDK HERE";
             ThermalLabel.LicenseKey = "LICENSE KEY FOR SDK HERE";
-            
+
             InitializeComponent();
 
             WebBrowserHelper.SetWebBrowserFeatures(ref this.webBrowser1);
@@ -169,7 +169,7 @@ namespace TLWindowsEditorWinFormsDemo
             //PropertyGrid custom UI Editors
             var itemProvider = new AssociatedMetadataTypeTypeDescriptionProvider(typeof(Item), typeof(ItemMetadata));
             TypeDescriptor.AddProvider(itemProvider, typeof(Item));
-            var textItemProvider = new AssociatedMetadataTypeTypeDescriptionProvider(typeof(TextItem),typeof(TextItemMetadata));
+            var textItemProvider = new AssociatedMetadataTypeTypeDescriptionProvider(typeof(TextItem), typeof(TextItemMetadata));
             TypeDescriptor.AddProvider(textItemProvider, typeof(TextItem));
             var barcodeItemProvider = new AssociatedMetadataTypeTypeDescriptionProvider(typeof(BarcodeItem), typeof(BarcodeItemMetadata));
             TypeDescriptor.AddProvider(barcodeItemProvider, typeof(BarcodeItem));
@@ -187,6 +187,8 @@ namespace TLWindowsEditorWinFormsDemo
             //var fontProvider = new AssociatedMetadataTypeTypeDescriptionProvider(typeof(Neodynamic.SDK.Printing.Font), typeof(FontMetadata));
             //TypeDescriptor.AddProvider(fontProvider, typeof(Neodynamic.SDK.Printing.Font));
 
+            // Clipboard mode
+            thermalLabelEditor1.ClipboardMode = EditorClipboardMode.System;
 
             //Enable the editor!!!
             thermalLabelEditor1.EnableEditor();
@@ -204,6 +206,13 @@ namespace TLWindowsEditorWinFormsDemo
             thermalLabelEditor1.Leave += thermalLabelEditor1_Leave;
             thermalLabelEditor1.ViewRotationChanged += ThermalLabelEditor1_ViewRotationChanged;
 
+            thermalLabelEditor1.SelectionTransformStarted += ThermalLabelEditor1_SelectionTransformStarted;
+            thermalLabelEditor1.SelectionTransformEnded += ThermalLabelEditor1_SelectionTransformEnded;
+
+            thermalLabelEditor1.LabelLoaded += ThermalLabelEditor1_LabelLoaded;
+
+            thermalLabelEditor1.BeforeDuplexDesignDisabled += ThermalLabelEditor1_BeforeDuplexDesignDisabled;
+
             //THIS IS A LIST OF PROPERTIES FOR CUSTOMIZING THE EDITOR UI
             //==========================================================
 
@@ -219,9 +228,9 @@ namespace TLWindowsEditorWinFormsDemo
             //thermalLabelEditor1.NoImageFileName = @"c:\noimage.jpg";
 
 
-            //thermalLabelEditor1.AdornerHandlerBackColor = System.Drawing.Color.Yellow;
-            //thermalLabelEditor1.AdornerHandlerHoverBackColor = System.Drawing.Color.DarkCyan;
-            //thermalLabelEditor1.AdornerHandlerBorderColor = System.Drawing.Color.Gray;
+            thermalLabelEditor1.AdornerHandlerBackColor = System.Drawing.Color.FromArgb(0xff, 0x38, 0xbd, 0xf8);
+            thermalLabelEditor1.AdornerHandlerHoverBackColor = System.Drawing.Color.Cyan;
+            thermalLabelEditor1.AdornerHandlerBorderColor = System.Drawing.Color.FromArgb(0xff, 0x02, 0x84, 0xc7);
             //thermalLabelEditor1.AdornerFrameBorderColor = System.Drawing.Color.Gray;
 
             //thermalLabelEditor1.AdornerSelectionBackColor = System.Drawing.Color.FromArgb(128, 255, 0, 128);
@@ -233,6 +242,7 @@ namespace TLWindowsEditorWinFormsDemo
 
             //thermalLabelEditor1.TextItemEditModeEnabled = false;
 
+            //thermalLabelEditor1.ShowRuler = false;
 
             //thermalLabelEditor1.SnapToGrid = true;
             //thermalLabelEditor1.GridSize = 0.1;
@@ -240,6 +250,9 @@ namespace TLWindowsEditorWinFormsDemo
             //thermalLabelEditor1.GridColor = System.Drawing.Color.FromArgb(128, 255, 0, 255);
 
             //thermalLabelEditor1.AdornerLegendsVisible = false;
+            //thermalLabelEditor1.AdornerLegendsFontName = "Segoe UI";
+            //thermalLabelEditor1.AdornerLegendsFontSize = 13;
+            thermalLabelEditor1.AdornerLegendsForeColor = System.Drawing.Color.FromArgb(0xff, 0x03, 0x69, 0xa1); ;
 
             //thermalLabelEditor1.AdornerOutOfLabelVisible = false;
             //thermalLabelEditor1.AdornerOutOfLabelColor = System.Drawing.Color.FromArgb(255, 0, 0, 255);
@@ -247,8 +260,20 @@ namespace TLWindowsEditorWinFormsDemo
             //thermalLabelEditor1.ItemToolTipBackColor = System.Drawing.Color.SteelBlue;
             //thermalLabelEditor1.ItemToolTipBorderColor = System.Drawing.Color.SteelBlue;
             //thermalLabelEditor1.ItemToolTipForeColor = System.Drawing.Color.White;
+            //thermalLabelEditor1.ItemIndexToolTipForeColor = System.Drawing.Color.BlueViolet;
+
+            //thermalLabelEditor1.DuplexLegendsForeColor = System.Drawing.Color.DarkGray;
+            //thermalLabelEditor1.DuplexFlipColor = System.Drawing.Color.DarkGray;
+            //thermalLabelEditor1.DuplexFlipHoverColor = System.Drawing.Color.DarkOrange;
 
             //ThermalLabelEditor.IconDataBound = "iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAA8ElEQVR4nHWRsU4CQRRFz7o7xSI2WqyzxgkFUhg/wVg4BRWltb8AISbSGSn5ARptbf0B+QJLKzHZxDWC1CSGhHWthgwzcJNJ7n25p3hvAiy9nxyXVtSNcT7CUeAOHMgDd1wA0E5+sYMHNMb5SKgC9ZgjVIFQBZlOu1uBTKdPwBxA3n2bcXMjkOn0FWjK/myXMIIwQvZnAOemExnzeSW7UJ4mt7EAtXaMcP839gCgc3h/tgBiPL2tnA1Ug0o99MvbAREdXYjNwPOHcfbSrWmvPSmXCfab9tqI2t/QlNaWm9wkl8ADcADsAV/AtRz8rH76H6yTPmPfaITLAAAAAElFTkSuQmCC";
+
+
+            //thermalLabelEditor1.RFIDTagVectorIconData = "";
+            thermalLabelEditor1.RFIDTagVectorIconColor = System.Drawing.Color.DarkRed;
+            //thermalLabelEditor1.LiteralVectorIconData = "";
+            thermalLabelEditor1.LiteralVectorIconColor = System.Drawing.Color.SteelBlue;
+
 
             this.gallery1.EditLabel += Gallery1_EditLabel;
             this.gallery1.DoRefresh();
@@ -276,9 +301,50 @@ namespace TLWindowsEditorWinFormsDemo
             thermalLabelEditor1.SnapToItems = true;
             //thermalLabelEditor1.GuidelineColor = System.Drawing.Color.OrangeRed;
 
-            // label outline
-            tvwItems.AfterSelect += tvwItems_AfterSelect;
+            // label outline (multiple selection + filter by type + search by name/tag/type)
+            tvwItems.NodeSelectable = n => n.Parent != null; // the root node ("ThermalLabel") is not an item
+            tvwItems.SelectedNodesChanged += tvwItems_SelectedNodesChanged;
 
+            cboOutlineScope.Items.AddRange(new object[] { "Name, tag or type", "Name", "Tag", "Type" });
+            cboOutlineScope.SelectedIndex = 0;
+            cboOutlineType.Items.Add(new OutlineTypeFilter { TypeName = null, Caption = "All types" });
+            cboOutlineType.SelectedIndex = 0;
+
+            txtOutlineSearch.TextChanged += outlineFilter_Changed;
+            cboOutlineType.SelectedIndexChanged += outlineFilter_Changed;
+            cboOutlineScope.SelectedIndexChanged += outlineFilter_Changed;
+            txtOutlineSearch.KeyDown += txtOutlineSearch_KeyDown;
+            btnOutlineClear.Click += btnOutlineClear_Click;
+            CueBannerHelper.SetCueBanner(txtOutlineSearch, "Search by name, tag or type...");
+
+        }
+
+        private void ThermalLabelEditor1_BeforeDuplexDesignDisabled(object sender, BeforeDuplexDesignDisabledEventArgs e)
+        {
+            if (MessageBox.Show("Do you really want remove the back side label?","Duplex", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation ) != DialogResult.Yes)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private bool _isDragging = false;
+        private bool _updatingFromPropertyGrid = false;
+
+        private void ThermalLabelEditor1_SelectionTransformStarted(object sender, EventArgs e)
+        {
+            _isDragging = true;
+        }
+
+        private void ThermalLabelEditor1_SelectionTransformEnded(object sender, EventArgs e)
+        {
+            _isDragging = false;
+            SetCurrentSelectedItem();
+        }
+
+
+        private void ThermalLabelEditor1_LabelLoaded(object sender, EventArgs e)
+        {
+            thermalLabelEditor1.Zoom = 0;
         }
 
         private void ThermalLabelEditor1_ViewRotationChanged(object sender, EventArgs e)
@@ -315,18 +381,18 @@ namespace TLWindowsEditorWinFormsDemo
                 //MessageBox.Show("Double Click on a Rect!");
             }
 
-            
+
         }
 
-        
 
-        
+
+
 
         private void tsbPointer_Click(object sender, EventArgs e)
         {
             //Set the ActiveTool to Pointer
             thermalLabelEditor1.ActiveTool = EditorTool.Pointer;
-            
+
         }
 
         void tsTableSizer_TableSizeSelected(object sender, TableSizeEventArgs e)
@@ -399,7 +465,7 @@ namespace TLWindowsEditorWinFormsDemo
             }
         }
 
-        
+
 
         private void tsbPicture_Click(object sender, EventArgs e)
         {
@@ -486,7 +552,8 @@ namespace TLWindowsEditorWinFormsDemo
 
         private void menuNew_Click(object sender, EventArgs e)
         {
-            try { 
+            try
+            {
                 //Create a new 'document'
                 LabelDoc labelSetup = new LabelDoc();
                 labelSetup.LabelDocument = new LabelDocument() { UnitType = UnitType.Inch, Width = 4, Height = 3 };
@@ -515,6 +582,7 @@ namespace TLWindowsEditorWinFormsDemo
                     tLabel.DesignBackgroundImage = doc.DesignBackgroundImage;
                     tLabel.Margin = doc.Margin;
                     tLabel.IsDuplexDesign = doc.IsDuplexDesign;
+                    tLabel.Shape = doc.Shape;
 
                     foreach (var p in doc.Pages)
                     {
@@ -551,7 +619,7 @@ namespace TLWindowsEditorWinFormsDemo
                     //Create a ThermalLabel obj from a Template
                     ThermalLabel tl = dlg.FileName.EndsWith(".tlj") ? ThermalLabel.CreateFromJsonTemplate(System.IO.File.ReadAllText(dlg.FileName)) : ThermalLabel.CreateFromXmlTemplate(System.IO.File.ReadAllText(dlg.FileName));
 
-                    
+
                     //load it on the editor surface
                     thermalLabelEditor1.LoadThermalLabel(tl);
 
@@ -588,7 +656,7 @@ namespace TLWindowsEditorWinFormsDemo
                     {
                         // get ThermalLabel obj from the editor canvas
                         ThermalLabel tLabel = this.thermalLabelEditor1.ViewRotation == Rotate.None ? this.thermalLabelEditor1.CreateThermalLabel() : this.thermalLabelEditor1.RotateLabel(this.thermalLabelEditor1.CreateThermalLabel(), this.thermalLabelEditor1.ViewRotation, Rotate.None);
-                        
+
                         // set Label expressions (if any)
                         SetLabelExpressions(ref tLabel);
 
@@ -616,7 +684,8 @@ namespace TLWindowsEditorWinFormsDemo
 
                 if (labelSetup.ShowDialog() == DialogResult.OK)
                 {
-                    try { 
+                    try
+                    {
                         LabelDocument doc = labelSetup.LabelDocument;
 
                         //Invoke UpdateLabelDocument method for updating the label document inside the editor
@@ -703,13 +772,13 @@ namespace TLWindowsEditorWinFormsDemo
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-           
+
         }
 
         private void menuExportToPdf_Click(object sender, EventArgs e)
         {
-            
-             //Create the ThermalLabel obj from the editor
+
+            //Create the ThermalLabel obj from the editor
             ThermalLabel tLabel = this.thermalLabelEditor1.ViewRotation == Rotate.None ? this.thermalLabelEditor1.CreateThermalLabel() : this.thermalLabelEditor1.RotateLabel(this.thermalLabelEditor1.CreateThermalLabel(), this.thermalLabelEditor1.ViewRotation, Rotate.None);
 
 
@@ -740,7 +809,7 @@ namespace TLWindowsEditorWinFormsDemo
 
                                 tLabel.DataSource = ds;
                             }
-                            
+
 
                             //export ThermalLabel to PDF
                             using (PrintJob pj = new PrintJob())
@@ -749,7 +818,7 @@ namespace TLWindowsEditorWinFormsDemo
 
                                 //pj.PrintOrientation = PrintOrientation.Landscape90;
 
-                                pj.ExportToPdf(dlg.FileName, dpi, new PdfMetadata() { Author="Me", Title="Label" /*, UseVectorDrawing=true*/ });
+                                pj.ExportToPdf(dlg.FileName, dpi, new PdfMetadata() { Author = "Me", Title = "Label" /*, UseVectorDrawing=true*/ });
                             }
                         }
                         catch (Exception ex)
@@ -761,7 +830,7 @@ namespace TLWindowsEditorWinFormsDemo
             }
         }
 
-        
+
         private void menuUndo_Click(object sender, EventArgs e)
         {
             //Perform Undo
@@ -801,7 +870,7 @@ namespace TLWindowsEditorWinFormsDemo
         private void menuDeleteAll_Click(object sender, EventArgs e)
         {
             //Perform Delete All
-            thermalLabelEditor1.DeleteAll(); 
+            thermalLabelEditor1.DeleteAll();
         }
 
         private void menuBringForward_Click(object sender, EventArgs e)
@@ -867,7 +936,7 @@ namespace TLWindowsEditorWinFormsDemo
             }
 
 
-            
+
         }
 
         private void thermalLabelEditor1_ClipboardStateChanged(object sender, EventArgs e)
@@ -888,7 +957,7 @@ namespace TLWindowsEditorWinFormsDemo
 
         private void thermalLabelEditor1_UndoStateChanged(object sender, EventArgs e)
         {
-            
+
             //Enable/disable undo/redo options depending on the state of the editor
             menuUndo.Enabled = thermalLabelEditor1.CanUndo;
             menuRedo.Enabled = thermalLabelEditor1.CanRedo;
@@ -913,12 +982,23 @@ namespace TLWindowsEditorWinFormsDemo
         {
             SetCurrentSelectedItem();
 
-            // update label outline
-            SetLabelItems();
+            // update label outline.
+            // If the change was originated by the outline itself (user clicking nodes), the tree must NOT be rebuilt:
+            // that would throw away the multiple selection / anchor / scroll position in the middle of the click.
+            if (_selectingFromOutline)
+                UpdateOutlineStatus();
+            else
+                SetLabelItems();
         }
 
         private void thermalLabelEditor1_SelectionItemPropertyChanged(object sender, EventArgs e)
         {
+            // a property (Name, Tag...) of the selection changed: the cached outline data is stale
+            _outlineDirty = true;
+
+            if (_isDragging || _updatingFromPropertyGrid)
+                return;
+
             SetCurrentSelectedItem();
         }
 
@@ -945,7 +1025,7 @@ namespace TLWindowsEditorWinFormsDemo
             }
 
 
-            
+
             //display Item's property on the property grid control
             //----------------------------------------------------
             //NOTE: there may be more than one item selected on the editor.
@@ -956,12 +1036,12 @@ namespace TLWindowsEditorWinFormsDemo
             else
             {
                 CustomItemWrapper selItem = null;
-                
+
                 if (_currentSelectedItem != null)
                 {
                     selItem = new CustomItemWrapper(_currentSelectedItem);
 
-                    if(_currentSelectedItem is BarcodeItem)
+                    if (_currentSelectedItem is BarcodeItem)
                     {
                         this.cboBarcodeSymbologies.SelectedItem = ((BarcodeItem)_currentSelectedItem).Symbology.ToString();
                     }
@@ -991,16 +1071,23 @@ namespace TLWindowsEditorWinFormsDemo
 
         }
 
-       
+
         void _currentSelection_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             //update-refresh the selected item on the editor
-            thermalLabelEditor1.CurrentSelection.UpdateFrom(_currentSelectedItem);
-            thermalLabelEditor1.UpdateSelectionItemsProperties();
+            _updatingFromPropertyGrid = true;
+            try
+            {
+                thermalLabelEditor1.CurrentSelection.UpdateFrom(_currentSelectedItem);
+                thermalLabelEditor1.UpdateSelectionItemsProperties();
+            }
+            finally
+            {
+                _updatingFromPropertyGrid = false;
+            }
 
             //update thermal label obj for Expression dialog
-            if(e.PropertyName == "Name") Global.CurrentThermalLabel = thermalLabelEditor1.CreateThermalLabel();
-
+            if (e.PropertyName == "Name") Global.CurrentThermalLabel = thermalLabelEditor1.CreateThermalLabel();
         }
 
         private void cmSetPicture_Click(object sender, EventArgs e)
@@ -1017,7 +1104,7 @@ namespace TLWindowsEditorWinFormsDemo
                     propertyGrid1.Refresh();
                 }
             }
-            
+
         }
 
         private void cmFont_Click(object sender, EventArgs e)
@@ -1030,12 +1117,13 @@ namespace TLWindowsEditorWinFormsDemo
             }
             else if (_currentSelectedItem is BarcodeItem)
             {
-                tlFont =((BarcodeItem)_currentSelectedItem).Font;
+                tlFont = ((BarcodeItem)_currentSelectedItem).Font;
             }
 
-            if(tlFont != null)
+            if (tlFont != null)
             {
-                if (tlFont.Name == "ZPL Font 0") {
+                if (tlFont.Name == "ZPL Font 0")
+                {
                     tlFont.Bold = true;
                 }
 
@@ -1058,11 +1146,11 @@ namespace TLWindowsEditorWinFormsDemo
                         propertyGrid1.Refresh();
                     }
                 }
-            
+
             }
         }
 
-        
+
 
         private void menuClose_Click(object sender, EventArgs e)
         {
@@ -1117,14 +1205,14 @@ namespace TLWindowsEditorWinFormsDemo
 
         private void cmLockUnlock_Click(object sender, EventArgs e)
         {
-                thermalLabelEditor1.LockSelectedItems();
-            
+            thermalLabelEditor1.LockSelectedItems();
+
         }
 
         private void menuLockUnlock_Click(object sender, EventArgs e)
         {
             thermalLabelEditor1.LockSelectedItems();
-                
+
         }
 
         //private void LockUnlockSelectedItems()
@@ -1187,7 +1275,7 @@ namespace TLWindowsEditorWinFormsDemo
             }
         }
 
-        
+
         private void menuUploadTTFToPrinterStorageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TTFtoPrinterStorage ttfToPrinter = new TTFtoPrinterStorage();
@@ -1283,7 +1371,7 @@ namespace TLWindowsEditorWinFormsDemo
 
             if (tLabel != null)
             {
-                
+
                 double dpi = 96;
                 if (DpiInputBox(ref dpi) == DialogResult.OK)
                 {
@@ -1333,7 +1421,7 @@ namespace TLWindowsEditorWinFormsDemo
 
                                 tLabel.DataSource = ds;
                             }
-                            
+
 
                             //export ThermalLabel to Image
                             using (PrintJob pj = new PrintJob())
@@ -1383,23 +1471,23 @@ namespace TLWindowsEditorWinFormsDemo
         }
 
 
-        
+
         private void cmdDataSourceFile_Click(object sender, EventArgs e)
         {
 
-            
+
 
 
 
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "XML Data Source (*.xml)|*.xml";
             if (dlg.ShowDialog() == DialogResult.OK)
-            {   
+            {
                 try
                 {
                     var ds = new DataSet();
                     ds.ReadXml(dlg.FileName);
-                    
+
                     this.lstDataFields.DataSource = Global.DataFields = ds.Tables[0].Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToList<string>();
 
                     this.txtDataSourceFile.Text = dlg.FileName;
@@ -1470,9 +1558,9 @@ namespace TLWindowsEditorWinFormsDemo
                     SetLabelExpressions(ref tLabel);
 
                     bool labelRequiresDataSource = false;
-                    foreach(var itm in tLabel.Items)
+                    foreach (var itm in tLabel.Items)
                     {
-                        if(string.IsNullOrWhiteSpace(itm.DataField) == false)
+                        if (string.IsNullOrWhiteSpace(itm.DataField) == false)
                         {
                             labelRequiresDataSource = true;
                             break;
@@ -1490,19 +1578,44 @@ namespace TLWindowsEditorWinFormsDemo
 
                         tLabel.DataSource = ds;
                     }
-                    else if(labelRequiresDataSource)
+                    else if (labelRequiresDataSource)
                     {
                         throw new Exception("The label requires a Data Source which is missimg. Could not preview the label.");
                     }
-                    
-                    
+
+
                     //Create ThermalLabel images
                     using (PrintJob pj = new PrintJob())
                     {
                         pj.ThermalLabel = tLabel;
 
+                        pj.LabelProgress += (s, e) =>
+                        {
+                            //MessageBox.Show($"Printing label {e.LabelIndex + 1} of {e.TotalLabels}");
+
+                            if (e.LabelBinaryCommands != null)
+                            {
+                                // send the current processed label right to anywhere
+                                //SendToPrinter(e.LabelBinaryCommands);
+                            }
+                            else if (e.LabelImage != null)
+                            {
+                                // save the current processed label?
+                                //File.WriteAllBytes($"label_{e.LabelNumber}.png", e.LabelImage);
+                            }
+
+                            // CANCEL Label processing???
+                            //if (userRequestedCancel)
+                            //    e.Cancel = true;
+                        };
+
+
                         int copies = 1;
-                        pj.Copies = (int.TryParse(this.txtPreviewCopies.Text, out copies) ? copies : 1);
+                        int.TryParse(this.txtPreviewCopies.Text, out copies);
+                        if (tLabel.DataSource == null)
+                            pj.Copies = copies;
+                        else
+                            pj.Replicates = copies;
 
                         //ImageSettings imgSett = new ImageSettings();
                         //imgSett.ImageFormat = ImageFormat.Png;
@@ -1616,7 +1729,7 @@ namespace TLWindowsEditorWinFormsDemo
 
                                 tLabel.DataSource = ds;
                             }
-                            
+
 
                             //export ThermalLabel to HTML
                             using (PrintJob pj = new PrintJob())
@@ -1651,51 +1764,276 @@ namespace TLWindowsEditorWinFormsDemo
         }
 
 
-        bool _selectItemsFromCanvas = false;
+        // ==================================================================================
+        // DOCUMENT OUTLINE (tab "Items"): multiple selection + filter by type + search
+        // ==================================================================================
 
+        // Snapshot of one label item, as shown by the outline
+        private class OutlineEntry
+        {
+            public int Index;        // item index as understood by the editor (same order as ThermalLabel.Items)
+            public string Name;
+            public string TypeName;
+            public string Tag;
+            public int ImageIndex;
+        }
+
+        // Entry of the "type" combo box
+        private class OutlineTypeFilter
+        {
+            public string TypeName;  // null => all the types
+            public string Caption;
+            public override string ToString() { return Caption; }
+        }
+
+        private readonly List<OutlineEntry> _outlineEntries = new List<OutlineEntry>();
+        private int _outlineShownCount = 0;
+        private bool _outlineDirty = false;           // item data may have changed since _outlineEntries was built
+        private bool _updatingOutlineUI = false;      // filter controls being refreshed from code
+        private bool _selectingFromOutline = false;   // outline is pushing its selection into the editor
+
+        // Reads the items of the label on the editor's surface and rebuilds the outline
         private void SetLabelItems()
         {
-            tvwItems.BeginUpdate();
-            tvwItems.Nodes.Clear();
+            _outlineEntries.Clear();
 
-            TreeNode root = new TreeNode("ThermalLabel");
-            
             try
             {
-                var items = thermalLabelEditor1.CreateThermalLabel().Items;
-                root.Nodes.AddRange(items.Select(s => new TreeNode($"{s.Name} [{s.GetType().ToString().Replace("Neodynamic.SDK.Printing.", "")}]", imageList2.Images.IndexOfKey(s.GetType().ToString().Replace("Neodynamic.SDK.Printing.", "")), imageList2.Images.IndexOfKey(s.GetType().ToString().Replace("Neodynamic.SDK.Printing.", "")))).ToArray());
-
-                tvwItems.Nodes.Add(root);
-
-                _selectItemsFromCanvas = true;
-
-                var indexes = thermalLabelEditor1.GetSelectedItemsIndexes();
-                // treeview does not support multiple selection
-                if (indexes.Length == 1)
-                    tvwItems.SelectedNode = root.Nodes[indexes[0]];                
+                var tLabel = thermalLabelEditor1.CreateThermalLabel();
+                if (tLabel != null)
+                {
+                    int index = 0;
+                    foreach (var item in tLabel.Items)
+                    {
+                        string typeName = item.GetType().ToString().Replace("Neodynamic.SDK.Printing.", "");
+                        _outlineEntries.Add(new OutlineEntry
+                        {
+                            Index = index++,
+                            Name = item.Name,
+                            TypeName = typeName,
+                            Tag = item.Tag == null ? "" : item.Tag.ToString(),
+                            ImageIndex = imageList2.Images.IndexOfKey(typeName)
+                        });
+                    }
+                }
             }
             catch
             {
-
+                // no label / label could not be created => empty outline
+                _outlineEntries.Clear();
             }
-            
-            root.Expand();
 
-            tvwItems.EndUpdate();
+            _outlineDirty = false;
 
-            _selectItemsFromCanvas = false;
+            RefreshOutlineTypeFilter();
+            ApplyOutlineFilter();
         }
 
-        private void tvwItems_AfterSelect(object sender, TreeViewEventArgs e)
+        // Fills the "type" combo with the types present in the label (keeps the current choice if possible)
+        private void RefreshOutlineTypeFilter()
         {
-            if (_selectItemsFromCanvas == false)
-            {
-                if (e.Node.Parent == null) return;
+            var current = cboOutlineType.SelectedItem as OutlineTypeFilter;
+            string currentType = current == null ? null : current.TypeName;
 
-                var idx = tvwItems.Nodes[0].Nodes.IndexOf(e.Node);
-                if (idx != -1)
-                    thermalLabelEditor1.SelectItemByIndex(idx);
+            _updatingOutlineUI = true;
+            cboOutlineType.BeginUpdate();
+            try
+            {
+                cboOutlineType.Items.Clear();
+                cboOutlineType.Items.Add(new OutlineTypeFilter { TypeName = null, Caption = $"All types ({_outlineEntries.Count})" });
+                foreach (var g in _outlineEntries.GroupBy(x => x.TypeName).OrderBy(x => x.Key))
+                    cboOutlineType.Items.Add(new OutlineTypeFilter { TypeName = g.Key, Caption = $"{g.Key} ({g.Count()})" });
+
+                int selIndex = 0;
+                if (currentType != null)
+                {
+                    for (int i = 1; i < cboOutlineType.Items.Count; i++)
+                    {
+                        if (((OutlineTypeFilter)cboOutlineType.Items[i]).TypeName == currentType)
+                        {
+                            selIndex = i;
+                            break;
+                        }
+                    }
+                }
+                cboOutlineType.SelectedIndex = selIndex;
             }
+            finally
+            {
+                cboOutlineType.EndUpdate();
+                _updatingOutlineUI = false;
+            }
+        }
+
+        private static bool OutlineContains(string source, string text)
+        {
+            return !string.IsNullOrEmpty(source) && source.IndexOf(text, StringComparison.CurrentCultureIgnoreCase) >= 0;
+        }
+
+        // scope: 0 = name/tag/type, 1 = name, 2 = tag, 3 = type
+        private static bool MatchesOutlineFilter(OutlineEntry entry, string text, int scope, string typeFilter)
+        {
+            if (typeFilter != null && entry.TypeName != typeFilter)
+                return false;
+
+            if (text.Length == 0)
+                return true;
+
+            return ((scope <= 0 || scope == 1) && OutlineContains(entry.Name, text))
+                || ((scope <= 0 || scope == 2) && OutlineContains(entry.Tag, text))
+                || ((scope <= 0 || scope == 3) && OutlineContains(entry.TypeName, text));
+        }
+
+        private static string BuildOutlineNodeText(OutlineEntry entry)
+        {
+            string text = $"{entry.Name} [{entry.TypeName}]";
+            if (!string.IsNullOrEmpty(entry.Tag))
+                text += $"  (tag: {entry.Tag})";
+            return text;
+        }
+
+        // Rebuilds the tree from the cached entries applying the current search text / type filter,
+        // and shows as selected the nodes whose items are selected on the editor's surface.
+        private void ApplyOutlineFilter()
+        {
+            string text = (txtOutlineSearch.Text ?? "").Trim();
+            var typeItem = cboOutlineType.SelectedItem as OutlineTypeFilter;
+            string typeFilter = typeItem == null ? null : typeItem.TypeName;
+            int scope = cboOutlineScope.SelectedIndex;
+
+            var selectedOnCanvas = new HashSet<int>(thermalLabelEditor1.GetSelectedItemsIndexes());
+
+            var root = new TreeNode("ThermalLabel");
+            var nodesToSelect = new List<TreeNode>();
+            int shown = 0;
+
+            foreach (var entry in _outlineEntries)
+            {
+                if (!MatchesOutlineFilter(entry, text, scope, typeFilter))
+                    continue;
+
+                // node.Tag keeps the item index: the position of the node is NOT the item index when a filter is active
+                var node = new TreeNode(BuildOutlineNodeText(entry), entry.ImageIndex, entry.ImageIndex) { Tag = entry.Index };
+                root.Nodes.Add(node);
+                shown++;
+
+                if (selectedOnCanvas.Contains(entry.Index))
+                    nodesToSelect.Add(node);
+            }
+
+            _outlineShownCount = shown;
+
+            tvwItems.BeginUpdate();
+            try
+            {
+                tvwItems.Nodes.Clear();
+
+                if (thermalLabelEditor1.LabelDocument != null)
+                {
+                    tvwItems.Nodes.Add(root);
+                    root.Expand();
+
+                    // no event: this is the editor -> outline direction
+                    tvwItems.SetSelectedNodes(nodesToSelect, false);
+
+                    if (nodesToSelect.Count > 0)
+                        nodesToSelect[0].EnsureVisible();
+                }
+            }
+            finally
+            {
+                tvwItems.EndUpdate();
+            }
+
+            UpdateOutlineStatus();
+        }
+
+        private void UpdateOutlineStatus()
+        {
+            int total = _outlineEntries.Count;
+            string text = _outlineShownCount == total
+                ? $"{total} item(s)"
+                : $"Showing {_outlineShownCount} of {total} item(s)";
+
+            int selected = thermalLabelEditor1.GetSelectedItemsIndexes().Length;
+            if (selected > 0)
+                text += $" | {selected} selected";
+
+            lblOutlineStatus.Text = text;
+        }
+
+        // outline -> editor: select on the editor's surface the items of the selected nodes
+        private void tvwItems_SelectedNodesChanged(object sender, EventArgs e)
+        {
+            if (_selectingFromOutline)
+                return;
+
+            var indexes = tvwItems.SelectedNodes
+                .Where(n => n.Tag is int)
+                .Select(n => (int)n.Tag)
+                .Distinct()
+                .ToArray();
+
+            _selectingFromOutline = true;
+            try
+            {
+                if (indexes.Length == 0)
+                    thermalLabelEditor1.UnselectAll();
+                else
+                    thermalLabelEditor1.SelectItemsByIndexes(indexes);
+            }
+            finally
+            {
+                _selectingFromOutline = false;
+            }
+
+            UpdateOutlineStatus();
+        }
+
+        private void outlineFilter_Changed(object sender, EventArgs e)
+        {
+            if (_updatingOutlineUI)
+                return;
+
+            // names/tags may have been edited since the last snapshot
+            if (_outlineDirty)
+                SetLabelItems();
+            else
+                ApplyOutlineFilter();
+        }
+
+        private void txtOutlineSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                txtOutlineSearch.Clear();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Down)
+            {
+                tvwItems.Focus();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void btnOutlineClear_Click(object sender, EventArgs e)
+        {
+            _updatingOutlineUI = true;
+            try
+            {
+                txtOutlineSearch.Clear();
+                cboOutlineScope.SelectedIndex = 0;
+                if (cboOutlineType.Items.Count > 0)
+                    cboOutlineType.SelectedIndex = 0;
+            }
+            finally
+            {
+                _updatingOutlineUI = false;
+            }
+
+            outlineFilter_Changed(sender, e);
         }
 
 
@@ -1730,7 +2068,7 @@ namespace TLWindowsEditorWinFormsDemo
             if (_currentSelectedItem is BarcodeItem)
             {
                 //Set sample code base don the selected Symbology
-                ((BarcodeItem)_currentSelectedItem).Code = BarcodeItemUtils.GenerateSampleCode( (BarcodeSymbology)Enum.Parse(typeof(BarcodeSymbology), this.cboBarcodeSymbologies.SelectedItem.ToString()));
+                ((BarcodeItem)_currentSelectedItem).Code = BarcodeItemUtils.GenerateSampleCode((BarcodeSymbology)Enum.Parse(typeof(BarcodeSymbology), this.cboBarcodeSymbologies.SelectedItem.ToString()));
                 //refresh property grid
                 SetCurrentSelectedItem();
             }
@@ -1842,7 +2180,7 @@ namespace TLWindowsEditorWinFormsDemo
                 txtItem.ReadOnly = true;
                 txtItem.Sizing = TextSizing.FontSizeScaling;
                 txtItem.TextAlignment = TextAlignment.Center;
-                
+
 
                 txtItem.ConvertToUnit(thermalLabelEditor1.LabelDocument.UnitType);
 

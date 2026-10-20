@@ -14,7 +14,6 @@ using System.IO;
 using Neodynamic.Windows.ThermalLabelEditor;
 using Neodynamic.SDK.Printing;
 using Microsoft.Win32;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 
@@ -25,7 +24,6 @@ namespace TLWindowsEditorWPFDemo
     /// </summary>
     public partial class LabelDoc : Window
     {
-
         bool _init = true;
 
         public LabelDoc()
@@ -33,11 +31,16 @@ namespace TLWindowsEditorWPFDemo
             InitializeComponent();
 
             cboUnit.DataContext = Enum.GetNames(typeof(Neodynamic.SDK.Printing.UnitType)).OrderBy(ut => ut).ToList();
-                        
+            cboLabelShape.DataContext = Enum.GetNames(typeof(Neodynamic.SDK.Printing.LabelShape)).ToList();
+
             this.picRollSingleLabels.Source = Base64ToImage(ImageResources.SINGLE_LABEL);
             this.picRollMulticolumnLabels.Source = Base64ToImage(ImageResources.MULTICOLUMN_LABELS);
             this.picSheetLabels.Source = Base64ToImage(ImageResources.SHEET_LABELS);
             this.picPages.Source = Base64ToImage(ImageResources.MULTI_PAGES_LABEL);
+            this.picDuplexLabel.Source = Base64ToImage(ImageResources.DUPLEX_LABEL);
+
+            // start with an empty (but editable) list of pages
+            SetPages(new Collection<ThermalLabelPage>());
 
             this.UpdateLabelOptions();
 
@@ -59,7 +62,7 @@ namespace TLWindowsEditorWPFDemo
                 this.gbHLayout.Visibility = Visibility.Visible;
             }
             else if (this.tabSheetLabels.IsSelected)
-            { 
+            {
                 this.gbMargin.Visibility = Visibility.Collapsed;
                 this.gbSheet.Visibility = Visibility.Visible;
                 this.gbHLayout.Visibility = Visibility.Visible;
@@ -67,6 +70,10 @@ namespace TLWindowsEditorWPFDemo
             else if (this.tabPages.IsSelected)
             {
                 this.gbPages.Visibility = Visibility.Visible;
+                this.gbVLayout.Visibility = Visibility.Collapsed;
+            }
+            else if (this.tabDuplex.IsSelected)
+            {
                 this.gbVLayout.Visibility = Visibility.Collapsed;
             }
 
@@ -100,9 +107,10 @@ namespace TLWindowsEditorWPFDemo
         {
             get
             {
-                var doc = new LabelDocument() { CutAfterPrinting = this.chkCutAfterPrinting.IsChecked.Value, GapLength = double.Parse(this.txtGapLength.Text), Height = double.Parse(this.txtHeight.Text), IsContinuous = this.chkIsContinuous.IsChecked.Value, MarkLength = double.Parse(this.txtMarkLength.Text), PrintMirror = this.chkPrintMirror.IsChecked.Value, PrintSpeed = this.txtPrintSpeed.Text, Width = double.Parse(this.txtWidth.Text), UnitType = (UnitType)Enum.Parse(typeof(UnitType), cboUnit.SelectedItem.ToString()), DesignBackgroundImage = _designBackgroundImage };
-                doc.Margin = new FrameThickness() { 
-                    Left = double.Parse(this.txtMarginLeft.Text), 
+                var doc = new LabelDocument() { CutAfterPrinting = this.chkCutAfterPrinting.IsChecked.Value, GapLength = double.Parse(this.txtGapLength.Text), Height = double.Parse(this.txtHeight.Text), IsContinuous = this.chkIsContinuous.IsChecked.Value, MarkLength = double.Parse(this.txtMarkLength.Text), PrintMirror = this.chkPrintMirror.IsChecked.Value, PrintSpeed = this.txtPrintSpeed.Text, Width = double.Parse(this.txtWidth.Text), UnitType = (UnitType)Enum.Parse(typeof(UnitType), cboUnit.SelectedItem.ToString()), DesignBackgroundImage = _designBackgroundImage, Shape = (LabelShape)Enum.Parse(typeof(LabelShape), cboLabelShape.SelectedItem.ToString()) };
+                doc.Margin = new FrameThickness()
+                {
+                    Left = double.Parse(this.txtMarginLeft.Text),
                     Top = double.Parse(this.txtMarginTop.Text),
                     Right = double.Parse(this.txtMarginRight.Text),
                     Bottom = double.Parse(this.txtMarginBottom.Text)
@@ -127,6 +135,21 @@ namespace TLWindowsEditorWPFDemo
                 {
                     doc.Pages = GetPages();
                 }
+                else if (this.tabDuplex.IsSelected)
+                {
+                    doc.IsDuplexDesign = true;
+                    // simulated as a multipage label
+                    double sidesGapInch = 0.1;
+                    double sidesGap = UnitUtils.Convert(UnitType.Inch, sidesGapInch, doc.UnitType, doc.NumOfFractionalDigits);
+                    double sideWidth = double.Parse(this.txtWidth.Text);
+                    double sideHeight = double.Parse(this.txtHeight.Text);
+                    var pages = new Collection<ThermalLabelPage>();
+                    pages.Add(new ThermalLabelPage(0, 0, sideWidth, sideHeight));
+                    pages.Add(new ThermalLabelPage(sideWidth + sidesGap, 0, sideWidth, sideHeight));
+                    doc.Pages = pages;
+                    // reset width of the whole label
+                    doc.Width = (sideWidth * 2) + sidesGap;
+                }
 
                 return doc;
 
@@ -150,6 +173,7 @@ namespace TLWindowsEditorWPFDemo
                 this.chkIsContinuous.IsChecked = value.IsContinuous;
                 this.chkPrintMirror.IsChecked = value.PrintMirror;
                 this.txtPrintSpeed.Text = value.PrintSpeed;
+                this.cboLabelShape.SelectedItem = value.Shape.ToString();
 
                 this.txtMarginLeft.Text = value.Margin.Left.ToString();
                 this.txtMarginTop.Text = value.Margin.Top.ToString();
@@ -167,6 +191,15 @@ namespace TLWindowsEditorWPFDemo
                 {
                     this.tabRollMulticolLabels.IsSelected = true;
                 }
+                else if (value.IsDuplexDesign)
+                {
+                    this.tabDuplex.IsSelected = true;
+                    // calc label side size
+                    double sidesGapInch = 0.1;
+                    double sidesGap = UnitUtils.Convert(UnitType.Inch, sidesGapInch, value.UnitType, value.NumOfFractionalDigits);
+
+                    this.txtWidth.Text = ((value.Width - sidesGap) / 2).ToString();
+                }
                 else if (value.Pages.Count > 0)
                 {
                     SetPages(value.Pages);
@@ -178,14 +211,14 @@ namespace TLWindowsEditorWPFDemo
                     this.tabRollSingleLabel.IsSelected = true;
                 }
 
-                
+
                 this.UpdateLabelOptions();
             }
         }
 
 
 
-        
+
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
@@ -253,7 +286,7 @@ namespace TLWindowsEditorWPFDemo
             //show open file dialog
             var dlg = new OpenFileDialog();
             dlg.Filter = "Image File (*.png)|*.png";
-            if (dlg.ShowDialog() == true )
+            if (dlg.ShowDialog() == true)
             {
                 //set design back image
                 _designBackgroundImage = Convert.ToBase64String(System.IO.File.ReadAllBytes(dlg.FileName));
@@ -270,22 +303,32 @@ namespace TLWindowsEditorWPFDemo
 
         private void SetPages(Collection<ThermalLabelPage> pages)
         {
-            dgPages.ItemsSource = pages;
+            // work on a copy (like the WinForms grid does) so cancelling the dialog
+            // never modifies the pages of the original label document
+            var items = new Collection<ThermalLabelPage>();
+            foreach (var p in pages)
+            {
+                items.Add(new ThermalLabelPage() { X = p.X, Y = p.Y, Width = p.Width, Height = p.Height });
+            }
+            dgPages.ItemsSource = items;
         }
 
         private Collection<ThermalLabelPage> GetPages()
         {
-            var rows = GetDataGridRows();
+            // commit any cell/row that is still being edited
+            dgPages.CommitEdit(DataGridEditingUnit.Row, true);
 
             var pages = new Collection<ThermalLabelPage>();
 
-            if (rows != null)
+            var items = dgPages.ItemsSource as IEnumerable<ThermalLabelPage>;
+            if (items != null)
             {
-                foreach (DataGridRow r in rows)
+                foreach (var p in items)
                 {
-                    if (r != null)
+                    // same rule as the WinForms dialog: skip empty pages (width <= 0 and height <= 0)
+                    if (p != null && !(p.Width <= 0 && p.Height <= 0))
                     {
-                        pages.Add((ThermalLabelPage)r.Item);
+                        pages.Add(new ThermalLabelPage() { X = p.X, Y = p.Y, Width = p.Width, Height = p.Height });
                     }
                 }
             }
@@ -296,9 +339,9 @@ namespace TLWindowsEditorWPFDemo
         {
             var rows = new List<DataGridRow>();
             var itemsSource = dgPages.ItemsSource as IEnumerable<ThermalLabelPage>;
-            if (itemsSource == null) 
+            if (itemsSource == null)
                 return null;
-            
+
             foreach (var item in itemsSource)
             {
                 var row = dgPages.ItemContainerGenerator.ContainerFromItem(item) as DataGridRow;

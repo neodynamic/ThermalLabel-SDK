@@ -3,33 +3,592 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ThermalLabel Web Editor 15.0 for ASP.NET CORE - Sample UI</title>
+    <title>ThermalLabel Web Editor 16.0 for ASP.NET CORE MVC - Sample UI</title>
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
-    
+
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
     <link rel="stylesheet" href="~/css/main.css" />
-    <link rel="stylesheet" href="~/css/gallery.css" />
+    <link rel="stylesheet" href="~/css/TemplatesGallery.css" />
     <link rel="stylesheet" href="~/css/neoPropGrid.css" />
-    <link rel="stylesheet" href="~/fonts/font/flaticon.css" />
+    <link rel="stylesheet" href="~/css/LabelDocDialog.css" />
     <link rel="stylesheet" href="~/css/ThermalLabelWebEditor.css" />
 </head>
 <body>
 
     @RenderBody()
 
-    
+
     <script src="~/js/fabric-1.5.0.js"></script>
     <script src="~/js/ThermalLabelWebEditor.js"></script>
     <script src="~/js/neoPropGrid.js"></script>
-    <script src="~/js/Gallery.js"></script>
     <script src="~/js/ExprBuilder.js"></script>
-    <script src="~/js/SampleLabelEditorUI.js"></script>
-
+    <script src="~/js/TemplatesGallery.js"></script>
+    <script src="~/js/packagingSymbols.js"></script>
+    <script src="~/js/SampleLabelEditorUI-16.0.js"></script>
+    <script src="~/js/DocumentOutline.js"></script>
+    <script src="~/js/LabelDocDialog.js"></script>
 
     <script type="text/javascript">
 
-        $(function () {
+        // Dynamic Content for Left and Right Panels
+        const leftPanelOptions = {
+            templates: `
+                                                                <div class="row" id="label-gallery-entries" style="margin-right: -5px; margin-left: -5px;">
+                                                                </div>
+                                                                `,
+            text: `
+                                                                <div class="row">
+                                                                    <div class="col-xs-4 tb-item" >
+                                                                        <button id="tlbResidentFontText" type="button" title="Resident Font Text" class="btn btn-default" onclick="UIEditor.addNewItem('TextResidentFont')"
+                                                                                data-content="Add Resident Font Text" data-trigger="hover" data-placement="bottom">
+                                                                            <img src="images/icons/ResidentFont.png" />
+                                                                        </button>
+                                                                        <small>Resident Font Text</small>
+                                                                    </div>
+                                                                    <div class="col-xs-4 tb-item">
+                                                                        <button id="tlbText" type="button" title="Text" class="btn btn-default" onclick="UIEditor.addNewItem('Text')"
+                                                                                data-content="Add Text" data-trigger="hover" data-placement="bottom">
+                                                                            <img src="images/icons/text.png" />
+                                                                        </button>
+                                                                        <small>Text</small>
+                                                                    </div>
+                                                                    <div class="col-xs-4 tb-item">
+                                                                        <button id="tlbTextArc" type="button" title="Text Arc" class="btn btn-default" onclick="UIEditor.addNewItem('TextArc')"
+                                                                                data-content="Add Text Arc" data-trigger="hover" data-placement="bottom">
+                                                                            <img src="images/icons/ArcText.png" />
+                                                                        </button>
+                                                                        <small>Text Arc</small>
+                                                                    </div>
+                                                                    <div class="col-xs-4 tb-item">
+                                                                        <button id="tlbTextOutline" type="button" title="Text Outline" class="btn btn-default" onclick="UIEditor.addNewItem('TextOutline')"
+                                                                                data-content="Add Text Outline" data-trigger="hover" data-placement="bottom">
+                                                                            <img src="images/icons/OutlineText.png" />
+                                                                        </button>
+                                                                        <small>Text Outline</small>
+                                                                    </div>
+                                                                </div>
+
+                                                                <hr/>
+                                                                <h4 class="tb-item-title-icon">
+                                                                    <img src="images/icons/MaskedText.png" />
+                                                                    Masked Text
+                                                                </h4>
+
+                                                                <div class="text-preset-list">
+                                                                    <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Text', '00000')">
+                                                                        <div class="text-preset-body"><i class="fa fa-hashtag"></i> Numeric (5-digits) - [00000]</div>
+                                                                    </div>
+                                                                    <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Text', '(999) 000-0000')">
+                                                                        <div class="text-preset-body"><i class="fa fa-phone"></i> Phone Number - [(999) 000-0000]</div>
+                                                                    </div>
+                                                                    <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Text', '00/00/0000')">
+                                                                        <div class="text-preset-body"><i class="fa fa-calendar"></i> US Short Date - [00/00/0000]</div>
+                                                                    </div>
+                                                                    <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Text', '00/00/0000 90:00')">
+                                                                        <div class="text-preset-body"><i class="fa fa-calendar"></i> US Short Date and Time - [00/00/0000 90:00]</div>
+                                                                    </div>
+                                                                    <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Text', '90:00')">
+                                                                        <div class="text-preset-body"><i class="fa fa-clock-o"></i> US Time - [90:00]</div>
+                                                                    </div>
+                                                                    <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Text', '00000-9999')">
+                                                                        <div class="text-preset-body"><i class="fa fa-envelope-o"></i> US Zip Code - [00000-9999]</div>
+                                                                    </div>
+                                                                </div>
+                                                                    `,
+            barcode: `
+                                                                <div class="row">
+                                                                <div class="col-xs-4 tb-item" >
+                                                                    <button id="tlbBarcode" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Barcode')"
+                                                                            data-content="Add Barcode" data-trigger="hover" data-placement="bottom">
+                                                                        <img src="images/icons/barcode.png" />
+                                                                    </button>
+                                                                    <small>Linear Barcodes</small>
+                                                                </div>
+                                                                <div class="col-xs-4 tb-item">
+                                                                    <button id="tlbBarcode2D" type="button" title="" class="btn btn-default" onclick="UIEditor.addNewItem('Barcode2D')"
+                                                                            data-content="Add 2D Barcode" data-trigger="hover" data-placement="bottom">
+                                                                        <img src="images/icons/2d.png" />
+                                                                    </button>
+                                                                    <small>2D Barcodes</small>
+                                                                </div>
+                                                            </div>
+
+                                                            <hr/>
+                                                            <h4 class="tb-item-title-icon">
+                                                                <img src="images/icons/barcode.png" />
+                                                                Linear (1D) Barcodes
+                                                            </h4>
+                                                            <p class="text-muted" style="font-size: 12px; margin-bottom: 15px;">Most common linear barcodes:</p>
+
+
+                                                            <div class="text-preset-list">
+                                                                <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Barcode', ['Code39','ABC123'])">
+                                                                    <div class="text-preset-body"><i class="fa fa-barcode"></i> Code 39</div>
+                                                                </div>
+                                                                <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Barcode', ['Code128','ABC123'])">
+                                                                    <div class="text-preset-body"><i class="fa fa-barcode"></i> Code 128</div>
+                                                                </div>
+                                                                <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Barcode', ['GS1128','(01)95012345678903(3102)000400'])">
+                                                                    <div class="text-preset-body"><i class="fa fa-barcode"></i> GS1-128</div>
+                                                                </div>
+                                                                <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Barcode', ['UpcA','01234567890'])">
+                                                                    <div class="text-preset-body"><i class="fa fa-barcode"></i> UPC-A</div>
+                                                                </div>
+                                                                <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Barcode', ['Ean13','501234567890'])">
+                                                                    <div class="text-preset-body"><i class="fa fa-barcode"></i> EAN-13</div>
+                                                                </div>
+                                                            </div>
+                                                            <hr/>
+                                                            <h4 class="tb-item-title-icon">
+                                                                <img src="images/icons/2d.png" />
+                                                                2D Barcodes
+                                                            </h4>
+                                                            <p class="text-muted" style="font-size: 12px; margin-bottom: 15px;">Most common 2D barcodes:</p>
+
+
+                                                            <div class="text-preset-list">
+                                                                <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Barcode2D', ['QRCode','ABC123'])">
+                                                                    <div class="text-preset-body"><i class="fa fa-qrcode"></i> QR Code</div>
+                                                                </div>
+                                                                <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Barcode2D', ['DataMatrix','ABC123'])">
+                                                                    <div class="text-preset-body"><i class="fa fa-qrcode"></i> Data Matrix</div>
+                                                                </div>
+                                                                <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Barcode2D', ['Pdf417','ABC123'])">
+                                                                    <div class="text-preset-body"><i class="fa fa-qrcode"></i> PDF417</div>
+                                                                </div>
+                                                                <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Barcode2D', ['MaxiCode','ABC123456789', 'Mode4'])">
+                                                                    <div class="text-preset-body"><i class="fa fa-qrcode"></i> Maxicode</div>
+                                                                </div>
+                                                                <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Barcode2D', ['GS1QRCode','(01)95012345678903'])">
+                                                                    <div class="text-preset-body"><i class="fa fa-qrcode"></i> GS1 QR Code</div>
+                                                                </div>
+                                                                <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('Barcode2D', ['GS1DataMatrix','(01)95012345678903'])">
+                                                                    <div class="text-preset-body"><i class="fa fa-qrcode"></i> GS1 Data Matrix</div>
+                                                                </div>
+                                                            </div>
+                                                                `,
+            images: `
+                                                            <button id="uploadBtn" class="btn btn-success btn-block style-upload-btn" style="margin-bottom:15px;">
+                                                                <i class="fa fa-cloud-upload"></i> Upload Image
+                                                            </button>
+                                                            <input type="file" id="fileInput" accept=".jpg, .jpeg, .png" style="display: none;">
+                                                            <div id="gridImages" class="row"></div>
+                                                            <h4>Symbols</h4>
+                                                            <div id="symbolImages" class="row"></div>
+                                                            `,
+            shapes: `
+                                                            <div class="row">
+                                                                <div class="col-xs-4 tb-item" >
+                                                                    <button id="tlbRect" type="button" title="Rectangle" class="btn btn-default" onclick="UIEditor.addNewItem('Rectangle')"
+                                                                            data-content="Add Rectangle" data-trigger="hover" data-placement="bottom" style="display: block; margin: 0 auto 5px auto;">
+                                                                        <img src="images/icons/rect.png" />
+                                                                    </button>
+                                                                    <small>Rectangle</small>
+                                                                </div>
+                                                                <div class="col-xs-4 tb-item">
+                                                                    <button id="tlbEllipse" type="button" title="Ellipse" class="btn btn-default" onclick="UIEditor.addNewItem('Ellipse')"
+                                                                            data-content="Add Ellipse" data-trigger="hover" data-placement="bottom">
+                                                                        <img src="images/icons/ellipse.png" />
+                                                                    </button>
+                                                                    <small>Ellipse</small>
+                                                                </div>
+                                                                <div class="col-xs-4 tb-item">
+                                                                    <button id="tlbLine" type="button" title="Line" class="btn btn-default" onclick="UIEditor.addNewItem('Line')"
+                                                                            data-content="Add Line" data-trigger="hover" data-placement="bottom">
+                                                                        <img src="images/icons/line.png" />
+                                                                    </button>
+                                                                    <small>Line</small>
+                                                                </div>
+                                                                <div class="col-xs-4 tb-item">
+                                                                    <button id="tlbTable" type="button" title="Table" class="btn btn-default" onclick="UIEditor.addNewItem('Table')"
+                                                                            data-content="Add Rectangle" data-trigger="hover" data-placement="bottom">
+                                                                        <img src="images/icons/table.png" />
+                                                                    </button>
+                                                                    <small>Table</small>
+                                                                </div>
+                                                            </div>`,
+            rfid: `
+                                                            <div class="row">
+                                                                <div class="col-xs-4 tb-item">
+                                                                    <button id="tlbRFID" type="button" title="RFID Tag" class="btn btn-default" onclick="UIEditor.addNewItem('RFID')"
+                                                                            data-content="Add RFID" data-trigger="hover" data-placement="bottom">
+                                                                        <img src="images/icons/RFIDTag.png" />
+                                                                    </button>
+                                                                    <small>RFID Tag</small>
+                                                                </div>
+                                                            </div>
+
+                                                            <hr/>
+                                                            <h4 class="tb-item-title-icon">
+                                                                <img src="images/icons/RFIDTag.png" />
+                                                                Samples
+                                                            </h4>
+                                                            <div class="text-preset-list">
+                                                                <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('RFID', ['ASCII','ABC123'])">
+                                                                    <div class="text-preset-body"><i class="fa fa-rss"></i> ASCII Data</div>
+                                                                </div>
+                                                                <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('RFID', ['Hexadecimal','4D792044617461'])">
+                                                                    <div class="text-preset-body"><i class="fa fa-rss"></i> Hexadecimal Data</div>
+                                                                </div>
+                                                                <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('RFID', ['EPC','16,3,5,78742,146165,1234567891','96,8,3,3,20,24,38'])">
+                                                                    <div class="text-preset-body"><i class="fa fa-rss"></i> EPC Data</div>
+                                                                </div>
+                                                                <div class="text-preset-item" data-type="body" onclick="UIEditor.addNewItem('RFID', ['Hexadecimal','11223344','EPCClass1Gen2', 4, 3, '1'])">
+                                                                    <div class="text-preset-body"><i class="fa fa-rss"></i> Hexadecimal Data - EPC Class-1 Gen-2</div>
+                                                                </div>
+                                                            </div>
+                                                            `,
+            misc: `
+                                                            <div class="row">
+                                                                <div class="col-xs-4 tb-item">
+                                                                    <button id="tlbRepeater" type="button" title="Repeater" class="btn btn-default" onclick="UIEditor.addNewItem('Repeater')"
+                                                                            data-content="Add Repeater" data-trigger="hover" data-placement="bottom">
+                                                                        <img src="images/icons/Repeater.png" />
+                                                                    </button>
+                                                                    <small>Repeater</small>
+                                                                </div>
+                                                                <div class="col-xs-4 tb-item">
+                                                                    <button id="tlbLiteral" type="button" title="Literal" class="btn btn-default" onclick="UIEditor.addNewItem('Literal')"
+                                                                            data-content="Add Literal" data-trigger="hover" data-placement="bottom">
+                                                                        <img src="images/icons/literal.png" />
+                                                                    </button>
+                                                                    <small>Literal</small>
+                                                                </div>
+                                                            </div>`
+        };
+
+        const rightPanelOptions = {
+            properties: `
+                                                                <div id="propGrid" class="table-wrapper-scroll-y my-custom-scrollbar tab-pane active">
+                                                                </div>
+                                                                `,
+            datasource: `
+                                                                <h4>Sample in XML format</h4>
+
+                                                                <div class="alert alert-warning alert-dismissible" role="alert">
+                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                    <i class="fa fa-warning"></i> <strong>NOTE</strong>
+                                                                    <p class="small margin-bottom-none" style="margin-top: 5px;">
+                                                                        This data source is fixed for this demo (for simplicity only) but you're free to fit it to your own scenario with another one.
+                                                                    </p>
+                                                                </div>
+
+                                                                <div class="well well-sm" style="background-color: #d9edf7; border-color: #bce8f1; color: #31708f;">
+                                                                    <form style="margin-bottom: 0;">
+                                                                        <div class="checkbox" style="margin-top: 0; margin-bottom: 0;">
+                                                                            <label>
+                                                                                <input type="checkbox" id="chkUseDataSourceSample" name="chkUseDataSourceSample">
+                                                                                <strong>Use this Data Source for the current label...</strong>
+                                                                            </label>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                                <p>The following are the available Data Fields:</p>
+
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-hover table-condensed table-bordered">
+                                                                        <thead>
+                                                                            <tr class="active">
+                                                                                <th>DataField</th>
+                                                                                <th>Expression</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr><td>id</td><td><code>[DataFields!id]</code></td></tr>
+                                                                            <tr><td>author</td><td><code>[DataFields!author]</code></td></tr>
+                                                                            <tr><td>title</td><td><code>[DataFields!title]</code></td></tr>
+                                                                            <tr><td>genre</td><td><code>[DataFields!genre]</code></td></tr>
+                                                                            <tr><td>price</td><td><code>[DataFields!price]</code></td></tr>
+                                                                            <tr><td>publish_date</td><td><code>[DataFields!publish_date]</code></td></tr>
+                                                                            <tr><td>description</td><td><code>[DataFields!description]</code></td></tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="txtDataSource" class="control-label">Data Source Content</label>
+                                                                    <textarea id="txtDataSource" class="form-control" rows="15" readonly="readonly"
+                                                                                style="font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: 11px; resize: vertical; background-color: #fafafa;"></style>
+                                                                </div>
+
+                                                                `,
+            expressions: `
+
+                                                                <div class="alert alert-warning alert-dismissible" role="alert">
+                                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                        <i class="fa fa-warning"></i> <strong>NOTE</strong>
+                                                                        <ul class="list-unstyled small" style="margin-top: 5px; margin-bottom: 0;">
+                                                                            <li style="margin-bottom: 5px;">
+                                                                                These <strong>Expressions are applied on the whole label content and allows you to change Item Attributes/Properties</strong> based on the result of each expression code.
+                                                                            </li>
+                                                                            <li>
+                                                                                <strong>Each Item</strong> also features an <strong>Expression</strong> property that can be used to <strong>change the Item's content only!</strong>
+                                                                            </li>
+                                                                        </ul>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                        <button type="button" class="btn btn-primary" onclick="UIEditor.editGlobalExpressions();">
+                                                                            <span class="glyphicon glyphicon-edit"></span> Edit Expressions...
+                                                                        </button>
+                                                                </div>
+
+                                                                <div class="help-block text-warning" style="margin-bottom: 10px;">
+                                                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                                                        <strong>One Expression code per line is mandatory and order does matter!</strong>
+                                                                </div>
+
+                                                                <div class="table-responsive">
+                                                                        <table class="table table-hover table-condensed table-bordered" id="tableGlobalExpressions"
+                                                                                style="font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: 12px;">
+                                                                            <!-- Se asume que el JS (UIEditor) inyectará aquí los <thead> y <tbody> -->
+                                                                        </table>
+                                                                </div>
+
+                                                                <input type="hidden" id="txtGlobalExpressions" onchange="UIEditor.setGlobalExpressions(); UIEditor.displayGlobalExpressions();" />
+
+                                                                                                            `,
+            outline: `
+                                                                <div id="document-outline"></div>
+                                                                `
+        };
+
+        $(document).ready(function () {
+            const $leftPanel = $('#left-panel');
+            const $leftPanelBody = $('#left-panel-dynamic-body');
+            const $leftPanelTitle = $('#left-panel-title');
+
+            // Set left panel default view on load
+            $leftPanelBody.html(leftPanelOptions['templates']);
+
+            const $rightPanel = $('#right-panel');
+            const $rightPanelBody = $('#right-panel-dynamic-body');
+            const $rightPanelTitle = $('#right-panel-title');
+
+            // Set right panel default view on load
+            $rightPanelBody.html(rightPanelOptions['properties']);
+
+            // Sidebar tools click event (Toggle and Swap content logic)
+            $('.tool-item').click(function () {
+                const targetKey = $(this).data('target');
+
+                const targetPanel = (targetKey == 'properties' || targetKey == 'datasource' || targetKey == 'expressions' || targetKey == 'outline') ? 'r' : 'l';
+
+                const isAlreadyActive = $(this).hasClass('active');
+                const isDrawerCollapsed = targetPanel == 'l' ? $leftPanel.hasClass('collapsed') : $rightPanel.hasClass('collapsed');
+
+                if (isAlreadyActive) {
+                    // Scenario A: Clicked the same active button -> Collapse the panel
+                    if (targetPanel == 'l')
+                        $leftPanel.addClass('collapsed');
+                    else
+                        $rightPanel.addClass('collapsed');
+
+                    $(this).removeClass('active');
+                } else {
+                    // Scenario B: Clicked a different button -> Switch content & Ensure it's visible
+                    $('.tool-item').removeClass('active');
+                    $(this).addClass('active');
+
+                    // Update contents
+                    if (targetPanel == 'l') {
+                        $leftPanelTitle.text($(this).text().trim());
+                        $leftPanelBody.html(leftPanelOptions[targetKey]);
+
+                        if (targetKey == 'templates')
+                            gallery.displayAllLabels();
+                        if (targetKey == 'images') {
+                            $('#uploadBtn').on('click', function () {
+                                $('#fileInput').trigger('click');
+                            });
+
+                            $('#fileInput').on('change', function (event) {
+                                var file = event.target.files[0];
+
+                                if (!file) return;
+
+                                var validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+                                if ($.inArray(file.type, validTypes) === -1) {
+                                    alert('Please select JPG or PNG only.');
+                                    $('#fileInput').val('');
+                                    return;
+                                }
+
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    var imageSrc = e.target.result;
+
+                                    bufferUploadedImages.push(imageSrc);
+
+                                    showUploadedImages();
+                                };
+
+                                reader.readAsDataURL(file);
+
+                                $('#fileInput').val('');
+                            });
+
+                            // load cached images
+                            showUploadedImages();
+                            // load preset symbols
+                            showSymbolImages();
+                        }
+
+                    } else {
+                        $rightPanelTitle.text($(this).text().replace('ƒx', '').trim());
+                        $rightPanelBody.html(rightPanelOptions[targetKey]);
+
+                        if (targetKey == 'datasource') // load sample data source
+                            $('#txtDataSource').val("<?xml version=\"1.0\"?><catalog><book id=\"bk101\"><author>Gambardella, Matthew</author><title>XML Developer's Guide</title > <genre>Computer</genre><price>44.95</price><publish_date>2000-10-01</publish_date><description>An in-depth look at creating applications with XML.</description></book > <book id=\"bk102\"><author>Ralls, Kim</author><title>Midnight Rain</title><genre>Fantasy</genre><price>5.95</price><publish_date>2000-12-16</publish_date><description>A former architect battles corporate zombies, an evil sorceress, and her own childhood to become queen of the world.</description></book><book id=\"bk103\"><author>Corets, Eva</author><title>Maeve Ascendant</title><genre>Fantasy</genre><price>5.95</price><publish_date>2000-11-17</publish_date><description>After the collapse of a nanotechnology society in England, the young survivors lay the foundation for a new society.</description></book><book id=\"bk104\"><author>Corets, Eva</author><title>Oberon's Legacy</title><genre>Fantasy</genre><price>5.95</price><publish_date>2001-03-10</publish_date><description>In post-apocalypse England, the mysterious agent known only as Oberon helps to create a new life for the inhabitants of London. Sequel to Maeve Ascendant.</description></book><book id=\"bk105\"><author>Corets, Eva</author><title>The Sundered Grail</title><genre>Fantasy</genre><price>5.95</price><publish_date>2001-09-10</publish_date><description>The two daughters of Maeve, half-sisters, battle one another for control of England. Sequel to Oberon's Legacy.</description></book><book id=\"bk106\"><author>Randall, Cynthia</author><title>Lover Birds</title><genre>Romance</genre><price>4.95</price><publish_date>2000-09-02</publish_date><description>When Carla meets Paul at an ornithology conference, tempers fly as feathers get ruffled.</description></book><book id=\"bk107\"><author>Thurman, Paula</author><title>Splish Splash</title><genre>Romance</genre><price>4.95</price><publish_date>2000-11-02</publish_date><description>A deep sea diver finds true love twenty thousand leagues beneath the sea.</description></book><book id=\"bk108\"><author>Knorr, Stefan</author><title>Creepy Crawlies</title><genre>Horror</genre><price>4.95</price><publish_date>2000-12-06</publish_date><description>An anthology of horror stories about roaches,centipedes, scorpions  and other insects.</description></book><book id=\"bk109\"><author>Kress, Peter</author><title>Paradox Lost</title><genre>Science Fiction</genre><price>6.95</price><publish_date>2000-11-02</publish_date><description>After an inadvertant trip through a HeisenbergUncertainty Device, James Salway discovers the problems of being quantum.</description></book><book id=\"bk110\"><author>O'Brien, Tim</author><title>Microsoft .NET: The Programming Bible</title><genre>Computer</genre><price>36.95</price><publish_date>2000-12-09</publish_date><description>Microsoft's .NET initiative is explored in detail in this deep programmer's reference.</description></book><book id=\"bk111\"><author>O'Brien, Tim</author><title>MSXML3: A Comprehensive Guide</title><genre>Computer</genre><price>36.95</price><publish_date>2000-12-01</publish_date><description>The Microsoft MSXML3 parser is covered in detail, with attention to XML DOM interfaces, XSLT processing, SAX and more.</description></book><book id=\"bk112\"><author>Galos, Mike</author><title>Visual Studio 7: A Comprehensive Guide</title><genre>Computer</genre><price>49.95</price><publish_date>2001-04-16</publish_date><description>Microsoft Visual Studio 7 is explored in depth,looking at how Visual Basic, Visual C++, C#, and ASP+ are integrated into a comprehensive development environment.</description></book></catalog>");
+                        else if (targetKey == 'expressions') // load current label's global expressions
+                            UIEditor.displayGlobalExpressions();
+                        else if (targetKey == 'properties') // load label's properties
+                            tleditor.selectionChanged();
+                        else if (targetKey == 'outline') // build the document outline
+                            DocumentOutline.render();
+                    }
+
+                    // Slide drawer open if it was hidden
+                    if (isDrawerCollapsed) {
+                        if (targetPanel == 'l')
+                            $leftPanel.removeClass('collapsed');
+                        else
+                            $rightPanel.removeClass('collapsed');
+                    }
+                }
+            });
+
+            // Chevron left button event -> Manually hide panel and remove highlights
+            $('#btn-close-drawer-left').click(function () {
+                $leftPanel.addClass('collapsed');
+                $('.tool-item').removeClass('active');
+            });
+
+            // Chevron right button event -> Manually hide panel and remove highlights
+            $('#btn-close-drawer-right').click(function () {
+                $rightPanel.addClass('collapsed');
+                $('.tool-item').removeClass('active');
+            });
+
+            // Triggering Modals
+            $('#btn-new').click(function (e) { e.preventDefault(); LabelDocDialog.open('new'); });
+            $('#btn-label-props').click(function (e) { e.preventDefault(); LabelDocDialog.open('edit'); });
+            $('#btn-open').click(function (e) { e.preventDefault(); $('#open-document').modal('show'); });
+            $('#btn-preview').click(function (e) { e.preventDefault(); UIEditor.showLabelPreview(); $('#preview-dialog').modal('show'); });
+            $('#btn-print').click(function (e) { e.preventDefault(); $('#print-dialog').modal('show'); });
+            $('#btn-options').click(function (e) { e.preventDefault(); UIEditor.getOptions(); $('#options').modal('show'); });
+            $('#btn-shortcuts').click(function (e) { e.preventDefault(); $('#shortcuts').modal('show'); });
+
+            // Buffer for uploaded images by the user
+            var bufferUploadedImages = [];
+            function showUploadedImages() {
+                var $container = $('#gridImages');
+
+                $container.empty();
+
+                $.each(bufferUploadedImages, function (index, base64Image) {
+
+                    var backColor = '#e8e8ec';
+                    var $col = $('<div>').addClass('col-xs-6');
+
+                    var $gridItem = $('<div>')
+                        .addClass('grid-item')
+                        .css({
+                            'background-color': backColor,
+                            'height': '100px',
+                            'padding': '5px',
+                            'box-sizing': 'border-box',
+                            'position': 'relative'
+                        })
+                        .on('click', function () {
+                            UIEditor.addNewItem('Image', bufferUploadedImages[index]);
+                        });
+
+                    var $deleteBtn = $('<span>')
+                        .html('<i class="fa fa-times"></i>')
+                        .css({
+                            'position': 'absolute',
+                            'top': '5px',
+                            'right': '5px',
+                            'color': '#fff',
+                            'background-color': 'rgba(217, 83, 79, 0.9)',
+                            'padding': '3px 7px',
+                            'border-radius': '20%',
+                            'cursor': 'pointer',
+                            'font-size': '10px',
+                            'z-index': '10',
+                            'transition': 'background-color 0.2s'
+                        })
+                        .hover(
+                            function () { $(this).css('background-color', '#c9302c'); },
+                            function () { $(this).css('background-color', 'rgba(217, 83, 79, 0.9)'); }
+                        )
+                        .on('click', function (e) {
+                            e.stopPropagation();
+                            bufferUploadedImages.splice(index, 1);
+                            showUploadedImages();
+                        });
+
+                    var $img = $('<img>').attr('src', base64Image).css({
+                        'width': '100%',
+                        'height': '100%',
+                        'object-fit': 'contain',
+                        'display': 'block',
+                        'margin': '0 auto'
+                    });
+
+                    $gridItem.append($deleteBtn);
+                    $gridItem.append($img);
+                    $col.append($gridItem);
+                    $container.append($col);
+                });
+            }
+
+            // Show preset of symbol images
+            function showSymbolImages() {
+                var $container = $('#symbolImages');
+
+                $container.empty();
+
+                $.each(packagingSymbols, function (index, symb) {
+
+                    var backColor = '#e8e8ec';
+                    var $col = $('<div>').addClass('col-xs-3');
+
+                    var $gridItem = $('<div>')
+                        .addClass('grid-item')
+                        .css({
+                            'background-color': backColor,
+                            'height': '50px',
+                            'padding': '5px',
+                            'box-sizing': 'border-box'
+                        })
+                        .on('click', function () {
+                            UIEditor.addNewItem('Image', symb.base64);
+                        });
+
+                    var $img = $('<img>').attr('src', symb.base64).attr('title', symb.name).css({
+                        'width': '100%',
+                        'height': '100%',
+                        'object-fit': 'contain',
+                        'display': 'block',
+                        'margin': '0 auto'
+                    });
+
+                    $gridItem.append($img);
+                    $col.append($gridItem);
+                    $container.append($col);
+                });
+            }
+
+            // user session timeout
             function endSession() {
                 $('#sessionExpired').modal('show');
             }
@@ -46,10 +605,11 @@
             }());
 
             if (os.isLinux || os.isIntelMac || os.isAndroid) {
-                $('#tlbPrint').hide();
+                $('#btn-print').hide();
             }
 
         });
+
 
     </script>
 

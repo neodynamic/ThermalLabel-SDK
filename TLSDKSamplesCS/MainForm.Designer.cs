@@ -137,6 +137,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.imgViewer);
+            this.panel3.Controls.Add(this.toolStrip1);
             this.panel3.Location = new System.Drawing.Point(223, 89);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1029, 580);
@@ -145,10 +146,10 @@
             // imgViewer
             // 
             this.imgViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imgViewer.Location = new System.Drawing.Point(0, 0);
+            this.imgViewer.Location = new System.Drawing.Point(0, 53);
             this.imgViewer.Name = "imgViewer";
-            this.imgViewer.Size = new System.Drawing.Size(1027, 578);
-            this.imgViewer.TabIndex = 0;
+            this.imgViewer.Size = new System.Drawing.Size(1027, 525);
+            this.imgViewer.TabIndex = 1;
             // 
             // toolStrip1
             // 
@@ -320,7 +321,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 37);
             this.label3.TabIndex = 1;
-            this.label3.Text = "15";
+            this.label3.Text = "16";
             // 
             // linkLabel1
             // 
@@ -350,6 +351,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -371,6 +373,7 @@
         private System.Windows.Forms.ToolStripButton btnPrint;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton btnExportToPdf;
+        private ImageViewer imgViewer;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripComboBox cboDpi;
@@ -385,6 +388,5 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolStripMenuItem btnToImageSvg;
         private System.Windows.Forms.ToolStripMenuItem btnToImagePcx;
-        private ImageViewer imgViewer;
     }
 }

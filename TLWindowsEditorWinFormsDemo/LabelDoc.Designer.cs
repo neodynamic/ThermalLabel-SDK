@@ -57,6 +57,8 @@
             this.picSheetLabels = new System.Windows.Forms.PictureBox();
             this.tabMultiPages = new System.Windows.Forms.TabPage();
             this.picPages = new System.Windows.Forms.PictureBox();
+            this.tabDuplex = new System.Windows.Forms.TabPage();
+            this.picDuplexLabel = new System.Windows.Forms.PictureBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.gbMargin = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -92,8 +94,8 @@
             this.gbGeneral = new System.Windows.Forms.GroupBox();
             this.btnSetBackImage = new System.Windows.Forms.Button();
             this.btnClearBackImage = new System.Windows.Forms.Button();
-            this.tabDuplex = new System.Windows.Forms.TabPage();
-            this.picDuplexLabel = new System.Windows.Forms.PictureBox();
+            this.cboLabelShape = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHeight)).BeginInit();
             this.gbLabel.SuspendLayout();
@@ -110,6 +112,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.picSheetLabels)).BeginInit();
             this.tabMultiPages.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPages)).BeginInit();
+            this.tabDuplex.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDuplexLabel)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.gbMargin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMarginBottom)).BeginInit();
@@ -128,8 +132,6 @@
             this.gbPages.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPages)).BeginInit();
             this.gbGeneral.SuspendLayout();
-            this.tabDuplex.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picDuplexLabel)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -154,7 +156,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(34, 24);
+            this.label2.Location = new System.Drawing.Point(20, 32);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 2;
@@ -163,7 +165,7 @@
             // nudWidth
             // 
             this.nudWidth.DecimalPlaces = 4;
-            this.nudWidth.Location = new System.Drawing.Point(78, 22);
+            this.nudWidth.Location = new System.Drawing.Point(64, 30);
             this.nudWidth.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -176,7 +178,7 @@
             // nudHeight
             // 
             this.nudHeight.DecimalPlaces = 4;
-            this.nudHeight.Location = new System.Drawing.Point(244, 22);
+            this.nudHeight.Location = new System.Drawing.Point(240, 30);
             this.nudHeight.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -189,7 +191,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(200, 24);
+            this.label3.Location = new System.Drawing.Point(196, 32);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 13);
             this.label3.TabIndex = 4;
@@ -217,13 +219,15 @@
             // 
             // gbLabel
             // 
+            this.gbLabel.Controls.Add(this.cboLabelShape);
+            this.gbLabel.Controls.Add(this.label18);
             this.gbLabel.Controls.Add(this.label2);
             this.gbLabel.Controls.Add(this.nudHeight);
             this.gbLabel.Controls.Add(this.nudWidth);
             this.gbLabel.Controls.Add(this.label3);
             this.gbLabel.Location = new System.Drawing.Point(3, 3);
             this.gbLabel.Name = "gbLabel";
-            this.gbLabel.Size = new System.Drawing.Size(337, 58);
+            this.gbLabel.Size = new System.Drawing.Size(337, 97);
             this.gbLabel.TabIndex = 0;
             this.gbLabel.TabStop = false;
             this.gbLabel.Text = "Label";
@@ -235,7 +239,7 @@
             this.gbVLayout.Controls.Add(this.label4);
             this.gbVLayout.Controls.Add(this.nudGapLength);
             this.gbVLayout.Controls.Add(this.chkIsContinuous);
-            this.gbVLayout.Location = new System.Drawing.Point(3, 157);
+            this.gbVLayout.Location = new System.Drawing.Point(3, 196);
             this.gbVLayout.Name = "gbVLayout";
             this.gbVLayout.Size = new System.Drawing.Size(337, 86);
             this.gbVLayout.TabIndex = 1;
@@ -303,7 +307,7 @@
             this.gbPrintOptions.Controls.Add(this.txtPrintSpeed);
             this.gbPrintOptions.Controls.Add(this.label6);
             this.gbPrintOptions.Controls.Add(this.chkPrintMirror);
-            this.gbPrintOptions.Location = new System.Drawing.Point(3, 311);
+            this.gbPrintOptions.Location = new System.Drawing.Point(3, 350);
             this.gbPrintOptions.Name = "gbPrintOptions";
             this.gbPrintOptions.Size = new System.Drawing.Size(337, 85);
             this.gbPrintOptions.TabIndex = 3;
@@ -389,7 +393,7 @@
             this.tabRollMulticolLabels.Location = new System.Drawing.Point(4, 22);
             this.tabRollMulticolLabels.Name = "tabRollMulticolLabels";
             this.tabRollMulticolLabels.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRollMulticolLabels.Size = new System.Drawing.Size(392, 512);
+            this.tabRollMulticolLabels.Size = new System.Drawing.Size(451, 512);
             this.tabRollMulticolLabels.TabIndex = 1;
             this.tabRollMulticolLabels.Text = "Roll - Multicolumn Labels";
             this.tabRollMulticolLabels.UseVisualStyleBackColor = true;
@@ -411,7 +415,7 @@
             this.tabSheetLabels.Controls.Add(this.picSheetLabels);
             this.tabSheetLabels.Location = new System.Drawing.Point(4, 22);
             this.tabSheetLabels.Name = "tabSheetLabels";
-            this.tabSheetLabels.Size = new System.Drawing.Size(392, 512);
+            this.tabSheetLabels.Size = new System.Drawing.Size(451, 512);
             this.tabSheetLabels.TabIndex = 2;
             this.tabSheetLabels.Text = "Sheet Labels";
             this.tabSheetLabels.UseVisualStyleBackColor = true;
@@ -451,6 +455,29 @@
             this.picPages.TabIndex = 12;
             this.picPages.TabStop = false;
             // 
+            // tabDuplex
+            // 
+            this.tabDuplex.Controls.Add(this.picDuplexLabel);
+            this.tabDuplex.Location = new System.Drawing.Point(4, 22);
+            this.tabDuplex.Name = "tabDuplex";
+            this.tabDuplex.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDuplex.Size = new System.Drawing.Size(451, 512);
+            this.tabDuplex.TabIndex = 4;
+            this.tabDuplex.Text = "Duplex Label";
+            this.tabDuplex.UseVisualStyleBackColor = true;
+            // 
+            // picDuplexLabel
+            // 
+            this.picDuplexLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.picDuplexLabel.Location = new System.Drawing.Point(6, 6);
+            this.picDuplexLabel.Name = "picDuplexLabel";
+            this.picDuplexLabel.Size = new System.Drawing.Size(439, 349);
+            this.picDuplexLabel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.picDuplexLabel.TabIndex = 13;
+            this.picDuplexLabel.TabStop = false;
+            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoScroll = true;
@@ -477,7 +504,7 @@
             this.gbMargin.Controls.Add(this.nudMarginTop);
             this.gbMargin.Controls.Add(this.label14);
             this.gbMargin.Controls.Add(this.nudMarginLeft);
-            this.gbMargin.Location = new System.Drawing.Point(3, 67);
+            this.gbMargin.Location = new System.Drawing.Point(3, 106);
             this.gbMargin.Name = "gbMargin";
             this.gbMargin.Size = new System.Drawing.Size(337, 84);
             this.gbMargin.TabIndex = 6;
@@ -578,7 +605,7 @@
             this.gbHLayout.Controls.Add(this.nudLabelsPerRow);
             this.gbHLayout.Controls.Add(this.label7);
             this.gbHLayout.Controls.Add(this.nudHorizGapLength);
-            this.gbHLayout.Location = new System.Drawing.Point(3, 249);
+            this.gbHLayout.Location = new System.Drawing.Point(3, 288);
             this.gbHLayout.Name = "gbHLayout";
             this.gbHLayout.Size = new System.Drawing.Size(337, 56);
             this.gbHLayout.TabIndex = 2;
@@ -838,28 +865,23 @@
             this.btnClearBackImage.UseVisualStyleBackColor = true;
             this.btnClearBackImage.Click += new System.EventHandler(this.btnClearBackImage_Click);
             // 
-            // tabDuplex
+            // cboLabelShape
             // 
-            this.tabDuplex.Controls.Add(this.picDuplexLabel);
-            this.tabDuplex.Location = new System.Drawing.Point(4, 22);
-            this.tabDuplex.Name = "tabDuplex";
-            this.tabDuplex.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDuplex.Size = new System.Drawing.Size(451, 512);
-            this.tabDuplex.TabIndex = 4;
-            this.tabDuplex.Text = "Duplex Label";
-            this.tabDuplex.UseVisualStyleBackColor = true;
+            this.cboLabelShape.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboLabelShape.FormattingEnabled = true;
+            this.cboLabelShape.Location = new System.Drawing.Point(64, 64);
+            this.cboLabelShape.Name = "cboLabelShape";
+            this.cboLabelShape.Size = new System.Drawing.Size(258, 21);
+            this.cboLabelShape.TabIndex = 7;
             // 
-            // picDuplexLabel
+            // label18
             // 
-            this.picDuplexLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.picDuplexLabel.Location = new System.Drawing.Point(6, 6);
-            this.picDuplexLabel.Name = "picDuplexLabel";
-            this.picDuplexLabel.Size = new System.Drawing.Size(439, 349);
-            this.picDuplexLabel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.picDuplexLabel.TabIndex = 13;
-            this.picDuplexLabel.TabStop = false;
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(17, 67);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(41, 13);
+            this.label18.TabIndex = 6;
+            this.label18.Text = "Shape:";
             // 
             // LabelDoc
             // 
@@ -901,6 +923,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.picSheetLabels)).EndInit();
             this.tabMultiPages.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picPages)).EndInit();
+            this.tabDuplex.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picDuplexLabel)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.gbMargin.ResumeLayout(false);
             this.gbMargin.PerformLayout();
@@ -923,8 +947,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvPages)).EndInit();
             this.gbGeneral.ResumeLayout(false);
             this.gbGeneral.PerformLayout();
-            this.tabDuplex.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picDuplexLabel)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -997,5 +1019,7 @@
         private System.Windows.Forms.NumericUpDown nudMarginLeft;
         private System.Windows.Forms.TabPage tabDuplex;
         private System.Windows.Forms.PictureBox picDuplexLabel;
+        private System.Windows.Forms.ComboBox cboLabelShape;
+        private System.Windows.Forms.Label label18;
     }
 }

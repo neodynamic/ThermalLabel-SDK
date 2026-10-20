@@ -74,6 +74,34 @@ namespace TLWindowsEditorWinFormsDemo
         }
     }
 
+    public class RtfUIEditor : UITypeEditor
+    {
+        
+        public override System.Drawing.Design.UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
+        {
+            return System.Drawing.Design.UITypeEditorEditStyle.Modal;
+        }
+
+        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+        {
+
+            using (MiniRtfEditor editorForm = new MiniRtfEditor())
+            {
+                // Pass the current RTF string into the editor
+                editorForm.RtfContent = value as string;
+
+                // Show the form as a modal dialog within Visual Studio
+                if (editorForm.ShowDialog() == DialogResult.OK)
+                {
+                    // Return the modified RTF string back to the Property Grid
+                    return editorForm.RtfContent;
+                }
+            }
+
+            return value;
+        }
+
+    }
 
     public class DataFieldConverter : StringConverter
     {
@@ -120,7 +148,8 @@ namespace TLWindowsEditorWinFormsDemo
 
         public string StrokeColorHex { get; set; }
 
-        [Editor(typeof(MultilineStringEditor), typeof(UITypeEditor))]
+        //[Editor(typeof(MultilineStringEditor), typeof(UITypeEditor))]
+        [Editor(typeof(RtfUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
         [RefreshProperties(System.ComponentModel.RefreshProperties.All)]
 
         public string Text { get; set; }
@@ -182,6 +211,11 @@ namespace TLWindowsEditorWinFormsDemo
         [Editor(typeof(ImageFileEditor), typeof(UITypeEditor))]
         [RefreshProperties(System.ComponentModel.RefreshProperties.All)]
         public string SourceFile { get; set; }
+
+        [Editor(typeof(MultilineStringEditor), typeof(UITypeEditor))]
+        [RefreshProperties(System.ComponentModel.RefreshProperties.All)]
+
+        public string SourceBase64 { get; set; }
     }
 
    
@@ -209,6 +243,8 @@ namespace TLWindowsEditorWinFormsDemo
         [Browsable(false)]
         public bool GroupName { get; set; }
     }
+
+
 
     //public class FontMetadata
     //{
@@ -874,5 +910,198 @@ namespace TLWindowsEditorWinFormsDemo
 
         private TableSizeControl control = new TableSizeControl();
     }
+    #endregion
+
+
+    #region RTF Editor
+    
+    public class MiniRtfEditor : Form
+    {
+        private ToolStrip toolStrip;
+        private RichTextBox richTextBox;
+
+        // Formatting Toolbar Items
+        private ToolStripButton btnBold;
+        private ToolStripButton btnItalic;
+        private ToolStripButton btnUnderline;
+        private ToolStripButton btnStrikeout;
+        private ToolStripComboBox comboFontFamily;
+        private ToolStripComboBox comboFontSize;
+        private ToolStripButton btnAlignLeft;
+        private ToolStripButton btnAlignCenter;
+        private ToolStripButton btnAlignRight;
+        private ToolStripButton btnForeColor;
+        private ToolStripButton btnBackColor;
+        private ColorDialog colorDialog1 = new ColorDialog();
+        private ToolStripButton btnOk;
+        private ToolStripButton btnCancel;
+
+        public MiniRtfEditor()
+        {
+            InitializeComponentCustom();
+            SetupEditorEvents();
+            LoadSystemFonts();
+        }
+
+        private Image IconFromBase64(string b64)
+        {
+            using (var ms = new System.IO.MemoryStream(Convert.FromBase64String(b64)))
+            {
+                return Image.FromStream(ms);
+            }
+        }
+
+        private void InitializeComponentCustom()
+        {
+            this.Text = "Rich Text Format Editor";
+            this.Size = new Size(700, 400);
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+
+            toolStrip = new ToolStrip();
+            richTextBox = new RichTextBox { Dock = DockStyle.Fill, AcceptsTab = true };
+
+            btnOk = new ToolStripButton("OK", IconFromBase64("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAk0lEQVR42mP8//8/AyWAcdQA4g1IjExM+PDjw/wDBw4wvH//npEkA2CaN2zYAOYC9Swg2oDERKDmD9g1YxhQWFj4H6iY4cGDB4n79+9fALS5AMjv37ADu2YMAwwNDR0EBAT2M3AAOT8YCkGaL1y4gFMzVi8ICgo6AKn9IJdAQSBQzQaSYoGRkRFsCCHNRMfCMDcAAMTif+GXMy0YAAAAAElFTkSuQmCC"), (s, e) => {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            });
+            btnCancel = new ToolStripButton("Cancel", IconFromBase64("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABRUlEQVR42q2SvVaDMBiGXzY24qaTYXQqHZmAO2DtyJXp5ih3QL2Cpptbs5WNZMuGbyhHoRbrUXMOPwfyPt+TLwn6vsdfRvD/gKoQeGzMYmJTSDw3+jKg4k8pFbSWFyE+HGILpXLsOj0H+Mq3shunWrRnkFNYwZgIbwrWIY4Ovf5qIMSBEwGHPSeXhGiGk6FyayLLMMeaYbXUg4T3HQGAoIlByXDNZUVW61l4eReqIue9oQF4WThWbofVDNo/28ZNUcLoF2rDEqId8tXxs/L3gDT2vagJWI2VPUDzrcyO1wzSWHDt2jfM6+9ZmV9rEeLeOMoAyRQyB0zDzvidWIMNe70LkgECQvwWn0y2c0B6IxB6bZMx6BsnGf44B4RIPp54Zd6ERoPJ3OAhEDwgKqLmNDyBJAx7kzLrls7BlTGaGFY3vwKcj3fRR97hWe/mFAAAAABJRU5ErkJggg=="), (s, e) => {
+                this.DialogResult = DialogResult.Cancel;
+                this.Close();
+            });
+
+            // Text formatting buttons
+            btnBold = new ToolStripButton(IconFromBase64("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAbUlEQVR42mP8//8/AyWAcXAZwMjJiMu0jww/GAqA9Aag+g/4DDAAUudh/P/f/zMCxRyAzP1AA0AgEah+AV4vILsCZABcDGLAQ6B6BZIMoMgFKOAHw0IgWYA3DKjuApLDAG4buS6gOB2QA4aBAQCn6YLhCocpwQAAAABJRU5ErkJggg==")) { ToolTipText = "Bold" };
+            btnItalic = new ToolStripButton(IconFromBase64("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAb0lEQVR42mP8//8/AyWAcXAbwMjIiCEJVM9IvAGcjAoMPxjugzkcDIr/v/9/QJoLOBkDgAasB2oOBGreQLYX0J1NlAFIticCbV9AugFE2I7TACTbC4G2TyDJALSQNwQacIFoA7DFO9mBSCwYBgYAAKIPXeHmuypvAAAAAElFTkSuQmCC")) { ToolTipText = "Italic" };
+            btnUnderline = new ToolStripButton(IconFromBase64("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAk0lEQVR42mP8//8/AyWAcXAZwMjIiGIaUI4RmxhOAwwtHQ0unDhwHsQ2sHBwPH98/wGgmANQbD+yGF4vwGxEtgmb2KgBeAwAhvoBYKjbKygoON6/f/+AoqKiw4MHD/YDY+AiMAYMCLuAk1FBgEOg4cOHD/EwMQEBgYUffnxo+P/9/wOCBpAK8KZEbABvSqTYBeQAAB1lj+FpOGf/AAAAAElFTkSuQmCC")) { ToolTipText = "Underline" };
+            btnStrikeout = new ToolStripButton(IconFromBase64("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABF0lEQVR42s2TsW3DMBBFj53LU+d09ASOunShJzAzgeUJkhE0gkfgCMkGKtORXdKJqezO586d8s+gAFcp5CAIgQ8SpO7x3wdlhmGgW4b5dUBd14zJqWKML1MAls70KkTcf0Q7yYGIBDnL+rg/mkkZVFW14xk3WNp+38uPAO+90xtpRszEXcqpkYO0ADzj/A1KUAAoa8HibnGPb1uFo9XGOOcSM2tYFrbb/Jk9gM0VgEcICh2KfNmT0YHFjboR2PIyvacVAH5soShcAdZYP0Gdgoyd25segjoQtcVzzh0G5gBH2s4GmVTFQYS2xcFmdMDWJuMekCFJxgHB+hKOvvIhZwAeATgVqx1C3JUQNa9LexfA//sX/hzwDddAmVL2+uYlAAAAAElFTkSuQmCC")) { ToolTipText = "Strikeout" };
+
+            btnForeColor = new ToolStripButton(IconFromBase64("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABPklEQVR42t2SIXaDQBCGNw6XOcLmBIEbwAkaJIpERiWcgFZWpZyAoiIDqpJERUJPAHW4Dg5H/6V5bd5rocR2zc7szP8x8z8mbduKvmN7iYnr/rC7M/t6JkMA7/HUlhULXZe2787jmwD4OuF6VzEz12no0k0Aa508i4ZV6ALQMbPDJh4PWEVKJbnho2jEHPEbAHIUwFpHS4i2GFs3nAgGcoq8KwFy/BuwinIIlunezVVuOAEjn2KlU/bim4MAiCWaC4z+2nmgdd7hjacXL2bFeVcOAWKIiatyi5RIAKAJpcxYARuRALD4FQAxoakUFcss9fkaPLMenjDFBmENAP0AWE4Ax4VqMolYpPvvppnlwVQOL+tgCq7VWsU55C+AYQeEgvzckwWK+RWgq+GP6nYhTb1SWWQKsKD+f3nE+QeAD0bFyWU8ARiOAAAAAElFTkSuQmCC")) { ToolTipText = "Text Color" };
+
+            btnBackColor = new ToolStripButton(IconFromBase64("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA3ElEQVR42u3RIQ7CMBTG8W8Ot+4EjBt0Dsfk3MYN4AZwAjQOJIrMgdpQ2OGQk3NUIh9ubrxBGCEbTfE0aZo0/f2fqFVVFXTrtPcmAG1HvsCtzKGU4E3IcyA7A5YuUGMq1TYMaqwY4rHzgnEGCOGOvwZMcHK8pJ0BU1y/bQUYR4wTE9wZOMQOMbZNcCtw2gx8PlIZKNsEtwN7L6UrQnfI04v3V33DTWA6dkTkY0aEhZTPyasdPR7ocBNYz63IdUXiS55aiCfu6eFHIF4OVHZWfSpf12a48xd+Xf8AcAeuT9VmpsQfwQAAAABJRU5ErkJggg==")) { ToolTipText = "Text Highlight Color" };
+
+            // Dropdowns for font style
+            comboFontFamily = new ToolStripComboBox { Width = 120 };
+            comboFontSize = new ToolStripComboBox { Width = 50 };
+            comboFontSize.Items.AddRange(new object[] { "8", "9", "10", "11", "12", "14", "16", "18", "20", "24", "28" });
+            comboFontSize.SelectedIndex = 4; // Defaults to 12
+
+            // Alignment adjustments
+            btnAlignLeft = new ToolStripButton(IconFromBase64("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAK0lEQVR42mP8//8/AyWAkSoGMDIykmUKUC8jfV0AsnE0DEbDgHZhMKAGAADel0fhTW41lAAAAABJRU5ErkJggg==")) { ToolTipText = "Left" };
+            btnAlignCenter = new ToolStripButton(IconFromBase64("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAL0lEQVR42mP8//8/AyWAkSoGMDIykmUKUC8jdVwA5xDpEpDNo2EwGgbUD4MBNQAAfpdH4e535+gAAAAASUVORK5CYII=")) { ToolTipText = "Center" };
+            btnAlignRight = new ToolStripButton(IconFromBase64("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAALUlEQVR42mP8//8/AyWAkSoGMDIykmUKUC8jdVyAIUiki6jngtEwGA2DATcAAB6XR+G184qKAAAAAElFTkSuQmCC")) { ToolTipText = "Right" };
+
+            // Add everything to the toolbar
+            toolStrip.Items.AddRange(new ToolStripItem[] {
+            btnOk, btnCancel, new ToolStripSeparator(),
+            comboFontFamily, comboFontSize, new ToolStripSeparator(),
+            btnBold, btnItalic, btnUnderline, btnStrikeout, btnForeColor, btnBackColor, new ToolStripSeparator(),
+            btnAlignLeft, btnAlignCenter, btnAlignRight
+        });
+
+            this.Controls.Add(richTextBox);
+            this.Controls.Add(toolStrip); 
+        }
+
+        
+        private void SetupEditorEvents()
+        {
+            btnBold.Click += (s, e) => ToggleSelectionStyle(FontStyle.Bold);
+            btnItalic.Click += (s, e) => ToggleSelectionStyle(FontStyle.Italic);
+            btnUnderline.Click += (s, e) => ToggleSelectionStyle(FontStyle.Underline);
+            btnStrikeout.Click += (s, e) => ToggleSelectionStyle(FontStyle.Strikeout);
+
+            comboFontFamily.SelectedIndexChanged += (s, e) => ApplySelectionFont();
+            comboFontSize.SelectedIndexChanged += (s, e) => ApplySelectionFont();
+
+            btnAlignLeft.Click += (s, e) => richTextBox.SelectionAlignment = HorizontalAlignment.Left;
+            btnAlignCenter.Click += (s, e) => richTextBox.SelectionAlignment = HorizontalAlignment.Center;
+            btnAlignRight.Click += (s, e) => richTextBox.SelectionAlignment = HorizontalAlignment.Right;
+
+            btnForeColor.Click += (s, e) =>
+            {
+                colorDialog1.Color = richTextBox.SelectionColor;
+
+                if (colorDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    richTextBox.SelectionColor = colorDialog1.Color;
+                }
+            };
+
+            btnBackColor.Click += (s, e) =>
+            {
+                colorDialog1.Color = richTextBox.SelectionBackColor; 
+
+                if (colorDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    richTextBox.SelectionBackColor = colorDialog1.Color;
+                }
+            };
+
+            richTextBox.SelectionChanged += RichTextBox_SelectionChanged;
+        }
+
+        private void LoadSystemFonts()
+        {
+            foreach (FontFamily family in FontFamily.Families)
+            {
+                comboFontFamily.Items.Add(family.Name);
+            }
+            comboFontFamily.Text = richTextBox.Font.Name;
+        }
+
+        private void ToggleSelectionStyle(FontStyle style)
+        {
+            if (richTextBox.SelectionFont == null) return;
+
+            FontStyle currentStyle = richTextBox.SelectionFont.Style;
+            FontStyle newStyle = currentStyle.HasFlag(style) ? (currentStyle & ~style) : (currentStyle | style);
+
+            richTextBox.SelectionFont = new System.Drawing.Font(richTextBox.SelectionFont, newStyle);
+        }
+
+        private void ApplySelectionFont()
+        {
+            if (richTextBox.SelectionFont == null || string.IsNullOrEmpty(comboFontFamily.Text)) return;
+
+            float size = float.TryParse(comboFontSize.Text, out float parsedSize) ? parsedSize : richTextBox.SelectionFont.Size;
+            string family = comboFontFamily.Text;
+
+            richTextBox.SelectionFont = new System.Drawing.Font(family, size, richTextBox.SelectionFont.Style);
+        }
+
+        private void RichTextBox_SelectionChanged(object sender, EventArgs e)
+        {
+            if (richTextBox.SelectionFont != null)
+            {
+                btnBold.Checked = richTextBox.SelectionFont.Bold;
+                btnItalic.Checked = richTextBox.SelectionFont.Italic;
+                btnUnderline.Checked = richTextBox.SelectionFont.Underline;
+                btnStrikeout.Checked = richTextBox.SelectionFont.Strikeout;
+                comboFontFamily.Text = richTextBox.SelectionFont.Name;
+                comboFontSize.Text = ((int)richTextBox.SelectionFont.Size).ToString();
+            }            
+        }
+
+        public string RtfContent
+        {
+            get => richTextBox.Rtf;
+            set {
+                try
+                {
+                    richTextBox.Rtf = value ?? string.Empty;
+                }
+                catch
+                {
+                    if (string.IsNullOrWhiteSpace(value) == false)
+                    MessageBox.Show("The text is not RTF format! If you edit it and click OK, it will be converted to raw RTF format!", "NOTE!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    richTextBox.Text = value ?? string.Empty;
+                }
+            }
+        }
+
+    }
+
     #endregion
 }

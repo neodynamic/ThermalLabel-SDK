@@ -21,6 +21,7 @@ namespace TLWindowsEditorWinFormsDemo
             InitializeComponent();
 
             cboUnit.DataSource = Enum.GetNames(typeof(Neodynamic.SDK.Printing.UnitType)).OrderBy(ut => ut).ToList();
+            cboLabelShape.DataSource = Enum.GetNames(typeof(Neodynamic.SDK.Printing.LabelShape)).ToList();
 
             _init = false;
 
@@ -86,7 +87,7 @@ namespace TLWindowsEditorWinFormsDemo
         {
             get
             {
-                var doc = new LabelDocument() { CutAfterPrinting = this.chkCutAfterPrinting.Checked, GapLength = (double)this.nudGapLength.Value, Height = (double)this.nudHeight.Value, IsContinuous = this.chkIsContinuous.Checked,  MarkLength = (double)this.nudMarkLength.Value, PrintMirror = this.chkPrintMirror.Checked, PrintSpeed = this.txtPrintSpeed.Text,  Width = (double)this.nudWidth.Value, UnitType = (UnitType)Enum.Parse(typeof(UnitType), cboUnit.SelectedItem.ToString()), DesignBackgroundImage = _designBackgroundImage };
+                var doc = new LabelDocument() { CutAfterPrinting = this.chkCutAfterPrinting.Checked, GapLength = (double)this.nudGapLength.Value, Height = (double)this.nudHeight.Value, IsContinuous = this.chkIsContinuous.Checked,  MarkLength = (double)this.nudMarkLength.Value, PrintMirror = this.chkPrintMirror.Checked, PrintSpeed = this.txtPrintSpeed.Text,  Width = (double)this.nudWidth.Value, UnitType = (UnitType)Enum.Parse(typeof(UnitType), cboUnit.SelectedItem.ToString()), DesignBackgroundImage = _designBackgroundImage, Shape = (LabelShape)Enum.Parse(typeof(LabelShape), cboLabelShape.SelectedItem.ToString()) };
                 doc.Margin = new FrameThickness() { 
                     Left = (double)this.nudMarginLeft.Value, 
                     Top = (double)this.nudMarginTop.Value,
@@ -148,6 +149,7 @@ namespace TLWindowsEditorWinFormsDemo
                 this.chkIsContinuous.Checked = value.IsContinuous;
                 this.chkPrintMirror.Checked = value.PrintMirror;
                 this.txtPrintSpeed.Text = value.PrintSpeed;
+                this.cboLabelShape.SelectedItem = value.Shape.ToString();
 
                 this.nudMarginLeft.Value = (decimal)value.Margin.Left;
                 this.nudMarginTop.Value = (decimal)value.Margin.Top;

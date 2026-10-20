@@ -68,6 +68,15 @@
             this.txtLabelExpressions = new System.Windows.Forms.TextBox();
             this.cmdEditExpressions = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.tabOutline = new System.Windows.Forms.TabPage();
+            this.tvwItems = new TLWindowsEditorWinFormsDemo.MultiSelectTreeView();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
+            this.lblOutlineStatus = new System.Windows.Forms.Label();
+            this.pnlOutlineFilter = new System.Windows.Forms.Panel();
+            this.txtOutlineSearch = new System.Windows.Forms.TextBox();
+            this.btnOutlineClear = new System.Windows.Forms.Button();
+            this.cboOutlineType = new System.Windows.Forms.ComboBox();
+            this.cboOutlineScope = new System.Windows.Forms.ComboBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuNew = new System.Windows.Forms.ToolStripMenuItem();
@@ -218,9 +227,6 @@
             this.cmSelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.cmExpressionSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.cmExpression = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tvwItems = new System.Windows.Forms.TreeView();
-            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -238,10 +244,11 @@
             this.pnlBarcodeSymbology.SuspendLayout();
             this.tabDataSource.SuspendLayout();
             this.tabExpressions.SuspendLayout();
+            this.tabOutline.SuspendLayout();
+            this.pnlOutlineFilter.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripContainer1
@@ -427,13 +434,14 @@
             this.imageList1.Images.SetKeyName(3, "properties.png");
             this.imageList1.Images.SetKeyName(4, "gallery.png");
             this.imageList1.Images.SetKeyName(5, "fx.png");
+            this.imageList1.Images.SetKeyName(6, "outline.png");
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabProperties);
             this.tabControl1.Controls.Add(this.tabDataSource);
             this.tabControl1.Controls.Add(this.tabExpressions);
-            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabOutline);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tabControl1.ImageList = this.imageList1;
@@ -690,6 +698,110 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "These Expressions are applied on the whole label content and allows you to change" +
     " Item Attributes/Properties based on the result of each expression code.";
+            // 
+            // tabOutline
+            // 
+            this.tabOutline.Controls.Add(this.tvwItems);
+            this.tabOutline.Controls.Add(this.lblOutlineStatus);
+            this.tabOutline.Controls.Add(this.pnlOutlineFilter);
+            this.tabOutline.ImageIndex = 6;
+            this.tabOutline.Location = new System.Drawing.Point(4, 24);
+            this.tabOutline.Name = "tabOutline";
+            this.tabOutline.Padding = new System.Windows.Forms.Padding(3);
+            this.tabOutline.Size = new System.Drawing.Size(342, 451);
+            this.tabOutline.TabIndex = 3;
+            this.tabOutline.Text = "Items";
+            this.tabOutline.UseVisualStyleBackColor = true;
+            // 
+            // tvwItems
+            // 
+            this.tvwItems.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvwItems.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.tvwItems.HideSelection = false;
+            this.tvwItems.ImageIndex = 0;
+            this.tvwItems.ImageList = this.imageList2;
+            this.tvwItems.Location = new System.Drawing.Point(3, 61);
+            this.tvwItems.Name = "tvwItems";
+            this.tvwItems.SelectedImageIndex = 0;
+            this.tvwItems.Size = new System.Drawing.Size(336, 369);
+            this.tvwItems.TabIndex = 0;
+            // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "Label");
+            this.imageList2.Images.SetKeyName(1, "RectangleShapeItem");
+            this.imageList2.Images.SetKeyName(2, "LineShapeItem");
+            this.imageList2.Images.SetKeyName(3, "EllipseShapeItem");
+            this.imageList2.Images.SetKeyName(4, "RepeaterItem");
+            this.imageList2.Images.SetKeyName(5, "LiteralItem");
+            this.imageList2.Images.SetKeyName(6, "TableShapeItem");
+            this.imageList2.Images.SetKeyName(7, "TextItem");
+            this.imageList2.Images.SetKeyName(8, "ImageItem");
+            this.imageList2.Images.SetKeyName(9, "BarcodeItem");
+            // 
+            // lblOutlineStatus
+            // 
+            this.lblOutlineStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblOutlineStatus.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.lblOutlineStatus.Location = new System.Drawing.Point(3, 430);
+            this.lblOutlineStatus.Name = "lblOutlineStatus";
+            this.lblOutlineStatus.Size = new System.Drawing.Size(336, 18);
+            this.lblOutlineStatus.TabIndex = 2;
+            this.lblOutlineStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // pnlOutlineFilter
+            // 
+            this.pnlOutlineFilter.Controls.Add(this.txtOutlineSearch);
+            this.pnlOutlineFilter.Controls.Add(this.btnOutlineClear);
+            this.pnlOutlineFilter.Controls.Add(this.cboOutlineType);
+            this.pnlOutlineFilter.Controls.Add(this.cboOutlineScope);
+            this.pnlOutlineFilter.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlOutlineFilter.Location = new System.Drawing.Point(3, 3);
+            this.pnlOutlineFilter.Name = "pnlOutlineFilter";
+            this.pnlOutlineFilter.Size = new System.Drawing.Size(336, 58);
+            this.pnlOutlineFilter.TabIndex = 1;
+            // 
+            // txtOutlineSearch
+            // 
+            this.txtOutlineSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtOutlineSearch.Location = new System.Drawing.Point(0, 3);
+            this.txtOutlineSearch.Name = "txtOutlineSearch";
+            this.txtOutlineSearch.Size = new System.Drawing.Size(282, 23);
+            this.txtOutlineSearch.TabIndex = 0;
+            // 
+            // btnOutlineClear
+            // 
+            this.btnOutlineClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOutlineClear.Location = new System.Drawing.Point(288, 2);
+            this.btnOutlineClear.Name = "btnOutlineClear";
+            this.btnOutlineClear.Size = new System.Drawing.Size(48, 25);
+            this.btnOutlineClear.TabIndex = 1;
+            this.btnOutlineClear.Text = "Clear";
+            this.btnOutlineClear.UseVisualStyleBackColor = true;
+            // 
+            // cboOutlineType
+            // 
+            this.cboOutlineType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboOutlineType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboOutlineType.FormattingEnabled = true;
+            this.cboOutlineType.Location = new System.Drawing.Point(0, 31);
+            this.cboOutlineType.Name = "cboOutlineType";
+            this.cboOutlineType.Size = new System.Drawing.Size(196, 23);
+            this.cboOutlineType.TabIndex = 2;
+            // 
+            // cboOutlineScope
+            // 
+            this.cboOutlineScope.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboOutlineScope.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboOutlineScope.FormattingEnabled = true;
+            this.cboOutlineScope.Location = new System.Drawing.Point(202, 31);
+            this.cboOutlineScope.Name = "cboOutlineScope";
+            this.cboOutlineScope.Size = new System.Drawing.Size(134, 23);
+            this.cboOutlineScope.TabIndex = 3;
             // 
             // menuStrip1
             // 
@@ -1981,44 +2093,6 @@
             this.cmExpression.Text = "Expression...";
             this.cmExpression.Click += new System.EventHandler(this.cmExpression_Click);
             // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.tvwItems);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(342, 451);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Text = "Items";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tvwItems
-            // 
-            this.tvwItems.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvwItems.HideSelection = false;
-            this.tvwItems.ImageIndex = 0;
-            this.tvwItems.ImageList = this.imageList2;
-            this.tvwItems.Location = new System.Drawing.Point(3, 3);
-            this.tvwItems.Name = "tvwItems";
-            this.tvwItems.SelectedImageIndex = 0;
-            this.tvwItems.Size = new System.Drawing.Size(336, 445);
-            this.tvwItems.TabIndex = 0;
-            // 
-            // imageList2
-            // 
-            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
-            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList2.Images.SetKeyName(0, "Label");
-            this.imageList2.Images.SetKeyName(1, "RectangleShapeItem");
-            this.imageList2.Images.SetKeyName(2, "LineShapeItem");
-            this.imageList2.Images.SetKeyName(3, "EllipseShapeItem");
-            this.imageList2.Images.SetKeyName(4, "RepeaterItem");
-            this.imageList2.Images.SetKeyName(5, "LiteralItem");
-            this.imageList2.Images.SetKeyName(6, "TableShapeItem");
-            this.imageList2.Images.SetKeyName(7, "TextItem");
-            this.imageList2.Images.SetKeyName(8, "ImageItem");
-            this.imageList2.Images.SetKeyName(9, "BarcodeItem");
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2027,7 +2101,7 @@
             this.Controls.Add(this.toolStripContainer1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "Neodynamic ThermalLabel Editor v15 for Windows (C#)";
+            this.Text = "Neodynamic ThermalLabel Editor for Windows";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
@@ -2056,12 +2130,14 @@
             this.tabDataSource.PerformLayout();
             this.tabExpressions.ResumeLayout(false);
             this.tabExpressions.PerformLayout();
+            this.tabOutline.ResumeLayout(false);
+            this.pnlOutlineFilter.ResumeLayout(false);
+            this.pnlOutlineFilter.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2256,9 +2332,14 @@
         private System.Windows.Forms.ToolStripDropDownButton tsbInsertTable;
         private System.Windows.Forms.ToolStripButton tsbRepeater;
         private System.Windows.Forms.ToolStripButton tsbLiteral;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TreeView tvwItems;
+        private System.Windows.Forms.TabPage tabOutline;
+        private TLWindowsEditorWinFormsDemo.MultiSelectTreeView tvwItems;
+        private System.Windows.Forms.Panel pnlOutlineFilter;
+        private System.Windows.Forms.TextBox txtOutlineSearch;
+        private System.Windows.Forms.Button btnOutlineClear;
+        private System.Windows.Forms.ComboBox cboOutlineType;
+        private System.Windows.Forms.ComboBox cboOutlineScope;
+        private System.Windows.Forms.Label lblOutlineStatus;
         private System.Windows.Forms.ImageList imageList2;
     }
 }
-

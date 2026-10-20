@@ -117,6 +117,7 @@
     <Content Include="Readme.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\DocumentOutline.js" />
     <Content Include="Scripts\ExprBuilder.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -135,10 +136,12 @@
     <Content Include="Scripts\Gallery.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\LabelDocDialog.js" />
     <Content Include="Scripts\neoPropGrid.js" />
-    <Content Include="Scripts\SampleLabelEditorUI.js" />
     <Content Include="images\barcode_error.png" />
     <Content Include="images\RFIDTag.png" />
+    <Content Include="Scripts\packagingSymbols.js" />
+    <Content Include="Scripts\SampleLabelEditorUI-16.0.js" />
     <Content Include="Scripts\ThermalLabelWebEditor.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -199,10 +202,12 @@
     <Error Condition="!Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.15.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.15.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets'))" />
     <Error Condition="!Exists('..\packages\SkiaSharp.NativeAssets.macOS.3.119.2\build\net462\SkiaSharp.NativeAssets.macOS.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.NativeAssets.macOS.3.119.2\build\net462\SkiaSharp.NativeAssets.macOS.targets'))" />
     <Error Condition="!Exists('..\packages\SkiaSharp.NativeAssets.Win32.3.119.2\build\net462\SkiaSharp.NativeAssets.Win32.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.NativeAssets.Win32.3.119.2\build\net462\SkiaSharp.NativeAssets.Win32.targets'))" />
+    <Error Condition="!Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.16.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.16.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets'))" />
   </Target>
   <Import Project="..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.15.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets" Condition="Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.15.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" />
   <Import Project="..\packages\SkiaSharp.NativeAssets.macOS.3.119.2\build\net462\SkiaSharp.NativeAssets.macOS.targets" Condition="Exists('..\packages\SkiaSharp.NativeAssets.macOS.3.119.2\build\net462\SkiaSharp.NativeAssets.macOS.targets')" />
   <Import Project="..\packages\SkiaSharp.NativeAssets.Win32.3.119.2\build\net462\SkiaSharp.NativeAssets.Win32.targets" Condition="Exists('..\packages\SkiaSharp.NativeAssets.Win32.3.119.2\build\net462\SkiaSharp.NativeAssets.Win32.targets')" />
+  <Import Project="..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.16.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets" Condition="Exists('..\packages\Neodynamic.Web.ThermalLabelEditor.Assets.16.0.0\build\Neodynamic.Web.ThermalLabelEditor.Assets.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

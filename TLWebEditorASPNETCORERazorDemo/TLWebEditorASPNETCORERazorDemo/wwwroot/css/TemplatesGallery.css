@@ -1,0 +1,42 @@
+﻿.thumbnail-container {
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-bottom: 15px;
+}
+
+.thumbnail-card {
+    background-color: #ffffff;
+    border: 1px solid #dcdce1;
+    margin-bottom: 0;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.thumbnail-title {
+    color: #1e1e24;
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.thumbnail-image-wrapper {
+    background-color: #e8e8ec;
+    height: 90px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.thumbnail-btn-edit {
+    font-weight: 600;
+    padding: 4px 0;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}

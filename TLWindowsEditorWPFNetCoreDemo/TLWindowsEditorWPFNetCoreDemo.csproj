@@ -30,15 +30,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\literal.png" Link="Icons\literal.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Repeater.png" Link="Icons\Repeater.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\table.png" Link="Icons\table.png" />
+	<Resource Include="..\TLWindowsEditorWPFDemo\Icons\BarcodeItem.png" Link="Icons\BarcodeItem.png" />
+	<Resource Include="..\TLWindowsEditorWPFDemo\Icons\EllipseShapeItem.png" Link="Icons\EllipseShapeItem.png" />
+	<Resource Include="..\TLWindowsEditorWPFDemo\Icons\ImageItem.png" Link="Icons\ImageItem.png" />
+	<Resource Include="..\TLWindowsEditorWPFDemo\Icons\LineShapeItem.png" Link="Icons\LineShapeItem.png" />
+	<Resource Include="..\TLWindowsEditorWPFDemo\Icons\LiteralItem.png" Link="Icons\LiteralItem.png" />
+	<Resource Include="..\TLWindowsEditorWPFDemo\Icons\RectangleShapeItem.png" Link="Icons\RectangleShapeItem.png" />
+	<Resource Include="..\TLWindowsEditorWPFDemo\Icons\RepeaterItem.png" Link="Icons\RepeaterItem.png" />
+	<Resource Include="..\TLWindowsEditorWPFDemo\Icons\RFIDTagItem.png" Link="Icons\RFIDTagItem.png" />
+	<Resource Include="..\TLWindowsEditorWPFDemo\Icons\TableShapeItem.png" Link="Icons\TableShapeItem.png" />
+	<Resource Include="..\TLWindowsEditorWPFDemo\Icons\TextItem.png" Link="Icons\TextItem.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -92,33 +93,27 @@
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\Zoom100.png" Link="Icons\16x16\Zoom100.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\ZoomIn.png" Link="Icons\16x16\ZoomIn.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\ZoomOut.png" Link="Icons\16x16\ZoomOut.png" />
+	<Resource Include="..\TLWindowsEditorWPFDemo\Icons\16x16\outline.png" Link="Icons\16x16\outline.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\2d.png" Link="Icons\2d.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\ArcText.png" Link="Icons\ArcText.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\arrange.png" Link="Icons\arrange.png" />
-    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\barcode.png" Link="Icons\barcode.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\close.png" Link="Icons\close.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\copy.png" Link="Icons\copy.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\cut.png" Link="Icons\cut.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\DesignOptions.png" Link="Icons\DesignOptions.png" />
-    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\ellipse.png" Link="Icons\ellipse.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\export.png" Link="Icons\export.png" />
-    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\line.png" Link="Icons\line.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\lock.png" Link="Icons\lock.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\ManageFont.png" Link="Icons\ManageFont.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\NewFile.png" Link="Icons\NewFile.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Open.png" Link="Icons\Open.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\OutlineText.png" Link="Icons\OutlineText.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\paste.png" Link="Icons\paste.png" />
-    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Picture.png" Link="Icons\Picture.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\pointer.png" Link="Icons\pointer.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Print.png" Link="Icons\Print.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Properties.png" Link="Icons\Properties.png" />
-    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\rect.png" Link="Icons\rect.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Redo.png" Link="Icons\Redo.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\ResidentFont.png" Link="Icons\ResidentFont.png" />
-    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\RFIDTag.png" Link="Icons\RFIDTag.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Save.png" Link="Icons\Save.png" />
-    <Resource Include="..\TLWindowsEditorWPFDemo\Icons\text.png" Link="Icons\text.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Undo.png" Link="Icons\Undo.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\UploadFont.png" Link="Icons\UploadFont.png" />
     <Resource Include="..\TLWindowsEditorWPFDemo\Icons\Zoom100.png" Link="Icons\Zoom100.png" />
@@ -130,9 +125,9 @@
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.4.0" />
     <PackageReference Include="System.IO.Ports" Version="4.7.0" />
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="4.6.97" />
-	<PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting.NetCore" Version="15.0.0" />
-    <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor.NetCore" Version="15.0.0" />
-    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="15.0.0" />
+	<PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting.NetCore" Version="16.0.0" />
+    <PackageReference Include="Neodynamic.Windows.ThermalLabelEditor.NetCore" Version="16.0.0" />
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="16.0.0" />
   </ItemGroup>
 
   <ItemGroup>

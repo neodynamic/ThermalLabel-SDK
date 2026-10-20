@@ -38,100 +38,12 @@ namespace TLWindowsEditorWPFDemo
             ThermalLabel.LicenseKey = "LICENSE KEY FOR SDK HERE";
 
 
-            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
-            //{
-            //    Name = "Arial Unicode MS",
-            //    CustomFontFile = @"C:\Windows\Fonts\ARIALUNI.TTF"
-            //});
-
-            //FontManager.Add(new Neodynamic.SDK.Printing.Font() {
-            //    Name = "Arial Black",
-            //    CustomFontFile = @"C:\Windows\Fonts\ariblk.ttf"
-            //});
-
-            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
-            //{
-            //    Name = "Arial Narrow",
-            //    CustomFontFile = @"C:\Windows\Fonts\ARIALN.TTF"
-            //});
-
-            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
-            //{
-            //    Name = "Arial Narrow",
-            //    CustomFontFile = @"C:\Windows\Fonts\ARIALNB.TTF",
-            //    Bold = true
-            //});
-
-            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
-            //{
-            //    Name = "Arial Narrow",
-            //    CustomFontFile = @"C:\Windows\Fonts\ARIALNI.TTF",
-            //    Italic = true
-            //});
-
-            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
-            //{
-            //    Name = "Arial Narrow",
-            //    CustomFontFile = @"C:\Windows\Fonts\ARIALNBI.TTF",
-            //    Bold = true,
-            //    Italic = true
-            //});
-
-            //FontManager.Add(new Neodynamic.SDK.Printing.Font()
-            //{
-            //    Name = "Arial",
-            //    CustomFontFile = @"C:\Windows\Fonts\arialbd.TTF",
-            //    Bold = true
-            //});
-
-            //thermalLabelEditor1.DisableShortcuts = KeyboardShortcuts.CtrlC | KeyboardShortcuts.CtrlX | KeyboardShortcuts.CtrlV;
-
-            /*
-            // I18N Sample through .NET classes
-            var enRes = new I18NResource(); // built-in ENGLISH strings
-            var esRes = new I18NResource() // custom SPANISH strings
-            {
-                CultureTwoLetterISOLanguageName = "es",
-                VisualEditorDuplexBackSide = "REVERSO",
-                VisualEditorDuplexFrontSide = "ANVERSO"
-            };
-            var itRes = new I18NResource() // custom ITALIAN strings
-            {
-                CultureTwoLetterISOLanguageName = "it",
-                VisualEditorDuplexBackSide = "DIETRO",
-                VisualEditorDuplexFrontSide = "DAVANTI"
-            };
-            // List of supported cultures: "en", "es" and "it"
-            var myRes = new List<I18NResource>() { enRes, esRes, itRes };
-            ThermalLabel.I18N = new I18N(myRes, "it", "en"); // Setting ITALIAN as current culture
-            */
-
-            /*
-            // I18N Sample through JSON string
-            // List of supported cultures: "en", "es" and "it"
-            string jsonI18NResources = "{\"en\":{\"VisualEditorDuplexFrontSide\":\"FRONT\",\"VisualEditorDuplexBackSide\":\"BACK\"},\"es\":{\"VisualEditorDuplexFrontSide\":\"ANVERSO\",\"VisualEditorDuplexBackSide\":\"REVERSO\"},\"it\":{\"VisualEditorDuplexFrontSide\":\"DAVANTI\",\"VisualEditorDuplexBackSide\":\"DIETRO\"}}";
-            
-            ThermalLabel.I18N = new I18N(jsonI18NResources, "it", "en"); // Setting ITALIAN as current culture
-            */
-
-            // CUSTOM FUNC EXPRESSION Passing Item Obj as param
-            // Must be invoked as: GetTextAutoSizeHeight(Obj_Items_NAME) 
-            Func<object, double> GetTextAutoSizeHeight = (myItem) => {
-                if (myItem != null && myItem is TextItem)
-                {
-                    return ((TextItem)myItem).GetAutoSize().Item2;
-                }
-                return 0;
-            };
-            ExpressionBuilder.SetCustomFunction("GetTextAutoSizeHeight", GetTextAutoSizeHeight);
-
-
             InitializeComponent();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
             //PropertyGrid custom UI Editors
             var itemProvider = new AssociatedMetadataTypeTypeDescriptionProvider(typeof(Item), typeof(ItemMetadata));
             TypeDescriptor.AddProvider(itemProvider, typeof(Item));
@@ -146,6 +58,9 @@ namespace TLWindowsEditorWPFDemo
             var imageItemProvider = new AssociatedMetadataTypeTypeDescriptionProvider(typeof(ImageItem), typeof(ImageItemMetadata));
             TypeDescriptor.AddProvider(imageItemProvider, typeof(ImageItem));
 
+            // Events
+            thermalLabelEditor1.SelectionTransformStarted += thermalLabelEditor1_SelectionTransformStarted;
+            thermalLabelEditor1.SelectionTransformEnded += thermalLabelEditor1_SelectionTransformEnded;
 
 
             //THIS IS A LIST OF PROPERTIES FOR CUSTOMIZING THE EDITOR UI
@@ -165,9 +80,9 @@ namespace TLWindowsEditorWPFDemo
             //thermalLabelEditor1.NoImageFileName = @"c:\noimage.jpg";
 
 
-            //thermalLabelEditor1.AdornerHandlerBackColor = Colors.Yellow;
-            //thermalLabelEditor1.AdornerHandlerHoverBackColor = Colors.DarkCyan;
-            //thermalLabelEditor1.AdornerHandlerBorderColor = Colors.Gray;
+            thermalLabelEditor1.AdornerHandlerBackColor = System.Windows.Media.Color.FromRgb(0x38, 0xbd, 0xf8);
+            thermalLabelEditor1.AdornerHandlerHoverBackColor = System.Windows.Media.Colors.Cyan;
+            thermalLabelEditor1.AdornerHandlerBorderColor = System.Windows.Media.Color.FromRgb(0x02, 0x84, 0xc7);
             //thermalLabelEditor1.AdornerFrameBorderColor = Colors.Gray;
 
             //thermalLabelEditor1.AdornerSelectionBackColor = System.Windows.Media.Color.FromArgb(128, 255, 0, 128);
@@ -184,6 +99,9 @@ namespace TLWindowsEditorWPFDemo
             //thermalLabelEditor1.ShowGrid = true;
 
             //thermalLabelEditor1.AdornerLegendsVisible = false;
+            //thermalLabelEditor1.AdornerLegendsFontFamily = new FontFamily("Arial");
+            //thermalLabelEditor1.AdornerLegendsFontSize = 13;
+            thermalLabelEditor1.AdornerLegendsForeColor = System.Windows.Media.Color.FromRgb(0x03, 0x69, 0xa1);
 
             //thermalLabelEditor1.AdornerOutOfLabelVisible = false;
             //thermalLabelEditor1.AdornerOutOfLabelColor = Colors.Red;
@@ -191,15 +109,75 @@ namespace TLWindowsEditorWPFDemo
             //thermalLabelEditor1.ItemToolTipBackColor = Colors.SteelBlue;
             //thermalLabelEditor1.ItemToolTipBorderColor = Colors.SteelBlue;
             //thermalLabelEditor1.ItemToolTipForeColor = Colors.White;
+            //thermalLabelEditor1.ItemIndexToolTipForeColor = Colors.BlueViolet;
 
-            thermalLabelEditor1.SnapToItems = true;
-            //thermalLabelEditor1.GuidelineColor = Colors.OrangeRed;
+            //thermalLabelEditor1.DuplexLegendsForeColor = Colors.DarkGray;
+            //thermalLabelEditor1.DuplexFlipColor = Colors.DarkGray;
+            //thermalLabelEditor1.DuplexFlipHoverColor = Colors.DarkOrange;
+
+            //thermalLabelEditor1.RFIDTagVectorIconData = "";
+            thermalLabelEditor1.RFIDTagVectorIconColor = Colors.DarkRed;
+            //thermalLabelEditor1.LiteralVectorIconData = "";
+            thermalLabelEditor1.LiteralVectorIconColor = Colors.SteelBlue;
 
             this.gallery1.EditLabel += Gallery1_EditLabel;
 
             //load barcode symbologies
             this.cboBarcodeSymbologies.ItemsSource = Enum.GetNames(typeof(BarcodeSymbology)).OrderBy(x => x).ToArray();
 
+            thermalLabelEditor1.SnapToItems = true;
+            //thermalLabelEditor1.GuidelineColor = Colors.OrangeRed;
+
+
+            // load item icons for outline pane
+            var asm = System.Reflection.Assembly.GetExecutingAssembly();
+            string resName = asm.GetName().Name + ".g.resources";
+            string folder = "icons/"; 
+
+            var icons = new Dictionary<string, ImageSource>();
+            using (var stream = asm.GetManifestResourceStream(resName))
+            using (var reader = new System.Resources.ResourceReader(stream))
+            {
+                foreach (System.Collections.DictionaryEntry entry in reader)
+                {
+                    string key = (string)entry.Key;
+
+                    if (!key.StartsWith(folder, StringComparison.OrdinalIgnoreCase) ||
+                        !key.EndsWith("Item.png", StringComparison.OrdinalIgnoreCase))
+                        continue;
+
+                    var bmp = new BitmapImage(new Uri("pack://application:,,,/" + key, UriKind.Absolute));
+                    bmp.Freeze();
+                    icons[System.IO.Path.GetFileNameWithoutExtension(key)] = bmp;
+                }
+            }
+            SetOutlineIcons(icons);
+
+            // document outline (multiple selection + filter by type + search by name/tag/type)
+            _updatingOutlineUI = true;
+            try
+            {
+                cboOutlineScope.ItemsSource = new string[] { "Name, tag or type", "Name", "Tag", "Type" };
+                cboOutlineScope.SelectedIndex = 0;
+                cboOutlineType.ItemsSource = new List<OutlineTypeFilter> { new OutlineTypeFilter { TypeName = null, Caption = "All types" } };
+                cboOutlineType.SelectedIndex = 0;
+            }
+            finally
+            {
+                _updatingOutlineUI = false;
+            }
+            thermalLabelEditor1.LabelLoaded += thermalLabelEditor1_LabelLoaded;
+
+            thermalLabelEditor1.BeforeDuplexDesignDisabled += ThermalLabelEditor1_BeforeDuplexDesignDisabled;
+
+        }
+
+        private void ThermalLabelEditor1_BeforeDuplexDesignDisabled(object sender, BeforeDuplexDesignDisabledEventArgs e)
+        {
+            if (MessageBox.Show("Do you really want remove the back side label?", "Duplex", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation) != MessageBoxResult.Yes)
+            {
+                e.Cancel = true;
+            }
         }
 
         private void Gallery1_EditLabel(object sender, EventArgs e)
@@ -242,10 +220,356 @@ namespace TLWindowsEditorWPFDemo
         private void thermalLabelEditor1_SelectionChanged(object sender, EventArgs e)
         {
             SetCurrentSelectedItem();
+
+            // update the document outline.
+            // If the change was originated by the outline itself (user clicking items), the list must NOT be rebuilt:
+            // that would throw away the multiple selection in the middle of the click.
+            if (_selectingFromOutline)
+                UpdateOutlineStatus();
+            else
+                RefreshOutline();
+        }
+
+        private void thermalLabelEditor1_LabelLoaded(object sender, EventArgs e)
+        {
+            RefreshOutline();
+        }
+
+        // ==================================================================================
+        // DOCUMENT OUTLINE (tab "Outline"): multiple selection + filter by type + search
+        // ==================================================================================
+
+        // Snapshot of one label item, as shown by the outline
+        internal class OutlineEntry
+        {
+            public int Index { get; set; }      // item index as understood by the editor (same order as ThermalLabel.Items)
+            public string Name { get; set; }
+            public string TypeName { get; set; }
+            public string Tag { get; set; }
+
+            public ImageSource Icon { get; set; }   // icon of the item type (null => none)
+
+            public string TypeLabel { get { return "  [" + TypeName + "]"; } }
+            public string TagLabel { get { return string.IsNullOrEmpty(Tag) ? "" : "  (tag: " + Tag + ")"; } }
+        }
+
+        // Entry of the "type" combo box
+        internal class OutlineTypeFilter
+        {
+            public string TypeName { get; set; }  // null => all the types
+            public string Caption { get; set; }
+            public override string ToString() { return Caption; }
+        }
+
+        // ---- Outline icons ----
+        // key = item type name as shown in the outline ("TextItem", "BarcodeItem", "ImageItem", "LineShapeItem"...)
+        private readonly Dictionary<string, ImageSource> _outlineIcons = new Dictionary<string, ImageSource>(StringComparer.OrdinalIgnoreCase);
+        private ImageSource _outlineDefaultIcon = null;
+
+        /// <summary>
+        /// Sets the icons used by the Outline list.
+        /// </summary>
+        /// <param name="icons">Icon per item type name, e.g. { "TextItem", img1 }, { "BarcodeItem", img2 }... (keys are case-insensitive).</param>
+        /// <param name="defaultIcon">Optional icon for the types that have no entry in <paramref name="icons"/>.</param>
+        /// <remarks>Can be called at any time (e.g. at the end of Window_Loaded); the outline is refreshed.
+        /// Tip: call Freeze() on the images (BitmapImage supports it) for better performance.</remarks>
+        public void SetOutlineIcons(IDictionary<string, ImageSource> icons, ImageSource defaultIcon = null)
+        {
+            _outlineIcons.Clear();
+            if (icons != null)
+            {
+                foreach (var kv in icons)
+                    _outlineIcons[kv.Key] = kv.Value;
+            }
+            _outlineDefaultIcon = defaultIcon;
+
+            // the icons are resolved when the entries are built
+            _outlineStale = true;
+            RefreshOutline();
+        }
+
+        private ImageSource GetOutlineIcon(string typeName)
+        {
+            ImageSource icon;
+            return _outlineIcons.TryGetValue(typeName, out icon) && icon != null ? icon : _outlineDefaultIcon;
+        }
+
+        private readonly List<OutlineEntry> _outlineEntries = new List<OutlineEntry>();
+        private int _outlineShownCount = 0;
+        private bool _outlineStale = true;            // the label may have changed since _outlineEntries was built
+        private bool _updatingOutlineUI = false;      // filter controls being refreshed from code
+        private bool _selectingFromOutline = false;   // outline is pushing its selection into the editor
+        private bool _syncingOutlineList = false;     // list being rebuilt / synchronized from the editor
+
+        // Reads the items of the label on the editor's surface and rebuilds the outline.
+        // Nothing is done while the Outline tab is not visible (the work is deferred until it is shown).
+        private void RefreshOutline()
+        {
+            if (!tabOutline.IsSelected)
+            {
+                _outlineStale = true;
+                return;
+            }
+
+            _outlineEntries.Clear();
+
+            try
+            {
+                ThermalLabel tLabel = thermalLabelEditor1.LabelDocument != null ? thermalLabelEditor1.CreateThermalLabel() : null;
+                if (tLabel != null)
+                {
+                    int index = 0;
+                    foreach (var item in tLabel.Items)
+                    {
+                        string typeName = item.GetType().Name;
+                        _outlineEntries.Add(new OutlineEntry
+                        {
+                            Index = index++,
+                            Name = item.Name,
+                            TypeName = typeName,
+                            Tag = item.Tag == null ? "" : item.Tag.ToString(),
+                            Icon = GetOutlineIcon(typeName)
+                        });
+                    }
+                }
+            }
+            catch
+            {
+                // label could not be created => empty outline
+                _outlineEntries.Clear();
+            }
+
+            _outlineStale = false;
+
+            RefreshOutlineTypeFilter();
+            ApplyOutlineFilter();
+        }
+
+        // Fills the "type" combo with the types present in the label (keeps the current choice if possible)
+        private void RefreshOutlineTypeFilter()
+        {
+            var current = cboOutlineType.SelectedItem as OutlineTypeFilter;
+            string currentType = current == null ? null : current.TypeName;
+
+            var filters = new List<OutlineTypeFilter>();
+            filters.Add(new OutlineTypeFilter { TypeName = null, Caption = "All types (" + _outlineEntries.Count + ")" });
+            foreach (var g in _outlineEntries.GroupBy(x => x.TypeName).OrderBy(x => x.Key))
+                filters.Add(new OutlineTypeFilter { TypeName = g.Key, Caption = g.Key + " (" + g.Count() + ")" });
+
+            int selIndex = 0;
+            if (currentType != null)
+            {
+                for (int i = 1; i < filters.Count; i++)
+                {
+                    if (filters[i].TypeName == currentType)
+                    {
+                        selIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            _updatingOutlineUI = true;
+            try
+            {
+                cboOutlineType.ItemsSource = filters;
+                cboOutlineType.SelectedIndex = selIndex;
+            }
+            finally
+            {
+                _updatingOutlineUI = false;
+            }
+        }
+
+        private static bool OutlineContains(string source, string text)
+        {
+            return !string.IsNullOrEmpty(source) && source.IndexOf(text, StringComparison.CurrentCultureIgnoreCase) >= 0;
+        }
+
+        // scope: 0 = name/tag/type, 1 = name, 2 = tag, 3 = type
+        private static bool MatchesOutlineFilter(OutlineEntry entry, string text, int scope, string typeFilter)
+        {
+            if (typeFilter != null && entry.TypeName != typeFilter)
+                return false;
+
+            if (text.Length == 0)
+                return true;
+
+            return ((scope <= 0 || scope == 1) && OutlineContains(entry.Name, text))
+                || ((scope <= 0 || scope == 2) && OutlineContains(entry.Tag, text))
+                || ((scope <= 0 || scope == 3) && OutlineContains(entry.TypeName, text));
+        }
+
+        // Rebuilds the list from the cached entries applying the current search text / type filter,
+        // and shows as selected the entries whose items are selected on the editor's surface.
+        private void ApplyOutlineFilter()
+        {
+            string text = (txtOutlineSearch.Text ?? "").Trim();
+            var typeItem = cboOutlineType.SelectedItem as OutlineTypeFilter;
+            string typeFilter = typeItem == null ? null : typeItem.TypeName;
+            int scope = cboOutlineScope.SelectedIndex;
+
+            var selectedOnCanvas = new HashSet<int>(thermalLabelEditor1.GetSelectedItemsIndexes());
+            var matches = _outlineEntries.Where(en => MatchesOutlineFilter(en, text, scope, typeFilter)).ToList();
+            _outlineShownCount = matches.Count;
+
+            _syncingOutlineList = true;
+            try
+            {
+                lstOutline.ItemsSource = matches;
+                lstOutline.SelectedItems.Clear();
+
+                OutlineEntry first = null;
+                foreach (var en in matches)
+                {
+                    if (selectedOnCanvas.Contains(en.Index))
+                    {
+                        lstOutline.SelectedItems.Add(en);
+                        if (first == null) first = en;
+                    }
+                }
+
+                if (first != null)
+                    lstOutline.ScrollIntoView(first);
+            }
+            finally
+            {
+                _syncingOutlineList = false;
+            }
+
+            UpdateOutlineStatus();
+        }
+
+        private void UpdateOutlineStatus()
+        {
+            if (txtOutlineStatus == null)
+                return;
+
+            int total = _outlineEntries.Count;
+            string text = _outlineShownCount == total
+                ? total + " item(s)"
+                : "Showing " + _outlineShownCount + " of " + total + " item(s)";
+
+            int selected = thermalLabelEditor1.GetSelectedItemsIndexes().Length;
+            if (selected > 0)
+                text += " | " + selected + " selected";
+
+            txtOutlineStatus.Text = text;
+        }
+
+        // outline -> editor: select on the editor's surface the items selected in the list
+        private void lstOutline_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // SelectionChanged bubbles; only care about the list's own changes
+            if (!ReferenceEquals(e.OriginalSource, lstOutline))
+                return;
+
+            if (_syncingOutlineList || _selectingFromOutline)
+                return;
+
+            var indexes = lstOutline.SelectedItems.Cast<OutlineEntry>().Select(en => en.Index).Distinct().ToArray();
+
+            _selectingFromOutline = true;
+            try
+            {
+                if (indexes.Length == 0)
+                    thermalLabelEditor1.UnselectAll();
+                else
+                    thermalLabelEditor1.SelectItemsByIndexes(indexes);
+            }
+            finally
+            {
+                _selectingFromOutline = false;
+            }
+
+            UpdateOutlineStatus();
+        }
+
+        private void OnOutlineFilterChanged()
+        {
+            if (_updatingOutlineUI)
+                return;
+
+            // names/tags may have been edited since the last snapshot
+            if (_outlineStale)
+                RefreshOutline();
+            else
+                ApplyOutlineFilter();
+        }
+
+        private void txtOutlineSearch_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            OnOutlineFilterChanged();
+        }
+
+        private void outlineFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            e.Handled = true; // don't let it bubble up to the TabControl
+            OnOutlineFilterChanged();
+        }
+
+        private void txtOutlineSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                txtOutlineSearch.Clear();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Down)
+            {
+                lstOutline.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void cmdOutlineClear_Click(object sender, RoutedEventArgs e)
+        {
+            _updatingOutlineUI = true;
+            try
+            {
+                txtOutlineSearch.Clear();
+                cboOutlineScope.SelectedIndex = 0;
+                if (cboOutlineType.Items.Count > 0)
+                    cboOutlineType.SelectedIndex = 0;
+            }
+            finally
+            {
+                _updatingOutlineUI = false;
+            }
+
+            OnOutlineFilterChanged();
+        }
+
+        // the outline is only (re)built while its tab is visible
+        private void tabSide_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!ReferenceEquals(e.OriginalSource, tabSide))
+                return;
+
+            if (tabOutline.IsSelected && _outlineStale)
+                RefreshOutline();
         }
 
         //the current selected Item on the editor
         Item _currentSelectedItem = null;
+
+        //tracks whether the user is currently dragging/resizing/rotating a selection
+        bool _isDragging = false;
+
+        //true while a change coming from the PropertyGrid is being pushed into the editor
+        //(avoids rebuilding the PropertyGrid in the middle of an edit)
+        bool _updatingFromPropertyGrid = false;
+
+        private void thermalLabelEditor1_SelectionTransformStarted(object sender, EventArgs e)
+        {
+            _isDragging = true;
+        }
+
+        private void thermalLabelEditor1_SelectionTransformEnded(object sender, EventArgs e)
+        {
+            _isDragging = false;
+            SetCurrentSelectedItem();
+        }
 
         private void SetCurrentSelectedItem()
         {
@@ -272,7 +596,7 @@ namespace TLWindowsEditorWPFDemo
             //NOTE: there may be more than one item selected on the editor.
             //we are not handling this kind of selection in this demo 
             //for simplicity but you can extend it to support such object
-            
+
             if (_currentSelectedItem is MultipleSelectionItem)
                 propertyGrid1.SelectedObject = null;
             else
@@ -291,10 +615,10 @@ namespace TLWindowsEditorWPFDemo
 
                 propertyGrid1.SelectedObject = selItem;
             }
-            
 
-            
-            
+
+
+
             //display barcode symbology selection?
             this.pnlBarcodeSymbology.Visibility = _currentSelectedItem is BarcodeItem ? Visibility.Visible : Visibility.Collapsed;
             this.propsGridRow1.Height = new GridLength(_currentSelectedItem is BarcodeItem ? 100d : 0d);
@@ -304,12 +628,19 @@ namespace TLWindowsEditorWPFDemo
         void _currentSelection_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             //update-refresh the selected item on the editor
-            thermalLabelEditor1.CurrentSelection.UpdateFrom(_currentSelectedItem);
-            thermalLabelEditor1.UpdateSelectionItemsProperties();
+            _updatingFromPropertyGrid = true;
+            try
+            {
+                thermalLabelEditor1.CurrentSelection.UpdateFrom(_currentSelectedItem);
+                thermalLabelEditor1.UpdateSelectionItemsProperties();
+            }
+            finally
+            {
+                _updatingFromPropertyGrid = false;
+            }
 
             //update thermal label obj for Expression dialog
             if (e.PropertyName == "Name") Global.CurrentThermalLabel = thermalLabelEditor1.CreateThermalLabel();
-
         }
 
         private void thermalLabelEditor1_SelectionAreaChanged(object sender, EventArgs e)
@@ -382,7 +713,7 @@ namespace TLWindowsEditorWPFDemo
         }
 
 
-        
+
         private void thermalLabelEditor1_CurrentSelectionBeforeDelete(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = (MessageBox.Show("Do you really want to delete the selected items?", "Delete Current Selection", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No);
@@ -438,12 +769,13 @@ namespace TLWindowsEditorWPFDemo
 
         private void thermalLabelEditor1_CurrentSelectionTextChanged(object sender, Neodynamic.Windows.ThermalLabelEditor.TextChangedEventArgs e)
         {
-            Console.WriteLine(e.Text); 
+            Console.WriteLine(e.Text);
         }
 
         private void thermalLabelEditor1_NewItemCreated(object sender, EventArgs e)
         {
             Console.WriteLine("New item created at " + DateTime.Now);
+            RefreshOutline();
         }
 
         private void thermalLabelEditor1_ClipboardStateChanged(object sender, EventArgs e)
@@ -467,6 +799,14 @@ namespace TLWindowsEditorWPFDemo
 
         private void thermalLabelEditor1_SelectionItemPropertyChanged(object sender, EventArgs e)
         {
+            // a property (Name, Tag...) of the selection changed: the cached outline data is stale
+            _outlineStale = true;
+
+            // don't rebuild the PropertyGrid while dragging, nor while the change
+            // was originated by the PropertyGrid itself (it would lose focus/caret mid-edit)
+            if (_isDragging || _updatingFromPropertyGrid)
+                return;
+
             SetCurrentSelectedItem();
         }
 
@@ -556,11 +896,13 @@ namespace TLWindowsEditorWPFDemo
         private void menuUndo_Click(object sender, RoutedEventArgs e)
         {
             thermalLabelEditor1.Undo();
+            RefreshOutline();
         }
 
         private void menuRedo_Click(object sender, RoutedEventArgs e)
         {
             thermalLabelEditor1.Redo();
+            RefreshOutline();
         }
 
         private void menuPaste_Click(object sender, RoutedEventArgs e)
@@ -595,7 +937,8 @@ namespace TLWindowsEditorWPFDemo
 
                 if (labelSetup.ShowDialog() == true)
                 {
-                    try { 
+                    try
+                    {
                         LabelDocument doc = labelSetup.LabelDocument;
 
                         //Invoke UpdateLabelDocument method for updating the label document inside the editor
@@ -760,11 +1103,11 @@ namespace TLWindowsEditorWPFDemo
                 thermalLabelEditor1.ActiveToolItem = txtItem;
             }
         }
-    
+
 
         private void menuArcText_Click(object sender, RoutedEventArgs e)
         {
-        //is there any label on the editor's surface...
+            //is there any label on the editor's surface...
             if (thermalLabelEditor1.LabelDocument != null)
             {
                 //Set the ActiveTool to Text
@@ -851,9 +1194,9 @@ namespace TLWindowsEditorWPFDemo
                 //HERE YOU COULD CHANGE THE DEFAULT BARCODE TO BE DISPLAYED
                 //OR OPEN A BARCODE DIALOG FOR SETTINGS, ETC.
                 BarcodeItem bcItem = new BarcodeItem();
-                
+
                 bcItem.Symbology = ((RibbonButton)sender).Name == "menuBarcode1D" ? BarcodeSymbology.Code128 : BarcodeSymbology.QRCode;
-                
+
                 bcItem.Code = BarcodeItemUtils.GenerateSampleCode(bcItem.Symbology);
                 bcItem.Font.Name = Neodynamic.SDK.Printing.Font.NativePrinterFontA;
                 bcItem.Font.Size = 5;
@@ -920,6 +1263,8 @@ namespace TLWindowsEditorWPFDemo
                     tLabel.SheetLabelsWidth = doc.SheetLabelsWidth;
                     tLabel.SheetLabelsMargin = doc.SheetLabelsMargin;
                     tLabel.Margin = doc.Margin;
+                    tLabel.IsDuplexDesign = doc.IsDuplexDesign;
+                    tLabel.Shape = doc.Shape;
 
                     foreach (var p in doc.Pages)
                     {
@@ -1167,7 +1512,7 @@ namespace TLWindowsEditorWPFDemo
                 if (d.ShowDialog() == true)
                 {
                     dpi = d.Dpi;
-                    
+
                     ImageSettings imgSettings = new ImageSettings();
                     imgSettings.AntiAlias = true;
 
@@ -1448,7 +1793,7 @@ namespace TLWindowsEditorWPFDemo
                         pj.ExportToHtml(myDir + tmpFileName, 96d, "Labels Preview");
 
                         webBrowser1.Navigate(myDir + tmpFileName);
-                        
+
                     }
                 }
                 catch (Exception ex)
@@ -1491,7 +1836,7 @@ namespace TLWindowsEditorWPFDemo
             this.cmdRotView270.IsChecked = this.thermalLabelEditor1.ViewRotation == Rotate.Degree270;
         }
 
-        
+
         private void menuSameWidth_Click(object sender, RoutedEventArgs e)
         {
             this.thermalLabelEditor1.SetSelectedItemsToSameSize(true, false);

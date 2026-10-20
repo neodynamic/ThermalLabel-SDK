@@ -123,26 +123,26 @@
                 </RibbonGroup>
                 <RibbonGroup x:Name="ItemsGroup" Header="Label Items">
                     <RibbonButton LargeImageSource="Icons\pointer.png" Label="Pointer" KeyTip="P" x:Name="menuPointer" Click="menuPointer_Click"/>
-                    <RibbonButton LargeImageSource="Icons\Rect.png" Label="Rect" KeyTip="R" x:Name="menuRect" Click="menuRect_Click"/>
-                    <RibbonButton LargeImageSource="Icons\Ellipse.png" Label="Ellipse" KeyTip="E" x:Name="menuEllipse" Click="menuEllipse_Click"/>
-                    <RibbonButton LargeImageSource="Icons\Line.png" Label="Line" KeyTip="L" x:Name="menuLine" Click="menuLine_Click"/>
+                    <RibbonButton LargeImageSource="Icons\RectangleShapeItem.png" Label="Rect" KeyTip="R" x:Name="menuRect" Click="menuRect_Click"/>
+                    <RibbonButton LargeImageSource="Icons\EllipseShapeItem.png" Label="Ellipse" KeyTip="E" x:Name="menuEllipse" Click="menuEllipse_Click"/>
+                    <RibbonButton LargeImageSource="Icons\LineShapeItem.png" Label="Line" KeyTip="L" x:Name="menuLine" Click="menuLine_Click"/>
                     <RibbonButton LargeImageSource="Icons\ResidentFont.png" Label="Resident Font" KeyTip="F" x:Name="menuResidentFont" Click="menuResidentFont_Click" />
-                    <RibbonButton LargeImageSource="Icons\Text.png" Label="Text" KeyTip="T" x:Name="menuText" Click="menuText_Click"/>
+                    <RibbonButton LargeImageSource="Icons\TextItem.png" Label="Text" KeyTip="T" x:Name="menuText" Click="menuText_Click"/>
                     <RibbonButton LargeImageSource="Icons\ArcText.png" Label="Arc Text" KeyTip="A" x:Name="menuArcText" Click="menuArcText_Click" />
                     <RibbonButton LargeImageSource="Icons\OutlineText.png" Label="Outline Text" KeyTip="O" x:Name="menuOutText" Click="menuOutText_Click" />
-                    <RibbonButton LargeImageSource="Icons\Picture.png" Label="Image" KeyTip="I" x:Name="menuImage" Click="menuImage_Click" />
-                    <RibbonButton LargeImageSource="Icons\Barcode.png" Label="Barcode" KeyTip="B" x:Name="menuBarcode1D" Click="menuBarcode_Click"/>
+                    <RibbonButton LargeImageSource="Icons\ImageItem.png" Label="Image" KeyTip="I" x:Name="menuImage" Click="menuImage_Click" />
+                    <RibbonButton LargeImageSource="Icons\BarcodeItem.png" Label="Barcode" KeyTip="B" x:Name="menuBarcode1D" Click="menuBarcode_Click"/>
                     <RibbonButton LargeImageSource="Icons\2d.png" Label="2D" KeyTip="2" x:Name="menuBarcode2D" Click="menuBarcode_Click"/>
-                    <RibbonButton LargeImageSource="Icons\RFIDTag.png" Label="RFID" KeyTip="D" x:Name="menuRFID" Click="menuRFID_Click"/>
-                    <RibbonButton LargeImageSource="Icons\Repeater.png" Label="Repeater" x:Name="menuRepeater" Click="menuRepeater_Click"/>
-                    <RibbonButton LargeImageSource="Icons\literal.png" Label="Literal" x:Name="menuLiteral" Click="menuLiteral_Click"/>
+                    <RibbonButton LargeImageSource="Icons\RFIDTagItem.png" Label="RFID" KeyTip="D" x:Name="menuRFID" Click="menuRFID_Click"/>
+                    <RibbonButton LargeImageSource="Icons\RepeaterItem.png" Label="Repeater" x:Name="menuRepeater" Click="menuRepeater_Click"/>
+                    <RibbonButton LargeImageSource="Icons\LiteralItem.png" Label="Literal" x:Name="menuLiteral" Click="menuLiteral_Click"/>
                     <StackPanel Orientation="Vertical">
                         <RibbonToggleButton
                             x:Name="InsertTable"
                             Label="Table"
-                            LargeImageSource="Icons\table.png"
+                            LargeImageSource="Icons\TableShapeItem.png"
                             RibbonTwoLineText.HasTwoLines="True"
-                            RibbonTwoLineText.PathData="M 0 0 L 2.5 3 L 5 0 Z" >         
+                            RibbonTwoLineText.PathData="M 0 0 L 2.5 3 L 5 0 Z" >
                         </RibbonToggleButton>
                         <Popup IsOpen="{Binding IsChecked, ElementName=InsertTable}">
                             <local:TableSelector x:Name="myTableSelector" SelectionChanged="myTableSelector_SelectionChanged"></local:TableSelector>
@@ -273,7 +273,7 @@
             </TabControl>
 
             <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
-            <TabControl Grid.Column="2" Margin="0 10 0 0">
+            <TabControl Grid.Column="2" Margin="0 10 0 0" x:Name="tabSide" SelectionChanged="tabSide_SelectionChanged">
                 <TabItem>
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
@@ -291,9 +291,77 @@
                             <ComboBox x:Name="cboBarcodeSymbologies" Margin="0 5 0 0" SelectionChanged="cboBarcodeSymbologies_SelectionChanged"></ComboBox>
                             <Button x:Name="cmdSetBarcodeSampleCode" Margin="0 10 0 10" Click="cmdSetBarcodeSampleCode_Click">Set Sample Code ...</Button>
                         </StackPanel>
-                        
+
                         <tk:PropertyGrid x:Name="propertyGrid1" ShowSearchBox="False" ShowTitle="False" ShowSummary="False" Grid.Row="1"></tk:PropertyGrid>
-                        
+
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="tabOutline">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Icons\16x16\outline.png" />
+                            <TextBlock Text="Outline" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <!-- search box + clear -->
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="txtOutlineSearch" Padding="2 3" VerticalContentAlignment="Center" TextChanged="txtOutlineSearch_TextChanged" KeyDown="txtOutlineSearch_KeyDown" />
+                            <TextBlock Text="Search by name, tag or type..." Foreground="Gray" Margin="6 0 0 0" VerticalAlignment="Center" IsHitTestVisible="False">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=txtOutlineSearch}" Value="">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <Button x:Name="cmdOutlineClear" Grid.Column="1" Margin="5 0 0 0" Padding="10 0" Click="cmdOutlineClear_Click">Clear</Button>
+                        </Grid>
+                        <!-- filter by type + search scope -->
+                        <Grid Grid.Row="1" Margin="0 5 0 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="150" />
+                            </Grid.ColumnDefinitions>
+                            <ComboBox x:Name="cboOutlineType" SelectionChanged="outlineFilter_SelectionChanged" />
+                            <ComboBox x:Name="cboOutlineScope" Grid.Column="1" Margin="5 0 0 0" SelectionChanged="outlineFilter_SelectionChanged" />
+                        </Grid>
+                        <!-- items (Ctrl/Shift click, Ctrl+A) -->
+                        <ListBox x:Name="lstOutline" Grid.Row="2" SelectionMode="Extended" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="lstOutline_SelectionChanged">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image x:Name="imgOutlineIcon" Source="{Binding Icon, Mode=OneWay}" Width="16" Height="16" Margin="0 0 6 0" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" />
+                                        <TextBlock Grid.Column="1" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"><Run Text="{Binding Name, Mode=OneWay}" FontWeight="SemiBold" /><Run Text="{Binding TypeLabel, Mode=OneWay}" Foreground="Gray" /><Run Text="{Binding TagLabel, Mode=OneWay}" Foreground="SteelBlue" FontStyle="Italic" /></TextBlock>
+                                    </Grid>
+                                    <DataTemplate.Triggers>
+                                        <!-- no icon for this type (and no default icon): don't reserve space -->
+                                        <DataTrigger Binding="{Binding Icon}" Value="{x:Null}">
+                                            <Setter TargetName="imgOutlineIcon" Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <TextBlock x:Name="txtOutlineStatus" Grid.Row="3" Margin="0 5 0 0" Foreground="Gray" />
                     </Grid>
                 </TabItem>
                 <TabItem>
@@ -361,7 +429,7 @@
                     </StackPanel>
                 </TabItem>
             </TabControl>
-            
+
         </Grid>
     </Grid>
 </Window>

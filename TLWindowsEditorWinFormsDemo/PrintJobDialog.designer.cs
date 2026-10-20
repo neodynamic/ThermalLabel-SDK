@@ -82,6 +82,19 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtIPAddress = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.txtHidUsageId = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.txtHidUsagePage = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txtHidReportId = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtHidProductId = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.txtHidVendorId = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.cboHidDevices = new System.Windows.Forms.ComboBox();
+            this.label24 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -99,6 +112,7 @@
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // errorProvider1
@@ -294,6 +308,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Location = new System.Drawing.Point(12, 62);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -673,6 +688,137 @@
             this.label12.TabIndex = 0;
             this.label12.Text = "Printer IP Address or Host Name:";
             // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.txtHidUsageId);
+            this.tabPage6.Controls.Add(this.label22);
+            this.tabPage6.Controls.Add(this.txtHidUsagePage);
+            this.tabPage6.Controls.Add(this.label21);
+            this.tabPage6.Controls.Add(this.txtHidReportId);
+            this.tabPage6.Controls.Add(this.label20);
+            this.tabPage6.Controls.Add(this.txtHidProductId);
+            this.tabPage6.Controls.Add(this.label19);
+            this.tabPage6.Controls.Add(this.txtHidVendorId);
+            this.tabPage6.Controls.Add(this.label23);
+            this.tabPage6.Controls.Add(this.cboHidDevices);
+            this.tabPage6.Controls.Add(this.label24);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(351, 183);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "HID";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(21, 14);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(109, 13);
+            this.label24.TabIndex = 0;
+            this.label24.Text = "Detected HID Devices:";
+            // 
+            // cboHidDevices
+            // 
+            this.cboHidDevices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboHidDevices.FormattingEnabled = true;
+            this.cboHidDevices.Location = new System.Drawing.Point(24, 31);
+            this.cboHidDevices.Name = "cboHidDevices";
+            this.cboHidDevices.Size = new System.Drawing.Size(297, 21);
+            this.cboHidDevices.TabIndex = 1;
+            this.cboHidDevices.SelectedIndexChanged += new System.EventHandler(this.cboHidDevices_SelectedIndexChanged);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(21, 58);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(90, 13);
+            this.label23.TabIndex = 2;
+            this.label23.Text = "Vendor ID (hex):";
+            // 
+            // txtHidVendorId
+            // 
+            this.txtHidVendorId.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtHidVendorId.Location = new System.Drawing.Point(24, 75);
+            this.txtHidVendorId.MaxLength = 4;
+            this.txtHidVendorId.Name = "txtHidVendorId";
+            this.txtHidVendorId.Size = new System.Drawing.Size(121, 21);
+            this.txtHidVendorId.TabIndex = 3;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(195, 58);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(94, 13);
+            this.label19.TabIndex = 4;
+            this.label19.Text = "Product ID (hex):";
+            // 
+            // txtHidProductId
+            // 
+            this.txtHidProductId.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtHidProductId.Location = new System.Drawing.Point(198, 75);
+            this.txtHidProductId.MaxLength = 4;
+            this.txtHidProductId.Name = "txtHidProductId";
+            this.txtHidProductId.Size = new System.Drawing.Size(123, 21);
+            this.txtHidProductId.TabIndex = 5;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(21, 100);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(59, 13);
+            this.label20.TabIndex = 6;
+            this.label20.Text = "Report ID:";
+            // 
+            // txtHidReportId
+            // 
+            this.txtHidReportId.Location = new System.Drawing.Point(24, 117);
+            this.txtHidReportId.MaxLength = 3;
+            this.txtHidReportId.Name = "txtHidReportId";
+            this.txtHidReportId.Size = new System.Drawing.Size(121, 21);
+            this.txtHidReportId.TabIndex = 7;
+            this.txtHidReportId.Text = "0";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(21, 142);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(131, 13);
+            this.label21.TabIndex = 8;
+            this.label21.Text = "Usage Page (hex, opt.):";
+            // 
+            // txtHidUsagePage
+            // 
+            this.txtHidUsagePage.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtHidUsagePage.Location = new System.Drawing.Point(24, 159);
+            this.txtHidUsagePage.MaxLength = 4;
+            this.txtHidUsagePage.Name = "txtHidUsagePage";
+            this.txtHidUsagePage.Size = new System.Drawing.Size(121, 21);
+            this.txtHidUsagePage.TabIndex = 9;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(195, 142);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(120, 13);
+            this.label22.TabIndex = 10;
+            this.label22.Text = "Usage ID (hex, opt.):";
+            // 
+            // txtHidUsageId
+            // 
+            this.txtHidUsageId.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtHidUsageId.Location = new System.Drawing.Point(198, 159);
+            this.txtHidUsageId.MaxLength = 4;
+            this.txtHidUsageId.Name = "txtHidUsageId";
+            this.txtHidUsageId.Size = new System.Drawing.Size(123, 21);
+            this.txtHidUsageId.TabIndex = 11;
+            // 
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -736,6 +882,8 @@
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -794,6 +942,19 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtIPAddress;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.TextBox txtHidUsageId;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox txtHidUsagePage;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox txtHidReportId;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox txtHidProductId;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox txtHidVendorId;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.ComboBox cboHidDevices;
+        private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOk;
     }
