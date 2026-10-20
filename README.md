@@ -37,7 +37,7 @@ This repo contains **Visual Studio (2019+)** sample projects for **ASP.NET (CORE
 - Add the following package references in the sample project:
 ```
 <ItemGroup>
-    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="15.0.0" />
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="16.0.0" />
     <PackageReference Include="SkiaSharp" Version="2.88.8" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.8" />
     <PackageReference Include="SkiaSharp.HarfBuzz" Version="2.88.8" />
@@ -46,6 +46,9 @@ This repo contains **Visual Studio (2019+)** sample projects for **ASP.NET (CORE
 </ItemGroup>
 ```
 
+## Online Help
+
+Read the [**ThermalLabel SDK & Visual Label Editors API Reference and information**](https://www.neodynamic.com/Products/Help/ThermalLabel16.0/articles/about.html)
 
 ## Licensing
 
