@@ -172,6 +172,15 @@ namespace TLWindowsEditorWPFDemo
 
         }
 
+        private MessageBoxResult DetectLabelChanges()
+        {
+            if (thermalLabelEditor1.IsModified)
+            {
+                return MessageBox.Show("The label is modified. Do you want to save the changes?", "Closing Label", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            }
+            return MessageBoxResult.No;
+        }
+
         private void ThermalLabelEditor1_BeforeDuplexDesignDisabled(object sender, BeforeDuplexDesignDisabledEventArgs e)
         {
             if (MessageBox.Show("Do you really want remove the back side label?", "Duplex", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation) != MessageBoxResult.Yes)
@@ -182,6 +191,18 @@ namespace TLWindowsEditorWPFDemo
 
         private void Gallery1_EditLabel(object sender, EventArgs e)
         {
+            var dr = DetectLabelChanges();
+            switch (dr)
+            {
+                case MessageBoxResult.Cancel:
+                    return;
+                case MessageBoxResult.Yes:
+                    menuSave_Click(null, null);
+                    break;
+                default:
+                    break;
+            }
+
             //Create a ThermalLabel obj from a Template
             ThermalLabel tl = ThermalLabel.CreateFromXmlTemplate(this.gallery1.Entries[this.gallery1.LabelIndex].XmlContent);
             //load it on the editor surface
@@ -1235,7 +1256,17 @@ namespace TLWindowsEditorWPFDemo
         {
             try
             {
-
+                var dr = DetectLabelChanges();
+                switch (dr)
+                {
+                    case MessageBoxResult.Cancel:
+                        return;
+                    case MessageBoxResult.Yes:
+                        menuSave_Click(null, null);
+                        break;
+                    default:
+                        break;
+                }
 
                 //Create a new 'document'
                 LabelDoc labelSetup = new LabelDoc();
@@ -1286,6 +1317,18 @@ namespace TLWindowsEditorWPFDemo
 
         private void menuOpen_Click(object sender, RoutedEventArgs e)
         {
+            var dr = DetectLabelChanges();
+            switch (dr)
+            {
+                case MessageBoxResult.Cancel:
+                    return;
+                case MessageBoxResult.Yes:
+                    menuSave_Click(null, null);
+                    break;
+                default:
+                    break;
+            }
+
             //open a thermal label template
             //NOTE: *.tl extension is just that! The content of such files should be a ThermalLabel XML Template
             //      *.tlj extension is just that! The content of such files should be a ThermalLabel JSON Template    
@@ -1316,32 +1359,21 @@ namespace TLWindowsEditorWPFDemo
 
         private void menuClose_Click(object sender, RoutedEventArgs e)
         {
-            //Save label before closing?
-            if (thermalLabelEditor1.CanUndo)
+            var dr = DetectLabelChanges();
+            switch (dr)
             {
-                var dr = MessageBox.Show("Do you want to save the current label?", "ThermalLabel Editor", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation);
-                if (dr == MessageBoxResult.Yes)
-                {
-                    //allow saving current label
-                    menuSave_Click(sender, e);
-                    //close label
-                    thermalLabelEditor1.Close();
-                }
-                else if (dr == MessageBoxResult.No)
-                {
-                    //close label
-                    thermalLabelEditor1.Close();
-                }
-                else
-                {
-                    //do nothing
-                }
+                case MessageBoxResult.Cancel:
+                    return;
+                case MessageBoxResult.Yes:
+                    menuSave_Click(null, null);
+                    break;
+                default:
+                    break;
             }
-            else
-            {
-                //close label
-                thermalLabelEditor1.Close();
-            }
+
+            //close label
+            thermalLabelEditor1.Close();
+
         }
 
         private void menuSave_Click(object sender, RoutedEventArgs e)
@@ -1369,6 +1401,8 @@ namespace TLWindowsEditorWPFDemo
                         //save ThermalLabel template
                         var embedFonts = (dlg.FilterIndex == 2 || dlg.FilterIndex == 4);
                         File.WriteAllText(dlg.FileName, dlg.FileName.EndsWith(".tl") ? tLabel.GetXmlTemplate(embedFonts) : tLabel.GetJsonTemplate(embedFonts));
+
+                        thermalLabelEditor1.MarkAsSaved();
                     }
                     catch (Exception ex)
                     {

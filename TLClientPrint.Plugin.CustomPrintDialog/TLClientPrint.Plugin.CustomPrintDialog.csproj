@@ -37,20 +37,20 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Neodynamic.SDK.ThermalLabel, Version=7.0.3500.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
+    <Reference Include="Neodynamic.SDK.ThermalLabel, Version=16.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Neodynamic\TLClientPrint\v15.0\Neodynamic.SDK.ThermalLabel.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Neodynamic\TLClientPrint\v16.0\Neodynamic.SDK.ThermalLabel.dll</HintPath>
     </Reference>
-    <Reference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting, Version=9.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
+    <Reference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting, Version=16.0.0.0, Culture=neutral, PublicKeyToken=0630b9b3415848af, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Neodynamic\TLClientPrint\v15.0\Neodynamic.SDK.ThermalLabel.WindowsPrinting.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Neodynamic\TLClientPrint\v16.0\Neodynamic.SDK.ThermalLabel.WindowsPrinting.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="TLClientPrintPlugin">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Neodynamic\TLClientPrint\v15.0\TLClientPrintPlugin.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Neodynamic\TLClientPrint\v16.0\TLClientPrintPlugin.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

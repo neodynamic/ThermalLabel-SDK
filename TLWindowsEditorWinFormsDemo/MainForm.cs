@@ -319,6 +319,15 @@ namespace TLWindowsEditorWinFormsDemo
 
         }
 
+        private DialogResult DetectLabelChanges()
+        {
+            if (thermalLabelEditor1.IsModified)
+            {
+                return MessageBox.Show("The label is modified. Do you want to save the changes?", "Closing Label", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            }
+            return DialogResult.No;
+        }
+
         private void ThermalLabelEditor1_BeforeDuplexDesignDisabled(object sender, BeforeDuplexDesignDisabledEventArgs e)
         {
             if (MessageBox.Show("Do you really want remove the back side label?","Duplex", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation ) != DialogResult.Yes)
@@ -554,6 +563,19 @@ namespace TLWindowsEditorWinFormsDemo
         {
             try
             {
+
+                var dr = DetectLabelChanges();
+                switch (dr)
+                {
+                    case DialogResult.Cancel:
+                        return;
+                    case DialogResult.Yes:
+                        menuSave_Click(this, EventArgs.Empty);
+                        break;
+                    default:
+                        break;
+                }
+
                 //Create a new 'document'
                 LabelDoc labelSetup = new LabelDoc();
                 labelSetup.LabelDocument = new LabelDocument() { UnitType = UnitType.Inch, Width = 4, Height = 3 };
@@ -605,7 +627,17 @@ namespace TLWindowsEditorWinFormsDemo
         private void menuOpen_Click(object sender, EventArgs e)
         {
 
-
+            var dr = DetectLabelChanges();
+            switch (dr)
+            {
+                case DialogResult.Cancel:
+                    return;
+                case DialogResult.Yes:
+                    menuSave_Click(this, EventArgs.Empty);
+                    break;
+                default:
+                    break;
+            }
 
             //open a thermal label template
             //NOTE: *.tl extension is just that! The content of such files should be a ThermalLabel XML Template
@@ -663,6 +695,8 @@ namespace TLWindowsEditorWinFormsDemo
                         //save ThermalLabel template
                         var embedFonts = (dlg.FilterIndex == 2 || dlg.FilterIndex == 4);
                         File.WriteAllText(dlg.FileName, dlg.FileName.EndsWith(".tl") ? tLabel.GetXmlTemplate(embedFonts) : tLabel.GetJsonTemplate(embedFonts));
+
+                        thermalLabelEditor1.MarkAsSaved();
                     }
                     catch (Exception ex)
                     {
@@ -1669,6 +1703,18 @@ namespace TLWindowsEditorWinFormsDemo
 
         private void Gallery1_EditLabel(object sender, EventArgs e)
         {
+            var dr = DetectLabelChanges();
+            switch (dr)
+            {
+                case DialogResult.Cancel:
+                    return;
+                case DialogResult.Yes:
+                    menuSave_Click(this, EventArgs.Empty);
+                    break;
+                default:
+                    break;
+            }
+
             //Create a ThermalLabel obj from a Template
             ThermalLabel tl = ThermalLabel.CreateFromXmlTemplate(this.gallery1.Entries[this.gallery1.LabelIndex].XmlContent);
             //load it on the editor surface
