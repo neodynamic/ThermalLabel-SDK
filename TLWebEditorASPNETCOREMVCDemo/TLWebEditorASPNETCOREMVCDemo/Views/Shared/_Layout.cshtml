@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="~/css/neoPropGrid.css" />
     <link rel="stylesheet" href="~/css/LabelDocDialog.css" />
     <link rel="stylesheet" href="~/css/ThermalLabelWebEditor.css" />
+	<link rel="stylesheet" href="~/css/PrintDialogs.css" />
 </head>
 <body>
 
@@ -29,7 +30,9 @@
     <script src="~/js/SampleLabelEditorUI-16.0.js"></script>
     <script src="~/js/DocumentOutline.js"></script>
     <script src="~/js/LabelDocDialog.js"></script>
-
+	<script src="~/js/JSPrintManager.js"></script>  <!-- Advanced Printing through JSPrintManager -->
+    <script src="~/js/PrintDialogs.js"></script>
+	
     <script type="text/javascript">
 
         // Dynamic Content for Left and Right Panels
@@ -486,7 +489,7 @@
             $('#btn-label-props').click(function (e) { e.preventDefault(); LabelDocDialog.open('edit'); });
             $('#btn-open').click(function (e) { e.preventDefault(); $('#open-document').modal('show'); });
             $('#btn-preview').click(function (e) { e.preventDefault(); UIEditor.showLabelPreview(); $('#preview-dialog').modal('show'); });
-            $('#btn-print').click(function (e) { e.preventDefault(); $('#print-dialog').modal('show'); });
+            $('#btn-print').click(function (e) { e.preventDefault(); PrintDialogs.open(); });
             $('#btn-options').click(function (e) { e.preventDefault(); UIEditor.getOptions(); $('#options').modal('show'); });
             $('#btn-shortcuts').click(function (e) { e.preventDefault(); $('#shortcuts').modal('show'); });
 
@@ -597,20 +600,6 @@
                 $('#sessionExpired').modal('show');
             }
             setTimeout(endSession, 900000); //15 min
-
-            var os = (function () {
-                var ua = navigator.userAgent.toLowerCase();
-                return {
-                    isWindows: /(windows|win32|win64)/.test(ua),
-                    isLinux: /(linux)/.test(ua),
-                    isIntelMac: /(intel mac)/.test(ua),
-                    isAndroid: /(android)/.test(ua)
-                };
-            }());
-
-            if (os.isLinux || os.isIntelMac || os.isAndroid) {
-                $('#btn-print').hide();
-            }
 
         });
 

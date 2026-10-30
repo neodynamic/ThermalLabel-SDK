@@ -1,0 +1,72 @@
+/* Print method chooser (#print-dialog) */
+.print-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.print-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 14px;
+    text-align: left;
+    white-space: normal;
+    background: transparent;
+    border: 2px solid rgba(128, 128, 128, .3);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: border-color .15s, background-color .15s;
+}
+
+.print-option:hover:not(.disabled) {
+    border-color: rgba(51, 122, 183, .6);
+}
+
+.print-option.active {
+    border-color: #337ab7;
+    background-color: rgba(51, 122, 183, .08);
+}
+
+.print-option.disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+.print-option-icon {
+    flex: 0 0 auto;
+    font-size: 26px;
+    line-height: 1;
+    width: 32px;
+    text-align: center;
+    padding-top: 2px;
+}
+
+.print-option-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.print-option-title {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.print-option-desc {
+    font-size: 13px;
+    opacity: .85;
+}
+
+.print-option-warn {
+    font-size: 12px;
+    color: #d9534f;
+}
+
+/* JSPM dialog: let labels in wells wrap nicely */
+#jspm-print-dialog .well label {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: top;
+}
