@@ -1,0 +1,135 @@
+﻿#document-outline {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+}
+
+.outline-toolbar {
+    margin-bottom: 6px;
+}
+
+.outline-toolbar-row {
+    display: flex;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+    .outline-toolbar-row select {
+        flex: 1;
+        min-width: 0;
+    }
+
+.outline-list {
+    max-height: calc(100vh - 260px);
+    min-height: 120px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    background: #fff;
+    outline: none;
+    user-select: none;
+}
+
+    .outline-list:focus {
+        border-color: #66afe9;
+    }
+
+.outline-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+    .outline-row:hover {
+        background: #e5f3fb;
+    }
+
+    .outline-row.selected {
+        background: #cce8ff;
+        border-color: #99d1ff;
+    }
+
+.outline-list:not(:focus) .outline-row.selected {
+    background: #dde8f0;
+    border-color: #c8d7e3;
+}
+
+.outline-row.is-hidden .outline-text,
+.outline-row.is-hidden .outline-icon {
+    opacity: .45;
+}
+
+.outline-index {
+    color: #999;
+    font-size: 10px;
+    min-width: 16px;
+    text-align: right;
+}
+
+.outline-icon {
+    color: #555;
+}
+
+.outline-text {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.outline-name {
+    font-weight: 600;
+    color: #222;
+}
+
+    .outline-name.unnamed {
+        font-weight: normal;
+        font-style: italic;
+        color: #777;
+    }
+
+.outline-detail {
+    color: #888;
+}
+
+.outline-badges {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #888;
+}
+
+.outline-tag {
+    max-width: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+    border-radius: 8px;
+    background: #eef1f4;
+    border: 1px solid #d5dbe1;
+    color: #456;
+    font-size: 10px;
+    line-height: 15px;
+}
+
+    .outline-tag:hover {
+        background: #337ab7;
+        border-color: #2e6da4;
+        color: #fff;
+    }
+
+.outline-empty {
+    padding: 16px 8px;
+    color: #999;
+    text-align: center;
+    font-style: italic;
+}
+
+.outline-footer {
+    margin-top: 4px;
+    color: #888;
+    font-size: 11px;
+}
